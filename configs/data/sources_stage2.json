@@ -1,0 +1,53 @@
+{
+  "schema_version": "sumodiff.sources.v1",
+  "episodes": [
+    {
+      "manifest": "../../artifacts/runs/stage1-accepted-20261004/straight_a/episode_manifest.json",
+      "split": "train"
+    },
+    {
+      "manifest": "../../artifacts/runs/stage1-accepted-20261004/straight_b/episode_manifest.json",
+      "split": "validation"
+    },
+    {
+      "manifest": "../../artifacts/raw/stage2-supplement-20261004/straight_c/episode_manifest.json",
+      "split": "test"
+    },
+    {
+      "manifest": "../../artifacts/runs/stage1-accepted-20261004/ramp_a/episode_manifest.json",
+      "split": "train"
+    },
+    {
+      "manifest": "../../artifacts/runs/stage1-accepted-20261004/ramp_b/episode_manifest.json",
+      "split": "validation"
+    },
+    {
+      "manifest": "../../artifacts/raw/stage2-supplement-20261004/ramp_c/episode_manifest.json",
+      "split": "test"
+    },
+    {
+      "manifest": "../../artifacts/runs/stage1-accepted-20261004/intersection_a/episode_manifest.json",
+      "split": "train"
+    },
+    {
+      "manifest": "../../artifacts/runs/stage1-accepted-20261004/intersection_b/episode_manifest.json",
+      "split": "validation"
+    },
+    {
+      "manifest": "../../artifacts/raw/stage2-supplement-20261004/intersection_c/episode_manifest.json",
+      "split": "test"
+    },
+    {
+      "manifest": "../../artifacts/runs/stage1-accepted-20261004/straight_probe/episode_manifest.json",
+      "split": "train"
+    },
+    {
+      "manifest": "../../artifacts/runs/stage1-accepted-20261004/teleport_fixture/episode_manifest.json",
+      "split": "train"
+    },
+    {
+      "manifest": "../../artifacts/runs/stage1-accepted-20261004/truncation_fixture/episode_manifest.json",
+      "split": "train"
+    }
+  ]
+}
