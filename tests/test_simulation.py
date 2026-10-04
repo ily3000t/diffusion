@@ -99,3 +99,11 @@ def test_initial_loaded_events_can_precede_first_sampling_step():
     events = life.observe(0, 0.0, set(), {"loaded": ["scheduled"]})
     assert events[0]["time_seconds"] == 0
     assert events[0]["source"] == "traci.simulation.getLoadedIDList"
+
+
+def test_all_six_normal_profiles_are_control_free():
+    import yaml
+    root = Path(__file__).resolve().parents[1]
+    for name in ("straight_a", "straight_b", "ramp_a", "ramp_b", "intersection_a", "intersection_b"):
+        config = resolve_config(yaml.safe_load((root/"configs/scenarios"/(name+".yaml")).read_text(encoding="utf-8")))
+        assert not any(config["validation"].values()), name

@@ -11,7 +11,7 @@ $env:PYTHONPATH = (Join-Path $PWD 'src')
 & '.\.venv-sumo\Scripts\python.exe' scripts/validate_collection.py --output artifacts/runs/my-stage1-validation --formal
 ```
 
-每次用新的输出目录，正式模式要求已提交、干净的工作区和Git忽略的仓库内输出。第二条命令固定为6个短场景回合、1个teleport诊断、1个预期截断失败，不是批量数据集采集。预期截断子运行status为failed，验收父运行在确认失败保留正确后可为completed。
+每次用新的输出目录，正式模式要求已提交、干净的工作区和Git忽略的仓库内输出。第二条命令固定为6个正常短场景回合、1个换道/停车诊断、1个teleport诊断、1个预期截断失败，不是批量数据集采集。预期截断子运行status为failed，验收父运行在确认失败保留正确后可为completed。
 
 ## 三类几何
 - 三车道单向直路：入口缓冲、核心道路、出口缓冲，保持三车道合法连接；参数含长度、宽度、限速和整体旋转。
@@ -38,7 +38,7 @@ geometry_id对编译后地图的拓扑、车道几何/宽度/速度、连接和�
 dt由实际服务器核对；每步tick/time核对，不以浮点相等判断。到达流量结束时刻且getMinExpectedNumber=0后才结束；max_seconds达到但未排空是失败，保留原始帧/事件、质量摘要、进程与回合清单，不转成completed。进程异常也保留failed，不吞掉错误。
 
 ## 诊断与训练资格
-straight_a含一次遵守默认安全模式的TraCI换道请求和正常计划stop，用于验证，不进入正常训练数据。teleport_fixture仅将拥堵teleport阈值缩短至0.5s，实际采集teleport始末和位移跳变，明确diagnostic_only且不进入正常训练。truncation_fixture在13s终止未排空回合，用于验证失败记录，明确失败并保留。
+straight_probe含一次遵守默认安全模式的TraCI换道请求和正常计划stop，用于验证，不进入正常训练数据。teleport_fixture仅将拥堵teleport阈值缩短至0.5s，实际采集teleport始末和位移跳变，明确diagnostic_only且不进入正常训练。truncation_fixture在13s终止未排空回合，用于验证失败记录，明确失败并保留。
 
 正常配置不包含诊断控制。eligible_for_normal_training要求完整回合、正常质量通过且非diagnostic_only；资格只是采集质量标记，不能证明真实驾驶行为或动力学可行。任何被排除回合仍保留及计数，阶段2再决定窗口规则。
 

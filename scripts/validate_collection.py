@@ -24,10 +24,10 @@ def main():
     cases = [("straight_a", 11), ("straight_b", 12), ("ramp_a", 21), ("ramp_b", 22),
              ("intersection_a", 31), ("intersection_b", 32)]
     inputs = [root/"configs"/"scenarios"/(name+".yaml") for name, _ in cases]
-    inputs += [root/"configs/scenarios/truncation_fixture.yaml", root/"configs/scenarios/teleport_fixture.yaml"]
+    inputs += [root/"configs/scenarios/truncation_fixture.yaml", root/"configs/scenarios/teleport_fixture.yaml", root/"configs/scenarios/straight_probe.yaml"]
     runtime, _ = load_runtime()
     effective = {"kind": "stage1_small_collection_acceptance", "cases": dict(cases),
-                 "fixtures": {"teleport": 41, "truncation": 51}, "formal": args.formal,
+                 "fixtures": {"teleport": 41, "truncation": 51, "lane_change_stop": 11}, "formal": args.formal,
                  "runtime_identity": runtime,
                  "scenario_configs": {path.stem: resolve_config(yaml.safe_load(path.read_text(encoding="utf-8"))) for path in inputs}}
     command = [sys.executable, *sys.orig_argv[1:]]
@@ -53,7 +53,10 @@ def main():
                              "geometry_id": episode["geometry_id"], "run_sha": episode["run_sha"]}
             checks[name+"_normal_quality"] = quality["normal_traffic_quality_pass"] and quality["complete_episode"]
             checks[name+"_lifecycle"] = bool(quality["entered_ids"]) and quality["entered_ids"] == quality["arrived_ids"]
-        straight = results["straight_a"]["quality"]
+        checks["six_control_free_training_profiles"] = all(results[name]["quality"]["eligible_for_normal_training"] for name,_ in cases)
+        straight, probe_episode = collect("straight_probe", 11)
+        results["straight_probe"] = {"quality":straight,"run_sha":probe_episode["run_sha"]}
+        checks["probe_excluded_from_normal_training"] = not straight["eligible_for_normal_training"]
         checks["continuous_lane_change"] = straight["probes"]["lane_change_reached_lane_1"] and straight["probes"]["lane_change_lateral_frames"] >= 10
         checks["stop_start_and_end"] = straight["probes"]["stop_low_speed_frames"] >= 10 and straight["lifecycle_counts"].get("stop_started",0)>0 and straight["lifecycle_counts"].get("stop_ended",0)>0
         checks["intersection_turns"] = all(results[name]["quality"]["turning_vehicle_ids"] for name in ("intersection_a", "intersection_b"))
@@ -75,7 +78,7 @@ def main():
                    "checks":checks,"all_passed":all(checks.values()),"results":results}
         write_json(run.output/"validation_summary.json",summary)
         run.write_metrics({"all_checks_passed":summary["all_passed"],"checks":checks,
-                           "normal_profile_count":6,"diagnostic_fixture_count":2})
+                           "normal_profile_count":6,"diagnostic_fixture_count":3})
         if not summary["all_passed"]:
             raise RuntimeError(f"Acceptance checks failed: {[key for key,passed in checks.items() if not passed]}")
     print("Stage 1 acceptance passed:",run.output)
