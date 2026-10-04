@@ -43,3 +43,11 @@ straight_probe含一次遵守默认安全模式的TraCI换道请求和正常计�
 正常配置不包含诊断控制。eligible_for_normal_training要求完整回合、正常质量通过且非diagnostic_only；资格只是采集质量标记，不能证明真实驾驶行为或动力学可行。任何被排除回合仍保留及计数，阶段2再决定窗口规则。
 
 资源字段是逐tick采样的进程RSS峰值估计，不是OS连续监测的精确峰值；字段名明确sampled。阶段1不使用GPU，不给出模型显存或训练吞吐量。
+
+独立文件审计可复现：
+
+```powershell
+& '.\.venv-sumo\Scripts\python.exe' scripts/audit_collection.py --run artifacts/runs/my-stage1-validation --output artifacts/cache/my-stage1-audit.json
+```
+
+审计直接读取原始JSONL和SUMO tripinfo，对照采样网格、逐帧ID/路线/安全模式、生命周期数量、输入输出哈希以及运行时SHA，不只读取采集器的质量标记。输出必须是新文件。
