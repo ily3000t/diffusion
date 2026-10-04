@@ -1,0 +1,199 @@
+{
+  "schema_version": "sumodiff.stage2.validation.v1",
+  "accepted": true,
+  "preprocessing_run_sha": "eb29838025350d12537dad2b92282c201b9923c2",
+  "run_branch": "feat/window-dataset",
+  "data_id": "sha256:78bc5f4119a7eae329e26ec37e817d453d9693075fa726d33c1b5ab20dee7497",
+  "dataset_location": "E:\\diffusion_new\\artifacts\\processed\\stage2-accepted-20261004",
+  "audit_location": "E:\\diffusion_new\\artifacts\\runs\\stage2-accepted-audit-20261004",
+  "manifests": {
+    "dataset": {
+      "id": "sha256:d219d20be2cf67c7800f2ae1367521e7b4795d1aa2a8f4d53fb4011c8cb51930",
+      "location": "E:\\diffusion_new\\artifacts\\processed\\stage2-accepted-20261004\\dataset_manifest.json",
+      "sha256": "d219d20be2cf67c7800f2ae1367521e7b4795d1aa2a8f4d53fb4011c8cb51930",
+      "size_bytes": 2858
+    },
+    "audit": {
+      "id": "sha256:24d7d32d4c700347bb89a873533ebec19cc5861f91b503bb3eab8aefe51f3d8f",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage2-accepted-audit-20261004\\manifest.json",
+      "sha256": "24d7d32d4c700347bb89a873533ebec19cc5861f91b503bb3eab8aefe51f3d8f",
+      "size_bytes": 2203
+    }
+  },
+  "tests": {
+    "passed": 55,
+    "duration_seconds": 8.77,
+    "command": ".venv-sumo/Scripts/python.exe -m pytest -q --basetemp artifacts/cache/pytest-stage2-final"
+  },
+  "wheel": {
+    "built": true,
+    "independent_import_and_inference": true,
+    "identity": {
+      "id": "sha256:5583d085cfd38048c0629058aba07b3b92cca6f0e368988b999937e153a461e4",
+      "location": "E:\\diffusion_new\\artifacts\\cache\\stage2-wheel\\sumodiff-0.0.1-py3-none-any.whl",
+      "sha256": "5583d085cfd38048c0629058aba07b3b92cca6f0e368988b999937e153a461e4",
+      "size_bytes": 41772
+    }
+  },
+  "independent_audit": {
+    "passed": true,
+    "windows": 352,
+    "valid_history_points": 15988,
+    "valid_future_points": 28319,
+    "max_abs_state_error": 7.403276981676754e-06,
+    "max_selected_agents": 4,
+    "stored_local_maps_checked": 352,
+    "priority_links_checked": 82,
+    "sdk_foe_relations_checked": 694,
+    "zero_geometry_internal_lanes_retained": 18,
+    "family_coverage": {
+      "train": [
+        "ramp_merge",
+        "three_lane_straight",
+        "unsignalized_intersection"
+      ],
+      "validation": [
+        "ramp_merge",
+        "three_lane_straight",
+        "unsignalized_intersection"
+      ],
+      "test": [
+        "ramp_merge",
+        "three_lane_straight",
+        "unsignalized_intersection"
+      ]
+    },
+    "by_split": {
+      "train": {
+        "windows": 116,
+        "core_windows": 84,
+        "incomplete_future_windows": 30,
+        "incomplete_history_windows": 2,
+        "selected_agents": 235,
+        "excluded_current_vehicles": 128,
+        "valid_future_points": 8664
+      },
+      "validation": {
+        "windows": 126,
+        "core_windows": 95,
+        "incomplete_future_windows": 27,
+        "incomplete_history_windows": 4,
+        "selected_agents": 289,
+        "excluded_current_vehicles": 149,
+        "valid_future_points": 10700
+      },
+      "test": {
+        "windows": 110,
+        "core_windows": 87,
+        "incomplete_future_windows": 21,
+        "incomplete_history_windows": 2,
+        "selected_agents": 240,
+        "excluded_current_vehicles": 100,
+        "valid_future_points": 8955
+      }
+    },
+    "source_rejections": 3,
+    "preprocessing_run_sha": "eb29838025350d12537dad2b92282c201b9923c2",
+    "sdk_source": {
+      "path": "E:\\Program Files\\sumo-1.22.0\\tools\\sumolib\\__init__.py",
+      "source_sha256": "55aa5785dbf1308387caede8d6999c76815df897ca877ebe9cf9e21206709bcb"
+    },
+    "sampled_audit_rss_bytes": 98578432
+  },
+  "preprocessing_quality": {
+    "schema_version": "sumodiff.window.quality.v1",
+    "by_split": {
+      "train": {
+        "episodes": 3,
+        "windows": 116,
+        "core_windows": 84,
+        "incomplete_future_windows": 30,
+        "incomplete_history_windows": 2,
+        "selected_agents": 235,
+        "excluded_current_vehicles": 128,
+        "valid_future_points": 8664,
+        "future_center_out_of_map": 0,
+        "future_body_out_of_map": 0,
+        "future_center_offroad": 0
+      },
+      "validation": {
+        "episodes": 3,
+        "windows": 126,
+        "core_windows": 95,
+        "incomplete_future_windows": 27,
+        "incomplete_history_windows": 4,
+        "selected_agents": 289,
+        "excluded_current_vehicles": 149,
+        "valid_future_points": 10700,
+        "future_center_out_of_map": 0,
+        "future_body_out_of_map": 0,
+        "future_center_offroad": 0
+      },
+      "test": {
+        "episodes": 3,
+        "windows": 110,
+        "core_windows": 87,
+        "incomplete_future_windows": 21,
+        "incomplete_history_windows": 2,
+        "selected_agents": 240,
+        "excluded_current_vehicles": 100,
+        "valid_future_points": 8955,
+        "future_center_out_of_map": 0,
+        "future_body_out_of_map": 0,
+        "future_center_offroad": 0
+      }
+    },
+    "source_rejection_counts": {
+      "diagnostic_episode": 3,
+      "normal_quality_ineligible": 3,
+      "collection_not_completed": 1
+    },
+    "rejected_episode_count": 3,
+    "skipped_reference_ticks": [],
+    "missing_point_reasons": {
+      "history": {
+        "vehicle_missing": 48,
+        "previous_velocity_sample_missing": 8
+      },
+      "future": {
+        "vehicle_missing": 1370,
+        "outside_episode": 871
+      }
+    },
+    "family_coverage": {
+      "train": [
+        "ramp_merge",
+        "three_lane_straight",
+        "unsignalized_intersection"
+      ],
+      "validation": [
+        "ramp_merge",
+        "three_lane_straight",
+        "unsignalized_intersection"
+      ],
+      "test": [
+        "ramp_merge",
+        "three_lane_straight",
+        "unsignalized_intersection"
+      ]
+    },
+    "coverage_calibration": {
+      "used_splits": [
+        "train",
+        "validation"
+      ],
+      "max_interval_speed_mps": 21.752022800960205,
+      "max_half_diagonal_m": 2.516445906432324,
+      "records": 8383,
+      "speed_bound_pass": true,
+      "body_margin_pass": true
+    },
+    "incomplete_windows_retained": true,
+    "normalization": "physical_units_no_fitted_scaling",
+    "elapsed_seconds": 7.255720200017095,
+    "sampled_python_peak_rss_bytes": 89260032
+  },
+  "processed_bytes": 22160642,
+  "supplemental_raw_run_sha": "0f8ce09126afa67d148cd8a5e5301f6f9c745a2a",
+  "scope": "Small stage2 engineering acceptance only; no model training or experiment milestone tag"
+}
