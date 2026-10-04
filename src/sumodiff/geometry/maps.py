@@ -100,7 +100,8 @@ class RoadMap:
             requests = [dict(r.attrib) for r in element.findall('request')]
             incoming = attrs.get('incLanes', '').split()
             normal = [c for lane in incoming for c in connections
-                      if c['source_lane'] == lane and not c['sumo_raw']['from'].startswith(':')]
+                      if c['source_lane'] == lane and not c['sumo_raw']['from'].startswith(':')
+                      and attrs.get('type') != 'internal']
             # netconvert orders each incoming lane's links by turn direction.
             rank = {'r': 0, 'R': 1, 's': 2, 'L': 3, 'l': 4, 't': 5}
             normal.sort(key=lambda c: (incoming.index(c['source_lane']), rank[c['sumo_raw']['dir']],

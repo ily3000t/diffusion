@@ -28,6 +28,7 @@ def test_route_internal_chain_lane_changes_and_rules(tmp_path):
     <edge id=":j_2" function="internal"><lane id=":j_2_0" index="0" width="3" speed="10" length="20" shape="0,-1.5 4,-1.5"/></edge>
     <junction id="j" type="priority" x="0" y="0" incLanes="a_0" shape="-2,-3 4,-3 4,3 -2,3">
       <request index="0" response="0" foes="0" cont="1"/></junction>
+    <junction id=":wait" type="internal" x="0" y="0" incLanes=":j_0_0 a_0" intLanes=":j_2_0"/>
     <connection from="a" to="b" fromLane="0" toLane="0" via=":j_0_0" dir="s" state="M"/>
     <connection from=":j_0" to="b" fromLane="0" toLane="0" via=":j_2_0" dir="s" state="m"/>
     <connection from=":j_2" to="b" fromLane="0" toLane="0" dir="s" state="M"/></net>''', encoding='utf-8')
@@ -41,6 +42,7 @@ def test_route_internal_chain_lane_changes_and_rules(tmp_path):
     assert adjacency.sum() == 3 and route_mask.sum() == 5
     assert shape(exact['drivable']).covers(Point(*frame.positions([0, 0])))
     assert road.connections[0]['request_index'] == 0
+    assert road.connections[0]['junction_id'] == 'j'
     raster = rasterize(exact, [-30, -30, 30, 30])
     assert raster.shape == (3, 256, 256) and set(np.unique(raster)) == {0, 1}
     with pytest.raises(ValueError, match='Disconnected'):
