@@ -1,0 +1,17 @@
+schema_version: sumodiff.scenario.v1
+family: unsignalized_intersection
+geometry:
+  approach_length: 210
+  north_skew_degrees: -12
+  lane_width: 3.4
+  rotation_degrees: -15
+  junction_radius: 11
+traffic:
+  end_seconds: 8
+  route_rates_per_hour:
+    west_north: 450
+    north_east: 450
+    east_south: 450
+    south_west: 450
+driver:
+  tau: 1.3

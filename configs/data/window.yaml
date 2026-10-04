@@ -1,14 +1,13 @@
-# Candidate contract only; no dataset builder is implemented in stage 0.
-schema_version: sumodiff.window.v1
+schema_version: sumodiff.window.config.v1
 dt_seconds: 0.1
 history_points: 21
 future_points: 40
-reference_stride_seconds: 1.0
+reference_stride_ticks: 10
 max_agents: 12
-split_before_windowing: true
-split_groups: [episode_id, geometry_id]
-future_mask_is_inference_condition: false
-normalization:
-  status: candidate_not_frozen
-  position_meters: 50.0
-  velocity_meters_per_second: 20.0
+selection_radius_m: 80.0
+reference_policy: first_current_id
+raster_size: 256
+map_extent_m: [-192.0, -192.0, 192.0, 192.0]
+polyline_points: 64
+coverage_speed_bound_mps: 25.0
+coverage_body_margin_m: 8.0

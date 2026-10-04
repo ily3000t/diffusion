@@ -126,3 +126,62 @@ $env:PYTHONPATH = (Join-Path $PWD 'src')
 - 先按episode及geometry隔离划分，再切窗；当前六正常回合仅适于小验证，类别/几何不足须显式报告。如需三划分全类别覆盖，先补充少量独立几何验证数据，不默认正式大采集。
 - 保留ID/槽位、掩码、逐车计划路线及完整net的连接/优先规则；未来退出时刻不能进条件。
 - 阶段2不启动模型训练；CPU采集成本不能用于推断8GB显存上的模型batch size或训练时长。
+
+## 阶段2：已完成验收（2026-10-04）
+
+### 交付与范围
+
+开发分支feat/window-dataset。实现中心/数学角转换、t0固定坐标正逆变换、后向速度、额外历史前点、21/40点窗口、t0选车及12车稳定槽位。实现显式回合清单/内容ID、输入完整性校验、按几何与回合先隔离再切窗、三类mask；不完整窗口保留。
+
+地图包含三通道栅格、64点车道折线、合法内部连接链、优先/冲突规则及逐车路线走廊，向量几何独立于栅格。补充零几何长度内部车道的明确方向处理；独立SUMO检查发现并修复内部等待路口覆盖普通请求索引的问题。未来标签单独存储，inference不读targets/labels，训练完整窗过滤不可用于推理筛选。
+
+新增可追溯预处理入口、NumPy reader/collate、逐窗独立审计，使用文档见window_dataset.md；实际schema见data_schema。安装仅在项目虚拟环境增加Shapely，未修改全局或旧目录。
+
+为三划分各有三类别，只补采三个C几何短回合：straight_c seed41（1224记录）、ramp_c seed42（960记录）、intersection_c seed43（1402记录）。原始位置artifacts/raw/stage2-supplement-20261004，运行SHA为0f8ce09126afa67d148cd8a5e5301f6f9c745a2a。其余输入仅来自明确的阶段1验收清单，未扫描或混入历史开发采集。
+
+### 最终验收命令
+
+```powershell
+Set-Location E:\diffusion_new
+$env:PYTHONPATH = (Join-Path $PWD 'src')
+$env:SUMO_HOME = 'E:\Program Files\sumo-1.22.0'
+& '.\.venv-sumo\Scripts\python.exe' -m pytest -q --basetemp artifacts/cache/pytest-stage2-final
+& '.\.venv-sumo\Scripts\python.exe' -m sumodiff.data process --config configs/data/window.yaml --sources configs/data/sources_stage2.json --output artifacts/processed/stage2-accepted-20261004 --formal
+& '.\.venv-sumo\Scripts\python.exe' scripts/audit_window_dataset.py --dataset artifacts/processed/stage2-accepted-20261004 --sources configs/data/sources_stage2.json --output artifacts/runs/stage2-accepted-audit-20261004 --formal
+```
+
+输出不可覆盖，重跑需新目录。55项测试通过（8.77s）；wheel构建及无src路径的独立wheel导入/数据推理通过。git diff --check通过。此前preview/map-check是开发验收过程记录；后续只使用stage2-accepted的最终数据，不改写既有实验文件。
+
+| 划分 | 回合/几何 | 全部窗口 | 核心完整窗口 | 未来不完整 | 历史不完整 |
+|---|---:|---:|---:|---:|---:|
+| train | 3/3 | 116 | 84 | 30 | 2 |
+| validation | 3/3 | 126 | 95 | 27 | 4 |
+| test | 3/3 | 110 | 87 | 21 | 2 |
+
+共9个正常回合、11969条原始车辆记录、352窗口、266核心完整窗；78未来不完整与8历史不完整均保留。3诊断/失败源回合明确排除并记录多重原因。全部三个集合均覆盖三道路类型，几何与回合无交叉；窗口重叠不跨集合。选定车辆累计764车窗，当前未选定车辆累计377车窗（不是唯一车辆数）。
+
+独立审计核对15988个有效历史点、28319个有效未来点及全部352份实际保存的局部地图。状态最大绝对误差7.4033e-6（float32存储误差；各维单位不同）；82条通行连接、694项foes关系与SUMO随包解析器一致；18条零几何长度内部车道保留。此处通行核对不是车辆动力学验证。
+
+train/validation实际区间速度最大21.7520m/s，车身半对角2.5164m，通过预定25m/s与8m覆盖设计包络；test不参与包络选择。固定±192m栅格中，有效标签中心/车身四角覆盖问题均为0，向量道路中心越界为0。完整车身道路/路线与加速度/jerk仍未评估，不以这些0宣称动力学/行为质量通过。
+
+### SHA、资源与限制
+
+最终预处理及独立审计运行SHA均为eb29838025350d12537dad2b92282c201b9923c2，分支feat/window-dataset；summary为stage2_validation.json。数据/审计清单保存了所有实际输入、配置、状态与源SHA；后续summary提交不回填运行SHA。原始数据和处理窗口不提交Git。
+
+最终预处理实耗7.256s（含清单准备、切窗及写文件，不是模型生成时间），逐窗采样Python RSS峰值85.13MiB；审计末次RSS约94.01MiB，非OS峰值。未用GPU，未测模型batch显存。实际版本Python3.12.7、NumPy1.26.4、Shapely2.1.2、Pillow10.4.0、psutil5.9.0。
+
+数据仅供工程验收，每集合每类只有一个小回合，实际最多同时选定4辆；12车容量已用合成样例验证，但真实12车场景/模型负载未测。不是足够的正式训练/论文基准；没有新checkpoint、训练、碰撞成功率或创新性结果，不创建实验里程碑tag。归一化候选尚未冻结。
+
+### 原子提交
+
+72fff7f 几何与固定frame；4e32953 零长度连接；90c1c41 隔离窗口；f70fcfb 条件/标签持久化；0f8ce09 三几何验收清单；5a50bae 内部等待点规则修复；07a2567 车身覆盖QA；5d80f92 独立地图/轨迹审计；7a55b54 容量与可配维验证；4c0e230 数据命令与依赖；eb29838 接口文档。
+
+验收通过后以--no-ff合并main并同步远端；实际summary/merge交付SHA以Git记录和最终报告为准，不更改运行SHA。
+
+### 阶段3前置条件
+
+- 新建feat/trajectory-decoding分支，先读本进度及window_dataset/data_schema；使用最终已验收数据清单，不混入preview。
+- 在项目内配置/记录兼容torch的数值验证环境，不升级全局pytorch。数据环境本身无torch。
+- 实现可微位置—速度最小二乘协调，固定t0锚点，适当求解精度与朝向回退；未来偏移先加initial_positions恢复共同局部位置。
+- 实现独立有向矩形及帧间插值碰撞、完整车身道路/路线/覆盖、原始运动与历史—未来边界指标；无适用车辆对输出N/A，不合成旧综合分。
+- 以已知匀速、转弯、停车、碰撞、越界样例和正常标签检查数值误差/梯度。只做短验证，不进入模型训练或正式大采集。

@@ -12,12 +12,14 @@ dependencies = ["PyYAML>=6.0,<7"]
 
 [project.optional-dependencies]
 dev = ["pytest>=7,<10"]
+data = ["numpy>=1.26,<3", "shapely>=2.1,<3", "Pillow>=10,<13", "psutil>=5.9,<8"]
 sumo = ["psutil>=5.9,<8"]  # TraCI/sumolib come from the checked SUMO installation.
 model = ["numpy>=1.26,<3", "torch>=2.5,<3"]
 
 [project.scripts]
 sumodiff-record = "sumodiff.experiments.cli:main"
 sumodiff-collect = "sumodiff.simulation.cli:main"
+sumodiff-data = "sumodiff.data.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
