@@ -97,7 +97,8 @@ def audit(dataset_path, registry_path):
             assert np.array_equal(c['route_lane_mask'][slot], [lane['id'] in route_lanes for lane in road.lanes])
             recovered_route = affinity.affine_transform(shape(exact['route_corridors'][slot]), inverse)
             assert recovered_route.symmetric_difference(road.route_area(route)).area < 1e-6
-        assert c['history'].shape == (12, 21, 6) and t['future'].shape == (12, 40, 6)
+        agents = manifest['window_config']['max_agents']
+        assert c['history'].shape == (agents, 21, 6) and t['future'].shape == (agents, 40, 6)
         assert c['map_raster'].shape == (3, 256, 256)
         assert c['map_raster'].dtype == np.uint8 and set(np.unique(c['map_raster'])).issubset({0, 1})
         for slot, vid in enumerate(ids):
@@ -171,7 +172,7 @@ def audit(dataset_path, registry_path):
                 foe_checks += 1
             rule_links += 1
     batch = collate_numpy([dataset[0], dataset[len(dataset)-1]])
-    assert batch['conditioning']['history'].shape == (2, 12, 21, 6)
+    assert batch['conditioning']['history'].shape == (2, manifest['window_config']['max_agents'], 21, 6)
     return dict(passed=True, windows=len(dataset), valid_history_points=history_points, valid_future_points=future_points,
         max_abs_state_error=error, max_selected_agents=max_selected, stored_local_maps_checked=len(dataset), priority_links_checked=rule_links,
         sdk_foe_relations_checked=foe_checks, zero_geometry_internal_lanes_retained=zero_lanes,

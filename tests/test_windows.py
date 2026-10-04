@@ -111,3 +111,17 @@ def test_out_of_raster_coverage_is_not_offroad(example):
     assert window.label_metadata['future_body_out_of_map'] == 80
     assert window.label_metadata['future_center_offroad'] == 0
     assert window.label_metadata['complete_future']
+
+def test_twelve_agent_cap_does_not_replace_slots_from_future(example):
+    episode, road, config = example
+    for tick, observations in enumerate(episode.frames):
+        for i in range(14):
+            source = observations['a']
+            observations[f'd{i:02d}'] = Observation(source.center + np.array([2 + 2*i, 0.]), source.yaw, deepcopy(source.raw))
+    window, _ = build_window(episode, 30, road, config)
+    assert window.conditioning['agent_mask'].all()
+    assert len(set(window.input_metadata['agent_ids'])) == 12
+    assert window.input_metadata['agent_ids'][0] == 'a'
+    assert window.input_metadata['excluded_by_capacity'] == 4
+    assert window.input_metadata['excluded_by_radius'] == 1
+    assert window.input_metadata['excluded_vehicle_count'] == 5
