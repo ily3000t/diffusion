@@ -69,7 +69,13 @@ class RoadMap:
                 record = dict(id=element.get('id'), edge_id=edge.get('id'), index=int(element.get('index')),
                               width_m=width, speed_limit_mps=speed, internal=edge.get('function') == 'internal',
                               priority=int(edge.get('priority', '0')), points_world_m=points.tolist(),
+                              sumo_length_m=float(element.get('length', 'nan')),
+                              zero_geometry_length=bool(np.linalg.norm(np.diff(points, axis=0), axis=1).sum() < 1e-10),
                               allow=allowed, disallow=forbidden)
+                if not np.isfinite(record['sumo_length_m']) or record['sumo_length_m'] <= 0:
+                    raise ValueError('Invalid declared lane length')
+                if record['zero_geometry_length'] and not record['internal']:
+                    raise ValueError('Degenerate external lane')
                 lanes.append(record)
                 edge_ids[edge.get('id')].append(record['id'])
                 lane_ids[(record['edge_id'], record['index'])] = record['id']
@@ -158,7 +164,17 @@ class RoadMap:
         original = []
         for i, lane in enumerate(self.lanes):
             points = frame.positions(lane['points_world_m'])
-            xy, tangent = resample_polyline(points, points_per_lane)
+            if lane['zero_geometry_length']:
+                targets = [c['target_lane'] for c in self.connections if c['source_lane'] == lane['id']]
+                neighbors = [l for l in self.lanes if l['id'] in targets and not l['zero_geometry_length']]
+                if not neighbors:
+                    raise ValueError('No direction available for zero-length internal lane')
+                neighbor = frame.positions(neighbors[0]['points_world_m'])
+                direction = neighbor[-1] - neighbor[0]
+                direction /= np.linalg.norm(direction)
+                xy, tangent = np.repeat(points[:1], points_per_lane, axis=0), np.repeat(direction[None], points_per_lane, axis=0)
+            else:
+                xy, tangent = resample_polyline(points, points_per_lane)
             features[i, :, :2], features[i, :, 2:4] = xy, tangent
             features[i, :, 4:] = [lane['width_m'], lane['speed_limit_mps'], lane['internal'], lane['priority']]
             original.append({**{k: v for k, v in lane.items() if k != 'points_world_m'}, 'points_local_m': points.tolist()})
