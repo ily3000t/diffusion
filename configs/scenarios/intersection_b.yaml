@@ -1,0 +1,17 @@
+schema_version: sumodiff.scenario.v1
+family: unsignalized_intersection
+geometry:
+  approach_length: 240
+  lane_width: 3.2
+  lanes_per_direction: 2
+  rotation_degrees: 20
+  junction_type: right_before_left
+traffic:
+  route_rates_per_hour:
+    west_south: 240
+    south_east: 240
+    east_north: 240
+    north_west: 240
+driver:
+  sigma: 0.2
+  tau: 1.4

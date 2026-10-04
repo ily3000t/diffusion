@@ -1,3 +1,3 @@
 # Configuration contracts
 
-Only experiments/manifest_smoke.yaml is consumed by a runnable stage-0 command. Other files document initial candidates for later stages; no engine is implemented for them. They are not calibration results or frozen experiment settings. Later entry points must resolve all defaults and overrides and save the full effective configuration.
+Stage 0 consumes experiments/manifest_smoke.yaml. Stage 1 consumes individual scenarios/*.yaml profiles through strict defaults and override validation, saving all effective settings. scenarios/families.yaml remains a scope description, not a runnable profile. Other categories still describe future candidates, not implemented engines or calibrated values. Diagnostic fixture profiles are explicitly excluded from normal training.

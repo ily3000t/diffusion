@@ -1,0 +1,13 @@
+schema_version: sumodiff.scenario.v1
+family: unsignalized_intersection
+simulation:
+  time_to_teleport: 0.5
+traffic:
+  end_seconds: 8
+  route_rates_per_hour:
+    west_east: 1800
+    east_west: 1800
+    north_east: 1800
+    south_west: 1800
+validation:
+  diagnostic_only: true

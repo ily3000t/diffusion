@@ -1,0 +1,14 @@
+schema_version: sumodiff.scenario.v1
+family: three_lane_straight
+geometry:
+  core_length: 360
+  entry_buffer: 200
+  exit_buffer: 200
+  lane_width: 3.2
+  rotation_degrees: 8
+traffic:
+  route_rates_per_hour:
+    main: 1200
+driver:
+  tau: 1.4
+  speedDev: 0.08

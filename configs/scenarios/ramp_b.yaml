@@ -1,0 +1,13 @@
+schema_version: sumodiff.scenario.v1
+family: ramp_merge
+geometry:
+  merge_length: 160
+  ramp_offset: 60
+  rotation_degrees: 10
+  lane_width: 3.2
+traffic:
+  route_rates_per_hour:
+    main: 900
+    ramp: 300
+driver:
+  tau: 1.4

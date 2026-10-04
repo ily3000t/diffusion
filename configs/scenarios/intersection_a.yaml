@@ -1,0 +1,10 @@
+schema_version: sumodiff.scenario.v1
+family: unsignalized_intersection
+geometry:
+  north_skew_degrees: 15
+traffic:
+  route_rates_per_hour:
+    west_north: 180
+    north_east: 180
+    east_west: 180
+    south_west: 180

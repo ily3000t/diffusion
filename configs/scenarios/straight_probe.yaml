@@ -1,0 +1,9 @@
+schema_version: sumodiff.scenario.v1
+family: three_lane_straight
+traffic:
+  route_rates_per_hour:
+    main: 900
+validation:
+  lane_change_probe: true
+  stop_probe: true
+  diagnostic_only: true

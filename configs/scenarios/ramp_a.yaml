@@ -1,0 +1,6 @@
+schema_version: sumodiff.scenario.v1
+family: ramp_merge
+traffic:
+  route_rates_per_hour:
+    main: 600
+    ramp: 400
