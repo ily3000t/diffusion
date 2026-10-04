@@ -1,6 +1,6 @@
 # SUMODiff
 
-独立的 SUMO 多车轨迹扩散生成工程。当前仅完成阶段0：设计/数据合同、工程结构、环境核对和运行清单工具。尚未实现采集、模型、训练、采样或评估，旧checkpoint不兼容。实施范围见 [设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
+独立的 SUMO 多车轨迹扩散生成工程。当前实现阶段0工程追溯及阶段1三类SUMO场景与完整回合采集。阶段1验收状态以progress为准。模型、训练、扩散采样及独立评估尚未实现，旧checkpoint不兼容。实施范围见 [设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
 
 ## 目录
 `configs/` 分类保存候选配置，`src/sumodiff/` 为新代码，`scripts/` 为入口辅助，`tests/` 为短验证，`docs/` 为合同和协议。`artifacts/{raw,processed,cache,checkpoints,runs}` 全部忽略，不提交数据或权重。保留模块目录标明后续阶段，不包含假实现。
@@ -20,7 +20,17 @@ $env:PYTHONPATH = (Join-Path $PWD 'src')
 ## 环境与安装方案
 已核对：Python 3.10.16、PyTorch 2.5.1/CUDA build 12.4、RTX 4070 Laptop GPU（8188 MiB）、驱动610.47、SUMO二进制1.22.0。已有TraCI/sumolib为1.25.0，与二进制不一致，阶段1先统一版本。默认Anaconda Python 3.12.7没有PyTorch。
 
-当前阶段0只依赖PyYAML，测试额外依赖pytest，均已存在。未来使用项目隔离环境，不修改全局环境；先安装 `.[dev,sumo]`，SUMO Python客户端锁为1.22.0匹配现有二进制。进入模型阶段再安装并核对PyTorch/CUDA，不在阶段0下载大型依赖。具体方案见 [环境记录](docs/environment.md)。
+当前阶段0只依赖PyYAML，测试额外依赖pytest，均已存在。阶段1使用项目 `.venv-sumo` 和1.22.0安装目录自带客户端，严格检查来源与版本，不修改全局包。`sumo`依赖组仅提供进程内存测量的psutil，不重复安装客户端。进入模型阶段再安装并核对PyTorch/CUDA，不在阶段0下载大型依赖。具体方案见 [环境记录](docs/environment.md)。
 
 ## 继续实施
 每次先读AGENTS、design、data_schema、progress，检查Git和已完成内容；只完成指定阶段。正式大采集和训练默认不启动。目标远端为 https://github.com/ily3000t/diffusion.git，阶段验收后再合并main，不根据代码完成自动打实验tag。
+
+## 阶段1短回合采集
+
+```powershell
+Set-Location E:\diffusion_new
+$env:PYTHONPATH = (Join-Path $PWD 'src')
+& '.\.venv-sumo\Scripts\python.exe' -m sumodiff.simulation collect --config configs/scenarios/ramp_a.yaml --output artifacts/raw/my-ramp-episode --seed 21 --formal
+```
+
+详见 [采集协议](docs/sumo_collection.md)。六个正常场景验收配置覆盖每类两个几何；诊断回合单独标记，不进入正常训练数据。达到限时但未排空会失败并保留输出，不能当作完整回合。

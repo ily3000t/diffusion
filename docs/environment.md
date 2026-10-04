@@ -21,7 +21,7 @@
 ## 分阶段安装方案（未执行）
 阶段0现有环境可运行PyYAML清单和pytest，不安装工程到全局site-packages。通过临时进程PYTHONPATH指向本工程src，或后续在项目虚拟环境安装。
 
-阶段1建议以明确的Python解释器创建 `E:\diffusion_new\.venv`，安装 `.[dev,sumo]`，客户端锁1.22.0以匹配二进制，执行客户端/二进制一致性与短回合连通测试。另一方案是使用SUMO_HOME/tools自带客户端，但必须明确来源和版本，不静默切换。未进行这项验证前，不宣称采集环境验收。
+阶段1已选择下节的SUMO_HOME/tools随包客户端方案。后续纯隔离环境可安装 `.[dev,sumo]` 提供PyYAML、pytest和psutil；TraCI/sumolib来自同一SUMO安装，并核对实际bundle revision和协议。入口不静默切换到其他已安装客户端。
 
 阶段3/4再配置NumPy与PyTorch，并核对CUDA可用性、数值解算精度和实际单批前后向峰值显存。已有pytorch环境可用于只读探测或经记录的短验证，但不升级它的包。
 
