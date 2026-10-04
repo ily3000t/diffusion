@@ -36,3 +36,11 @@
 采集入口显式加载SUMO_HOME/tools随包TraCI及sumolib；不使用pytorch环境里1.25.0的客户端。入口检查实际模块路径、二进制版本及运行时TraCI协议版本，记录客户端源码树哈希。不复制SUMO源代码进工程。阶段1无需PyTorch；该环境未安装torch会在环境记录中明确显示。
 
 远端只读检查已确认main为14d4352，与本地阶段0交付一致，之前的网络推送问题已不影响阶段1沿用历史。
+
+## 阶段2依赖（已核对）
+
+项目 `.venv-sumo` 内安装Shapely2.1.2（仅此虚拟环境，未改全局）。NumPy、Pillow和psutil复用基础Python并在实验环境中记录。data依赖组包含NumPy、Shapely、Pillow、psutil；控制台入口sumodiff-data与python -m sumodiff.data等价。
+
+精确向量道路/路线使用Shapely；栅格绘制使用Pillow。SUMO SDK只在独立规则审计时需要，来源仍为1.22.0安装目录随包客户端，模型/torch不参与阶段2。
+
+阶段2验收实际组合：Python3.12.7、NumPy1.26.4、Shapely2.1.2、Pillow10.4.0、psutil5.9.0；pytest7.4.4。没有在该数据环境安装torch。模型环境和单批GPU测量仍待阶段3/4。

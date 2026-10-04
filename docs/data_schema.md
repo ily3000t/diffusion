@@ -89,3 +89,33 @@ checkpoint 保存格式版本、模型/能力配置、数据版本与划分哈�
 `RunRecorder` 的上下文正常结束标记 completed，异常标记 failed 并重新抛出，初始化失败不得生成看似可用的 completed 运行。正式模式启动前拒绝无提交或脏工作区；开发 smoke 明确 `formal=false`。环境查询失败字段显式带 error，CUDA build 与驱动版本分开记录。
 
 数据清单应包括所有实际输入及划分/任务清单，不能只记录目录名。若提供文件路径则流式计算 SHA-256；尚无数据/模型的阶段0metadata smoke使用空清单和空checkpoint，不伪造身份。实际训练/采样入口在后续阶段必须验证必需数据和checkpoint已提供。
+
+## 8. 阶段2已实现的窗口/地图合同
+
+具体命令、算法约定和限制见[窗口协议](window_dataset.md)。数据状态仍为物理单位，归一化候选未冻结。raw只读，未删除或平滑原始轨迹。
+
+| 文件或字段 | 实际形状/语义 |
+|---|---|
+| conditioning.history | float32 [N,21,6]，共同固定局部系，后向速度 |
+| conditioning.agent_mask / history_mask | bool [N] / [N,21] |
+| conditioning.attributes | float32 [N,4]：[长m,宽m,乘用车类型码1,参考标记]；原始type_id另存 |
+| conditioning.initial_positions | float32 [N,2]，各车t0在共同局部系的位置 |
+| conditioning.map_raster | uint8 [3,256,256]，可通行区域/外边界/中心线；后续转float |
+| conditioning.lane_polylines | float32 [L,64,8]，xy/方向xy/宽/限速/internal/priority |
+| conditioning.lane_mask / lane_point_mask | bool [L] / [L,64]；batch补齐时false |
+| conditioning.lane_adjacency | bool [L,L]，合法连接source→via→后续via→target |
+| conditioning.route_lane_mask | bool [N,L]，已知计划路线全部合法车道及内部连接 |
+| targets.future / future_mask | float32 [N,40,6] / bool [N,40]，仅标签 |
+| input.json | sumodiff.window.input.v1，t0、ID、固定frame、已知完整路线及当前route_index |
+| labels.json | sumodiff.window.labels.v1，历史/未来完整性和QA；不送入inference |
+| map.json | sumodiff.local.map.v1，局部向量几何、原始折线及通行规则 |
+| dataset_manifest.json | sumodiff.dataset.v1，预处理SHA、源清单、实际配置、窗口索引及输出哈希 |
+| sources JSON | sumodiff.sources.v1，每条显式manifest路径和train/validation/test归属 |
+
+默认N=12；不同L由collate补齐，不把车辆槽位绑定到地图通道。真实回合唯一键采用data_id内容哈希，source_episode_id保留原始目录名；不再依赖basename全局唯一。窗口ID为完整内容哈希+参考tick。
+
+当前reference_policy为first_current_id，槽位0；半径80m按t0距离/ID选车。从3s开始每1s取参考点；历史第一点需t0−2.1s原始采样。新生车辆允许历史mask不完整，未来消失不换槽。全部不完整窗保存，core_training_eligible只用于训练过滤，不能筛推理任务。
+
+未来Δxy必须加各槽位initial_positions才能得到共同局部坐标，再使用固定frame反变换到世界系。不存在逐车旋转参考系或移动参考系。
+
+精确向量几何在[-192,192]m栅格外仍可有已知路网；out_of_map指CNN范围不足，off_road依完整向量道路单独判断。8m余量用于覆盖检查，不是道路误差容忍阈值。实际车身道路、路线及动力学指标留阶段3。

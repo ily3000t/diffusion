@@ -1,3 +1,3 @@
-# geometry
+# Geometry
 
-Reserved for stage 2. No implementation or public API is available in stage 0. See docs/design.md and docs/progress.md.
+Stage 2 implements SUMO center/yaw conversion, fixed frames, lane topology, internal connection chains, right-of-way records, vector road/route corridors and map rasterization. Collision and motion evaluation belong to stage 3. See docs/window_dataset.md.
