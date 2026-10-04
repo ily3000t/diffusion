@@ -8,7 +8,7 @@ htmlcov/
 *.egg-info/
 build/
 dist/
-.venv/
+.venv*/
 venv/
 .env
 .env.*
