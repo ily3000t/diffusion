@@ -65,6 +65,8 @@ def test_full_snapshot_and_original_code_sha(repository):
     manifest = read(run.output / "manifest.json")
     assert hashlib.sha256(saved).hexdigest() == manifest["resolved_config_sha256"]
     assert manifest["git"]["commit_sha"] == before
+    assert manifest["command"]["working_directory"] == str(Path.cwd().resolve())
+    assert manifest["environment_sha256"] == hashlib.sha256((run.output / "environment.json").read_bytes()).hexdigest()
     assert not manifest["git"]["dirty"]
     (repository / "summary.txt").write_text("later summary", encoding="utf-8")
     git(repository, "add", "summary.txt")
@@ -101,6 +103,7 @@ def test_formal_dirty_tree_rejected_before_output(repository):
     with make_run(repository, formal=False) as run:
         pass
     assert run.manifest["git"]["dirty"]
+    assert " M source.txt" in run.manifest["git"]["status_porcelain"]
 
 
 def test_formal_nonignored_output_rejected(repository):

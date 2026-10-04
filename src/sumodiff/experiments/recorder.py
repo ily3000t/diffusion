@@ -60,7 +60,7 @@ def git_state(repository: str | Path) -> dict:
                                 text=True, encoding="utf-8", errors="replace", check=False)
         if result.returncode:
             raise RuntimeError(f"Git query failed: {result.stderr.strip()}")
-        return result.stdout.strip()
+        return result.stdout.rstrip("\r\n")
 
     actual = Path(git("rev-parse", "--show-toplevel")).resolve()
     if os.path.normcase(str(actual)) != os.path.normcase(str(root)):
@@ -144,7 +144,8 @@ class RunRecorder:
             "git": code, "seeds": dict(seeds),
             "data": {"id": data_id, "files": data}, "checkpoint": checkpoint_info,
             "resolved_config_sha256": config_hash,
-            "command": {"argv": list(command), "rendered": render_command(command)},
+            "command": {"argv": list(command), "rendered": render_command(command),
+                        "working_directory": str(Path.cwd().resolve())},
             "files": {"config": "resolved_config.yaml", "command": "command.txt",
                       "environment": "environment.json", "metrics": "metrics.json", "status": "status.json"},
         }
@@ -154,6 +155,7 @@ class RunRecorder:
             _atomic_text(self.output / "resolved_config.yaml", config_yaml)
             _atomic_text(self.output / "command.txt", render_command(command) + "\n")
             _write_json(self.output / "environment.json", environment)
+            self.manifest["environment_sha256"] = sha256_file(self.output / "environment.json")
             _write_json(self.output / "manifest.json", self.manifest)
             _write_json(self.output / "metrics.json", {})
             self._write_status("running")

@@ -79,7 +79,7 @@ checkpoint 保存格式版本、模型/能力配置、数据版本与划分哈�
 
 | 文件 | 内容 |
 |---|---|
-| manifest.json | `sumodiff.run.v1`；运行 ID/用途；运行时 Git SHA/分支/工作区状态；配置哈希；种子；数据清单（内容标识、位置与可选文件哈希）；checkpoint路径和SHA-256；命令与环境文件标识 |
+| manifest.json | `sumodiff.run.v1`；运行 ID/用途；运行时 Git SHA/分支/工作区状态；配置哈希；种子；数据清单（内容标识、位置与可选文件哈希）；checkpoint路径和SHA-256；命令、实际启动工作目录与环境文件SHA-256 |
 | resolved_config.yaml | 调用方提供的完整生效配置及清单命令自身的生效参数；不只保存配置路径 |
 | command.txt | 完整命令，使用操作系统的参数引用规则；另外在manifest保存 argv |
 | environment.json | Python及解释器、平台、全部已安装发行包版本、PyTorch/CUDA/GPU查询、SUMO/驱动查询；失败保留原因 |
