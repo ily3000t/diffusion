@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sumodiff"
+version = "0.0.1"
+description = "Reproducible SUMO multi-agent trajectory diffusion research"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["PyYAML>=6.0,<7"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7,<10"]
+sumo = ["traci==1.22.0", "sumolib==1.22.0"]
+model = ["numpy>=1.26,<3", "torch>=2.5,<3"]
+
+[project.scripts]
+sumodiff-record = "sumodiff.experiments.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-ra"
