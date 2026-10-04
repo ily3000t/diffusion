@@ -1,0 +1,15 @@
+{
+  "stage": 0,
+  "kind": "engineering_validation_only",
+  "run_sha": "84ebd8192289a696de5419b3e52bcaefa5849106",
+  "run_branch": "chore/project-foundation",
+  "metadata_run": "artifacts/runs/stage0-accepted-20261004",
+  "metadata_elapsed_seconds": 3.124,
+  "tests": {
+    "passed": 19,
+    "seconds": 10.0
+  },
+  "wheel_sha256": "b0197eac814205116a9b44bfd92b0cce76ae1370089f8dab6558506f5d6c8de2",
+  "model_memory_or_training_measured": false,
+  "milestone_tag_created": false
+}
