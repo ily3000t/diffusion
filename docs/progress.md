@@ -45,7 +45,15 @@ RTX 4070 Laptop GPU：8585216000 bytes / 8188 MiB；驱动610.47；PyTorch2.5.1/
 
 最终清单运行SHA为 `84ebd8192289a696de5419b3e52bcaefa5849106`，运行分支为chore/project-foundation，输出位置为artifacts/runs/stage0-accepted-20261004。本进度与summary随后提交，不回填该SHA。可提交的小型验收summary在 `stage0_validation.json`，原始环境和结果不进Git。
 
-验收分支通过 `--no-ff` 合并main保留阶段记录。最终交付/合并SHA和远端推送状态以Git记录及本次交付报告为准，不预先假设推送成功。
+验收分支已通过 `--no-ff` 合并main，验收合并提交 `4aaf5b0`。随后在独立文档分支 `docs/foundation-delivery-status` 记录远端交付状态，再合并main；最终HEAD以Git记录和交付报告为准。
+
+远端推送未能成功确认：普通原子推送和一次HTTP/1.1重试均返回 `Recv failure: Connection was reset`。这是实际网络错误，没有返回认证或权限错误。已停止推送，全部本地提交和工作保留。网络恢复后可执行：
+
+```powershell
+git -C E:\diffusion_new push --atomic -u origin main chore/project-foundation docs/foundation-delivery-status
+```
+
+运行SHA仍为84ebd81；文档提交和交付状态不会改写原实验清单。
 
 ### 尚未解决与下一阶段
 - 阶段1—8均未实现；没有采集数据、模型、采样、评估或RL控制器。
