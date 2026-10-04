@@ -55,7 +55,7 @@ def build_window(episode, tick, road, config):
     attributes, initial_positions = np.zeros((n, 4), np.float32), np.zeros((n, 2), np.float32)
     history_reasons, future_reasons = Counter(), Counter()
     routes, route_indices, types = [], [], []
-    coverage, offroad, max_speed = 0, 0, 0.
+    coverage, body_coverage, offroad, max_speed = 0, 0, 0, 0.
     coverage_area = box(*config['map_extent_m'])
     for slot, vehicle_id in enumerate(ids):
         obs = current[vehicle_id]
@@ -82,6 +82,13 @@ def build_window(episode, tick, road, config):
                 max_speed = max(max_speed, float(np.linalg.norm(state[2:4])))
                 # Independent flags: a point outside the crop may still be on the road.
                 coverage += not coverage_area.covers(Point(*state[:2]))
+                direction = np.array([state[5], state[4]])
+                sideways = np.array([-direction[1], direction[0]])
+                corners = np.array([state[:2] + a * observed.raw['length_m'] / 2 * direction +
+                                    b * observed.raw['width_m'] / 2 * sideways for a in (-1, 1) for b in (-1, 1)])
+                bounds = config['map_extent_m']
+                body_coverage += bool((corners[:, 0] < bounds[0]).any() or (corners[:, 0] > bounds[2]).any() or
+                                      (corners[:, 1] < bounds[1]).any() or (corners[:, 1] > bounds[3]).any())
                 offroad += not road.drivable.covers(Point(*observed.center))
     polylines, adjacency, valid_routes, exact = road.local(frame, routes, config['polyline_points'])
     route_lane_mask = np.zeros((n, len(road.lanes)), bool)
@@ -106,7 +113,7 @@ def build_window(episode, tick, road, config):
         complete_history=bool(history_mask[agent_mask].all()), complete_future=bool(future_mask[agent_mask].all()),
         core_training_eligible=bool(history_mask[agent_mask].all() and future_mask[agent_mask].all()),
         valid_future_points=int(future_mask.sum()), future_center_out_of_map=coverage,
-        future_center_offroad=offroad, future_max_speed_mps=max_speed)
+        future_body_out_of_map=body_coverage, future_center_offroad=offroad, future_max_speed_mps=max_speed)
     return Window(conditioning, dict(future=future, future_mask=future_mask), input_metadata, label_metadata, exact), None
 
 

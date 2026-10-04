@@ -100,3 +100,14 @@ def test_test_split_never_used_for_coverage_calibration(example):
     config['map_extent_m'] = [-10., -10., 10., 10.]
     with pytest.raises(ValueError, match='Map extent'):
         resolve_config(config)
+
+def test_out_of_raster_coverage_is_not_offroad(example):
+    episode, road, config = example
+    for tick in range(31, 71):
+        for obs in episode.frames[tick].values():
+            obs.center[0] += 300
+    window, _ = build_window(episode, 30, road, config)
+    assert window.label_metadata['future_center_out_of_map'] == 80
+    assert window.label_metadata['future_body_out_of_map'] == 80
+    assert window.label_metadata['future_center_offroad'] == 0
+    assert window.label_metadata['complete_future']

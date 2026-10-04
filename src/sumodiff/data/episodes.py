@@ -121,6 +121,8 @@ def load_registry(path):
         identity = file_identity(manifest_path)
         identities.append(identity)
         raw = json.loads(manifest_path.read_text(encoding='utf-8-sig'))
+        if raw.get('schema_version') != 'sumodiff.raw.episode.v1':
+            raise ValueError('Unsupported source episode schema')
         reasons = []
         if raw.get('state') != 'completed':
             reasons.append('collection_not_completed')

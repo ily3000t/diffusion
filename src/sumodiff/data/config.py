@@ -18,7 +18,7 @@ def resolve_config(supplied):
         raise NotImplementedError('Only the v1 0.1s / 21-history / 40-future contract is supported')
     if config['reference_policy'] != 'first_current_id':
         raise NotImplementedError('Unsupported reference selection policy')
-    for key in ('reference_stride_ticks', 'max_agents', 'raster_size', 'polyline_points'):
+    for key in ('history_points', 'future_points', 'reference_stride_ticks', 'max_agents', 'raster_size', 'polyline_points'):
         if type(config[key]) is not int or config[key] < 1:
             raise ValueError(f'{key} must be a positive integer')
     if config['max_agents'] > 12 or config['raster_size'] != 256 or config['polyline_points'] < 2:

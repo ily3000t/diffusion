@@ -33,7 +33,7 @@ def process(output, repository, config_path, registry_path, formal=False, comman
         index, skipped = [], []
         by_split = {s: Counter(episodes=0, windows=0, core_windows=0, incomplete_future_windows=0,
             incomplete_history_windows=0, selected_agents=0, excluded_current_vehicles=0, valid_future_points=0,
-            future_center_out_of_map=0, future_center_offroad=0) for s in ('train', 'validation', 'test')}
+            future_center_out_of_map=0, future_body_out_of_map=0, future_center_offroad=0) for s in ('train', 'validation', 'test')}
         missing = {'history': Counter(), 'future': Counter()}
         peaks = [psutil.Process().memory_info().rss]
         for episode in episodes:
@@ -53,10 +53,11 @@ def process(output, repository, config_path, registry_path, formal=False, comman
                     incomplete_history_windows=int(not labels['complete_history']),
                     selected_agents=int(window.conditioning['agent_mask'].sum()),
                     excluded_current_vehicles=inputs['excluded_vehicle_count'],
-                    **{key: labels[key] for key in ('valid_future_points', 'future_center_out_of_map', 'future_center_offroad')})
+                    **{key: labels[key] for key in ('valid_future_points', 'future_center_out_of_map', 'future_body_out_of_map', 'future_center_offroad')})
                 missing['history'].update(labels['history_missing_reasons'])
                 missing['future'].update(labels['future_missing_reasons'])
                 peaks.append(psutil.Process().memory_info().rss)
+        write_json(run.output / 'skipped_reference_ticks.json', skipped)
         if not index:
             raise ValueError('No windows constructed; source/skip diagnostics retained')
         write_json(run.output / 'windows.json', index)
