@@ -1,0 +1,26 @@
+# Generated scientific artifacts are never tracked.
+/artifacts/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.env
+.env.*
+.ipynb_checkpoints/
+*.pth
+*.pt
+*.ckpt
+*.npz
+*.npy
+*.parquet
+*.h5
+*.hdf5
+*.log
+# Small, reviewed synthetic fixtures may be explicitly added under tests/fixtures.
+!tests/fixtures/**

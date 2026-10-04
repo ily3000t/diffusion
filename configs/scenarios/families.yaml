@@ -1,0 +1,6 @@
+# Scenario generation will be implemented in stage 1.
+vehicle_type: passenger
+families: [three_lane_straight, ramp_merge, unsignalized_intersection]
+step_length_seconds: 0.1
+continuous_lane_change: true
+normal_safety_rules: true

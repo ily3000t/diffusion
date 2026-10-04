@@ -1,0 +1,11 @@
+# Guidance entry point will be implemented in stage 6.
+target_count: 1
+attacker_count: 1
+risk_gradient_scope: attacker_only
+constraint_scope: relevant_generated_agents
+inner_loop_reference: fixed_unguided_prediction
+extensions:
+  cfg: false
+  partial_diffusion: false
+  rolling_generation: false
+  rl_controller: false
