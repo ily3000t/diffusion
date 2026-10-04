@@ -1,0 +1,5 @@
+# Training entry point will be implemented in stage 5.
+objective: epsilon
+loss: masked_mse_per_scene
+additional_losses_enabled: false
+batch_size: null  # Must follow an actual GPU single-batch measurement.

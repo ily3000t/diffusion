@@ -1,0 +1,6 @@
+schema_version: sumodiff.config.v1
+experiment:
+  kind: metadata_smoke
+  stage: 0
+  description: Record actual environment and Git state; no data or model execution.
+  formal: false

@@ -1,0 +1,8 @@
+# Candidate specification, not an implemented model.
+condition_dimension: 128
+attention_heads: 4
+fusion_layers_per_stage: 1
+fusion: hierarchical
+alternative_fusion: parallel
+raster_size: [256, 256]
+attack_role_embedding: false
