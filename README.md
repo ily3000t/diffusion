@@ -53,3 +53,8 @@ $env:PYTHONPATH = (Join-Path $PWD 'src')
 ## 阶段4条件模型
 
 共享历史CNN、栅格CNN、路线/规则图编码，hierarchical/parallel共用同参数，时间U-Net输出[B,N,40,6]噪声。完整接口及短验证命令见[条件模型协议](docs/conditional_model.md)。当前是未训练网络，GPU资源probe不会更新权重，不构成模型生成性能结果；不自动开始长训练。
+
+
+## 阶段5基础扩散
+
+已提供固定尺度审计、240步小数据学习验证、严格checkpoint/续训、20步DDIM、raw/decoded轨迹及独立指标。入口`python -m sumodiff.diffusion`，使用项目`.venv-model`；详见[基础扩散协议](docs/base_diffusion.md)。工程链路验收与基础模型质量分开；短checkpoint不作为可用研究模型，不自动长训练或创建tag。
