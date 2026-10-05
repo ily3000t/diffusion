@@ -119,3 +119,14 @@ checkpoint 保存格式版本、模型/能力配置、数据版本与划分哈�
 未来Δxy必须加各槽位initial_positions才能得到共同局部坐标，再使用固定frame反变换到世界系。不存在逐车旋转参考系或移动参考系。
 
 精确向量几何在[-192,192]m栅格外仍可有已知路网；out_of_map指CNN范围不足，off_road依完整向量道路单独判断。8m余量用于覆盖检查，不是道路误差容忍阈值。实际车身道路、路线及动力学指标留阶段3。
+
+
+## 9. 阶段3解码与评估输出
+
+解码API不接收标签future_mask，完整生成输出仍为40点；显式初始heading为当前观测[N,2] sin/cos，history末点有效时可读取，否则报错。states为绝对局部xy、后向速度、单位heading；输出精度float64默认。详见decoding_evaluation.md。
+
+labels验收的stages.npz保存原始future delta及float64绝对状态、标签mask、初始位置、agent mask；完整标签窗口还保存解码绝对状态、初始heading、position/velocity/heading correction、heading fallback mask、raw velocity residual。未实现引导字段不填零假轨迹，metrics明确guided_stage=not_applicable。
+
+独立指标schema为sumodiff.scene.metrics.v1，含completed/failed、窗口ID、适用性、未选车数、collision/road/motion及quality/effective event。无适用或无法判定使用JSON null，未知与失败数量另报；quality是资格布尔，非综合场景分。几何数值修复逐项包含reason、方法、类型、组成与变化，不改map原文件。
+
+trajectory_index.json为逐窗NPZ/指标文件SHA-256及split/status；validation_summary.json与metrics.json保存完整汇总、运行SHA、资源和限制，标准manifest记录所有实际输入的哈希。audit_summary.json保存独立核对结果及来源运行SHA和审计SHA。
