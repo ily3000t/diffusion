@@ -17,6 +17,7 @@ class ModelConfig:
     polyline_points: int = 64
     unet_channels: tuple = (64,128,256)
     raster_channels: tuple = (16,32,64,128,128)
+    temporal_upsampling: str = 'nearest_repeat'
     diffusion_embedding_steps: int = 1000
     condition_position_unit_m: float = 50.
     condition_velocity_unit_mps: float = 20.
@@ -35,6 +36,7 @@ class ModelConfig:
         if self.condition_dimension%self.attention_heads or self.condition_dimension%2:
             raise ValueError('Condition dimension must be even and divisible by attention heads')
         if self.fusion not in ('hierarchical','parallel'):raise ValueError('Unsupported fusion')
+        if self.temporal_upsampling!='nearest_repeat':raise NotImplementedError('Only deterministic nearest-repeat upsampling is implemented')
         if (self.history_points,self.future_points,self.state_dimension,self.raster_size,self.polyline_points)!=(21,40,6,256,64):
             raise NotImplementedError('Stage4 supports only the specified 21/40, six-state, 256 raster, 64-point interface')
         for name,count in (('unet_channels',3),('raster_channels',5)):

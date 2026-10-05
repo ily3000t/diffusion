@@ -61,9 +61,9 @@ class TemporalUNet(nn.Module):
         width,length=value.shape[1:]
         value=self.agents(value.reshape(b,n,width,length).transpose(2,3),agent_mask).transpose(2,3).reshape(b*n,width,length)
         value=self.middle(value,embedding)
-        value=self.up1(nn.functional.interpolate(value,size=second.shape[-1],mode='linear',align_corners=False))
+        value=self.up1(value.repeat_interleave(2,dim=-1))
         value=self.decode1(torch.cat((value,second),dim=1),embedding)
-        value=self.up0(nn.functional.interpolate(value,size=first.shape[-1],mode='linear',align_corners=False))
+        value=self.up0(value.repeat_interleave(2,dim=-1))
         value=self.decode0(torch.cat((value,first),dim=1),embedding)
         result=self.output(value).transpose(1,2).reshape(b,n,t,6)
         return torch.where(agent_mask[:,:,None,None],result,0.)
