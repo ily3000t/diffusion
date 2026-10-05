@@ -10,10 +10,44 @@ from sumodiff.geometry.boxes import box_corners
 @dataclass(frozen=True)
 class RoadConfig:
     numerical_tolerance_m: float = 1e-6
+    geometry_repair: str = "strict"
+    max_repair_area_change_m2: float = 1e-6
+    max_repair_hausdorff_m: float = 1e-6
 
     def __post_init__(self):
-        if not math.isfinite(self.numerical_tolerance_m) or self.numerical_tolerance_m < 0:
-            raise ValueError('Road tolerance must be finite and nonnegative')
+        for name in ('numerical_tolerance_m','max_repair_area_change_m2','max_repair_hausdorff_m'):
+            value = getattr(self,name)
+            if not math.isfinite(value) or value < 0:
+                raise ValueError(f'{name} must be finite and nonnegative')
+        if self.geometry_repair not in ('strict','bounded_make_valid'):
+            raise ValueError('Unsupported geometry repair policy')
+
+
+def _checked_geometry(serialized, name, config):
+    original = shape(serialized)
+    if (original.geom_type not in ('Polygon','MultiPolygon') or original.is_empty
+        or not np.isfinite(shapely.get_coordinates(original)).all() or original.area <= 0):
+        raise ValueError(f'{name} must be a finite nonempty polygon area')
+    if original.is_valid:
+        return original, None
+    reason = shapely.is_valid_reason(original)
+    if config.geometry_repair == 'strict':
+        raise ValueError(f'Invalid {name}: {reason}')
+    # Preserve line/point components from linework repair. Discarding them can
+    # move the point-set boundary by a lane half-width even if area is unchanged.
+    repaired = shapely.make_valid(original,method='linework',keep_collapsed=True)
+    area_change = abs(repaired.area-original.area)
+    distance = original.hausdorff_distance(repaired)
+    if (repaired.is_empty or not repaired.is_valid or repaired.area <= 0
+        or not math.isfinite(area_change) or not math.isfinite(distance)
+        or area_change > config.max_repair_area_change_m2
+        or distance > config.max_repair_hausdorff_m):
+        raise ValueError(f'{name} repair exceeds numerical bounds: area={area_change}, distance={distance}')
+    record = dict(geometry=name,reason=str(reason),method='linework_keep_collapsed',
+        original_type=original.geom_type,repaired_type=repaired.geom_type,
+        area_change_m2=float(area_change),hausdorff_m=float(distance),
+        component_types=[g.geom_type for g in shapely.get_parts(repaired)])
+    return repaired, record
 
 
 def _coverage(geometry, bodies, tolerance):
@@ -37,9 +71,8 @@ def evaluate_roads(poses, sizes, mask, agent_mask, exact_map, map_extent_m, conf
     extent = np.asarray(map_extent_m,float)
     if extent.shape != (4,) or not np.isfinite(extent).all() or extent[2] <= extent[0] or extent[3] <= extent[1]:
         raise ValueError('Invalid map coverage extent')
-    drivable = shape(exact_map['drivable'])
-    if drivable.is_empty or not drivable.is_valid or drivable.geom_type not in ('Polygon','MultiPolygon'):
-        raise ValueError('A valid vector drivable area is required')
+    drivable,repair = _checked_geometry(exact_map['drivable'],'drivable',config)
+    repairs = [repair] if repair is not None else []
     locations = np.argwhere(mask)
     if len(locations):
         corners = box_corners(poses[mask],sizes[locations[:,0]])
@@ -52,9 +85,9 @@ def evaluate_roads(poses, sizes, mask, agent_mask, exact_map, map_extent_m, conf
     for slot in np.flatnonzero(agents):
         if slot >= len(exact_map['route_corridors']):
             raise ValueError('Missing route corridor for active slot')
-        corridor = shape(exact_map['route_corridors'][slot])
-        if corridor.is_empty or not corridor.is_valid:
-            raise ValueError('Invalid route corridor')
+        corridor,repair = _checked_geometry(exact_map['route_corridors'][slot],f'route:{slot}',config)
+        if repair is not None:
+            repairs.append(repair)
         subset = locations[:,0] == slot if len(locations) else np.zeros(0,bool)
         route_bad[subset], _ = _coverage(corridor,bodies[subset],config.numerical_tolerance_m)
     def agents_with_violation(flags):
@@ -67,4 +100,5 @@ def evaluate_roads(poses, sizes, mask, agent_mask, exact_map, map_extent_m, conf
     quality = False if observed_bad else (True if full else None)
     return dict(schema_version='sumodiff.roads.v1', road=road, route=route, map_coverage=coverage,
         geometry_quality_pass=quality, numerical_tolerance_m=config.numerical_tolerance_m,
+        geometry_repairs=repairs,geometry_repair_policy=config.geometry_repair,
         full_future_observed=full, evaluation='whole polygon coverage at supplied future frames; raster not used')

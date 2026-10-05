@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from shapely.geometry import Polygon, box, mapping
 from sumodiff.evaluation.motion import evaluate_motion
-from sumodiff.evaluation.roads import evaluate_roads
+from sumodiff.evaluation.roads import evaluate_roads, RoadConfig
 
 
 def trajectory(position, yaw=None):
@@ -89,3 +89,24 @@ def test_coverage_and_route_are_independent_of_drivable_area():
     lanes = box(-20,-4,20,0).union(box(-20,0,20,4))
     result = road_inputs(lanes,size=(4,2))
     assert result['geometry_quality_pass']
+
+
+def test_explicit_bounded_geometry_repair_preserves_collapsed_parts_and_rejects_area_change():
+    # Retraced spike collapses to a line; dropping it would move the point set.
+    spike = Polygon([(-5,-5),(5,-5),(5,5),(0,5),(0,7),(0,5),(-5,5),(-5,-5)])
+    assert not spike.is_valid
+    args = (np.zeros((1,1,3)),np.array([[4.,2.]]),np.ones((1,1),bool),np.ones(1,bool),
+        dict(drivable=mapping(spike),route_corridors=[mapping(box(-5,-5,5,5))]),(-10,-10,10,10))
+    with pytest.raises(ValueError,match='Invalid drivable'):
+        evaluate_roads(*args)
+    report = evaluate_roads(*args,config=RoadConfig(geometry_repair='bounded_make_valid'))
+    repair = report['geometry_repairs'][0]
+    assert report['geometry_quality_pass'] and repair['hausdorff_m'] == 0
+    assert repair['area_change_m2'] == 0 and 'LineString' in repair['component_types']
+    # A positive-area rectangle cannot be covered by the zero-width spike.
+    outside_args = (np.array([[[0.,6.,0.]]]),np.array([[.5,.5]]),*args[2:])
+    assert evaluate_roads(*outside_args,config=RoadConfig(geometry_repair='bounded_make_valid'))['road']['violation_body_frames'] == 1
+    crossed = Polygon([(0,0),(4,4),(0,4),(3,0),(0,0)])
+    broken = dict(drivable=mapping(crossed),route_corridors=args[4]['route_corridors'])
+    with pytest.raises(ValueError,match='exceeds numerical bounds'):
+        evaluate_roads(*args[:4],broken,args[5],config=RoadConfig(geometry_repair='bounded_make_valid'))

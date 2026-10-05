@@ -105,7 +105,8 @@ def evaluate_motion(history, history_mask, states, future_mask, initial_position
     comfort = ((np.abs(longitudinal[:,slice_future])>config.comfort_longitudinal_accel_mps2)&long_mask) | \
               ((np.abs(lateral[:,slice_future])>config.comfort_lateral_accel_mps2)&long_mask) | \
               ((jerk_norm[:,slice_future]>config.comfort_jerk_mps3)&jf)
-    applicable_comfort = long_mask & jf
+    applicable_comfort = long_mask | jf
+    complete_comfort = long_mask & jf
     boundary = dict(displacement_m=summary(np.linalg.norm(context[:,start+1,:2]-context[:,start,:2],axis=-1)[valid[:,start+1]&agents]),
         velocity_change_mps=summary(np.linalg.norm(velocity[:,start+1]-velocity[:,start],axis=-1)[vm[:,start+1]&vm[:,start]]),
         acceleration_mps2=summary(acceleration_norm[:,start+1][am[:,start+1]]),
@@ -128,6 +129,8 @@ def evaluate_motion(history, history_mask, states, future_mask, initial_position
         heading_norm_error=summary(np.abs(heading_norm[:,slice_future]-1)[sf]), velocity_residual_mps=summary(residual[:,slice_future][vf]),
         invalid_heading_points=int((sf&~hf).sum()), violation_counts={k:int(v.sum()) for k,v in conditions.items()},
         comfort_violation_points=int(comfort.sum()), comfort_assessed_points=int(applicable_comfort.sum()),
+        comfort_complete_assessed_points=int(complete_comfort.sum()),
+        comfort_assessed_agents=len(comfort_agents),comfort_pass_agents=sum(comfort_agents),
         observed_comfort_pass_fraction_agents=sum(comfort_agents)/len(comfort_agents) if comfort_agents else None,
         hard_quality_pass=hard_pass, full_future_observed=full, boundary=boundary,
         thresholds_status='predeclared_engineering_candidates_not_behavioral_calibration',
