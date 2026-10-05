@@ -316,3 +316,50 @@ GPU车辆重排epsilon最大绝对误差hierarchical1.2033e-6、parallel1.0394e-
 - 先实测含optimizer的显存/吞吐量，从B2或B4候选开始；不拿未训练forward时间估计正式训练时长。
 - 正常标签质量问题只在train/validation分析/校准，保留原始结果；当前九回合仅供查错，不能当作足够的正式研究数据。
 - 只有完整采集—切窗—训练—base—评估且可复现才考虑v0.1.0，目前条件尚不满足。
+
+
+## 阶段5：工程链路验收完成，生成质量未通过（2026-10-05）
+
+### 交付
+
+分支feat/base-diffusion，基于main a078c75。完成固定50m/20m/s尺度审计、1000步线性DDPM、每场景masked epsilon MSE、AdamW/固定验证探针、checkpoint/恢复、20步eta0 DDIM、raw/decoded轨迹和既有独立评估。条件缓存一次。future_mask仅训练损失，推理按t0当前ID/family选车，无标签/core过滤、目标角色或旧综合评分。CFG、部分扩散、滚动、额外物理loss和guided/diffscene_style等未实现功能明确报错，不静默降级。
+
+checkpoint保存配置/数据/尺度/窗口/代码SHA、权重、optimizer、CPU/CUDA RNG、训练Generator及父checkpoint。旧checkpoint拒绝；weights_only=True；恢复检查torch版本及训练签名，可增加总步数，超过1000更新需显式allow-long-run。没有启动长训练、采集或阶段6/RL。
+
+接口/命令见base_diffusion.md，机器可读结果stage5_validation.json。
+
+### 验收与运行身份
+
+最终120项测试通过（18.16s，已有97+新增23），git diff --check、wheel构建和python -I从wheel独立导入通过。覆盖单位/不clip、mask/NaN梯度、逐场景权重、DDIM oracle/随机方差/更新后epsilon、恢复状态/签名、能力拒绝、任务种子、失败分母、当前ID选任务和无标签搬迁投影。
+
+六个正式追溯短验收均completed/formal=true/dirty=false，运行SHA为1bacc0a44e2f2676c07bfa38b45b1841cb2cfd5d，分支feat/base-diffusion。位置为artifacts/runs/stage5-{scales,train,resume,continuation,sample,inference}-accepted-20261005；花括号表示六个独立目录，不是PowerShell路径写法。每项的manifest/config/command/environment/metrics/status与hash均保存，小型summary记录真实运行SHA，后续提交不回填。数据、权重、轨迹不提交Git。
+
+### 尺度与学习
+
+只使用train116/validation126共242窗、19364有效未来车帧。位移P99=71.258m、max=79.850m，21.256%大于50m；速度P99=19.951m/s、max=19.999m/s。50m是单位而非上界，保留大于1的值；未clip/标准化sin-cos。test不参与尺度/参数选择。
+
+短训练core12窗、验证6窗，B4，240更新，lr3e-4/weight decay1e-4/clip1，float32严格确定性，AMP/TF32关闭。训练固定epsilon探针1.087919→0.037835（下降96.522%），验证1.111236→0.047379；权重确实改变。最终参数hash为1a0f4e11a8c9557c5477d14a88420ea2e8246a1b1b4e399989249219a447ad6f。
+
+从120步恢复到240，与连续240步的model、AdamW、Generator、CPU/CUDA RNG以及后120步窗口ID/t/损失/裁剪前梯度范数全部bitwise一致。搬迁投影缺少全部targets/labels文件，6任务初始noise、normalized/raw physical/raw absolute/decoded absolute重放全部bitwise相同，最大误差0。
+
+### 资源实测
+
+项目.venv-model，Python3.10.16、torch2.5.1/CUDA12.4、RTX4070 Laptop 8188MiB、driver610.47；SUMO1.22.0自带客户端入清单。含optimizer峰值allocated186094592bytes（177.474MiB），AdamW状态tensor27314624bytes；reserved及实际环境见summary。B4更新mean203.09ms/median195.91ms，19.696窗/s，排除首步warmup，含索引/传GPU/前反向/裁剪/AdamW，不含cache0.512s、validation和checkpoint IO。训练/validation/checkpoint循环54.018s，不含环境查询。
+
+同缓存负载/精度假设10000更新，optimizer-only估计2030.892s（33.848min），不代表收敛或正式训练规模；更多车/车道、数据IO、验证/保存另计。未探测最大batch，未采集真实12車密集新数据。
+
+6场景采样+解码mean0.25585s/P99=0.50940s（含首例warmup），20去噪调用/场景，梯度调用0，allocated51568640bytes（49.18MiB）。独立评估/循环时间见summary，不是研究效率收益证据。
+
+### 必须保留的负结果
+
+生成/解码/评估无运行失败；raw、decoded质量通过率均0/6，全部保留。任意/非目标碰撞2/6；目标/有效目标N/A。三类道路各2窗，实际选车2/2/3/2/2/3，共14 vehicle-windows，未纳入当前车辆2 vehicle-windows。最大位置协调修正4843.106m、速度修正701.792m/s。解码后位置—速度关系一致，但道路/路线/覆盖、速度/加速度/jerk/朝向大量不合格。
+
+短checkpoint严重欠训练/自由生成不合格，epsilon loss下降不能替代生成质量。高噪声误差经x0恢复放大是机制解释，不表示已排除其他学习问题。没有clip、平滑、放宽阈值或追加未授权长训练来掩盖结果。九回合规模及阶段3源正常数据道路/路线/大jerk问题仍需在train/validation治理；不创建v0.1.0，可用基础研究模型及正式训练尚未完成。
+
+开发期间修正jsonl换行生成语法、系统tmp权限、非空seed记录接口及UTF-8读取问题；预演结果保留，其中采样preview为dirty，最终验收使用上述干净SHA。旧目录始终只读。
+
+### Git与下一阶段
+
+a0d8f2a 噪声数学/尺度；9833bab 训练/checkpoint/恢复；ffd4332 base采样/独立评估；72406c0 续训与标签隔离；a494841 协议；1bacc0a 搬迁无标签重放。验收后summary提交，再--no-ff合并main并同步main/feat/base-diffusion；最终交付SHA与推送状态以Git记录/报告为准。
+
+阶段6留待后续授权。接口可用于固定目标引导及合成动作梯度验证，但真实风险—质量比较必须先有可用基础checkpoint。正式训练仍需进行，先分析train/validation数据质量和高噪声误差，确定数据规模与收敛/生成质量标准；不沿用旧三天估计，不默认扩大采集/长训练，也不把guidance当前0质量模型当成研究成功。未来引导更新干净状态后重算对应epsilon，使用同一解码轨迹/独立评估，主干冻结。

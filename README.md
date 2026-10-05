@@ -1,6 +1,6 @@
 # SUMODiff
 
-独立的 SUMO 多车轨迹扩散生成工程。当前实现阶段0工程追溯、阶段1三类SUMO场景采集、阶段2固定坐标/地图/窗口数据、阶段3统一解码/独立指标及阶段4条件编码/联合去噪网络。验收状态以progress为准。模型尚未训练，扩散训练与采样尚未实现，旧checkpoint不兼容。实施范围见 [设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
+独立的 SUMO 多车轨迹扩散生成工程。已实现阶段0至5：采集、固定坐标/地图/窗口、统一解码与独立评估、条件去噪模型，以及基础扩散训练、恢复和DDIM采样。小数据短训练链路已验收；当前短checkpoint生成质量不合格，尚不是可用研究模型。旧checkpoint不兼容。阶段6引导尚未实现，不默认启动正式长训练。实施范围见 [设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
 
 ## 目录
 `configs/` 分类保存候选配置，`src/sumodiff/` 为新代码，`scripts/` 为入口辅助，`tests/` 为短验证，`docs/` 为合同和协议。`artifacts/{raw,processed,cache,checkpoints,runs}` 全部忽略，不提交数据或权重。保留模块目录标明后续阶段，不包含假实现。
