@@ -1,0 +1,7 @@
+dt: 0.1
+position_weight: 1.0
+velocity_weight: 1.0
+position_unit_m: 1.0
+velocity_unit_mps: 1.0
+heading_epsilon: 1.0e-06
+solve_dtype: float64

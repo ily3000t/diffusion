@@ -20,6 +20,7 @@ model = ["numpy>=1.26,<3", "torch>=2.5,<3"]
 sumodiff-record = "sumodiff.experiments.cli:main"
 sumodiff-collect = "sumodiff.simulation.cli:main"
 sumodiff-data = "sumodiff.data.cli:main"
+sumodiff-evaluate = "sumodiff.evaluation.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
