@@ -34,3 +34,11 @@
 - 有向矩形、SAT、恒定朝向扫掠及旋转界递归自行实现，未沿用旧高速公路积分器、平滑器或综合评分。
 - [Shapely covers](https://shapely.readthedocs.io/en/stable/reference/shapely.covers.html)用于完整车身覆盖；[make_valid](https://shapely.readthedocs.io/en/stable/reference/shapely.make_valid.html)的linework可返回GeometryCollection，数值修复保留全部组成、限制变化并记录。实际Shapely2.1.2；不复制第三方源码。
 - 独立运动、边界、布尔资格、失败/未知分母、资源探针和审计均新写。未读取或改写旧评估脚本，不将标签质量称为生成模型性能。
+
+
+## 阶段4来源
+
+- 新模型、适配、Q/K/V注意力、FiLM时间块、路线/规则图消息与验收工具为本工程自行实现，未复制或运行旧工程网络。CNN、U-Net、缩放点积注意力及FiLM作为常见组件使用，不能据此称为原创贡献。
+- [PyTorch缩放点积注意力说明](https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.scaled_dot_product_attention.html)用于核对标准形式；本工程显式处理全mask与float32 softmax，不复制官方示例或绑定flash backend。
+- [GroupNorm接口](https://docs.pytorch.org/docs/stable/generated/torch.nn.GroupNorm.html)用于样本内归一化，实际执行库仍为torch2.5.1。在线stable目前指向更高版本，API与确定性行为以本机短验证为准。
+- 路线次序、via movement代表及yield/foe来自阶段2已审计的SUMO1.22.0数据，仍保留完整原字段；没有读取未来退出信息。原始与处理数据未改写，合成12车仅用于负载测试。
