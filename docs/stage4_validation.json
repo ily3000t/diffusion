@@ -1,0 +1,346 @@
+{
+  "schema_version": "sumodiff.stage4.delivery.v1",
+  "date": "2026-10-05",
+  "branch": "feat/conditional-denoiser",
+  "source_run": "artifacts\\runs\\stage4-accepted-20261005",
+  "source_run_sha": "34f324a3313632787a3585a2ab3cd42e9809711a",
+  "source_audit": "artifacts/runs/stage4-accepted-audit-20261005",
+  "audit_sha": "34f324a3313632787a3585a2ab3cd42e9809711a",
+  "tests": {
+    "passed": 97,
+    "seconds": 16.99,
+    "new_stage4_tests": 15
+  },
+  "package": {
+    "wheel": "artifacts/cache/stage4-wheel/sumodiff-0.0.1-py3-none-any.whl",
+    "sha256": "bb9aefa80b6c7840ec69028ddb76cf2687a189c088ef69e1f49ccc3c01d74228",
+    "independent_model_import": "passed"
+  },
+  "evaluation": {
+    "schema_version": "sumodiff.stage4.validation.v1",
+    "run_sha": "34f324a3313632787a3585a2ab3cd42e9809711a",
+    "branch": "feat/conditional-denoiser",
+    "status": "completed",
+    "input_audit": {
+      "inference_windows": 242,
+      "split_counts": {
+        "train": 116,
+        "validation": 126
+      },
+      "max_map_lanes": 32,
+      "max_observed_selected_agents": 4,
+      "agents_with_incomplete_history": 6,
+      "selected_window_ids": [
+        "e67229b56876e064c4f8619adb0fe2ae3fe07764a7032829daf03dcba176d315-t90",
+        "a1477f64ecb1ebb30bb4de8007f3f18fcce8e73d3564b8134272be2f301855ea-t450",
+        "647766fc86bc09e3adaaf31f24a1251984fb1852ee4d38b74c750e43d0479242-t210"
+      ],
+      "selection": "largest current selected count per family; ID tie-break; train/validation only",
+      "future_labels_accessed": false
+    },
+    "structural": {
+      "hierarchical": {
+        "vehicle_permutation_max_abs_error": 1.2032687664031982e-06,
+        "condition_permutation_max_abs_error": 9.5367431640625e-07,
+        "masked_payload_max_abs_error": 0.0,
+        "all_parameter_gradients_finite": true,
+        "padding_gradient_zero": true,
+        "pred_noise_shape": [
+          3,
+          12,
+          40,
+          6
+        ],
+        "condition_shape": [
+          3,
+          12,
+          128
+        ]
+      },
+      "parallel": {
+        "vehicle_permutation_max_abs_error": 1.039355993270874e-06,
+        "condition_permutation_max_abs_error": 1.430511474609375e-06,
+        "masked_payload_max_abs_error": 0.0,
+        "all_parameter_gradients_finite": true,
+        "padding_gradient_zero": true,
+        "pred_noise_shape": [
+          3,
+          12,
+          40,
+          6
+        ],
+        "condition_shape": [
+          3,
+          12,
+          128
+        ]
+      },
+      "same_parameter_fusion_output_difference_max": 0.26862630248069763
+    },
+    "parameter_count": 3414233,
+    "parameter_bytes": 13656932,
+    "parameter_sha256": "28c500f86c340465eb740e5182b726d80fdba6ffef0f4ffdaaea768a5cb40a72",
+    "parameters_unchanged": true,
+    "training_started": false,
+    "checkpoint": null,
+    "device": "cuda:0",
+    "device_name": "NVIDIA GeForce RTX 4070 Laptop GPU",
+    "device_total_memory_bytes": 8585216000,
+    "compute": {
+      "deterministic_algorithms": true,
+      "tf32": false,
+      "amp": false,
+      "torch_threads": 1
+    },
+    "resource_cases": [
+      {
+        "status": "completed",
+        "fusion": "hierarchical",
+        "batch_size": 3,
+        "agent_slots": 12,
+        "active_agents_per_scene": [
+          3,
+          3,
+          4
+        ],
+        "map_lanes": [
+          19,
+          15,
+          32
+        ],
+        "input_dtype": "torch.float32",
+        "forward_mean_seconds": 0.12150063334653775,
+        "forward_backward_mean_seconds": 0.14250663334193328,
+        "measured_iterations": 3,
+        "warmup_iterations": 1,
+        "peak_allocated_bytes": 141190656,
+        "peak_reserved_bytes": 165675008,
+        "scope": "full network, input and parameter gradients; no optimizer states, data loader, diffusion, decoder or training",
+        "input_kind": "observed_three_families"
+      },
+      {
+        "status": "completed",
+        "fusion": "parallel",
+        "batch_size": 3,
+        "agent_slots": 12,
+        "active_agents_per_scene": [
+          3,
+          3,
+          4
+        ],
+        "map_lanes": [
+          19,
+          15,
+          32
+        ],
+        "input_dtype": "torch.float32",
+        "forward_mean_seconds": 0.12831780000124127,
+        "forward_backward_mean_seconds": 0.14712583335737386,
+        "measured_iterations": 3,
+        "warmup_iterations": 1,
+        "peak_allocated_bytes": 141190656,
+        "peak_reserved_bytes": 165675008,
+        "scope": "full network, input and parameter gradients; no optimizer states, data loader, diffusion, decoder or training",
+        "input_kind": "observed_three_families"
+      },
+      {
+        "status": "completed",
+        "fusion": "hierarchical",
+        "batch_size": 1,
+        "agent_slots": 12,
+        "active_agents_per_scene": [
+          12
+        ],
+        "map_lanes": [
+          32
+        ],
+        "input_dtype": "torch.float32",
+        "forward_mean_seconds": 0.055578700033947825,
+        "forward_backward_mean_seconds": 0.0766984000025938,
+        "measured_iterations": 3,
+        "warmup_iterations": 1,
+        "peak_allocated_bytes": 110840832,
+        "peak_reserved_bytes": 127926272,
+        "scope": "full network, input and parameter gradients; no optimizer states, data loader, diffusion, decoder or training",
+        "input_kind": "synthetic_full_capacity_b1"
+      },
+      {
+        "status": "completed",
+        "fusion": "parallel",
+        "batch_size": 1,
+        "agent_slots": 12,
+        "active_agents_per_scene": [
+          12
+        ],
+        "map_lanes": [
+          32
+        ],
+        "input_dtype": "torch.float32",
+        "forward_mean_seconds": 0.05488936665157477,
+        "forward_backward_mean_seconds": 0.09353776664162676,
+        "measured_iterations": 3,
+        "warmup_iterations": 1,
+        "peak_allocated_bytes": 110840832,
+        "peak_reserved_bytes": 127926272,
+        "scope": "full network, input and parameter gradients; no optimizer states, data loader, diffusion, decoder or training",
+        "input_kind": "synthetic_full_capacity_b1"
+      },
+      {
+        "status": "completed",
+        "fusion": "hierarchical",
+        "batch_size": 2,
+        "agent_slots": 12,
+        "active_agents_per_scene": [
+          12,
+          12
+        ],
+        "map_lanes": [
+          32,
+          32
+        ],
+        "input_dtype": "torch.float32",
+        "forward_mean_seconds": 0.10971213333929579,
+        "forward_backward_mean_seconds": 0.11040786665398628,
+        "measured_iterations": 3,
+        "warmup_iterations": 1,
+        "peak_allocated_bytes": 121404416,
+        "peak_reserved_bytes": 132120576,
+        "scope": "full network, input and parameter gradients; no optimizer states, data loader, diffusion, decoder or training",
+        "input_kind": "synthetic_full_capacity_b2"
+      },
+      {
+        "status": "completed",
+        "fusion": "parallel",
+        "batch_size": 2,
+        "agent_slots": 12,
+        "active_agents_per_scene": [
+          12,
+          12
+        ],
+        "map_lanes": [
+          32,
+          32
+        ],
+        "input_dtype": "torch.float32",
+        "forward_mean_seconds": 0.08859643332349758,
+        "forward_backward_mean_seconds": 0.11732533333512644,
+        "measured_iterations": 3,
+        "warmup_iterations": 1,
+        "peak_allocated_bytes": 121404416,
+        "peak_reserved_bytes": 132120576,
+        "scope": "full network, input and parameter gradients; no optimizer states, data loader, diffusion, decoder or training",
+        "input_kind": "synthetic_full_capacity_b2"
+      },
+      {
+        "status": "completed",
+        "fusion": "hierarchical",
+        "batch_size": 4,
+        "agent_slots": 12,
+        "active_agents_per_scene": [
+          12,
+          12,
+          12,
+          12
+        ],
+        "map_lanes": [
+          32,
+          32,
+          32,
+          32
+        ],
+        "input_dtype": "torch.float32",
+        "forward_mean_seconds": 0.1485126999905333,
+        "forward_backward_mean_seconds": 0.1892447000136599,
+        "measured_iterations": 3,
+        "warmup_iterations": 1,
+        "peak_allocated_bytes": 162343424,
+        "peak_reserved_bytes": 197132288,
+        "scope": "full network, input and parameter gradients; no optimizer states, data loader, diffusion, decoder or training",
+        "input_kind": "synthetic_full_capacity_b4"
+      },
+      {
+        "status": "completed",
+        "fusion": "parallel",
+        "batch_size": 4,
+        "agent_slots": 12,
+        "active_agents_per_scene": [
+          12,
+          12,
+          12,
+          12
+        ],
+        "map_lanes": [
+          32,
+          32,
+          32,
+          32
+        ],
+        "input_dtype": "torch.float32",
+        "forward_mean_seconds": 0.16770970002592853,
+        "forward_backward_mean_seconds": 0.1892880666612958,
+        "measured_iterations": 3,
+        "warmup_iterations": 1,
+        "peak_allocated_bytes": 162343424,
+        "peak_reserved_bytes": 197132288,
+        "scope": "full network, input and parameter gradients; no optimizer states, data loader, diffusion, decoder or training",
+        "input_kind": "synthetic_full_capacity_b4"
+      }
+    ],
+    "elapsed_seconds": 8.419770200038329,
+    "outputs": {
+      "untrained_outputs.npz": {
+        "id": "sha256:efbaea33439516d65a69e63312e83bff43c53472d4a5c5d1c1189c876ceff9e3",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage4-accepted-20261005\\untrained_outputs.npz",
+        "sha256": "efbaea33439516d65a69e63312e83bff43c53472d4a5c5d1c1189c876ceff9e3",
+        "size_bytes": 62055
+      },
+      "input_audit.json": {
+        "id": "sha256:23893932338117737e0e9cd3e6791d848d6dd2b5d7f5a717d6776c3050f293f9",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage4-accepted-20261005\\input_audit.json",
+        "sha256": "23893932338117737e0e9cd3e6791d848d6dd2b5d7f5a717d6776c3050f293f9",
+        "size_bytes": 605
+      },
+      "resource_cases.json": {
+        "id": "sha256:9274983b4b9ec2e639c12e36ce186f07a47f61ac131fd8fde9f1b30cd1e66f4a",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage4-accepted-20261005\\resource_cases.json",
+        "sha256": "9274983b4b9ec2e639c12e36ce186f07a47f61ac131fd8fde9f1b30cd1e66f4a",
+        "size_bytes": 5566
+      }
+    },
+    "limitations": [
+      "untrained noise prediction; no generation quality or innovation claim",
+      "synthetic full-capacity input is a resource load, not a SUMO 12-car episode",
+      "no optimizer memory or training throughput estimate",
+      "condition feature units are fixed candidates; target normalization remains stage5"
+    ]
+  },
+  "cpu_replay": {
+    "schema_version": "sumodiff.stage4.replay.v1",
+    "source_run_sha": "34f324a3313632787a3585a2ab3cd42e9809711a",
+    "audit_sha": "34f324a3313632787a3585a2ab3cd42e9809711a",
+    "initialized_parameter_hash_matches": true,
+    "cpu_replay_max_abs_errors": {
+      "hierarchical": {
+        "pred_noise": 1.1883676052093506e-06,
+        "condition": 2.86102294921875e-06,
+        "gates": 8.940696716308594e-08
+      },
+      "parallel": {
+        "pred_noise": 1.430511474609375e-06,
+        "condition": 2.86102294921875e-06,
+        "gates": 1.1920928955078125e-07
+      }
+    },
+    "selected_window_ids": [
+      "e67229b56876e064c4f8619adb0fe2ae3fe07764a7032829daf03dcba176d315-t90",
+      "a1477f64ecb1ebb30bb4de8007f3f18fcce8e73d3564b8134272be2f301855ea-t450",
+      "647766fc86bc09e3adaaf31f24a1251984fb1852ee4d38b74c750e43d0479242-t210"
+    ]
+  },
+  "tags_created": [],
+  "remaining": [
+    "stage5 train/validation scale checks, masked diffusion loss, optimizer/checkpoint and DDIM",
+    "normal SUMO labels still need footprint/motion quality analysis before formal training",
+    "full optimizer-inclusive resource/throughput measurement has not run"
+  ]
+}

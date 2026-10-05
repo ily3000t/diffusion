@@ -252,3 +252,67 @@ d0325cf 全时域可微解码；cf04b20 独立扫掠碰撞；9013fbe 车身道�
 - 解码与生成仍需显式当前heading；history末点不可用时给当前观测而非未来。未来mask仅训练标签。
 - 现有SUMO标签足以查工程接口，但正式数据/阶段5长训练前应只在train/validation分析道路、路线和运动异常源头，决定采集/校准方案，保留旧结果，不以放宽测试阈值替代。
 - 阶段4不训练基础扩散、不启动大采集或后续引导/RL。
+
+
+## 阶段4：已完成验收（2026-10-05）
+
+### 交付
+
+分支feat/conditional-denoiser，基于已验收本地main 5207240。实现共享逐车历史时间CNN、空间地图CNN、折线/合法连接及yield/foe图消息、逐车已知计划路线顺序编码。层次与平行融合共用全部权重和U-Net，区别只在车辆交互是否预先接收道路条件；每车门控输出128维条件。基础模型无攻击角色或槽位embedding。
+
+时间U-Net为40→20→10、64/128/256通道，FiLM接受逐车条件及扩散整数步embedding；瓶颈在每个下采样未来时间位置做车辆注意力，再两倍重复上采样和skip，输出[B,N,40,6] epsilon。所有有效状态和mask检查，padding输入/输出/注意力隔离。cfg/部分扩散/滚动/攻击角色及未支持的结构开关明确报错。完整结构、条件单位及路线代表语义见conditional_model.md，代码源目录models，配置initial.yaml已成为实际可运行规格。
+
+适配器只读当前条件/metadata/map，不读标签；正确保留0/1栅格，支持已知内部连接路线。测试还验证整个处理数据目录搬迁并移除targets/labels后仍可运行当前条件审计，哈希来自实际读取路径，不能依赖原目录。
+
+### 最终验收
+
+97项测试通过（16.99s，已有82项+阶段4新增15项），包含两种融合的车辆/车道重排、padding增减、NaN payload隔离与零梯度、全部有效参数梯度、history/map/route/attributes/current position/timestep输入路径、跨车未来交互、每瓶颈时间位置独立注意力、等参数模式、配置拒绝及资源探针。git diff --check通过。wheel构建及删除src路径后的独立模型导入/参数数目核对通过。
+
+正式GPU短验收位置artifacts/runs/stage4-accepted-20261005；CPU重放artifacts/runs/stage4-accepted-audit-20261005。两者运行时SHA为34f324a3313632787a3585a2ab3cd42e9809711a，分支feat/conditional-denoiser，干净/已提交、status=completed。summary见stage4_validation.json；后续summary/merge提交不回填运行SHA。
+
+核对train116、validation126，共242个inference窗口，test不用于架构/资源选择；未读取future标签。当前最多4选车、最多32个地图车道token，有6个车辆历史不完整。只按t0选定车数为三类各选一个负载窗口，实际选车为3/3/4，槽位仍12。
+
+默认模型3414233参数（13656932bytes），两种模式参数布局相同。初始化参数SHA-256为28c500f86c340465eb740e5182b726d80fdba6ffef0f4ffdaaea768a5cb40a72，运行前后相同，没有optimizer、权重更新或checkpoint。noise种子/配置及全部实际输入哈希均保存。
+
+GPU车辆重排epsilon最大绝对误差hierarchical1.2033e-6、parallel1.0394e-6；condition最大1.4305e-6。屏蔽位置改为NaN后有效输出差0、padding梯度0、参数梯度均有限。CPU重放重新初始化同参数、核对所有输入/输出/config/environment身份：epsilon最大差hierarchical1.1884e-6、parallel1.4305e-6，condition2.8610e-6，均在公开容差内。两种未训练输出有所差异不表示任何质量收益。
+
+### 实际资源
+
+环境继续使用项目.venv-model，Python3.10.16、torch2.5.1/CUDA12.4、RTX4070 Laptop 8188MiB、驱动610.47；未升级全局包。float32、严格确定性、TF32/AMP关闭，warmup1、计时3次，CUDA同步。表中为完整网络和接口验证开销，不包含数据加载、optimizer状态、DDIM、解码或正式训练。
+
+| 输入负载 | 模式 | forward ms/批 | forward+backward ms/批 | allocated MiB | reserved MiB |
+|---|---|---:|---:|---:|---:|
+| 三类真实条件，B3、12槽位、实际3/3/4车 | hierarchical | 121.50 | 142.51 | 134.65 | 158 |
+| 同上 | parallel | 128.32 | 147.13 | 134.65 | 158 |
+| 合成12有效车，B1，32车道 | hierarchical | 55.58 | 76.70 | 105.71 | 122 |
+| 同上 | parallel | 54.89 | 93.54 | 105.71 | 122 |
+| 合成12有效车，B2，32车道 | hierarchical | 109.71 | 110.41 | 115.78 | 126 |
+| 同上 | parallel | 88.60 | 117.33 | 115.78 | 126 |
+| 合成12有效车，B4，32车道 | hierarchical | 148.51 | 189.24 | 154.82 | 188 |
+| 同上 | parallel | 167.71 | 189.29 | 154.82 | 188 |
+
+合成12车仅为完整负载测试，重复已知地图/路线并改变当前位置，不能作为真实SUMO密集场景或研究指标。batch4已执行但没测最大batch，正式训练仍须包含optimizer再测；建议阶段5先从B2或B4短验证。三次计时的微小模式差异不构成速度优势证明。
+
+网络验证和逐case资源部分8.420s，不含此前242窗adapter审计、RunRecorder构造/环境查询；不是端到端生成/训练时间。torch allocated/reserved不等于驱动总显存。CPU或新库版本不保证bitwise一致，重放采用明确容差而非静默降级。
+
+### 失败与当前限制
+
+最初linear1d上采样反向在本机严格CUDA确定性下失败，保留stage4-preview的failed记录；最终改为nearest_repeat并继续严格确定性。另一个资源入口调用遗漏参数的开发失败已修复并加实际profile测试；更新配置后旧preview源哈希不匹配也被拒绝，后续配置一致的预演/重放及最终正式运行均通过。原失败不覆盖。
+
+全部是未训练噪声网络和工程验收，没有生成场景、基础DDIM、训练checkpoint、攻击事件率或层次融合优越性结果。不创建里程碑tag。阶段3检出的正常SUMO车身越界、路线越界和较大jerk仍未解决；新网络不能自动修复源数据质量，也不能证明真实行为。movement以via/source车道作代表的规则摘要不是完整连接级优先决策；循环路线未实现并明确报错。
+
+### 原子提交与同步
+
+561b4f0 当前路线/规则输入；78d0e13 共享编码/同参数融合；d3a7ada 联合时间U-Net及语义测试；df1ac8c CUDA确定性上采样；5a70e4d 可追溯资源/CPU重放；2a93b3a 模型/协议文档；34f324a 搬迁后实际输入身份与无标签独立性。
+
+验收后提交本summary，以--no-ff合并main。结束前远端只读核对main仍为4fc73de，阶段3的5207240因上次网络失败尚待同步；本次同步main及两个功能分支，不强推。最终交付SHA与同步状态以Git记录/交付报告为准，验收运行SHA不改变。
+
+### 阶段5前置条件
+
+- 创建feat/base-diffusion，读取最新模型/解码/指标接口；只完成基础扩散阶段，不默认启动长训练或批量采集。
+- 用train/validation检查并冻结位置/速度尺度，与固定条件特征单位区分；checkpoint保存完整ModelConfig和归一化，旧checkpoint拒绝。
+- 实现前向加噪、逐场景按有效元素归一化的future_mask噪声MSE；未来mask仅标签/损失，不能进入条件编码或采样退出规则。
+- 完成小数据短训练、验证、恢复和元数据，再20步eta0 DDIM及统一解码/独立评估；附加物理loss默认关闭。CFG/部分扩散等未支持能力继续明确报错。
+- 先实测含optimizer的显存/吞吐量，从B2或B4候选开始；不拿未训练forward时间估计正式训练时长。
+- 正常标签质量问题只在train/validation分析/校准，保留原始结果；当前九回合仅供查错，不能当作足够的正式研究数据。
+- 只有完整采集—切窗—训练—base—评估且可复现才考虑v0.1.0，目前条件尚不满足。
