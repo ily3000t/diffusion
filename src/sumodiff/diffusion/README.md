@@ -1,3 +1,1 @@
-# diffusion
-
-Reserved for stage 5. No implementation or public API is available in stage 0. See docs/design.md and docs/progress.md.
+Base diffusion: fixed units, masked epsilon MSE, explicit linear DDPM schedule and DDIM sampling. See docs/base_diffusion.md for the protocol and entry points. No RL or guidance is implemented here.
