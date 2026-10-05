@@ -49,3 +49,12 @@ def test_resume_identity_allows_more_steps_but_not_changed_data_or_units():
 @pytest.mark.parametrize('options',[{'max_steps':True},{'batch_size':0},{'precision':'amp'},{'diffusion':{'cfg':True}}])
 def test_invalid_train_options(options):
     with pytest.raises((ValueError,NotImplementedError)): train_config(options)
+
+
+def test_checkpoint_tree_audit_catches_optimizer_and_rng_changes():
+    from sumodiff.diffusion.audit import exact_tree
+    a={'model':torch.ones(2),'optimizer':[torch.zeros(2)],'rng':torch.tensor([1],dtype=torch.uint8)}
+    assert exact_tree(a,deepcopy(a))
+    for key in ('model','rng'):
+        b=deepcopy(a);b[key][0]+=1;assert not exact_tree(a,b)
+    b=deepcopy(a);b['optimizer'][0][0]+=1;assert not exact_tree(a,b)

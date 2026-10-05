@@ -39,3 +39,25 @@ def test_failures_and_single_vehicle_tasks_keep_denominators():
     assert report['planned_scenes']==2 and report['failed_scenes']==2 and report['quality_pass_rate']==0
     assert report['event_rates']['any']['denominator']==1 and report['event_rates']['any']['unknown_or_failed']==1
     assert report['event_rates']['target']['confirmed_event_rate'] is None and report['effective_target_event_rate'] is None
+
+
+def test_task_selection_uses_current_ids_without_future_completeness():
+    from sumodiff.diffusion.data import choose_indices
+    class Dataset:
+        entries=[dict(core_training_eligible=False),dict(core_training_eligible=True),dict(core_training_eligible=False)]
+        def _json(self,entry,name):
+            assert name=='input.json'
+            i=next(i for i,e in enumerate(self.entries) if e is entry)
+            return dict(family=['a','b','a'][i],agent_ids=[['x','y',None],['x',None,None],['x','y','z']][i])
+    assert choose_indices(Dataset(),None,minimum_agents=2)==[0,2]
+
+
+def test_loss_labels_are_not_model_conditioning_or_noise_exit_rules():
+    from sumodiff.diffusion.training import draw_noise
+    c={'agent_mask':torch.tensor([[True,False]])}
+    targets={'future':torch.zeros(1,2,40,6),'future_mask':torch.zeros(1,2,40,dtype=torch.bool)}
+    changed={**targets,'future_mask':torch.ones_like(targets['future_mask'])}
+    a=draw_noise(targets,c,NoiseSchedule(),torch.Generator().manual_seed(8))
+    b=draw_noise(changed,c,NoiseSchedule(),torch.Generator().manual_seed(8))
+    for left,right in zip(a,b): assert torch.equal(left,right)
+    assert a[0][:,0].abs().sum()>0 and not a[0][:,1].any()

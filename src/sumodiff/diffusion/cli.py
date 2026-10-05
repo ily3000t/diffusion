@@ -29,10 +29,15 @@ def main(argv=None):
             a.add_argument('--model-config',type=Path,required=True);a.add_argument('--scale-audit',type=Path,required=True)
             a.add_argument('--resume',type=Path);a.add_argument('--allow-long-run',action='store_true')
         if action=='sample': a.add_argument('--checkpoint',type=Path,required=True)
+    a=sub.add_parser('audit-continuation');a.add_argument('--uninterrupted',type=Path,required=True);a.add_argument('--resumed',type=Path,required=True)
+    a.add_argument('--output',type=Path,required=True);a.add_argument('--repository',type=Path,default=Path.cwd());a.add_argument('--formal',action='store_true')
     args=p.parse_args(argv)
     command=[sys.executable,*sys.orig_argv[1:]] if argv is None else [sys.executable,'-m','sumodiff.diffusion',*argv]
     try:
-        if args.action=='audit-scales': result=audit(args.dataset,args.config,args.output,args.repository,args.formal,command)
+        if args.action=='audit-continuation':
+            from .audit import audit_continuation
+            result=audit_continuation(args.uninterrupted,args.resumed,args.output,args.repository,command,args.formal)
+        elif args.action=='audit-scales': result=audit(args.dataset,args.config,args.output,args.repository,args.formal,command)
         elif args.action=='train': result=train(args.dataset,args.model_config,args.config,args.scale_audit,args.output,args.repository,command,args.formal,args.resume,args.allow_long_run)
         else:
             from .sampling import sample

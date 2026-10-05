@@ -46,10 +46,12 @@ def load_checkpoint(path,*,signature=None,requested=None):
     model=resolve_model_config(m['model_config']);diffusion=resolve_diffusion_config(m['diffusion_config'])
     if model.diffusion_embedding_steps!=diffusion.training_steps: raise ValueError('Checkpoint schedule mismatch')
     if signature is not None and signature!=m['training_signature']: raise ValueError('Resume training signature mismatch')
+    if m['training_signature']['model']!=m['model_config'] or m['training_signature']['training']['diffusion']!=m['diffusion_config']: raise ValueError('Inconsistent checkpoint normalization/model metadata')
     return value
 
 
 def restore_training(value,model,optimizer,generator,device):
+    if value['metadata']['runtime']['torch']!=str(torch.__version__): raise ValueError('Resume requires the recorded torch version')
     model.load_state_dict(value['model'],strict=True);optimizer.load_state_dict(value['optimizer'])
     generator.set_state(value['generator_state']);torch.set_rng_state(value['cpu_rng'])
     if torch.device(device).type=='cuda':
