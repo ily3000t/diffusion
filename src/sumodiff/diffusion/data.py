@@ -13,11 +13,12 @@ def dataset_identity(directory):
     return dict(manifest=file_identity(directory/'dataset_manifest.json'),index=file_identity(directory/'windows.json'))
 
 
-def choose_indices(dataset,limit):
+def choose_indices(dataset,limit,minimum_agents=1):
     # Round-robin road families using only pre-existing input metadata. No labels.
     families={}
     for i,entry in enumerate(dataset.entries):
         meta=dataset._json(entry,'input.json')
+        if sum(v is not None for v in meta['agent_ids'])<minimum_agents: continue
         families.setdefault(meta['family'],[]).append(i)
     chosen=[]
     while any(families.values()) and (limit is None or len(chosen)<limit):
