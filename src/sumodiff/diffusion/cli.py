@@ -31,10 +31,15 @@ def main(argv=None):
         if action=='sample': a.add_argument('--checkpoint',type=Path,required=True)
     a=sub.add_parser('audit-continuation');a.add_argument('--uninterrupted',type=Path,required=True);a.add_argument('--resumed',type=Path,required=True)
     a.add_argument('--output',type=Path,required=True);a.add_argument('--repository',type=Path,default=Path.cwd());a.add_argument('--formal',action='store_true')
+    a=sub.add_parser('audit-inference');a.add_argument('--dataset',type=Path,required=True);a.add_argument('--checkpoint',type=Path,required=True);a.add_argument('--source-run',type=Path,required=True)
+    a.add_argument('--output',type=Path,required=True);a.add_argument('--repository',type=Path,default=Path.cwd());a.add_argument('--formal',action='store_true')
     args=p.parse_args(argv)
     command=[sys.executable,*sys.orig_argv[1:]] if argv is None else [sys.executable,'-m','sumodiff.diffusion',*argv]
     try:
-        if args.action=='audit-continuation':
+        if args.action=='audit-inference':
+            from .inference_audit import replay
+            result=replay(args.dataset,args.checkpoint,args.source_run,args.output,args.repository,command,args.formal)
+        elif args.action=='audit-continuation':
             from .audit import audit_continuation
             result=audit_continuation(args.uninterrupted,args.resumed,args.output,args.repository,command,args.formal)
         elif args.action=='audit-scales': result=audit(args.dataset,args.config,args.output,args.repository,args.formal,command)
