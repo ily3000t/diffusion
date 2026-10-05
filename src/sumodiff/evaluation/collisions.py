@@ -88,12 +88,13 @@ def check_interval(a0, a1, b0, b1, size_a, size_b, dt=.1, config=None):
 
 def _group(pairs):
     if not pairs:
-        return dict(pair_count=0, collision=None, observed_collision=None, collision_pair_fraction=None, unknown_pairs=0)
+        return dict(pair_count=0, collision=None, observed_collision=None, collision_pair_fraction=None, observed_collision_pair_fraction=None, unknown_pairs=0)
     observed = any(pair['observed_collision'] for pair in pairs)
     unknown = sum(pair['collision'] is None for pair in pairs)
     outcome = True if observed else (None if unknown else False)
     return dict(pair_count=len(pairs), collision=outcome, observed_collision=observed,
-                collision_pair_fraction=sum(pair['observed_collision'] for pair in pairs)/len(pairs), unknown_pairs=unknown)
+                collision_pair_fraction=(sum(pair['observed_collision'] for pair in pairs)/len(pairs) if not unknown else None),
+                observed_collision_pair_fraction=sum(pair['observed_collision'] for pair in pairs)/len(pairs), unknown_pairs=unknown)
 
 
 def evaluate_collisions(poses, sizes, mask, agent_mask, target_pair=None, dt=.1, config=None):
@@ -118,7 +119,7 @@ def evaluate_collisions(poses, sizes, mask, agent_mask, target_pair=None, dt=.1,
     for a_index, a in enumerate(active):
         for b in active[a_index+1:]:
             shared = mask[a] & mask[b]
-            initial = bool(shared[0] and separation_margin(poses[a,0],poses[b,0],sizes[a],sizes[b]) <= config.contact_tolerance_m)
+            initial = bool(separation_margin(poses[a,0],poses[b,0],sizes[a],sizes[b]) <= config.contact_tolerance_m) if shared[0] else None
             frame_hits = [t for t in np.flatnonzero(shared) if t > 0 and separation_margin(poses[a,t],poses[b,t],sizes[a],sizes[b]) <= config.contact_tolerance_m]
             hits, unknown, interval_count, calls = [], 0, 0, 0
             for t in range(len(shared)-1):
@@ -133,8 +134,8 @@ def evaluate_collisions(poses, sizes, mask, agent_mask, target_pair=None, dt=.1,
                     unknown += 1
             # The assessed horizon includes the observed start; initial contacts
             # are flagged separately and cannot qualify as newly caused events.
-            observed = bool(initial or frame_hits or hits)
-            earliest = ([dict(time_s=0.,method='initial_frame')] if initial else []) + hits + [dict(time_s=t*dt,method='future_frame') for t in frame_hits]
+            observed = bool(initial is True or frame_hits or hits)
+            earliest = ([dict(time_s=0.,method='initial_frame')] if initial is True else []) + hits + [dict(time_s=t*dt,method='future_frame') for t in frame_hits]
             outcome = True if observed else (None if unknown or not shared.all() else False)
             pairs.append(dict(slots=[a,b], initial_contact=initial, observed_collision=observed, collision=outcome,
                 first_detected_contact=min(earliest,key=lambda x:x['time_s']) if earliest else None,
@@ -154,7 +155,7 @@ def evaluate_collisions(poses, sizes, mask, agent_mask, target_pair=None, dt=.1,
             attacker_background=_group([p for p in pairs if attacker in p['slots'] and set(p['slots']) & backgrounds]),
             target_background=_group([p for p in pairs if target in p['slots'] and set(p['slots']) & backgrounds]))
     target_records = [p for p in pairs if is_target(p)]
-    new_target = None if not target_records or target_records[0]['collision'] is None else bool(target_records[0]['collision'] and not target_records[0]['initial_contact'])
+    new_target = None if not target_records or target_records[0]['collision'] is None or target_records[0]['initial_contact'] is None else bool(target_records[0]['collision'] and not target_records[0]['initial_contact'])
     return dict(schema_version='sumodiff.collisions.v1', groups=groups, pairs=pairs, new_target_event=new_target,
         target_pair=list(target_pair) if target_pair else None,
         checked_intervals=sum(p['checked_intervals'] for p in pairs), unresolved_intervals=sum(p['unresolved_intervals'] for p in pairs),

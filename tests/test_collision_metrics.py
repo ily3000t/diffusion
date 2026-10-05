@@ -71,3 +71,11 @@ def test_non_target_roles_include_all_other_pairs():
     assert result['groups']['attacker_background']['collision']
     assert result['groups']['target_background']['collision']
     assert result['groups']['background_background']['collision'] is False
+
+def test_unknown_start_cannot_establish_a_new_target_event():
+    poses = np.zeros((2,3,3))
+    mask = np.ones((2,3),bool); mask[:,0] = False
+    report = evaluate_collisions(poses,np.tile([4,2],(2,1)),mask,np.ones(2,bool),target_pair=(0,1))
+    assert report['groups']['target']['collision']
+    assert report['pairs'][0]['initial_contact'] is None
+    assert report['new_target_event'] is None
