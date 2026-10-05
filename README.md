@@ -1,6 +1,6 @@
 # SUMODiff
 
-独立的 SUMO 多车轨迹扩散生成工程。当前实现阶段0工程追溯、阶段1三类SUMO场景采集及阶段2固定坐标/地图/窗口数据。验收状态以progress为准。模型、训练、扩散采样及独立评估尚未实现，旧checkpoint不兼容。实施范围见 [设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
+独立的 SUMO 多车轨迹扩散生成工程。当前实现阶段0工程追溯、阶段1三类SUMO场景采集、阶段2固定坐标/地图/窗口数据及阶段3统一解码/独立指标。验收状态以progress为准。模型、训练及扩散采样尚未实现，旧checkpoint不兼容。实施范围见 [设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
 
 ## 目录
 `configs/` 分类保存候选配置，`src/sumodiff/` 为新代码，`scripts/` 为入口辅助，`tests/` 为短验证，`docs/` 为合同和协议。`artifacts/{raw,processed,cache,checkpoints,runs}` 全部忽略，不提交数据或权重。保留模块目录标明后续阶段，不包含假实现。
@@ -43,3 +43,8 @@ $env:PYTHONPATH = (Join-Path $PWD 'src')
 ```
 
 须先提供清单中的原始回合，所有输出使用新目录。详见[切窗协议](docs/window_dataset.md)：按几何及回合先划分，t0选车，历史21点/未来40点，未来标签与推理条件分文件；独立审计核对原始状态及SUMO规则。不完整窗口保留，工程验收数据不能代替正式训练数据。
+
+
+## 阶段3解码与标签评估
+
+详见[解码与指标协议](docs/decoding_evaluation.md)。使用项目`.venv-model`的兼容PyTorch环境，安装组为`.[model,data,dev]`。`python -m sumodiff.evaluation labels`与`sumodiff-evaluate labels`等价，原始和解码轨迹分开保存，无引导阶段明确N/A。完整标签数值重构不代表生成模型结果或动力学验证。阶段4单批网络显存仍待实测。

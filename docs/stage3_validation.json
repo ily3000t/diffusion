@@ -1,0 +1,215 @@
+{
+  "schema_version": "sumodiff.stage3.delivery.v1",
+  "date": "2026-10-05",
+  "scope": "trajectory decoding and independent metrics; no model, sampling or training",
+  "branch": "feat/trajectory-decoding",
+  "source_run": "artifacts\\runs\\stage3-accepted-20261005",
+  "source_run_sha": "8befcda2cf0928b9ba147b12e41928b53d1f3ea2",
+  "source_audit": "artifacts/runs/stage3-accepted-audit-20261005",
+  "audit_sha": "8befcda2cf0928b9ba147b12e41928b53d1f3ea2",
+  "tests": {
+    "passed": 82,
+    "seconds": 14.49,
+    "command": "python -m pytest -q --basetemp artifacts/cache/pytest-stage3-final"
+  },
+  "package": {
+    "wheel": "artifacts/cache/stage3-wheel/sumodiff-0.0.1-py3-none-any.whl",
+    "sha256": "85b54f89a3e2f3d9527c1633ca9c3629bd006d3c325f22753f52a410a8d50b0e",
+    "independent_import_and_decode": "passed"
+  },
+  "evaluation": {
+    "schema_version": "sumodiff.stage3.label.report.v1",
+    "input_kind": "ground_truth_labels",
+    "windows": 352,
+    "decoded_full_label_windows": 274,
+    "incomplete_label_decode_skips": 78,
+    "failed_windows": 0,
+    "raw": {
+      "planned_scenes": 352,
+      "failed_scenes": 0,
+      "quality_pass_rate": 0.29545454545454547,
+      "quality_unknown_scenes": 64,
+      "event_rates": {
+        "any": {
+          "denominator": 262,
+          "confirmed_positive": 0,
+          "confirmed_negative": 221,
+          "unknown_or_failed": 41,
+          "confirmed_event_rate": 0.0
+        },
+        "target": {
+          "denominator": 0,
+          "confirmed_positive": 0,
+          "confirmed_negative": 0,
+          "unknown_or_failed": 0,
+          "confirmed_event_rate": null
+        },
+        "non_target": {
+          "denominator": 262,
+          "confirmed_positive": 0,
+          "confirmed_negative": 221,
+          "unknown_or_failed": 41,
+          "confirmed_event_rate": 0.0
+        },
+        "background_background": {
+          "denominator": 0,
+          "confirmed_positive": 0,
+          "confirmed_negative": 0,
+          "unknown_or_failed": 0,
+          "confirmed_event_rate": null
+        },
+        "attacker_background": {
+          "denominator": 0,
+          "confirmed_positive": 0,
+          "confirmed_negative": 0,
+          "unknown_or_failed": 0,
+          "confirmed_event_rate": null
+        },
+        "target_background": {
+          "denominator": 0,
+          "confirmed_positive": 0,
+          "confirmed_negative": 0,
+          "unknown_or_failed": 0,
+          "confirmed_event_rate": null
+        }
+      },
+      "effective_target_event_rate": null,
+      "effective_target_denominator": 0
+    },
+    "decoded_full_label_subset": {
+      "planned_scenes": 274,
+      "failed_scenes": 0,
+      "quality_pass_rate": 0.3795620437956204,
+      "quality_unknown_scenes": 0,
+      "event_rates": {
+        "any": {
+          "denominator": 221,
+          "confirmed_positive": 0,
+          "confirmed_negative": 221,
+          "unknown_or_failed": 0,
+          "confirmed_event_rate": 0.0
+        },
+        "target": {
+          "denominator": 0,
+          "confirmed_positive": 0,
+          "confirmed_negative": 0,
+          "unknown_or_failed": 0,
+          "confirmed_event_rate": null
+        },
+        "non_target": {
+          "denominator": 221,
+          "confirmed_positive": 0,
+          "confirmed_negative": 221,
+          "unknown_or_failed": 0,
+          "confirmed_event_rate": 0.0
+        },
+        "background_background": {
+          "denominator": 0,
+          "confirmed_positive": 0,
+          "confirmed_negative": 0,
+          "unknown_or_failed": 0,
+          "confirmed_event_rate": null
+        },
+        "attacker_background": {
+          "denominator": 0,
+          "confirmed_positive": 0,
+          "confirmed_negative": 0,
+          "unknown_or_failed": 0,
+          "confirmed_event_rate": null
+        },
+        "target_background": {
+          "denominator": 0,
+          "confirmed_positive": 0,
+          "confirmed_negative": 0,
+          "unknown_or_failed": 0,
+          "confirmed_event_rate": null
+        }
+      },
+      "effective_target_event_rate": null,
+      "effective_target_denominator": 0
+    },
+    "numeric_probe": {
+      "gradcheck_passed": true,
+      "cpu_gradient_finite": true,
+      "solve_dtype": "float64",
+      "gradcheck_dtype": "float64",
+      "cuda": {
+        "device": "NVIDIA GeForce RTX 4070 Laptop GPU",
+        "shape": [
+          2,
+          12,
+          40,
+          6
+        ],
+        "output_dtype": "torch.float64",
+        "gradient_finite": true,
+        "forward_backward_mean_seconds": 0.009683940000832081,
+        "measured_iterations": 5,
+        "peak_allocated_bytes": 17824768,
+        "peak_reserved_bytes": 23068672,
+        "scope": "decoder-only after warmup; excludes network, sampling and process/driver memory"
+      }
+    },
+    "max_label_position_correction_m": 6.665300907937244e-06,
+    "max_label_velocity_correction_mps": 3.924819028795137e-06,
+    "heading_fallbacks": 0,
+    "raw_body_road_violation_frames": 314,
+    "raw_geometry_repair_windows": 27,
+    "raw_geometry_repair_count": 27,
+    "raw_evaluated_body_frames": 28319,
+    "selected_agent_windows": 764,
+    "excluded_current_vehicle_windows": 377,
+    "raw_map_coverage_violation_frames": 0,
+    "raw_motion_violation_counts": {
+      "speed": 0,
+      "longitudinal_acceleration": 190,
+      "lateral_acceleration": 536,
+      "jerk": 1947,
+      "yaw_rate": 0,
+      "heading_velocity": 0,
+      "heading_norm": 0,
+      "velocity_consistency": 0
+    },
+    "raw_body_route_violation_frames": 1206,
+    "raw_max_jerk_mps3": 390.4244530250836,
+    "raw_unresolved_collision_intervals": 0,
+    "elapsed_seconds": 9.898670100024901,
+    "sampled_python_peak_rss_bytes": 1117175808,
+    "run_sha": "8befcda2cf0928b9ba147b12e41928b53d1f3ea2",
+    "run_branch": "feat/trajectory-decoding",
+    "limitations": [
+      "label acceptance, not model performance",
+      "decoded subset uses label completeness only for numerical reconstruction",
+      "predeclared candidate quality thresholds, no behavioral calibration",
+      "selected vehicle set only"
+    ]
+  },
+  "independent_audit": {
+    "schema_version": "sumodiff.stage3.audit.v1",
+    "source_run_sha": "8befcda2cf0928b9ba147b12e41928b53d1f3ea2",
+    "windows": 352,
+    "decoded_windows": 274,
+    "incomplete_decode_skips": 78,
+    "raw_body_frames": 28319,
+    "road_violation_frames": 314,
+    "route_violation_frames": 1206,
+    "map_coverage_violation_frames": 0,
+    "geometry_repairs": 27,
+    "observed_future_frame_contact_pairs": 0,
+    "max_raw_jerk_mps3": 390.4244530250835,
+    "max_numpy_lstsq_state_difference_m": 1.9895196601282805e-13,
+    "max_saved_velocity_consistency_error_mps": 1.4210854715202004e-13,
+    "limitations": [
+      "independent saved-output audit; no generated model trajectories",
+      "frame polygons supplement synthetic swept/interpolated collision tests"
+    ],
+    "audit_sha": "8befcda2cf0928b9ba147b12e41928b53d1f3ea2"
+  },
+  "remaining": [
+    "stage4 network forward/backward and GPU measurement",
+    "normal label motion and footprint quality before formal data/training",
+    "behavioral calibration on train/validation only",
+    "separate observed t0 heading adapter for entering vehicles"
+  ],
+  "tags_created": []
+}

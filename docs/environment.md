@@ -44,3 +44,12 @@
 精确向量道路/路线使用Shapely；栅格绘制使用Pillow。SUMO SDK只在独立规则审计时需要，来源仍为1.22.0安装目录随包客户端，模型/torch不参与阶段2。
 
 阶段2验收实际组合：Python3.12.7、NumPy1.26.4、Shapely2.1.2、Pillow10.4.0、psutil5.9.0；pytest7.4.4。没有在该数据环境安装torch。模型环境和单批GPU测量仍待阶段3/4。
+
+
+## 阶段3数值环境（已建立）
+
+`.venv-model`使用`E:\Programs\EnvAnaconda3\envs\pytorch\python.exe -m venv --system-site-packages .venv-model`建立。项目解释器隔离，但依赖继承现有pytorch环境；没有升级或安装全局包。Shapely已在该基础环境满足要求，无额外下载安装。
+
+实际组合Python3.10.16、PyTorch2.5.1、CUDA build12.4、NumPy2.2.6、Shapely2.1.2、Pillow12.0.0、psutil7.0.0、PyYAML6.0.2、pytest9.0.3。CUDA可用，RTX4070 Laptop GPU，8188MiB，驱动610.47。数据环境`.venv-sumo`仍保持阶段2组合；阶段3含torch的全套测试使用`.venv-model`，不能在无torch的数据环境宣称全套通过。
+
+完整环境和资源以验收清单为准。解码器采用float64求解，CUDA probe只测解码，不测模型。新环境不依赖旧工程路径；正式可移植部署可在隔离环境安装声明的model/data/dev组，再用实际GPU核对。
