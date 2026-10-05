@@ -130,3 +130,12 @@ labels验收的stages.npz保存原始future delta及float64绝对状态、标签
 独立指标schema为sumodiff.scene.metrics.v1，含completed/failed、窗口ID、适用性、未选车数、collision/road/motion及quality/effective event。无适用或无法判定使用JSON null，未知与失败数量另报；quality是资格布尔，非综合场景分。几何数值修复逐项包含reason、方法、类型、组成与变化，不改map原文件。
 
 trajectory_index.json为逐窗NPZ/指标文件SHA-256及split/status；validation_summary.json与metrics.json保存完整汇总、运行SHA、资源和限制，标准manifest记录所有实际输入的哈希。audit_summary.json保存独立核对结果及来源运行SHA和审计SHA。
+
+
+## 10. 阶段4模型条件与验证输出
+
+prepare_conditioning仅消费collated inference条件及当前metadata/map，新增map_extent_m[B,4]、lane_rule_relations bool[B,L,L,2]（定向yield/foe）、route_lane_features float[B,N,L,2]（t0相对计划次序/剩余标志）。原窗口文件不变，future_mask及labels不得进入model条件字典。阶段2栅格是0/1，不是0/255。
+
+ConditionalDenoiser输入noisy_future[B,N,40,6]、整数timestep[B]（候选0..999）、上述条件；输出pred_noise[B,N,40,6]，可附condition[B,N,128]/gates[B,N,3]。基础模型无攻击角色embedding，两种融合权重布局相同。未来状态归一化、扩散日程和checkpoint留阶段5；初始方向另遵守阶段3合同。
+
+模型短验收schema为sumodiff.stage4.validation.v1，标准清单包含初始化seed/参数哈希、实际配置及全部当前输入身份；checkpoint=null、training_started=false。untrained_outputs.npz只保存随机latent和两种模式的epsilon/condition/gates，不能作为物理生成轨迹。resource_cases.json记录逐负载的实际batch/选车数、时间/torch显存。input_audit.json记录train/validation窗口、t0任务选择，future_labels_accessed=false。audit_summary.json记录CPU重放误差及来源运行SHA，保留运行时标识。

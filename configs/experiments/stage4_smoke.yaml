@@ -1,0 +1,8 @@
+schema_version: sumodiff.model.smoke.config.v1
+seed: 20261005
+noise_seed: 20261006
+device: cuda:0
+synthetic_batch_sizes: [1, 2, 4]
+iterations: 3
+warmups: 1
+torch_threads: 1

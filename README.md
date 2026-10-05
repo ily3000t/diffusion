@@ -1,6 +1,6 @@
 # SUMODiff
 
-独立的 SUMO 多车轨迹扩散生成工程。当前实现阶段0工程追溯、阶段1三类SUMO场景采集、阶段2固定坐标/地图/窗口数据及阶段3统一解码/独立指标。验收状态以progress为准。模型、训练及扩散采样尚未实现，旧checkpoint不兼容。实施范围见 [设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
+独立的 SUMO 多车轨迹扩散生成工程。当前实现阶段0工程追溯、阶段1三类SUMO场景采集、阶段2固定坐标/地图/窗口数据、阶段3统一解码/独立指标及阶段4条件编码/联合去噪网络。验收状态以progress为准。模型尚未训练，扩散训练与采样尚未实现，旧checkpoint不兼容。实施范围见 [设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
 
 ## 目录
 `configs/` 分类保存候选配置，`src/sumodiff/` 为新代码，`scripts/` 为入口辅助，`tests/` 为短验证，`docs/` 为合同和协议。`artifacts/{raw,processed,cache,checkpoints,runs}` 全部忽略，不提交数据或权重。保留模块目录标明后续阶段，不包含假实现。
@@ -20,7 +20,7 @@ $env:PYTHONPATH = (Join-Path $PWD 'src')
 ## 环境与安装方案
 已核对：Python 3.10.16、PyTorch 2.5.1/CUDA build 12.4、RTX 4070 Laptop GPU（8188 MiB）、驱动610.47、SUMO二进制1.22.0。已有TraCI/sumolib为1.25.0，与二进制不一致，阶段1先统一版本。默认Anaconda Python 3.12.7没有PyTorch。
 
-基础追溯依赖PyYAML，测试依赖pytest；数据阶段额外依赖NumPy、Shapely、Pillow和psutil。阶段1使用项目 `.venv-sumo` 和1.22.0安装目录自带客户端，严格检查来源与版本，不修改全局包。`sumo`依赖组仅提供进程内存测量的psutil，不重复安装客户端。进入模型阶段再安装并核对PyTorch/CUDA，不在阶段0下载大型依赖。具体方案见 [环境记录](docs/environment.md)。
+基础追溯依赖PyYAML，测试依赖pytest；数据阶段额外依赖NumPy、Shapely、Pillow和psutil。阶段1使用项目 `.venv-sumo` 和1.22.0安装目录自带客户端，严格检查来源与版本，不修改全局包。`sumo`依赖组仅提供进程内存测量的psutil，不重复安装客户端。阶段3/4在项目内复用兼容PyTorch/CUDA环境，不在阶段0下载大型依赖。具体方案见 [环境记录](docs/environment.md)。
 
 ## 继续实施
 每次先读AGENTS、design、data_schema、progress，检查Git和已完成内容；只完成指定阶段。正式大采集和训练默认不启动。目标远端为 https://github.com/ily3000t/diffusion.git，阶段验收后再合并main，不根据代码完成自动打实验tag。
@@ -47,4 +47,9 @@ $env:PYTHONPATH = (Join-Path $PWD 'src')
 
 ## 阶段3解码与标签评估
 
-详见[解码与指标协议](docs/decoding_evaluation.md)。使用项目`.venv-model`的兼容PyTorch环境，安装组为`.[model,data,dev]`。`python -m sumodiff.evaluation labels`与`sumodiff-evaluate labels`等价，原始和解码轨迹分开保存，无引导阶段明确N/A。完整标签数值重构不代表生成模型结果或动力学验证。阶段4单批网络显存仍待实测。
+详见[解码与指标协议](docs/decoding_evaluation.md)。使用项目`.venv-model`的兼容PyTorch环境，安装组为`.[model,data,dev]`。`python -m sumodiff.evaluation labels`与`sumodiff-evaluate labels`等价，原始和解码轨迹分开保存，无引导阶段明确N/A。完整标签数值重构不代表生成模型结果或动力学验证。阶段4单批网络显存见后述模型协议及progress。
+
+
+## 阶段4条件模型
+
+共享历史CNN、栅格CNN、路线/规则图编码，hierarchical/parallel共用同参数，时间U-Net输出[B,N,40,6]噪声。完整接口及短验证命令见[条件模型协议](docs/conditional_model.md)。当前是未训练网络，GPU资源probe不会更新权重，不构成模型生成性能结果；不自动开始长训练。

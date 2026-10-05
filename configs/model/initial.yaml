@@ -1,8 +1,32 @@
-# Candidate specification, not an implemented model.
+schema_version: sumodiff.model.config.v1
 condition_dimension: 128
 attention_heads: 4
 fusion_layers_per_stage: 1
 fusion: hierarchical
-alternative_fusion: parallel
-raster_size: [256, 256]
+history_points: 21
+future_points: 40
+state_dimension: 6
+max_agents: 12
+raster_size: 256
+polyline_points: 64
+unet_channels:
+- 64
+- 128
+- 256
+raster_channels:
+- 16
+- 32
+- 64
+- 128
+- 128
+temporal_upsampling: nearest_repeat
+diffusion_embedding_steps: 1000
+condition_position_unit_m: 50.0
+condition_velocity_unit_mps: 20.0
+condition_length_unit_m: 10.0
+condition_width_unit_m: 5.0
+condition_priority_unit: 3.0
 attack_role_embedding: false
+cfg: false
+partial_diffusion: false
+rolling_generation: false
