@@ -1,6 +1,6 @@
 # SUMODiff
 
-独立的 SUMO 多车轨迹扩散生成工程。当前实现阶段0工程追溯、阶段1三类SUMO场景采集、阶段2固定坐标/地图/窗口数据、阶段3统一解码/独立指标及阶段4条件编码/联合去噪网络。验收状态以progress为准。模型尚未训练，扩散训练与采样尚未实现，旧checkpoint不兼容。实施范围见 [设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
+独立的 SUMO 多车轨迹扩散生成工程。已实现阶段0至5：采集、固定坐标/地图/窗口、统一解码与独立评估、条件去噪模型，以及基础扩散训练、恢复和DDIM采样。小数据短训练链路已验收；当前短checkpoint生成质量不合格，尚不是可用研究模型。旧checkpoint不兼容。阶段6引导尚未实现，不默认启动正式长训练。实施范围见 [设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
 
 ## 目录
 `configs/` 分类保存候选配置，`src/sumodiff/` 为新代码，`scripts/` 为入口辅助，`tests/` 为短验证，`docs/` 为合同和协议。`artifacts/{raw,processed,cache,checkpoints,runs}` 全部忽略，不提交数据或权重。保留模块目录标明后续阶段，不包含假实现。
@@ -53,3 +53,8 @@ $env:PYTHONPATH = (Join-Path $PWD 'src')
 ## 阶段4条件模型
 
 共享历史CNN、栅格CNN、路线/规则图编码，hierarchical/parallel共用同参数，时间U-Net输出[B,N,40,6]噪声。完整接口及短验证命令见[条件模型协议](docs/conditional_model.md)。当前是未训练网络，GPU资源probe不会更新权重，不构成模型生成性能结果；不自动开始长训练。
+
+
+## 阶段5基础扩散
+
+已提供固定尺度审计、240步小数据学习验证、严格checkpoint/续训、20步DDIM、raw/decoded轨迹及独立指标。入口`python -m sumodiff.diffusion`，使用项目`.venv-model`；详见[基础扩散协议](docs/base_diffusion.md)。工程链路验收与基础模型质量分开；短checkpoint不作为可用研究模型，不自动长训练或创建tag。

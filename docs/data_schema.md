@@ -139,3 +139,10 @@ prepare_conditioning仅消费collated inference条件及当前metadata/map，新
 ConditionalDenoiser输入noisy_future[B,N,40,6]、整数timestep[B]（候选0..999）、上述条件；输出pred_noise[B,N,40,6]，可附condition[B,N,128]/gates[B,N,3]。基础模型无攻击角色embedding，两种融合权重布局相同。未来状态归一化、扩散日程和checkpoint留阶段5；初始方向另遵守阶段3合同。
 
 模型短验收schema为sumodiff.stage4.validation.v1，标准清单包含初始化seed/参数哈希、实际配置及全部当前输入身份；checkpoint=null、training_started=false。untrained_outputs.npz只保存随机latent和两种模式的epsilon/condition/gates，不能作为物理生成轨迹。resource_cases.json记录逐负载的实际batch/选车数、时间/torch显存。input_audit.json记录train/validation窗口、t0任务选择，future_labels_accessed=false。audit_summary.json记录CPU重放误差及来源运行SHA，保留运行时标识。
+
+
+## 基础扩散checkpoint与阶段输出（阶段5）
+
+sumodiff.base.checkpoint.v1保存epsilon网络/AdamW、CPU及CUDA随机状态、完整配置、固定50m/20m/s尺度、数据/窗口ID/审计hash和运行SHA。旧checkpoint明确拒绝。未来标签mask只进入训练损失；推理阶段只按agent_mask生成全部40点。
+
+采样stages.npz独立保存initial_noise、raw_normalized_future、raw_future_delta（前2维相对各车t0）、raw_absolute_states、decoded_absolute_states（前2维共同局部绝对位置）、observed initial heading、agent_mask及解码修正/残差/回退。没有future_mask或真实退出时刻作为推理输入，没有伪造guided轨迹；guided阶段在JSON中N/A。原始输出未clip或平滑。详见base_diffusion.md。

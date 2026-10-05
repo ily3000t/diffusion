@@ -44,3 +44,12 @@ v0.3.0：可选控制器和必要研究对照可复现。
 配置冻结后在干净提交启动smoke，哈希全部实际当前输入、初始化参数、随机noise、实际资源及运行SHA。只使用train/validation的t0条件，以当前选定车数选每类负载；无未来标签或test调参。真实条件与合成12车负载清楚区分，不输出攻击率或模型质量。
 
 两种融合共用参数/初始噪声，测试车辆及车道重排、padding payload隔离、梯度和CPU重放。未训练网络无optimizer、checkpoint或学习收益；case计时/显存包含完整模型和梯度，但不能推算正式训练时间或最大batch。不同设备数值容差公开，超限报错；源文件变化导致追溯失效时拒绝audit。
+
+
+## 阶段5学习、续训与base验收
+
+train/validation范围检查后冻结物理尺度。formal=true表示干净提交及完整追溯，240步小数据仍是工程验证，不能表示模型质量已过关。运行时SHA不能回填成summary或合并SHA。
+
+分别验证epsilon学习、实际120→240续训的权重/AdamW/RNG/后半段记录相同、20步base独立质量、无标签搬迁重放。raw与统一decode分别保存/评估；目标事件N/A，失败和不合格保持分母。不通过clip、平滑或放宽阈值把负结果转成通过。
+
+资源包含optimizer，区分cache/validation/checkpoint及采样/独立评估时间。给定更新数外推不代表收敛。可用基础质量及源数据问题应在train/validation治理，test不调参。当前质量失败，不自动创建实验里程碑。命令见base_diffusion.md，结果见stage5_validation.json。

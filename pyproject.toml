@@ -22,6 +22,7 @@ sumodiff-collect = "sumodiff.simulation.cli:main"
 sumodiff-data = "sumodiff.data.cli:main"
 sumodiff-evaluate = "sumodiff.evaluation.cli:main"
 sumodiff-model = "sumodiff.models.cli:main"
+sumodiff-diffusion = "sumodiff.diffusion.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
