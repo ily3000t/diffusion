@@ -63,3 +63,9 @@ def test_malformed_active_state_is_rejected_padding_cannot_change_metrics():
     assert actual['collisions'] == expected['collisions']
     assert actual['motion'] == expected['motion']
     assert actual['roads'] == expected['roads']
+
+
+def test_future_mask_cannot_broadcast_between_vehicles():
+    c,m,g,s=sample()
+    with pytest.raises(ValueError,match='without broadcasting'):
+        evaluate_trajectory(c,m,g,s,future_mask=np.ones((1,40),bool))

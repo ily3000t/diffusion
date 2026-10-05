@@ -50,7 +50,8 @@ def validate_labels(dataset_path,config_path,output,repository,formal=False,comm
             c,meta,exact,targets = [sample[k] for k in ('conditioning','input_metadata','exact_map','targets')]
             agents = c['agent_mask']
             future,fm = targets['future'],targets['future_mask']
-            raw_states = np.concatenate((future[...,:2]+c['initial_positions'][:,None,:],future[...,2:]),axis=-1)
+            physical_future = future.astype(np.float64)
+            raw_states = np.concatenate((physical_future[...,:2]+c['initial_positions'].astype(np.float64)[:,None,:],physical_future[...,2:]),axis=-1)
             raw_states = np.where(agents[:,None,None],raw_states,0.)
             row_dir = run.output/'trajectories'/meta['window_id']
             row_dir.mkdir(parents=True,exist_ok=False)

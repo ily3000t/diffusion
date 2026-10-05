@@ -1,5 +1,4 @@
 """Independent scene metrics and explicit rates, without a scenario score."""
-from dataclasses import asdict
 import numpy as np
 from .motion import MotionConfig, evaluate_motion, summary
 from .roads import RoadConfig, evaluate_roads
@@ -41,8 +40,11 @@ def evaluate_trajectory(conditioning, input_metadata, exact_map, states, *, futu
         raise ValueError('Physical states must have shape [N,T,6]')
     if not agents.any():
         raise ValueError('A trajectory task must have at least one selected agent')
-    fm = np.broadcast_to(agents[:,None],states.shape[:2]).copy() if future_mask is None else np.asarray(future_mask,bool)&agents[:,None]
-    if fm.shape != states.shape[:2] or not np.isfinite(states[fm]).all():
+    fm = np.broadcast_to(agents[:,None],states.shape[:2]).copy() if future_mask is None else np.asarray(future_mask,bool)
+    if fm.shape != states.shape[:2]:
+        raise ValueError('Future mask must match [N,T] without broadcasting')
+    fm = fm & agents[:,None]
+    if not np.isfinite(states[fm]).all():
         raise ValueError('Invalid active trajectory or future mask')
     initial = np.asarray(conditioning['initial_positions'],float)
     heading = _heading(conditioning,initial_heading)
