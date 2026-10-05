@@ -1,4 +1,4 @@
-from copy import deepcopy
+from pathlib import Path
 import numpy as np
 import pytest
 import torch
@@ -45,3 +45,29 @@ def test_config_rejects_unsupported_switch_and_architecture_options():
         with pytest.raises(NotImplementedError):resolve_model_config({setting:True})
     with pytest.raises(ValueError):resolve_model_config({'fusion':'unknown'})
     with pytest.raises(NotImplementedError):resolve_model_config({'future_points':50})
+
+
+def test_model_input_audit_uses_relocated_current_files_without_label_files(tmp_path):
+    from sumodiff.data.dataset import save_window,write_json
+    from sumodiff.data.windows import Window
+    from sumodiff.experiments.recorder import file_identity
+    from sumodiff.models.probes import collect_inputs
+    from sumodiff.models.config import ModelConfig
+    original=tmp_path/'original';entries=[]
+    for i,family in enumerate(('straight','ramp','intersection')):
+        source=batch();c={key:value[0] for key,value in source['conditioning'].items()}
+        c['lane_polylines'][...,2]=1;c['lane_polylines'][...,4]=4;c['lane_polylines'][...,5]=20
+        meta=dict(source['input_metadata'][0],window_id=f'w{i}',split='validation' if i==1 else 'train',
+            family=family,episode_key=f'e{i}',geometry_id=f'g{i}')
+        w=Window(c,dict(future=np.zeros((2,40,6),np.float32),future_mask=np.ones((2,40),bool)),
+                 meta,dict(core_training_eligible=True),source['exact_map'][0])
+        entries.append(save_window(original/'windows'/meta['window_id'],w))
+    write_json(original/'windows.json',entries)
+    write_json(original/'dataset_manifest.json',dict(schema_version='sumodiff.dataset.v1',window_index=file_identity(original/'windows.json')))
+    moved=tmp_path/'relocated';original.rename(moved)
+    for entry in entries:
+        for name in ('targets.npz','labels.json'):(moved/entry['files'][name]['relative_path']).unlink()
+    c,audit,files=collect_inputs(moved,ModelConfig())
+    assert audit['inference_windows']==3 and not audit['future_labels_accessed']
+    assert c['history'].shape==(3,2,21,6)
+    assert all(Path(path).is_relative_to(moved) and Path(path).is_file() for path in files)

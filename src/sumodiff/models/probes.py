@@ -27,7 +27,7 @@ def collect_inputs(dataset_path,config):
         c=prepare_conditioning(collate_numpy([sample]));a,hm,_,_,_=validate_conditioning(c,config)
         counts[entry['split']]+=1;max_lanes=max(max_lanes,c['lane_mask'].shape[1]);max_agents=max(max_agents,int(a.sum()))
         missing_history+=int((a&~hm.all(dim=-1)).sum())
-        sources.extend(entry['files'][name]['location'] for name in ('conditioning.npz','input.json','map.json'))
+        sources.extend(str(dataset.directory/entry['files'][name]['relative_path']) for name in ('conditioning.npz','input.json','map.json'))
         family=sample['input_metadata']['family']
         # Only t0 selected counts decide this resource task; no future completeness.
         rank=(int(a.sum()),sample['input_metadata']['window_id'])
