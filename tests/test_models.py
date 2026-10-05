@@ -169,3 +169,11 @@ def test_route_order_and_directional_yield_rules_use_current_metadata():
     changed=route_features(exact,meta,np.ones((1,4),bool),np.ones(1,bool))
     np.testing.assert_array_equal(changed[0,:,0],[-1,-.5,-.5,0])
     np.testing.assert_array_equal(changed[0,:,1],[0,0,0,1])
+
+
+def test_resource_probe_respects_embedding_range_and_does_not_update_parameters():
+    from sumodiff.models.probes import parameter_hash,profile
+    model=ConditionalDenoiser(replace(small_config(),diffusion_embedding_steps=3));before=parameter_hash(model)
+    report=profile(model,conditioning(),torch.device('cpu'),'hierarchical',100,1,1)
+    assert report['status']=='completed' and report['peak_allocated_bytes'] is None
+    assert report['forward_backward_mean_seconds']>0 and parameter_hash(model)==before

@@ -8,6 +8,7 @@ class ModelConfig:
     schema_version: str = 'sumodiff.model.config.v1'
     condition_dimension: int = 128
     attention_heads: int = 4
+    fusion_layers_per_stage: int = 1
     fusion: str = 'hierarchical'
     history_points: int = 21
     future_points: int = 40
@@ -35,6 +36,7 @@ class ModelConfig:
             if type(getattr(self,key)) is not int or getattr(self,key)<1:raise ValueError(f'Invalid {key}')
         if self.condition_dimension%self.attention_heads or self.condition_dimension%2:
             raise ValueError('Condition dimension must be even and divisible by attention heads')
+        if type(self.fusion_layers_per_stage) is not int or self.fusion_layers_per_stage!=1:raise NotImplementedError('Stage4 implements one attention layer per fusion stage')
         if self.fusion not in ('hierarchical','parallel'):raise ValueError('Unsupported fusion')
         if self.temporal_upsampling!='nearest_repeat':raise NotImplementedError('Only deterministic nearest-repeat upsampling is implemented')
         if (self.history_points,self.future_points,self.state_dimension,self.raster_size,self.polyline_points)!=(21,40,6,256,64):
