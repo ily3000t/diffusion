@@ -441,3 +441,18 @@ RTX4070 Laptop8188MiB、torch2.5.1/CUDA12.4，短训练allocated177.474MiB、更
 结果、来源哈希、命令、环境、资源定义见stage5a_training_summary.md/json；曲线和轨迹图已目视核对，保存于artifacts/runs/stage5a-v1-review-report-20261008。原始采集/准备/尺度/训练SHA d07676f、有界诊断443e7ed、绘图2ec2096、完整验证a220c90均formal/clean/completed，摘要与合并不改写这些SHA。
 
 本轮完成数据与训练预算的结果验收；基础生成尚未达到声明质量标准，不能宣称稳定或收敛。建议保持当前数据，下一步短对照定位位置—速度一致性、历史未来边界及内部jerk，并评估学习率衰减/EMA/验证最优保存，改变算法须新实验身份。未追加训练、重采数据、开始阶段6或创建tag。最终本地合并和远端同步以Git状态及交付报告为准。
+
+## Git交付状态（2026-10-08）
+
+本轮功能分支为`feat/stage5a-training-review`。代码与配置提交443e7ed、2ec2096、a220c90，结果文档提交163e6a1。远端引用查询实际main为`3a11718192632513a41dbd5f84a43a2efd5b6cf2`，与现有历史兼容；随后fetch因`Recv failure: Connection was reset`失败，未执行推送。保留本地验收合并，不重写共享历史或反复尝试网络连接。精确main合并SHA以Git交付报告为准；原实验SHA保持不变。
+
+网络恢复后手动执行，每条成功后再执行下一条：
+
+```powershell
+git -C E:\diffusion_new fetch origin
+git -C E:\diffusion_new switch main
+git -C E:\diffusion_new merge --ff-only origin/main
+git -C E:\diffusion_new push --atomic origin main feat/stage5a-training-review feat/stage5a-data-training feat/bounded-training-diagnosis
+```
+
+若无法快进或出现认证/权限错误，保留本地提交，先检查实际远端和分支状态，不能强推。

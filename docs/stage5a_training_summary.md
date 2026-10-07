@@ -107,3 +107,18 @@ $checkpoint = 'artifacts/runs/stage5a-v1-train/checkpoint_step_030000.pt'
 ```
 
 每条命令成功后再运行依赖步骤；正式复现要求干净已提交代码。不同运行的SHA按实记录。
+
+## Git交付状态（2026-10-08）
+
+本轮功能分支为`feat/stage5a-training-review`。代码与配置提交443e7ed、2ec2096、a220c90，结果文档提交163e6a1。远端引用查询实际main为`3a11718192632513a41dbd5f84a43a2efd5b6cf2`，与现有历史兼容；随后fetch因`Recv failure: Connection was reset`失败，未执行推送。保留本地验收合并，不重写共享历史或反复尝试网络连接。精确main合并SHA以Git交付报告为准；原实验SHA保持不变。
+
+网络恢复后手动执行，每条成功后再执行下一条：
+
+```powershell
+git -C E:\diffusion_new fetch origin
+git -C E:\diffusion_new switch main
+git -C E:\diffusion_new merge --ff-only origin/main
+git -C E:\diffusion_new push --atomic origin main feat/stage5a-training-review feat/stage5a-data-training feat/bounded-training-diagnosis
+```
+
+若无法快进或出现认证/权限错误，保留本地提交，先检查实际远端和分支状态，不能强推。
