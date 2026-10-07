@@ -211,3 +211,35 @@ def test_quality_includes_jerk_at_first_history_point(tmp_path):
     assert report['core_complete'] and not report['eligible']
     assert report['raw64']['motion']['violation_counts']['jerk']==1
     assert report['raw64']['motion']['boundary']['jerk_mps3']['max']<1e-8
+
+
+def test_connected_route_round_join_fills_cap_slit_without_granting_other_maneuvers(tmp_path):
+    from shapely.geometry import Point
+    xml=tmp_path/'corner.net.xml'
+    xml.write_text('<net>'
+        '<edge id="a"><lane id="a_0" index="0" speed="8" width="2" length="5" shape="-5,0 0,0"/></edge>'
+        '<edge id="b"><lane id="b_0" index="0" speed="8" width="2" length="7.071" shape="0,0 5,5"/></edge>'
+        '<edge id="c"><lane id="c_0" index="0" speed="8" width="2" length="7.071" shape="0,0 5,-5"/></edge>'
+        '<connection from="a" to="b" fromLane="0" toLane="0"/>'
+        '<connection from="a" to="c" fromLane="0" toLane="0"/>'
+        '<junction id="j" type="priority" shape="-2,-2 2,-2 2,2 -2,2"/>'
+        '</net>')
+    road=RoadMap.read(xml)
+    route=road.route_area(['a','b'])
+    slit=Point(.5,-.8)
+    assert not road.lane_areas['a_0'].union(road.lane_areas['b_0']).covers(slit)
+    assert route.covers(slit) and road.drivable.covers(route)
+    assert not route.covers(Point(4,-4))
+    assert not route.covers(Point(-1.5,1.5))
+    # Non-touching connection coordinates are not silently bridged.
+    xml.write_text(xml.read_text().replace('shape="0,0 5,5"','shape="2,2 7,7"'))
+    assert not RoadMap.read(xml).route_area(['a','b']).covers(slit)
+
+
+def test_source_geometry_detail_parameters_are_applied_and_validated():
+    c=resolve_plan({})
+    assert jobs(c,True)[2]['scenario']['network']['internal_link_detail']==128
+    with pytest.raises(ValueError):
+        resolve_config(dict(family=FAMILIES[0],network={'output_precision':0}))
+    with pytest.raises(ValueError):
+        resolve_config(dict(family=FAMILIES[0],network={'internal_link_detail':True}))

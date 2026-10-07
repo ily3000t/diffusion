@@ -157,7 +157,23 @@ class RoadMap:
         return permitted
 
     def route_area(self, route_edges):
-        return unary_union([self.lane_areas[lane] for lane in self.route_lane_ids(route_edges)])
+        permitted=self.route_lane_ids(route_edges)
+        areas=[self.lane_areas[lane] for lane in permitted]
+        by_id={lane['id']:lane for lane in self.lanes}
+        # Flat caps of separately buffered legal lanes leave a triangular slit at
+        # a shared, angled endpoint. Join ONLY legal, touching centerline pairs;
+        # do not grant the whole junction or bridge disconnected coordinates.
+        for c in self.connections:
+            first=c['source_lane'];second=c['via_lane'] or c['target_lane']
+            if first not in permitted or second not in permitted: continue
+            a,b=by_id[first],by_id[second]
+            x=np.asarray(a['points_world_m']);y=np.asarray(b['points_world_m'])
+            if a['zero_geometry_length'] or b['zero_geometry_length'] or np.linalg.norm(x[-1]-y[0])>1e-6:
+                continue
+            corner=LineString(np.concatenate((x[-2:],y[1:2]))).buffer(
+                min(a['width_m'],b['width_m'])/2,cap_style=2,join_style=1,quad_segs=16)
+            areas.append(corner.intersection(self.drivable))
+        return unary_union(areas)
 
     def local(self, frame, routes, points_per_lane=64):
         lane_ids = [lane['id'] for lane in self.lanes]
@@ -192,7 +208,7 @@ class RoadMap:
                      junctions=[{**{k: v for k, v in j.items() if k != 'points_world_m'},
                                  'points_local_m': frame.positions(np.asarray(j['points_world_m']).reshape(-1, 2)).tolist()} for j in self.junctions],
                      drivable=mapping(_local_geometry(self.drivable, frame)), route_corridors=corridors,
-                     geometry_convention='lane half-width flat-cap round-join buffer, quad_segs=16; junction shape union')
+                     geometry_convention='lane half-width flat-cap round-join buffer, quad_segs=16; drivable junction union; route adds round joins only at touching legal connection endpoints clipped to drivable')
         # Remove world coordinates from raw junction attributes, keeping only local position.
         for j in exact['junctions']:
             raw = dict(j['sumo_raw'])
