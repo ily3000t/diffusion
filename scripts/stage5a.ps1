@@ -5,6 +5,7 @@ param(
     [string]$RunSuffix='',
     [string]$Checkpoint='',
     [string]$PilotReport='',
+    [string]$ReusePilot='',
     [string]$ScaleAudit='',
     [switch]$ReuseCompleted,
     [string]$SumoHome='E:\Program Files\sumo-1.22.0'
@@ -37,8 +38,10 @@ function Invoke-Stage5APython {
 }
 switch ($Action) {
     'Pilot' {
-        Invoke-Stage5APython @('-m','sumodiff.experiments.stage5a','pilot','--config',$taskPlan,
+        $taskArgs=@('-m','sumodiff.experiments.stage5a','pilot','--config',$taskPlan,
             '--output',"artifacts/runs/$taskRunName-pilot",'--repository',$taskRepository,'--formal')
+        if ($ReusePilot) { $taskArgs+=@('--reuse-pilot',$ReusePilot) }
+        Invoke-Stage5APython $taskArgs
     }
     'Collect' {
         $taskArgs=@('-m','sumodiff.experiments.stage5a','collect','--config',$taskPlan,

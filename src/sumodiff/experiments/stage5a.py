@@ -90,13 +90,43 @@ def collect_campaign(config_path,plan,campaign,output,repository,command,formal,
     return result
 
 
-def pilot(config_path,plan,output,repository,command,formal):
-    with RunRecorder(output,repository,dict(schema_version='sumodiff.stage5a.pilot.run.v1',plan=plan,jobs=jobs(plan,True)),
-        command,{'pilot':plan['seed']},purpose='stage5a_short_new_episode_pilot',data_files=[config_path],formal=formal) as run:
-        sources=[]
-        for job in jobs(plan,True):
-            path,_=collect_job(job,run.output,repository,formal)
-            sources.append(dict(manifest=str(path),split=job['split']))
+
+def verified_pilot_sources(directory,plan):
+    """Reuse only the six exact new-episode jobs from an earlier formal pilot."""
+    from .stage5a_data import inspect_sources
+    directory=Path(directory).resolve(strict=True)
+    manifest=json.loads((directory/'manifest.json').read_text(encoding='utf-8'))
+    resolved=load_config(directory/'resolved_config.yaml')
+    if (manifest['purpose']!='stage5a_short_new_episode_pilot' or manifest['git']['dirty'] or
+        not manifest['formal'] or resolved['plan']!=plan or resolved['jobs']!=jobs(plan,True)):
+        raise ValueError('Reused raw pilot does not match the exact current source plan')
+    registry=directory/'sources.json';sources,_,_=inspect_sources(registry)
+    expected=jobs(plan,True)
+    if len(sources)!=len(expected): raise ValueError('Reused pilot needs all six collected episodes')
+    for source,job in zip(sources,expected):
+        ep_path=Path(source['manifest'])
+        ep_manifest=json.loads(ep_path.read_text(encoding='utf-8'))
+        run_manifest=json.loads((ep_path.parent/'manifest.json').read_text(encoding='utf-8'))
+        config=load_config(ep_path.parent/'resolved_config.yaml')['scenario']
+        if (source['split']!=job['split'] or source['family']!=job['scenario']['family'] or
+            ep_manifest['seed']!=job['seed'] or
+            config!={**job['scenario'],'runtime':config['runtime']} or
+            not run_manifest['formal'] or run_manifest['git']['dirty'] or
+            json.loads((ep_path.parent/'status.json').read_text(encoding='utf-8'))['state']!='completed'):
+            raise ValueError('Reused pilot contains a mismatched/incomplete collection job')
+    return registry,[dict(manifest=s['manifest'],split=s['split']) for s in sources]
+
+def pilot(config_path,plan,output,repository,command,formal,reuse_pilot=None):
+    reused_registry,reused_sources=verified_pilot_sources(reuse_pilot,plan) if reuse_pilot else (None,None)
+    with RunRecorder(output,repository,dict(schema_version='sumodiff.stage5a.pilot.run.v1',plan=plan,jobs=jobs(plan,True),
+        reused_source_pilot=file_identity(reused_registry) if reused_registry else None),
+        command,{'pilot':plan['seed']},purpose='stage5a_short_new_episode_pilot',
+        data_files=[config_path,*([reused_registry] if reused_registry else [])],formal=formal) as run:
+        sources=list(reused_sources) if reused_sources else []
+        if not reused_sources:
+            for job in jobs(plan,True):
+                path,_=collect_job(job,run.output,repository,formal)
+                sources.append(dict(manifest=str(path),split=job['split']))
         registry=run.output/'sources.json';write_json(registry,dict(schema_version='sumodiff.sources.v1',episodes=sources))
         result=prepare(config_path,plan,registry,run.output/'preparation',repository,
             [sys.executable,'-m','sumodiff.experiments.stage5a','prepare','--profile','pilot','--config',str(config_path),
@@ -110,6 +140,7 @@ def main(argv=None):
     for action in ('pilot','collect','prepare'):
         a=sub.add_parser(action);a.add_argument('--config',type=Path,required=True);a.add_argument('--output',type=Path,required=True)
         a.add_argument('--repository',type=Path,default=Path.cwd());a.add_argument('--formal',action='store_true')
+        if action=='pilot': a.add_argument('--reuse-pilot',type=Path)
         if action=='collect':
             a.add_argument('--pilot-report',type=Path,required=True);a.add_argument('--campaign',type=Path,required=True)
             a.add_argument('--reuse-completed',action='store_true');a.add_argument('--allow-bulk',action='store_true')
@@ -119,7 +150,7 @@ def main(argv=None):
     command=[sys.executable,*sys.orig_argv[1:]] if argv is None else [sys.executable,'-m','sumodiff.experiments.stage5a',*argv]
     try:
         plan=resolve_plan(load_config(args.config))
-        if args.action=='pilot': result=pilot(args.config,plan,args.output,args.repository,command,args.formal)
+        if args.action=='pilot': result=pilot(args.config,plan,args.output,args.repository,command,args.formal,args.reuse_pilot)
         elif args.action=='collect': result=collect_campaign(args.config,plan,args.campaign,args.output,args.repository,command,args.formal,
             args.pilot_report,args.reuse_completed,args.allow_bulk)
         else: result=prepare(args.config,plan,args.sources,args.output,args.repository,command,args.formal,args.profile=='pilot')
