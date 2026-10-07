@@ -406,3 +406,22 @@ a0d8f2a 噪声数学/尺度；9833bab 训练/checkpoint/恢复；ffd4332 base采
 65f83de干净代码完成stage5a-accepted-20261007-pilot：6个新回合、597候选窗，3类多车核心窗口保留率80%/54.26%/66.67%，248个合格候选中选择12/6。坐标核对及审计0失败；但明显转弯的路口窗口32个全部拒绝、合格转弯0，不作为转弯质量验收。原运行完整保留。
 
 定位到合法车道flat-cap buffer连接裂缝，并补全仅相接合法中心线的round join；同时提高新源路网几何精度和细分，显式降低正常转弯速度。指标阈值未放宽，原始标签不平滑。新版protocol要求新的短Pilot，第一轮不会被当作当前批量协议的质量凭据。后续预检及资源结果另补。
+
+
+### 阶段5A最终交付：入口工程验收完成，正式数据与100epoch待用户本地执行
+
+当前feature为feat/stage5a-data-training，基于main d1b3155。原子提交包括2c09315连续直路/IDM、ce7a2c8原始资格、6ac6ea9预分配采集、e9ed596真实epoch/监测、2841009语义测试、65f83de终端文档、c02213c合法相接路线、53d6c08源精度/正常转弯、3f50ddf首轮负结果、2fb9a58保持有面积集合、7c4a256新原始回合复查、a36aa58资格/N/A/覆盖、cd9f600正式来源恢复保护。全部修改在E:\diffusion_new；旧项目始终只读。
+
+原第二轮stage5a-sourcefix-20261007-pilot在27窗口检查中因几何集合输入限制失败，保留原始输出；修复后用严格相同的6个新源回合生成stage5a-ready-20261007-pilot。最终602候选、216合格候选，选择12/6用于短验收。core多车保留率80%/39.08%/68.25%，坐标/审计0失败。合格池的路口方向变化窗口6个，预演选定队列0个；不宣称转弯模型学习或整个源路网物理合格。merge/换道/转弯仍存在真实原始差分尖峰，保留拒绝；无适用车辆对N/A已与碰撞区别命名。
+
+Stage5A正式preflight、尺度、2epoch、4epoch连续、2→4恢复、continuation audit及子采样均completed/formal/clean，运行SHA=7c4a256073fc2fdc751966232d1dc2f262b0f3ba，源回合采集SHA=3f50ddf。机器读结果与路径见stage5a_validation.json；后续summary不回填运行SHA。旧第一轮/第二轮均不覆盖。
+
+新尺度审计仅覆盖预演18窗：位移P99/max58.9306/63.0720m、速度P99/max15.7680m/s；固定50m/20m/s、未clip。训练B4仅最大12更新，不是100epoch：valepsilon从1.073069→0.601917，生成监测仍0/6、raw/修正数十公里，所有失败及不合格保留。每epoch真实遍历12窗一次；连续/恢复model、AdamW、噪声Generator、CPU/CUDA RNG及后6步trace全部bitwise一致；固定监测312数组重放一致。
+
+RTX4070 Laptop8188MiB、torch2.5.1/CUDA12.4，短训练allocated177.474MiB、更新均时178—184ms，CPU缓存15,396,516bytes，三训练循环含监测合计约45.37s，cache/环境查询另计。预演真实选车2—6，不能保证完整新负载同成本；30000步按相同缓存负载仅optimizer估计89—92分钟，不是收敛或端到端时间。
+
+最终155项测试通过（14.27s），git diff --check、PowerShell语法、离线wheel与python -I从wheel独立导入通过。最终代码再次读取实际已完成Pilot/资格队列检查，接受原协议身份。没有默认批量采集、正式1200/200数据、100epoch、阶段6/RL或tag。
+
+接下来由本地终端按stage5a.md执行Collect（78回合）、Prepare（资格/多样性/重新全量尺度审计）、Train（新模型B4/100真实epoch=30000更新）；每epoch验证全部200、5epoch保存、10epoch固定任务监测。配额或质量不足就保留报告并停止，不重复补足或静默缩减；查看最终转弯覆盖及过滤分布后再判断数据代表性。100epoch只是初始预算，不自动标记收敛。
+
+本轮远端只读核验Connection reset，未推送；保留本地原子提交，验收后--no-ff合并main。完整手动同步命令已写stage5a.md，包含尚未同步的bounded-training-diagnosis分支；不强推。最终交付分支/SHA以Git与交付报告为准。

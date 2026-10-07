@@ -62,3 +62,6 @@ noise objective及DDIM方差来自Ho等DDPM（arxiv:2006.11239）和Song等DDIM�
 
 
 合法路线连接修复自行实现：端点相接且连接合法时，用相同半宽的round join消除分开flat cap缓冲产生的细缝，裁剪到drivable；不按测得轨迹膨胀路线或增加全junction。新SUMO路网细分/精度和转弯限速参数依据[netconvert官方文档](https://sumo.dlr.de/docs/netconvert.html)及本机1.22.0 --help核对，自行写入调用配置。改变源几何后重新采集短预检，不事后修改正常标签。
+
+
+有效的裁剪GeometryCollection现在沿用有面积/有限/合法检查并保留全部组成，与现有bounded linework修复的点集语义一致；无面积集合仍拒绝。未移除几何组成、改变1e-6道路容差或平滑源轨迹。第二轮检查失败和原始记录保留，第三轮严格复用相同新回合，运行SHA分开记录。新N/A分类与selected turn统计只澄清审计，不改变正常标签或推理条件。

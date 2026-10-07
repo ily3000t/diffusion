@@ -84,3 +84,42 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\stage5a.ps1 -Actio
 第一轮新Pilot有597候选窗、248合格窗，坐标核对0失败，但32个明显转弯路口窗口全部被motion/route拒绝。因此不把第一轮passed当作转弯数据合格。进一步核对发现route违规面积约0.02m²，来自合法相连车道分别使用flat cap buffer留下的连接楔形裂缝。route_area现在仅在合法、端点相接的中心线处构造相同宽度round join，并裁剪到drivable；既不开放不相接连接，也不加入整个junction或其他路线。
 
 新场景用network显式配置：internal_link_detail=128、corner_detail=16、output_precision=8，正常转弯平均横向加速度限值1.5m/s²。这些改变作用于SUMO源路网和正常速度，不对已记录标签平滑或放宽质量阈值。旧场景默认12/8/2/5.5保持可读。配置变更后protocol_id改变，必须使用新Pilot。详细参数依据[SUMO netconvert](https://sumo.dlr.de/docs/netconvert.html)及本机1.22.0 --help核对，能否产生合格转弯以新原始轨迹为准。
+
+
+## 本轮已完成的预演与可复用预检
+
+最终合格预检为 artifacts/runs/stage5a-ready-20261007-pilot。它复用6个新短回合的原始记录，重新生成并检查602候选窗，坐标/审计0失败；多车核心窗口中直路96/120（80%）、汇入34/87（39.08%）、路口86/126（68.25%）合格。合格池包含6个方向范围>0.15rad的路口窗口（整个历史+未来，不代表完整未来转弯）。此次hash选择的12/6入口预演队列未选中转弯窗，不能将这次GPU预演说成转弯学习验证。正式Prepare新增同时报告合格池及最终队列的实际转弯覆盖；保留不足、过滤导致的场景偏移必须一起分析。
+
+检查合法裁剪产生的有效Polygon+LineString几何集合时，评估器现在保留全部组成，仅要求有限、有效、有正面积；无面积集合仍拒绝，未改变道路阈值或删除线段。第二轮原failed运行完整保留。无适用车辆对仍N/A；旧报告collision_or_unknown原因包含只有一辆车的情况，并非真实碰撞，现代码将no_applicable_pairs、collision和unresolved分开。
+
+新队列尺度审计：位移P99=58.9306m、max=63.0720m；速度P99/max=15.7680m/s，50m/20m/s继续作物理单位，未clip。这个小队列审计不能替代正式1400窗审计。
+
+新模型2epoch=6更新、连续4epoch=12更新、从2恢复到4epoch再6更新，仅用于入口和恢复验证。连续/恢复的model、AdamW、Generator、CPU/CUDA RNG、每步窗口/t/损失全部bitwise一致；4个epoch每轮恰好遍历12窗一次，固定监测312个NPZ数组重放全部bitwise相同。实际selected agent为2—6辆，数据非真实12车密集负载。单步均时178—184ms、峰值allocated177.474MiB、CPU缓存15,396,516bytes；以相同负载估算30000更新optimizer-only约89—92分钟，正式地图/车辆负载和其他成本另计。原始输出和修正仍可达数十公里，所有监测质量0/6；不证明收敛、模型性能或方法失败。
+
+当前最终代码155项测试通过、独立wheel导入和PowerShell解析通过。主链正式运行SHA=7c4a256073fc2fdc751966232d1dc2f262b0f3ba；原始源路网采集SHA=3f50ddf。后续提交补充N/A原因命名、选择覆盖和正式来源保护，当前代码已核对可复用该Pilot；不修改旧运行SHA。完整机器记录见[stage5a_validation.json](stage5a_validation.json)。
+
+现在可直接复用已通过预检，按顺序在本地终端执行：
+
+~~~powershell
+Set-Location E:\diffusion_new
+.\scripts\stage5a.ps1 -Action Collect -Name stage5a-v1 -PilotReport 'artifacts\runs\stage5a-ready-20261007-pilot\preparation\quality_report.json'
+.\scripts\stage5a.ps1 -Action Prepare -Name stage5a-v1
+.\scripts\stage5a.ps1 -Action Train -Name stage5a-v1
+~~~
+
+逐条确认退出成功。Prepare会先完成1200/200质量/多样性选择，再对完整新队列审计尺度；查看quality_report和scale_audit后再启动Train。源jerk问题依然存在，并通过资格过滤处理，不能把6个短回合通过理解为所有源轨迹合格。此次尚未生成正式1200/200、未启动100epoch、没有阶段6或tag。
+
+若只修改检查器而源采集计划完全相同，可用Pilot -Name新名称 -ReusePilot旧pilot目录复查；严格核对所有6个原始回合的配置、种子、formal/clean/completed与哈希，不重新采集。调整源几何或驾驶参数时此入口拒绝复用，必须重新Pilot。
+
+## 远端同步
+
+本轮只读核验GitHub时连接重置，因此未推送、未重写远端。本地验收后合并main，完整历史保留。网络恢复后在终端按顺序执行，任何失败先停下检查：
+
+~~~powershell
+git -C E:\diffusion_new fetch origin
+git -C E:\diffusion_new switch main
+git -C E:\diffusion_new merge --ff-only origin/main
+git -C E:\diffusion_new push --atomic origin main feat/stage5a-data-training feat/bounded-training-diagnosis
+~~~
+
+merge --ff-only若失败说明历史需要核对，不强推、不自动合并无关历史。认证或权限错误不反复重试。
