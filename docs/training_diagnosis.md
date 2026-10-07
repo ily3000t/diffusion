@@ -31,3 +31,31 @@ $old = 'artifacts/runs/stage5-train-accepted-20261005/checkpoint_step_000240.pt'
 ## 图表依赖
 
 诊断入口复用`model,data`依赖；`scripts/render_training_diagnosis.py`另需`reports`可选组。本机已存在Matplotlib 3.10.0，本轮未修改环境。新环境应先安装匹配GPU的PyTorch，再在项目虚拟环境安装`.[model,data,reports,dev]`；SUMO客户端继续使用对应安装目录。图表缓存放在`artifacts/cache`，不修改全局缓存。
+
+
+## 已执行结果与后续复现
+
+本预算已完成到总3000步；结果和解释见[training_diagnosis_summary.md](training_diagnosis_summary.md)。不自动继续训练。以下是在现有数据和240步checkpoint可用时的复现命令，输出使用新目录；原运行命令原样保存在各目录command.txt。必须先使用已提交、干净代码，并设置项目环境：
+
+```powershell
+Set-Location E:\diffusion_new
+$env:PYTHONPATH = 'E:\diffusion_new\src'
+$env:SUMO_HOME = 'E:\Program Files\sumo-1.22.0'
+$env:MPLCONFIGDIR = 'E:\diffusion_new\artifacts\cache\matplotlib-diagnosis'
+$dataset = 'artifacts/processed/stage2-accepted-20261004'
+$scale = 'artifacts/runs/stage5-scales-accepted-20261005/scale_audit.json'
+$old = 'artifacts/runs/stage5-train-accepted-20261005/checkpoint_step_000240.pt'
+$cp1000 = 'artifacts/runs/diagnostic-train-1000-replay/checkpoint_step_001000.pt'
+$cp2000 = 'artifacts/runs/diagnostic-train-2000-replay/checkpoint_step_002000.pt'
+$cp3000 = 'artifacts/runs/diagnostic-train-3000-replay/checkpoint_step_003000.pt'
+& '.\.venv-model\Scripts\python.exe' -m sumodiff.diffusion train --dataset $dataset --model-config configs/model/initial.yaml --config configs/train/diagnostic_1000.yaml --scale-audit $scale --resume $old --output artifacts/runs/diagnostic-train-1000-replay --formal
+& '.\.venv-model\Scripts\python.exe' -m sumodiff.diffusion train --dataset $dataset --model-config configs/model/initial.yaml --config configs/train/diagnostic_2000.yaml --scale-audit $scale --resume $cp1000 --output artifacts/runs/diagnostic-train-2000-replay --allow-long-run --formal
+& '.\.venv-model\Scripts\python.exe' -m sumodiff.diffusion train --dataset $dataset --model-config configs/model/initial.yaml --config configs/train/diagnostic_3000.yaml --scale-audit $scale --resume $cp2000 --output artifacts/runs/diagnostic-train-3000-replay --allow-long-run --formal
+& '.\.venv-model\Scripts\python.exe' -m sumodiff.diffusion diagnose --dataset $dataset --checkpoint $old --config configs/experiments/training_diagnostic.yaml --output artifacts/runs/diagnosis-0240-replay --formal
+& '.\.venv-model\Scripts\python.exe' -m sumodiff.diffusion diagnose --dataset $dataset --checkpoint $cp1000 --config configs/experiments/training_diagnostic.yaml --output artifacts/runs/diagnosis-1000-replay --formal
+& '.\.venv-model\Scripts\python.exe' -m sumodiff.diffusion diagnose --dataset $dataset --checkpoint $cp2000 --config configs/experiments/training_diagnostic.yaml --output artifacts/runs/diagnosis-2000-replay --formal
+& '.\.venv-model\Scripts\python.exe' -m sumodiff.diffusion diagnose --dataset $dataset --checkpoint $cp3000 --config configs/experiments/training_diagnostic_sampling.yaml --output artifacts/runs/diagnosis-3000-replay --formal
+& '.\.venv-model\Scripts\python.exe' scripts/render_training_diagnosis.py --diagnoses artifacts/runs/diagnosis-0240-replay artifacts/runs/diagnosis-1000-replay artifacts/runs/diagnosis-2000-replay artifacts/runs/diagnosis-3000-replay --training-runs artifacts/runs/stage5-train-accepted-20261005 artifacts/runs/diagnostic-train-1000-replay artifacts/runs/diagnostic-train-2000-replay artifacts/runs/diagnostic-train-3000-replay --dataset $dataset --output artifacts/runs/bounded-diagnosis-report-replay --formal
+```
+
+任一命令失败应检查对应status.json并停止后续依赖步骤，不能用失败输出启动下一步。新提交复现会如实记录新的运行SHA，不能覆盖或改写原实验身份。不同设备/依赖的浮点结果采用明确容差比较，不能默认bitwise一致。

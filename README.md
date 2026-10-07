@@ -1,6 +1,6 @@
 # SUMODiff
 
-独立的 SUMO 多车轨迹扩散生成工程。已实现阶段0至5：采集、固定坐标/地图/窗口、统一解码与独立评估、条件去噪模型，以及基础扩散训练、恢复和DDIM采样。小数据短训练链路已验收；当前短checkpoint生成质量不合格，尚不是可用研究模型。旧checkpoint不兼容。阶段6引导尚未实现，不默认启动正式长训练。实施范围见 [设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
+独立的 SUMO 多车轨迹扩散生成工程。已实现阶段0至5：采集、固定坐标/地图/窗口、统一解码与独立评估、条件去噪模型，以及基础扩散训练、恢复和DDIM采样。小数据训练链路已验收；补充诊断已从240步续训至3000步，损失及自由输出失真改善，固定验证生成质量仍为0/6，收敛及充分训练质量未验证。旧checkpoint不兼容。阶段6引导尚未实现，不默认启动正式长训练。实施范围见 [设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
 
 ## 目录
 `configs/` 分类保存候选配置，`src/sumodiff/` 为新代码，`scripts/` 为入口辅助，`tests/` 为短验证，`docs/` 为合同和协议。`artifacts/{raw,processed,cache,checkpoints,runs}` 全部忽略，不提交数据或权重。保留模块目录标明后续阶段，不包含假实现。
@@ -58,3 +58,8 @@ $env:PYTHONPATH = (Join-Path $PWD 'src')
 ## 阶段5基础扩散
 
 已提供固定尺度审计、240步小数据学习验证、严格checkpoint/续训、20步DDIM、raw/decoded轨迹及独立指标。入口`python -m sumodiff.diffusion`，使用项目`.venv-model`；详见[基础扩散协议](docs/base_diffusion.md)。工程链路验收与基础模型质量分开；短checkpoint不作为可用研究模型，不自动长训练或创建tag。
+
+
+## 补充训练诊断
+
+已完成原12/6窗口、总3000步的有界诊断，未改变架构或追加采集。固定噪声标签重构、纯噪声自由生成与oracle数值检查分别报告；20/50/100步DDIM对照和图表均可追溯。结果见[诊断摘要](docs/training_diagnosis_summary.md)，复现命令与依赖见[诊断协议](docs/training_diagnosis.md)。不把当前质量失败视为阶段5工程失败，也不将loss下降当作收敛证明。

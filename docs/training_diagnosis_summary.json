@@ -1,0 +1,362 @@
+{
+  "schema_version": "sumodiff.bounded_training.summary.v1",
+  "date": "2026-10-07",
+  "budget": {
+    "start_step": 240,
+    "end_step": 3000,
+    "new_updates": 2760,
+    "stopped_at_authorized_limit": true
+  },
+  "acceptance": {
+    "stage5_engineering": "passed",
+    "convergence": "not_assessed",
+    "sufficient_training_quality": "not_assessed",
+    "current_fixed_validation_quality": "0/6"
+  },
+  "data": {
+    "location": "E:\\diffusion_new\\artifacts\\processed\\stage2-accepted-20261004",
+    "manifest_sha256": "d219d20be2cf67c7800f2ae1367521e7b4795d1aa2a8f4d53fb4011c8cb51930",
+    "training_windows": 12,
+    "validation_windows": 6,
+    "test_used": false
+  },
+  "source_runs": [
+    {
+      "location": "E:\\diffusion_new\\artifacts\\runs\\diagnosis-0240-20261007",
+      "run_sha": "d51400e7ac79c225c29bc558dc1c9bea4936e390",
+      "branch": "feat/bounded-training-diagnosis",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest_sha256": "6c30bc1807235b12c09d93de3831ce433615336324a6ba27670560739acf92a9",
+      "resolved_config_sha256": "f166e4a3af7d059c7f216e947a7537d0d04d88c502001d20b9cada31e48cdfbf",
+      "checkpoint": {
+        "id": "sha256:88c806c3ab3980456043fdf7a413d092a53074b2a5bb505769249aa2b805bdfa",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5-train-accepted-20261005\\checkpoint_step_000240.pt",
+        "sha256": "88c806c3ab3980456043fdf7a413d092a53074b2a5bb505769249aa2b805bdfa",
+        "size_bytes": 41212650
+      },
+      "command_file": "E:\\diffusion_new\\artifacts\\runs\\diagnosis-0240-20261007\\command.txt"
+    },
+    {
+      "location": "E:\\diffusion_new\\artifacts\\runs\\diagnostic-train-1000-20261007",
+      "run_sha": "d51400e7ac79c225c29bc558dc1c9bea4936e390",
+      "branch": "feat/bounded-training-diagnosis",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest_sha256": "153026221a8e3cfa00f0d379a7bccc65037857952ac2b52f16d31085a06d2d0a",
+      "resolved_config_sha256": "d31e099bc1ccb65808494079984a0e21671a087dd29ef2f13588c47dc41f37d2",
+      "checkpoint": {
+        "id": "sha256:88c806c3ab3980456043fdf7a413d092a53074b2a5bb505769249aa2b805bdfa",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5-train-accepted-20261005\\checkpoint_step_000240.pt",
+        "sha256": "88c806c3ab3980456043fdf7a413d092a53074b2a5bb505769249aa2b805bdfa",
+        "size_bytes": 41212650
+      },
+      "command_file": "E:\\diffusion_new\\artifacts\\runs\\diagnostic-train-1000-20261007\\command.txt"
+    },
+    {
+      "location": "E:\\diffusion_new\\artifacts\\runs\\diagnosis-1000-20261007",
+      "run_sha": "d51400e7ac79c225c29bc558dc1c9bea4936e390",
+      "branch": "feat/bounded-training-diagnosis",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest_sha256": "f9e4692a786d34f993a7930a5e752d2fb2763732cba7ac060a156405cbe87c58",
+      "resolved_config_sha256": "a4878e6ea6e60a6c288459905beefdcce30bd58f2efd6de1ab29f79daa268e66",
+      "checkpoint": {
+        "id": "sha256:a646527c9336e3feb1bba1acd71b0e2ac322ad148931d03adcc9f6c96a4b9db1",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\diagnostic-train-1000-20261007\\checkpoint_step_001000.pt",
+        "sha256": "a646527c9336e3feb1bba1acd71b0e2ac322ad148931d03adcc9f6c96a4b9db1",
+        "size_bytes": 41213546
+      },
+      "command_file": "E:\\diffusion_new\\artifacts\\runs\\diagnosis-1000-20261007\\command.txt"
+    },
+    {
+      "location": "E:\\diffusion_new\\artifacts\\runs\\diagnostic-train-2000-20261007",
+      "run_sha": "d51400e7ac79c225c29bc558dc1c9bea4936e390",
+      "branch": "feat/bounded-training-diagnosis",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest_sha256": "b8406f025405ebe54ed400f8c776bcbc5d41bd71a43ea406afb4146eb7d79546",
+      "resolved_config_sha256": "cddc28b8e222adc7f172d5ea5f0444bc866a3a39ece8085591ad356bf216c713",
+      "checkpoint": {
+        "id": "sha256:a646527c9336e3feb1bba1acd71b0e2ac322ad148931d03adcc9f6c96a4b9db1",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\diagnostic-train-1000-20261007\\checkpoint_step_001000.pt",
+        "sha256": "a646527c9336e3feb1bba1acd71b0e2ac322ad148931d03adcc9f6c96a4b9db1",
+        "size_bytes": 41213546
+      },
+      "command_file": "E:\\diffusion_new\\artifacts\\runs\\diagnostic-train-2000-20261007\\command.txt"
+    },
+    {
+      "location": "E:\\diffusion_new\\artifacts\\runs\\diagnosis-2000-20261007",
+      "run_sha": "d51400e7ac79c225c29bc558dc1c9bea4936e390",
+      "branch": "feat/bounded-training-diagnosis",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest_sha256": "38c172a7b9dc688c680c1497e2caa298c35fd8db4ad2d93f99044e72a957bafa",
+      "resolved_config_sha256": "1731f61a97e602861e4d91a0cce2344d836973edfd43039325437258743b6869",
+      "checkpoint": {
+        "id": "sha256:546cfbfd1bf0cfa552c3ab8f9069221cc8f4414f7c469b50ebfb045e3dd364b0",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\diagnostic-train-2000-20261007\\checkpoint_step_002000.pt",
+        "sha256": "546cfbfd1bf0cfa552c3ab8f9069221cc8f4414f7c469b50ebfb045e3dd364b0",
+        "size_bytes": 41213546
+      },
+      "command_file": "E:\\diffusion_new\\artifacts\\runs\\diagnosis-2000-20261007\\command.txt"
+    },
+    {
+      "location": "E:\\diffusion_new\\artifacts\\runs\\diagnostic-train-3000-20261007",
+      "run_sha": "d51400e7ac79c225c29bc558dc1c9bea4936e390",
+      "branch": "feat/bounded-training-diagnosis",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest_sha256": "ef38e6bc3f990cb9d6c8543e5f1332a7f91b34639bcf24869a565996c8995be7",
+      "resolved_config_sha256": "6e17d71f9a0dd80cdb612ee73f942f7f70f85493fe321af36c737b6f19a93292",
+      "checkpoint": {
+        "id": "sha256:546cfbfd1bf0cfa552c3ab8f9069221cc8f4414f7c469b50ebfb045e3dd364b0",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\diagnostic-train-2000-20261007\\checkpoint_step_002000.pt",
+        "sha256": "546cfbfd1bf0cfa552c3ab8f9069221cc8f4414f7c469b50ebfb045e3dd364b0",
+        "size_bytes": 41213546
+      },
+      "command_file": "E:\\diffusion_new\\artifacts\\runs\\diagnostic-train-3000-20261007\\command.txt"
+    },
+    {
+      "location": "E:\\diffusion_new\\artifacts\\runs\\diagnosis-3000-20261007",
+      "run_sha": "d51400e7ac79c225c29bc558dc1c9bea4936e390",
+      "branch": "feat/bounded-training-diagnosis",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest_sha256": "cf6af1123d56e0887b8d186f1c862e839831604c9e3b4a512e9c2835f8e8514d",
+      "resolved_config_sha256": "7318ac6b7560407e1f2d489c626dbc084d3787e5a9d241c7cdd9dbfadb3449c8",
+      "checkpoint": {
+        "id": "sha256:5504874032fce9270474d298a3c81300625de65194e9a292cd0f7ed2a0c03512",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\diagnostic-train-3000-20261007\\checkpoint_step_003000.pt",
+        "sha256": "5504874032fce9270474d298a3c81300625de65194e9a292cd0f7ed2a0c03512",
+        "size_bytes": 41213546
+      },
+      "command_file": "E:\\diffusion_new\\artifacts\\runs\\diagnosis-3000-20261007\\command.txt"
+    },
+    {
+      "location": "E:\\diffusion_new\\artifacts\\runs\\bounded-diagnosis-report-20261007",
+      "run_sha": "41ea18f4535b8ad4c6b70e6908ecf5d8d2bff053",
+      "branch": "feat/bounded-training-diagnosis",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest_sha256": "380b2268b7d48d9473e213f173dadaeda8d8a3188bf1b4a1742e415af0b99979",
+      "resolved_config_sha256": "0f61bd2cb664dedadda87b596caecbbb341d67de7b0b5f249558a76597e61814",
+      "checkpoint": null,
+      "command_file": "E:\\diffusion_new\\artifacts\\runs\\bounded-diagnosis-report-20261007\\command.txt"
+    }
+  ],
+  "source_report": {
+    "location": "E:\\diffusion_new\\artifacts\\runs\\bounded-diagnosis-report-20261007\\summary.json",
+    "sha256": "458c41093259b36bb2d952fa7af2abfe0352014918a548631e5c2edfec9799dd",
+    "run_sha": "41ea18f4535b8ad4c6b70e6908ecf5d8d2bff053"
+  },
+  "checkpoint_comparison": [
+    {
+      "step": 240,
+      "run_sha": "d51400e7ac79c225c29bc558dc1c9bea4936e390",
+      "train_probe_mse": 0.03783546263972918,
+      "validation_probe_mse": 0.047379342218240104,
+      "validation_t999_position_rmse_m": 2165.613935895504,
+      "raw_displacement_max_m": 5351.1669921875,
+      "raw_displacement_p99_m": 3324.641650390623,
+      "decoded_displacement_max_m": 1547.7482858734231,
+      "correction_max_m": 4843.105948882752,
+      "correction_p99_m": 3087.093574844498,
+      "quality_pass_rate": 0.0,
+      "failure_count": 0,
+      "parameter_sha256": "1a0f4e11a8c9557c5477d14a88420ea2e8246a1b1b4e399989249219a447ad6f"
+    },
+    {
+      "step": 1000,
+      "run_sha": "d51400e7ac79c225c29bc558dc1c9bea4936e390",
+      "train_probe_mse": 0.01064592661956946,
+      "validation_probe_mse": 0.015259631598989168,
+      "validation_t999_position_rmse_m": 1172.4970526505153,
+      "raw_displacement_max_m": 1612.9686279296875,
+      "raw_displacement_p99_m": 1160.4558825683584,
+      "decoded_displacement_max_m": 272.07494372245577,
+      "correction_max_m": 1500.6078552115462,
+      "correction_p99_m": 1140.9172314146542,
+      "quality_pass_rate": 0.0,
+      "failure_count": 0,
+      "parameter_sha256": "8aeeb6ae0b42fc621f4589e189580e1d9477c2082c8cb1d1ad99414c6685318e"
+    },
+    {
+      "step": 2000,
+      "run_sha": "d51400e7ac79c225c29bc558dc1c9bea4936e390",
+      "train_probe_mse": 0.008153312684347233,
+      "validation_probe_mse": 0.012439273918668428,
+      "validation_t999_position_rmse_m": 1209.7134232006822,
+      "raw_displacement_max_m": 962.2296752929688,
+      "raw_displacement_p99_m": 814.8856536865221,
+      "decoded_displacement_max_m": 280.1934369909614,
+      "correction_max_m": 935.8956815505046,
+      "correction_p99_m": 729.9871058382513,
+      "quality_pass_rate": 0.0,
+      "failure_count": 0,
+      "parameter_sha256": "46801c1f11de99272c3c48c96e5d0852b70bc5d8cb52897da63deb9d270ae624"
+    },
+    {
+      "step": 3000,
+      "run_sha": "d51400e7ac79c225c29bc558dc1c9bea4936e390",
+      "train_probe_mse": 0.0036818832935144505,
+      "validation_probe_mse": 0.00660707987844944,
+      "validation_t999_position_rmse_m": 732.1429553699503,
+      "raw_displacement_max_m": 725.8567504882812,
+      "raw_displacement_p99_m": 516.3364605712886,
+      "decoded_displacement_max_m": 99.23211432505326,
+      "correction_max_m": 719.031264352848,
+      "correction_p99_m": 514.7091776264587,
+      "quality_pass_rate": 0.0,
+      "failure_count": 0,
+      "parameter_sha256": "e73c62e3f9f4a6b2c51bc40592c62707c3b7db7951d27abec6b0821d9c5c8d4d"
+    }
+  ],
+  "sampling_step_comparison": {
+    "20": {
+      "raw_displacement": {
+        "count": 560,
+        "median": 70.39640808105469,
+        "p99": 516.3364605712886,
+        "max": 725.8567504882812
+      },
+      "position_correction": {
+        "count": 560,
+        "median": 64.83485356511736,
+        "p99": 514.7091776264587,
+        "max": 719.031264352848
+      },
+      "sampling_decoder_seconds": {
+        "count": 6,
+        "mean": 0.19192688333472083,
+        "p99": 0.268967915000394,
+        "includes": "conditioning encoder, DDIM and unified decoder; excludes input IO, independent metrics and output IO"
+      },
+      "quality_passed": 0,
+      "quality_denominator": 6,
+      "failures": 0
+    },
+    "50": {
+      "raw_displacement": {
+        "count": 560,
+        "median": 65.14261627197266,
+        "p99": 475.90722381591735,
+        "max": 667.4168701171875
+      },
+      "position_correction": {
+        "count": 560,
+        "median": 57.72986693647145,
+        "p99": 476.1011551266154,
+        "max": 661.2240535514097
+      },
+      "sampling_decoder_seconds": {
+        "count": 6,
+        "mean": 0.3903522499992202,
+        "p99": 0.5170737700012978,
+        "includes": "conditioning encoder, DDIM and unified decoder; excludes input IO, independent metrics and output IO"
+      },
+      "quality_passed": 0,
+      "quality_denominator": 6,
+      "failures": 0
+    },
+    "100": {
+      "raw_displacement": {
+        "count": 560,
+        "median": 62.18505859375,
+        "p99": 454.9496539306633,
+        "max": 635.9277954101562
+      },
+      "position_correction": {
+        "count": 560,
+        "median": 52.2800507473427,
+        "p99": 454.80167493228413,
+        "max": 629.2671779565437
+      },
+      "sampling_decoder_seconds": {
+        "count": 6,
+        "mean": 0.7840604833278727,
+        "p99": 1.0572065699860105,
+        "includes": "conditioning encoder, DDIM and unified decoder; excludes input IO, independent metrics and output IO"
+      },
+      "quality_passed": 0,
+      "quality_denominator": 6,
+      "failures": 0
+    }
+  },
+  "oracle_checks": {
+    "train": {
+      "exact_noise_reconstruction_max_physical_error": 1.7195134205394424e-12,
+      "label_decode_max_position_correction_m": 5.209112032389385e-06,
+      "label_decode_max_velocity_correction_mps": 3.526358582917055e-06,
+      "passed": true,
+      "kind": "CPU float64 exact-noise arithmetic and observed-label decoder check; not learned or generated performance"
+    },
+    "validation": {
+      "exact_noise_reconstruction_max_physical_error": 1.7053025658242404e-12,
+      "label_decode_max_position_correction_m": 5.392316400514811e-06,
+      "label_decode_max_velocity_correction_mps": 1.779094000303273e-06,
+      "passed": true,
+      "kind": "CPU float64 exact-noise arithmetic and observed-label decoder check; not learned or generated performance"
+    }
+  },
+  "resources": {
+    "training_validation_checkpoint_loop_seconds": 505.2140391000139,
+    "new_optimizer_updates": 2760,
+    "peak_allocated_bytes": 186094592,
+    "mean_update_seconds_by_segment": [
+      0.18089477048607203,
+      0.17539177577641607,
+      0.1733198366367381
+    ],
+    "includes": "cached 12-window batch4 training, validation and checkpoint loop; environment queries, cache construction and independent diagnostics excluded"
+  },
+  "final_checkpoint": {
+    "id": "sha256:5504874032fce9270474d298a3c81300625de65194e9a292cd0f7ed2a0c03512",
+    "location": "E:\\diffusion_new\\artifacts\\runs\\diagnostic-train-3000-20261007\\checkpoint_step_003000.pt",
+    "sha256": "5504874032fce9270474d298a3c81300625de65194e9a292cd0f7ed2a0c03512",
+    "size_bytes": 41213546
+  },
+  "figures": {
+    "diagnostic_trends.png": {
+      "id": "sha256:5f1cebfb7525e8cf21b8f92c72c7dbce5ba89ad15dd14d69fb2230a347647318",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\bounded-diagnosis-report-20261007\\diagnostic_trends.png",
+      "sha256": "5f1cebfb7525e8cf21b8f92c72c7dbce5ba89ad15dd14d69fb2230a347647318",
+      "size_bytes": 176881
+    },
+    "diagnostic_trends.svg": {
+      "id": "sha256:794c530aeac804684f7e5f1d8d4aa10489d18d52af91cc64c7458147b0a94fa9",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\bounded-diagnosis-report-20261007\\diagnostic_trends.svg",
+      "sha256": "794c530aeac804684f7e5f1d8d4aa10489d18d52af91cc64c7458147b0a94fa9",
+      "size_bytes": 99108
+    },
+    "final_trajectories.png": {
+      "id": "sha256:17a19b7c4dfdbf9382e79182439ecc5227ad874e5fe14ee4f40833c2070e53b7",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\bounded-diagnosis-report-20261007\\final_trajectories.png",
+      "sha256": "17a19b7c4dfdbf9382e79182439ecc5227ad874e5fe14ee4f40833c2070e53b7",
+      "size_bytes": 410452
+    }
+  },
+  "verification": {
+    "full_test_count": 128,
+    "full_test_seconds": 14.55,
+    "isolated_wheel_import": "passed",
+    "reports_optional_dependency_metadata": "passed",
+    "figure_visual_check": "passed",
+    "git_diff_check": "passed"
+  },
+  "limitations": [
+    "only 12/6 labeled windows and six free validation tasks",
+    "free train-split tasks include only 2/6 seen training windows",
+    "epsilon loss and oracle checks do not establish generated quality or convergence",
+    "source road/route/jerk issues remain",
+    "no architecture change, new data, guidance, test-set tuning or milestone tag"
+  ]
+}

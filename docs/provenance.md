@@ -49,3 +49,8 @@
 noise objective及DDIM方差来自Ho等DDPM（arxiv:2006.11239）和Song等DDIM（arxiv:2010.02502）公开数学定义；在线核对作者ermongroup/ddim的functions/denoising.py，独立实现公式，没有复制该项目文件/代码或依赖其目录。论文大PDF网页读取受大小限制，公式使用作者仓库核对。固定状态尺度、每场景mask loss、元数据、安全tensor-only checkpoint、恢复签名、无标签任务及独立评估均为本工程实现。旧工程不读取训练数据/权重，不修改。
 
 项目torch2.5.1在本机实际验证weights_only=True、float32 AdamW、严格确定性及CUDA RNG恢复。库版本变化不代表验收可复现；恢复明确检查版本，环境记录保留实际CUDA/GPU驱动。
+
+
+## 2026-10-07 有界训练诊断
+
+新增diagnostics.py和render_training_diagnosis.py均在新工程独立实现，复用本仓库已验收的训练、扩散、解码、评估与RunRecorder接口。未复制或运行会写回旧工程的脚本，未使用旧权重；标签只进入重构/oracle与采样结束后的绘图参考，不进入自由采样条件。第三方绘图依赖Matplotlib，版本与实际运行来源进入environment及manifest。
