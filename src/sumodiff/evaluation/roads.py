@@ -25,7 +25,9 @@ class RoadConfig:
 
 def _checked_geometry(serialized, name, config):
     original = shape(serialized)
-    if (original.geom_type not in ('Polygon','MultiPolygon') or original.is_empty
+    # Legal clipping and linework repair may both contain polygon+line parts.
+    # Keep the point set intact; require positive area and all original bounds.
+    if (original.geom_type not in ('Polygon','MultiPolygon','GeometryCollection') or original.is_empty
         or not np.isfinite(shapely.get_coordinates(original)).all() or original.area <= 0):
         raise ValueError(f'{name} must be a finite nonempty polygon area')
     if original.is_valid:

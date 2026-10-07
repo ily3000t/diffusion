@@ -1,0 +1,23 @@
+schema_version: sumodiff.base.epoch.config.v1
+budget_kind: smoke
+device: cuda:0
+batch_size: 4
+epochs: 2
+expected_train_windows: 12
+expected_validation_windows: 6
+train_probe_limit: 12
+validation_every_epochs: 1
+checkpoint_every_epochs: 1
+monitor_every_epochs: 1
+monitor:
+  seed: 20261015
+  limit: 6
+  minimum_agents: 2
+  steps: 20
+  eta: 0.0
+  evaluation:
+    road:
+      geometry_repair: bounded_make_valid
+diffusion:
+  position_scale_m: 50.0
+  velocity_scale_mps: 20.0

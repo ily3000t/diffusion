@@ -146,3 +146,13 @@ ConditionalDenoiser输入noisy_future[B,N,40,6]、整数timestep[B]（候选0..9
 sumodiff.base.checkpoint.v1保存epsilon网络/AdamW、CPU及CUDA随机状态、完整配置、固定50m/20m/s尺度、数据/窗口ID/审计hash和运行SHA。旧checkpoint明确拒绝。未来标签mask只进入训练损失；推理阶段只按agent_mask生成全部40点。
 
 采样stages.npz独立保存initial_noise、raw_normalized_future、raw_future_delta（前2维相对各车t0）、raw_absolute_states、decoded_absolute_states（前2维共同局部绝对位置）、observed initial heading、agent_mask及解码修正/残差/回退。没有future_mask或真实退出时刻作为推理输入，没有伪造guided轨迹；guided阶段在JSON中N/A。原始输出未clip或平滑。详见base_diffusion.md。
+
+
+## 阶段5A数据资格与epoch合同
+
+原window.v1与dataset.v1维持不变。候选目录保留全部窗口；window_quality.jsonl逐窗分开记录core_complete、eligible、reasons、raw64/stored32运动/道路/碰撞、坐标精度误差、实际t0边界及源jerk归因。quality_report.v1记录配额、保留比例和几何/回合覆盖。最终dataset附selection.json（sumodiff.stage5a.selection.v1）；manifest.curation保存selection哈希和候选manifest身份。标签资格不进入模型条件，future_mask只作标签。
+
+训练配置sumodiff.base.epoch.config.v1验证最终数量和资格。epoch无放回遍历，保留尾批；checkpoint.v1保存完整epoch配置、严格数据/尺度签名及原随机/优化器状态，恢复由总step重建批次，旧step模型不能跨数据签名续训。progress.json、latest_checkpoint.json、generation_monitor.json持久化真实步数/保存点和定期自由生成结果。convergence_status=not_assessed。
+
+
+阶段5A路网配置新增network几何细分、输出精度和正常转弯横向加速度限值，进入完整resolved_config及源scene身份。route_corridors保留合法相接端点的round join并裁剪drivable，正面积GeometryCollection保留全部线/点组成；没有允许整个junction替代路线。window_quality和selection进一步区分无车辆对N/A与真实碰撞/未解析，并分别报告eligible与selected实际方向变化窗口数量。

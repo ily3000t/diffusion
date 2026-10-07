@@ -54,3 +54,14 @@ noise objective及DDIM方差来自Ho等DDPM（arxiv:2006.11239）和Song等DDIM�
 ## 2026-10-07 有界训练诊断
 
 新增diagnostics.py和render_training_diagnosis.py均在新工程独立实现，复用本仓库已验收的训练、扩散、解码、评估与RunRecorder接口。未复制或运行会写回旧工程的脚本，未使用旧权重；标签只进入重构/oracle与采样结束后的绘图参考，不进入自由采样条件。第三方绘图依赖Matplotlib，版本与实际运行来源进入environment及manifest。
+
+
+## 2026-10-07 阶段5A
+
+采集计划、完整窗口独立资格核对、流式处理/多样性选择、真正epoch遍历和定期监测均在E:\diffusion_new自行实现，复用本仓库已验收接口。未复制旧工程，不修改旧目录。显式IDM接口及原始前保险杠/导航角定义来自本机SUMO1.22.0及官方TraCI/Intersections文档；没有复制第三方源码。正常源标签保留，连续直路用单edge去除人为分段，跟驰参数变化不等于真实行为校准或动力学保证。硬链接只在新项目内材料化已选窗口，记录方式与哈希。第三方依赖及实际环境均由RunRecorder保存。
+
+
+合法路线连接修复自行实现：端点相接且连接合法时，用相同半宽的round join消除分开flat cap缓冲产生的细缝，裁剪到drivable；不按测得轨迹膨胀路线或增加全junction。新SUMO路网细分/精度和转弯限速参数依据[netconvert官方文档](https://sumo.dlr.de/docs/netconvert.html)及本机1.22.0 --help核对，自行写入调用配置。改变源几何后重新采集短预检，不事后修改正常标签。
+
+
+有效的裁剪GeometryCollection现在沿用有面积/有限/合法检查并保留全部组成，与现有bounded linework修复的点集语义一致；无面积集合仍拒绝。未移除几何组成、改变1e-6道路容差或平滑源轨迹。第二轮检查失败和原始记录保留，第三轮严格复用相同新回合，运行SHA分开记录。新N/A分类与selected turn统计只澄清审计，不改变正常标签或推理条件。
