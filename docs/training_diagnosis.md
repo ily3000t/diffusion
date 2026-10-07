@@ -27,3 +27,7 @@ $old = 'artifacts/runs/stage5-train-accepted-20261005/checkpoint_step_000240.pt'
 后续2000/3000用对应diagnostic_N.yaml，分别从1000/2000末checkpoint恢复，传--allow-long-run。diagnose对各checkpoint分别执行，新目录不覆盖；sampling对照配置training_diagnostic_sampling.yaml。学习诊断关闭“必须相对本段起点下降5%”的短验收门槛，记录实际变化；不修改训练签名中的算法项。训练/评估互不修改权重或RNG checkpoint。
 
 换成完整core84/95窗会改变训练签名，不能冒充严格resume。本轮未启动该训练，后续应新建训练实验或另行实现明确warm-start接口。阶段6模块/合成验证可继续开发，短模型质量不是硬门槛；真实风险—质量研究结论需独立证据。
+
+## 图表依赖
+
+诊断入口复用`model,data`依赖；`scripts/render_training_diagnosis.py`另需`reports`可选组。本机已存在Matplotlib 3.10.0，本轮未修改环境。新环境应先安装匹配GPU的PyTorch，再在项目虚拟环境安装`.[model,data,reports,dev]`；SUMO客户端继续使用对应安装目录。图表缓存放在`artifacts/cache`，不修改全局缓存。
