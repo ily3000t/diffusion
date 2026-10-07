@@ -6,7 +6,7 @@ import math
 
 GEOMETRIES = {
     "three_lane_straight": {"core_length": 300.0, "entry_buffer": 180.0, "exit_buffer": 180.0,
-                            "lane_width": 3.5, "speed_limit": 18.0, "rotation_degrees": 0.0},
+                            "lane_width": 3.5, "speed_limit": 18.0, "rotation_degrees": 0.0, "segmented_straight": True},
     "ramp_merge": {"approach_length": 250.0, "merge_length": 120.0, "exit_buffer": 220.0,
                    "ramp_offset": 50.0, "lane_width": 3.5, "speed_limit": 20.0, "rotation_degrees": 0.0},
     "unsignalized_intersection": {"approach_length": 200.0, "lane_width": 3.5, "speed_limit": 13.9,
@@ -49,7 +49,7 @@ def resolve_config(supplied: dict) -> dict:
                 "geometry": GEOMETRIES[family],
                 "traffic": {"begin_seconds": 0.0, "end_seconds": 12.0,
                             "route_rates_per_hour": {name: 900.0 if name == "main" else 120.0 for name in route_names(family)}},
-                "driver": {"length": 4.7, "width": 1.8, "accel": 2.6, "decel": 4.5,
+                "driver": {"car_follow_model": "Krauss", "length": 4.7, "width": 1.8, "accel": 2.6, "decel": 4.5,
                            "emergencyDecel": 9.0, "tau": 1.2, "minGap": 2.5, "sigma": 0.3,
                            "speedFactor": 1.0, "speedDev": 0.1, "lcStrategic": 1.0,
                            "lcCooperative": 1.0, "lcSpeedGain": 1.0, "lcKeepRight": 1.0},
@@ -68,7 +68,9 @@ def resolve_config(supplied: dict) -> dict:
     if config["schema_version"] != "sumodiff.scenario.v1":
         raise ValueError("Unsupported scenario schema")
     for name, value in config["geometry"].items():
-        if name in ("rotation_degrees", "north_skew_degrees"):
+        if name == "segmented_straight":
+            if type(value) is not bool: raise ValueError("segmented_straight must be boolean")
+        elif name in ("rotation_degrees", "north_skew_degrees"):
             if type(value) not in (int, float) or not math.isfinite(value):
                 raise ValueError(f"Invalid geometry.{name}")
         elif name != "junction_type":
@@ -87,6 +89,9 @@ def resolve_config(supplied: dict) -> dict:
     for route, rate in traffic["route_rates_per_hour"].items():
         positive(rate, f"route_rate.{route}", allow_zero=True)
     for name, value in config["driver"].items():
+        if name == "car_follow_model":
+            if value not in ("Krauss", "IDM"): raise ValueError("Only Krauss and IDM are supported")
+            continue
         positive(value, f"driver.{name}", allow_zero=name.startswith("lc") or name in ("sigma", "speedDev"))
     if not 0 <= config["driver"]["sigma"] <= 1 or config["driver"]["tau"] < 0.1:
         raise ValueError("Invalid driver imperfection or reaction time")
@@ -101,7 +106,7 @@ def resolve_config(supplied: dict) -> dict:
             raise ValueError(f"validation.{name} must be boolean")
     validation = config["validation"]
     if validation["lane_change_probe"] or validation["stop_probe"]:
-        if family != "three_lane_straight" or not validation["diagnostic_only"]:
+        if family != "three_lane_straight" or not validation["diagnostic_only"] or not config["geometry"]["segmented_straight"]:
             raise ValueError("Straight-road probes require diagnostic_only=true")
         if config["geometry"]["entry_buffer"] <= 100:
             raise ValueError("Diagnostic stop requires entry buffer >100m")

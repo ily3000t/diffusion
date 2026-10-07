@@ -51,7 +51,12 @@ def layout(config: dict):
     def connect(source, target, source_lane, target_lane):
         connections.append({"from": source, "to": target, "fromLane": str(source_lane), "toLane": str(target_lane)})
 
-    if family == "three_lane_straight":
+    if family == "three_lane_straight" and not geometry["segmented_straight"]:
+        node("start", -geometry["entry_buffer"], 0)
+        node("end", geometry["core_length"]+geometry["exit_buffer"], 0)
+        edge("main", "start", "end", 3)
+        routes["main"] = {"edges": ["main"], "movement": "straight"}
+    elif family == "three_lane_straight":
         length, before, after = geometry["core_length"], geometry["entry_buffer"], geometry["exit_buffer"]
         for name, x in [("start", -before), ("core_start", 0), ("core_end", length), ("end", length+after)]:
             node(name, x, 0)
@@ -138,9 +143,9 @@ def build_scene(output: Path, config: dict, runtime: dict, seed: int) -> dict:
         if not all(pair in connected for pair in zip(route["edges"], route["edges"][1:])):
             raise RuntimeError(f"Compiled route is disconnected: {name}")
     demand = ET.Element("routes")
-    vehicle_type = {"id": "passenger", "vClass": "passenger", "carFollowModel": "Krauss", "laneChangeModel": "LC2013",
+    vehicle_type = {"id": "passenger", "vClass": "passenger", "carFollowModel": config["driver"]["car_follow_model"], "laneChangeModel": "LC2013",
                     "maxSpeed": str(config["geometry"]["speed_limit"])}
-    vehicle_type.update({key: str(value) for key, value in config["driver"].items()})
+    vehicle_type.update({key: str(value) for key, value in config["driver"].items() if key != "car_follow_model"})
     ET.SubElement(demand, "vType", vehicle_type)
     for name, route in routes.items():
         ET.SubElement(demand, "route", {"id": name, "edges": " ".join(route["edges"])})
