@@ -128,8 +128,11 @@ def build_scene(output: Path, config: dict, runtime: dict, seed: int) -> dict:
     command = [runtime["netconvert"]["path"], "--node-files", str(output/"nodes.nod.xml"),
                "--edge-files", str(output/"edges.edg.xml"), "--connection-files", str(output/"connections.con.xml"),
                "--output-file", str(output/"network.net.xml"), "--no-turnarounds", "true",
-               "--offset.disable-normalization", "true", "--junctions.corner-detail", "8",
-               "--junctions.internal-link-detail", "12"]
+               "--offset.disable-normalization", "true",
+               "--junctions.corner-detail", str(config["network"]["corner_detail"]),
+               "--junctions.internal-link-detail", str(config["network"]["internal_link_detail"]),
+               "--precision", str(config["network"]["output_precision"]),
+               "--junctions.limit-turn-speed", str(config["network"]["limit_turn_lateral_accel_mps2"])]
     (output/"netconvert-command.txt").write_text(render_command(command)+"\n", encoding="utf-8")
     with (output/"netconvert.log").open("w", encoding="utf-8") as log:
         result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, timeout=60, check=False)

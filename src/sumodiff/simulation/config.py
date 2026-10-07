@@ -47,6 +47,8 @@ def resolve_config(supplied: dict) -> dict:
         raise ValueError(f"Unsupported family: {family}")
     defaults = {"schema_version": "sumodiff.scenario.v1", "family": family,
                 "geometry": GEOMETRIES[family],
+                "network": {"corner_detail": 8, "internal_link_detail": 12, "output_precision": 2,
+                            "limit_turn_lateral_accel_mps2": 5.5},
                 "traffic": {"begin_seconds": 0.0, "end_seconds": 12.0,
                             "route_rates_per_hour": {name: 900.0 if name == "main" else 120.0 for name in route_names(family)}},
                 "driver": {"car_follow_model": "Krauss", "length": 4.7, "width": 1.8, "accel": 2.6, "decel": 4.5,
@@ -81,6 +83,11 @@ def resolve_config(supplied: dict) -> dict:
             raise ValueError("Intersection supports one or two lanes per direction")
         if geometry["junction_type"] not in ("priority", "right_before_left") or abs(geometry["north_skew_degrees"]) > 30:
             raise ValueError("Unsupported junction rules or excessive north/south skew")
+    for key in ("corner_detail","internal_link_detail","output_precision"):
+        v=config["network"][key]
+        if type(v) is not int or not 1<=v<=(10 if key=="output_precision" else 256):
+            raise ValueError(f"Invalid network.{key}")
+    positive(config["network"]["limit_turn_lateral_accel_mps2"],"network.limit_turn_lateral_accel_mps2")
     traffic = config["traffic"]
     positive(traffic["begin_seconds"], "traffic.begin_seconds", allow_zero=True)
     positive(traffic["end_seconds"], "traffic.end_seconds")

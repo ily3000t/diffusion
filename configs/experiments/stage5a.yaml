@@ -37,3 +37,8 @@ evaluation:
     numerical_tolerance_m: 0.000001
     max_repair_area_change_m2: 0.000001
     max_repair_hausdorff_m: 0.000001
+network:
+  corner_detail: 16
+  internal_link_detail: 128
+  output_precision: 8
+  limit_turn_lateral_accel_mps2: 1.5

@@ -20,7 +20,9 @@ DEFAULTS = dict(schema_version='sumodiff.stage5a.config.v1', seed=20261010,
     heading_roundtrip_tolerance=.000002, window={}, evaluation={},
     driver=dict(car_follow_model='IDM', sigma=0., accel=2., decel=3.5, tau=1.5,
                 minGap=3., speedFactor=.95, speedDev=.08),
-    runtime=dict(sumo_home=None, client_source='sumo_home_tools'))
+    runtime=dict(sumo_home=None, client_source='sumo_home_tools'),
+    network=dict(corner_detail=16,internal_link_detail=128,output_precision=8,
+                 limit_turn_lateral_accel_mps2=1.5))
 
 
 def resolve_plan(value):
@@ -53,16 +55,16 @@ def resolve_plan(value):
     c['evaluation'] = evaluation_config(value.get('evaluation', {}))
     c['evaluation']['cuda_smoke'] = False
     # Validate actual vehicle parameters, rather than accepting unused YAML keys.
-    scenario_config(dict(family='three_lane_straight', driver=c['driver'], runtime=c['runtime']))
+    scenario_config(dict(family='three_lane_straight', driver=c['driver'], runtime=c['runtime'],network=c['network']))
     return c
 
 
 def protocol_id(c):
     # Changing bulk budget/seed count/quotas does not alter the label-quality pilot protocol.
-    keys = ('window','evaluation','driver','runtime','minimum_agents','pilot_demand_seconds',
+    keys = ('window','evaluation','driver','runtime','network','minimum_agents','pilot_demand_seconds',
             'pilot_minimum_eligible_per_family','pilot_minimum_retention_fraction',
             'position_roundtrip_tolerance_m','velocity_roundtrip_tolerance_mps','heading_roundtrip_tolerance')
-    payload = dict(version='stage5a.geometry.v1', **{k:c[k] for k in keys})
+    payload = dict(version='stage5a.geometry.v2-connected-corridors', **{k:c[k] for k in keys})
     return 'sha256:' + hashlib.sha256(json.dumps(payload,sort_keys=True).encode()).hexdigest()
 
 
@@ -88,7 +90,7 @@ def scenario(c, family, split, index, seed_index, *, pilot=False):
     driver = deepcopy(c['driver'])
     driver['tau'] += .1*(seed_index%3)
     driver['speedFactor'] -= .03*(seed_index%3)
-    return scenario_config(dict(family=family,geometry=geometry,driver=driver,runtime=c['runtime'],
+    return scenario_config(dict(family=family,geometry=geometry,driver=driver,runtime=c['runtime'],network=c['network'],
         traffic=dict(end_seconds=c['pilot_demand_seconds'] if pilot else c['demand_seconds'],route_rates_per_hour=rates),
         simulation=dict(max_seconds=c['max_episode_seconds'],lane_change_duration=3.)))
 
