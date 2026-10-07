@@ -243,3 +243,14 @@ def test_source_geometry_detail_parameters_are_applied_and_validated():
         resolve_config(dict(family=FAMILIES[0],network={'output_precision':0}))
     with pytest.raises(ValueError):
         resolve_config(dict(family=FAMILIES[0],network={'internal_link_detail':True}))
+
+
+def test_single_agent_pair_na_is_not_counted_as_source_collision(tmp_path):
+    w,e,r,p=synthetic_window(tmp_path)
+    w.conditioning['agent_mask'][1]=False
+    w.conditioning['history_mask'][1]=False
+    report=audit_window(w,e,r,p)
+    assert not report['eligible'] and 'too_few_agents' in report['reasons']
+    assert report['raw64']['collision']['collision'] is None
+    assert 'raw64:no_applicable_pairs' in report['reasons']
+    assert 'raw64:collision' not in report['reasons']

@@ -91,7 +91,7 @@ def audit_window(window, episode, road, plan):
     raw['roads']=whole
     # Quality prefix is artificial; reported boundary is the actual history/future t0.
     raw['motion']['boundary']=evaluate_motion(h,c['history_mask'],future,
-        np.broadcast_to(agents[:,None],future.shape[:2]),c['initial_positions'],h[:,-1,4:6],
+        np.broadcast_to(agents[:,None],future.shape[:2]),h[:,-1,:2],h[:,-1,4:6],
         agents,episode.dt,kwargs['motion_config'])['boundary']
     raw['quality_pass']=_gate([raw['motion']['hard_quality_pass'],whole['geometry_quality_pass'],
         not raw['collisions']['groups']['non_target']['collision'] if raw['collisions']['groups']['non_target']['collision'] is not None else None])
@@ -120,8 +120,10 @@ def audit_window(window, episode, road, plan):
         if result['motion']['hard_quality_pass'] is not True: row['reasons'].append(name+':motion')
         for kind in ('road','route','map_coverage'):
             if result['roads'][kind]['violation_body_frames']: row['reasons'].append(name+':'+kind)
-        if result['collisions']['groups']['non_target']['collision'] is not False:
-            row['reasons'].append(name+':collision_or_unknown')
+        group=result['collisions']['groups']['non_target']
+        if group['collision'] is True: row['reasons'].append(name+':collision')
+        elif group['collision'] is None:
+            row['reasons'].append(name+(':no_applicable_pairs' if group['pair_count']==0 else ':collision_unresolved'))
     permitted=[road.route_lane_ids(route) if route is not None else set() for route in meta['planned_routes']]
     row['assigned_lane_outside_known_route_frames']=sum(episode.frames[t][ids[a]].raw['lane_id'] not in permitted[a]
         for a in np.flatnonzero(agents) for t in range(start,t0+41))
@@ -168,6 +170,8 @@ def select_balanced(rows, quotas, seed, min_geometries, min_episodes, max_episod
             passed=len(selected)==quota and len(geos)>=min_geometries and len(episodes)>=min_episodes
             summary[split][family]=dict(requested=quota,eligible_pool=len(pool),selected=len(selected),
                 selected_geometry_groups=len(geos),selected_episodes=len(episodes),episode_counts=dict(epcounts),
+                eligible_actual_turning_windows=sum(r.get('actual_turning_agents',0)>0 for r in pool),
+                selected_actual_turning_windows=sum(r.get('actual_turning_agents',0)>0 for r in selected),
                 max_windows_per_episode=cap,passed=passed)
             chosen.extend(selected)
     return chosen,summary
