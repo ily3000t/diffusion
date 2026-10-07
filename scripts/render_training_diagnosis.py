@@ -18,7 +18,7 @@ def report(diagnoses,training_runs,dataset_path,output,formal=False):
     roots=[roots[i] for i in order];rows=[rows[i] for i in order]
     steps=[r['checkpoint_step'] for r in rows]
     if len(set(steps))!=len(steps): raise ValueError('Duplicate checkpoint diagnosis')
-    traces={}
+    traces={};monitor_trend=[]
     files=[]
     expected=None
     for root,row in zip(roots,rows):
@@ -35,6 +35,11 @@ def report(diagnoses,training_runs,dataset_path,output,formal=False):
     for root in map(Path,training_runs):
         if read(root/'status.json')['state']!='completed': raise ValueError('Incomplete training source')
         metrics=read(root/'metrics.json')
+        monitor_file=root/'generation_monitor.json'
+        if monitor_file.exists():
+            stride=metrics['epoch_schedule']['steps_per_epoch']
+            monitor_trend += [dict(x,step=x['epoch']*stride) for x in read(monitor_file)]
+            files.append(monitor_file)
         for row in metrics['validation']: traces[row['step']]=row
         files += [root/name for name in ('metrics.json','manifest.json','status.json','steps.jsonl')]
     last=rows[-1];last_root=roots[-1];catalog=read(last_root/'free_validation_20'/'trajectory_index.json')
@@ -78,13 +83,25 @@ def report(diagnoses,training_runs,dataset_path,output,formal=False):
         axes[0].semilogy([r['step'] for r in points],[r['train_probe_mse'] for r in points],label='train fixed probe')
         axes[0].semilogy([r['step'] for r in points],[r['validation_probe_mse'] for r in points],label='validation fixed probe')
         axes[0].set_ylabel('epsilon MSE');axes[0].set_title('Fixed-noise learning probes')
-        for split in ('train','validation'):
-            axes[1].plot(steps,[next(x['position_vector_rmse_m'] for x in r['reconstruction'][split] if x['timestep']==999) for r in rows],'-o',label=split)
-        axes[1].set_ylabel('position vector RMSE (m)');axes[1].set_title('Known noisy input, t=999')
-        axes[2].plot(steps,[r['raw_displacement_p99_m'] for r in records],'-o',label='raw displacement P99')
-        axes[2].plot(steps,[r['correction_p99_m'] for r in records],'-o',label='decode correction P99')
+        if len(rows)==1:
+            for split in ('train','validation'):
+                recon=last['reconstruction'][split]
+                axes[1].semilogy([x['timestep'] for x in recon],[x['position_vector_rmse_m'] for x in recon],'-o',label=split)
+            axes[1].set_title('Known noisy input, final checkpoint')
+        else:
+            for split in ('train','validation'):
+                axes[1].plot(steps,[next(x['position_vector_rmse_m'] for x in r['reconstruction'][split] if x['timestep']==999) for r in rows],'-o',label=split)
+            axes[1].set_title('Known noisy input, t=999')
+        axes[1].set_ylabel('position vector RMSE (m)')
+        if monitor_trend:
+            axes[2].semilogy([x['step'] for x in monitor_trend],[x['raw_displacement_max_m'] for x in monitor_trend],'-o',label='raw displacement maximum')
+            axes[2].semilogy([x['step'] for x in monitor_trend],[x['position_correction_max_m'] for x in monitor_trend],'-o',label='decode correction maximum')
+        else:
+            axes[2].plot(steps,[r['raw_displacement_p99_m'] for r in records],'-o',label='raw displacement P99')
+            axes[2].plot(steps,[r['correction_p99_m'] for r in records],'-o',label='decode correction P99')
         axes[2].set_ylabel('metres');axes[2].set_title('Free generation, fixed validation tasks')
         for ax in axes: ax.set_xlabel('total optimizer updates');ax.grid(alpha=.25);ax.legend(fontsize=9)
+        if len(rows)==1: axes[1].set_xlabel('diffusion timestep')
         fig.suptitle('Bounded training diagnosis: fixed data/model/noise; convergence not assessed',fontsize=12)
         fig.tight_layout();fig.savefig(run.output/'diagnostic_trends.png',dpi=160);fig.savefig(run.output/'diagnostic_trends.svg');plt.close(fig)
         families=sorted(selected);fig,axes=plt.subplots(2,len(families),figsize=(14,8.2),squeeze=False)
@@ -118,19 +135,21 @@ def report(diagnoses,training_runs,dataset_path,output,formal=False):
                 sampling_decoder_seconds=value['metrics']['sampling_decoder_seconds'],failures=value['metrics']['generation_failures'])
         result=dict(schema_version='sumodiff.bounded.diagnosis.summary.v1',run_sha=run.manifest['git']['commit_sha'],
             checkpoints=records,sampling_step_comparison=sweep,oracle_checks={str(r['checkpoint_step']):r['oracle'] for r in rows},
-            training_resources=[read(Path(p)/'metrics.json') for p in training_runs[1:]],convergence_status='not_assessed',
-            limits='diagnostic budget ended at 3000 total updates; no architecture change, new data, guidance or convergence claim',
+            training_resources=[read(Path(p)/'metrics.json') for p in training_runs],generation_monitor=monitor_trend,convergence_status='not_assessed',
+            limits='bounded diagnosis only; training budget and population retained in source records; convergence not assessed',
             figures={name:file_identity(run.output/name) for name in ('diagnostic_trends.png','diagnostic_trends.svg','final_trajectories.png')})
         write_json(run.output/'summary.json',result);run.write_metrics(result)
         seen_rows=last['free_generation']['train_20']['details']['rows']
         seen_count=sum(r['seen_in_training'] for r in seen_rows)
-        lines=['# 补充训练诊断（2026-10-07）','','保持12/6窗口、原架构/尺度/optimizer/种子，从240恢复到总3000步；预算到达后停止。收敛未判定。','',
-            '| 总步数 | 固定验证 ε MSE | t999位置重构RMSE（m） | 原始最大位移（m） | 最大协调修正（m） | 解码质量通过 |',
+        populations=last.get('labeled_population_windows',{s:last['reconstruction'][s][0]['scenes'] for s in ('train','validation')})
+        probes=last.get('labeled_probe_windows',{s:last['reconstruction'][s][0]['scenes'] for s in ('train','validation')})
+        lines=['# Training diagnosis','',f"Training/validation population: {populations['train']}/{populations['validation']} windows. Labeled reconstruction probes: {probes['train']}/{probes['validation']} windows. Convergence not assessed.",'',
+            '| Updates | Fixed validation epsilon MSE | t999 position RMSE (m) | Raw displacement maximum (m) | Decode correction maximum (m) | Decoded quality pass |',
             '|---:|---:|---:|---:|---:|---:|']
         for r in records:
             lines.append(f"| {r['step']} | {r['validation_probe_mse']:.6f} | {r['validation_t999_position_rmse_m']:.2f} | {r['raw_displacement_max_m']:.2f} | {r['correction_max_m']:.2f} | {r['quality_pass_rate']:.1%} |")
-        lines += ['',f'全部checkpoint使用相同任务和噪声。oracle数值检查通过不代表模型生成合格；任务范围为被选车辆。固定train-split自由任务中{seen_count}/{len(seen_rows)}被训练见过；独立重构train探针覆盖全部实际训练窗。',
-            '',f"报告运行SHA：{result['run_sha']}。训练/诊断来源SHA分别保留在JSON及原始清单中，不回填成报告或summary提交SHA。"]
+        lines += ['',f'Fixed train-split free tasks seen during training: {seen_count}/{len(seen_rows)}. Exact-noise and label-decoder arithmetic checks are recorded separately from generation quality.',
+            '',f"Report run SHA: {result['run_sha']}. Original training and diagnosis SHAs remain in source manifests and are never relabeled as report commits."]
         (run.output/'report.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
     return result
 

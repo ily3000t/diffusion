@@ -130,7 +130,7 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
             max_position_correction_m=max((r['position_correction_m']['max'] for r in corrections),default=None),
             max_velocity_correction_mps=max((r['velocity_correction_mps']['max'] for r in corrections),default=None),
             heading_fallback_count=sum(r['heading_fallback_count'] for r in corrections),
-            limitations=['offline selected vehicles only','short-trained checkpoint; no quality guarantee','no attack roles, target event N/A','failed and unqualified scenes retained'])
+            limitations=['offline selected vehicles only','checkpoint training budget does not establish convergence or quality','no attack roles, target event N/A','failed and unqualified scenes retained'])
         write_json(run.output/'trajectory_index.json',rows);write_json(run.output/'sampling_summary.json',result);run.write_metrics(result)
         if generation_failures or result['raw']['failed_scenes'] or result['decoded']['failed_scenes']: raise RuntimeError('Base sampling/evaluation failures retained in metrics')
     return result
