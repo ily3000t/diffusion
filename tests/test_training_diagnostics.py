@@ -33,3 +33,41 @@ def test_known_epsilon_error_has_expected_state_channel_amplification():
 @pytest.mark.parametrize('value',[{'timesteps':[1000]},{'sampling_steps':[1000]},{'noise_repeats':10},{'free_sampling':{'limit':None}},{'future_mask':True}])
 def test_unbounded_or_unknown_diagnostics_rejected(value):
     with pytest.raises(ValueError): diagnostic_config(value)
+
+
+@pytest.mark.parametrize('limit',[0,61,True,1.5,'6'])
+def test_invalid_labeled_probe_budget_rejected(limit):
+    with pytest.raises(ValueError): diagnostic_config({'probe_limit':limit})
+
+
+def test_labeled_probe_budget_defaults_preserve_legacy_scope():
+    assert diagnostic_config({})['probe_limit'] is None
+    assert diagnostic_config({'probe_limit':6})['probe_limit']==6
+
+
+def test_bounded_probe_checks_full_cohort_and_recorded_order(monkeypatch):
+    from sumodiff.diffusion import diagnostics as d
+    populations={'train':[f't{i}' for i in range(10)],'validation':[f'v{i}' for i in range(4)]}
+    class Dataset:
+        def __init__(self,path,split,core_only):
+            assert core_only
+            self.entries=[{'window_id':i} for i in populations[split]]
+    def choose(ds,limit):
+        return list(range(len(ds.entries) if limit is None else min(limit,len(ds.entries))))
+    def cache(path,split,limit):
+        return {},{},populations[split][:limit],[]
+    monkeypatch.setattr(d,'WindowDataset',Dataset)
+    monkeypatch.setattr(d,'choose_indices',choose)
+    monkeypatch.setattr(d,'labeled_cache',cache)
+    meta={'training_config':{'train_limit':None,'validation_limit':None},
+          'training_signature':{'train_window_ids':populations['train'].copy(),'validation_window_ids':populations['validation'].copy()}}
+    caches,counts=d.checked_labeled_caches('unused',meta,6)
+    assert counts=={'train':10,'validation':4}
+    assert caches['train'][2]==populations['train'][:6]
+    assert caches['validation'][2]==populations['validation']
+    # A changed window outside the small probe must still invalidate provenance.
+    meta['training_signature']['train_window_ids'][-1]='other'
+    with pytest.raises(ValueError,match='task IDs changed'): d.checked_labeled_caches('unused',meta,6)
+    meta['training_signature']['train_window_ids']=populations['train'].copy()
+    monkeypatch.setattr(d,'labeled_cache',lambda path,split,limit: ({},{},list(reversed(populations[split][:limit])),[]))
+    with pytest.raises(ValueError,match='probe order changed'): d.checked_labeled_caches('unused',meta,6)

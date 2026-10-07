@@ -19,7 +19,7 @@ from .sampling import sample, sample_config, task_seed
 
 DEFAULTS=dict(schema_version='sumodiff.training.diagnostic.config.v1',noise_seed=20261009,
     timesteps=[0,50,100,250,500,750,900,950,999],noise_repeats=3,
-    sampling_steps=[20],free_sampling={})
+    sampling_steps=[20],free_sampling={},probe_limit=None)
 
 
 def diagnostic_config(value):
@@ -32,9 +32,33 @@ def diagnostic_config(value):
         if not isinstance(c[key],list) or not c[key] or len(set(c[key]))!=len(c[key]) or any(type(t) is not int for t in c[key]): raise ValueError(f'Invalid {key}')
     if any(not 0<=t<1000 for t in c['timesteps']): raise ValueError('Diagnostic timesteps must be 0..999')
     if any(t not in (20,50,100) for t in c['sampling_steps']): raise ValueError('Only bounded 20/50/100 sampling comparison is supported')
+    if c['probe_limit'] is not None and (type(c['probe_limit']) is not int or not 1<=c['probe_limit']<=60):
+        raise ValueError('Labeled diagnostic probe_limit must be None or 1..60')
     c['free_sampling']=sample_config(c['free_sampling'])
     if c['free_sampling']['limit'] is None or c['free_sampling']['limit']>12: raise ValueError('Free diagnostic tasks require a limit <=12')
     return c
+
+
+def checked_labeled_caches(dataset_path,metadata,probe_limit=None):
+    """Verify the entire training cohort before bounding reconstruction work.
+
+    Prefixes follow the original family round-robin, never label quality or
+    reconstruction performance. Free generation still uses current-only tasks.
+    """
+    caches={};populations={}
+    for split in ('train','validation'):
+        ds=WindowDataset(dataset_path,split,core_only=True)
+        training_limit=metadata['training_config'][f'{split}_limit']
+        indices=choose_indices(ds,training_limit)
+        ids=[ds.entries[i]['window_id'] for i in indices]
+        if not ids or ids!=metadata['training_signature'][f'{split}_window_ids']:
+            raise ValueError('Diagnostic labeled task IDs changed')
+        populations[split]=len(ids)
+        n=len(ids) if probe_limit is None else min(probe_limit,len(ids))
+        caches[split]=labeled_cache(dataset_path,split,n)
+        if caches[split][2]!=ids[:n]:
+            raise ValueError('Diagnostic labeled probe order changed')
+    return caches,populations
 
 
 def channel_mse(prediction,target,mask):
@@ -129,9 +153,8 @@ def load_json(path):
 def diagnose(dataset_path,checkpoint,config_path,output,repository,command,formal=False):
     c=diagnostic_config(load_config(config_path));payload=load_checkpoint(checkpoint);meta=payload['metadata'];data=dataset_identity(dataset_path)
     if any(data[k]['sha256']!=meta['data'][k]['sha256'] for k in data): raise ValueError('Diagnostic dataset/checkpoint mismatch')
-    caches={s:labeled_cache(dataset_path,s,meta['training_config'][f'{s if s=="train" else "validation"}_limit']) for s in ('train','validation')}
+    caches,populations=checked_labeled_caches(dataset_path,meta,c['probe_limit'])
     signature=meta['training_signature']
-    if caches['train'][2]!=signature['train_window_ids'] or caches['validation'][2]!=signature['validation_window_ids']: raise ValueError('Diagnostic labeled task IDs changed')
     files=[config_path,*[v['location'] for v in data.values()],*[p for cache in caches.values() for p in cache[3]]]
     tasks={}
     for split in caches:
@@ -139,7 +162,7 @@ def diagnose(dataset_path,checkpoint,config_path,output,repository,command,forma
         tasks[split]=[ds.entries[i]['window_id'] for i in ids];files+=input_files(ds,ids,False)
     effective=dict(schema_version='sumodiff.training.diagnostic.run.v1',diagnostic=c,model=meta['model_config'],diffusion=meta['diffusion_config'],data=data,
         checkpoint=file_identity(checkpoint),checkpoint_step=payload['step'],labeled_task_ids={s:cache[2] for s,cache in caches.items()},
-        free_task_ids=tasks,interpretation='labeled noisy-input reconstruction versus label-free pure-noise generation; no convergence gate',convergence_status='not_assessed')
+        free_task_ids=tasks,labeled_population_windows=populations,interpretation='labeled noisy-input reconstruction versus label-free pure-noise generation; no convergence gate',convergence_status='not_assessed')
     with RunRecorder(output,repository,effective,command,{'reconstruction_noise':c['noise_seed'],'free_noise':c['free_sampling']['seed']},
         purpose='stage5_bounded_training_diagnosis',data_files=sorted(set(map(str,files))),checkpoint=checkpoint,data_id=data['manifest']['id'],formal=formal) as run:
         started=time.perf_counter();configure(meta['training_config']['seed'],c['free_sampling']['torch_threads']);device=torch.device(c['free_sampling']['device'])
@@ -164,6 +187,7 @@ def diagnose(dataset_path,checkpoint,config_path,output,repository,command,forma
                 sampled=sample(dataset_path,checkpoint,path,subdir,repository,cmd,formal)
                 free[f'{split}_{steps}']=dict(metrics=sampled,details=sample_statistics(subdir,signature['train_window_ids']),manifest=file_identity(subdir/'manifest.json'))
         result=dict(schema_version='sumodiff.training.diagnostic.metrics.v1',run_sha=run.manifest['git']['commit_sha'],checkpoint_step=effective['checkpoint_step'],
+            labeled_population_windows=populations,labeled_probe_windows={s:len(cache[2]) for s,cache in caches.items()},
             parameter_sha256=initial_hash,oracle=oracles,reconstruction=probes,free_generation=free,wall_seconds=time.perf_counter()-started,
             convergence_status='not_assessed',scope='fixed small train/validation diagnosis; no test, retraining, architecture changes or guidance')
         write_json(run.output/'diagnosis.json',result);run.write_metrics(result)
