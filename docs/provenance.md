@@ -54,3 +54,8 @@ noise objective及DDIM方差来自Ho等DDPM（arxiv:2006.11239）和Song等DDIM�
 ## 2026-10-07 有界训练诊断
 
 新增diagnostics.py和render_training_diagnosis.py均在新工程独立实现，复用本仓库已验收的训练、扩散、解码、评估与RunRecorder接口。未复制或运行会写回旧工程的脚本，未使用旧权重；标签只进入重构/oracle与采样结束后的绘图参考，不进入自由采样条件。第三方绘图依赖Matplotlib，版本与实际运行来源进入environment及manifest。
+
+
+## 2026-10-07 阶段5A
+
+采集计划、完整窗口独立资格核对、流式处理/多样性选择、真正epoch遍历和定期监测均在E:\diffusion_new自行实现，复用本仓库已验收接口。未复制旧工程，不修改旧目录。显式IDM接口及原始前保险杠/导航角定义来自本机SUMO1.22.0及官方TraCI/Intersections文档；没有复制第三方源码。正常源标签保留，连续直路用单edge去除人为分段，跟驰参数变化不等于真实行为校准或动力学保证。硬链接只在新项目内材料化已选窗口，记录方式与哈希。第三方依赖及实际环境均由RunRecorder保存。
