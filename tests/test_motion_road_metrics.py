@@ -110,3 +110,13 @@ def test_explicit_bounded_geometry_repair_preserves_collapsed_parts_and_rejects_
     broken = dict(drivable=mapping(crossed),route_corridors=args[4]['route_corridors'])
     with pytest.raises(ValueError,match='exceeds numerical bounds'):
         evaluate_roads(*args[:4],broken,args[5],config=RoadConfig(geometry_repair='bounded_make_valid'))
+
+
+def test_valid_polygon_line_collection_preserves_all_parts_and_requires_positive_area():
+    from shapely.geometry import GeometryCollection,LineString
+    g=GeometryCollection([box(-5,-5,5,5),LineString([(0,5),(0,8)])])
+    report=road_inputs(g,size=(4,2))
+    assert report['geometry_quality_pass'] and not report['geometry_repairs']
+    assert road_inputs(g,poses=np.array([[[0.,7.,0.]]]),size=(.5,.5))['road']['violation_body_frames']==1
+    with pytest.raises(ValueError,match='finite nonempty polygon area'):
+        road_inputs(GeometryCollection([LineString([(0,5),(0,8)])]),size=(.5,.5))
