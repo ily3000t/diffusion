@@ -10,7 +10,12 @@ from .training import train,train_config
 
 
 def audit(dataset,config_path,output,repository,formal,command):
-    config=resolve_diffusion_config(train_config(load_config(config_path))['diffusion'])
+    source=load_config(config_path)
+    if source.get('schema_version')=='sumodiff.base.epoch.config.v1':
+        from .epoch_training import epoch_config
+        parsed=epoch_config(source)
+    else: parsed=train_config(source)
+    config=resolve_diffusion_config(parsed['diffusion'])
     report,files=scale_statistics(dataset,config)
     with RunRecorder(output,repository,dict(schema_version='sumodiff.scale.audit.run.v1',diffusion=config.to_dict(),dataset=dataset_identity(dataset)),
         command,{'audit':0},purpose='train_validation_fixed_scale_check',data_files=[config_path,*files,*[v['location'] for v in report['dataset'].values()]],
