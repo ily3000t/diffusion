@@ -25,6 +25,12 @@ def collect_job(job,root,repository,formal,reuse=False):
             m=json.loads(manifest.read_text(encoding='utf-8'))
             if json.loads(status.read_text(encoding='utf-8'))['state']=='completed' and m.get('eligible_for_normal_training'):
                 if not reuse: raise FileExistsError('Completed episode exists; use --reuse-completed with a fresh controller output')
+                if formal:
+                    trace=attempt/'manifest.json'
+                    if not trace.exists(): raise ValueError('Formal campaign cannot reuse an unrecorded episode')
+                    old_run=json.loads(trace.read_text(encoding='utf-8'))
+                    if not old_run.get('formal') or old_run['git']['dirty']:
+                        raise ValueError('Formal campaign cannot reuse a dirty/nonformal source episode')
                 cfg=load_config(resolved)
                 if cfg['scenario']!={**job['scenario'],'runtime':cfg['scenario']['runtime']} or m['seed']!=job['seed']:
                     raise ValueError('Completed episode does not match the campaign job')
