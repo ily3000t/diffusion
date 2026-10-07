@@ -33,10 +33,15 @@ def main(argv=None):
     a.add_argument('--output',type=Path,required=True);a.add_argument('--repository',type=Path,default=Path.cwd());a.add_argument('--formal',action='store_true')
     a=sub.add_parser('audit-inference');a.add_argument('--dataset',type=Path,required=True);a.add_argument('--checkpoint',type=Path,required=True);a.add_argument('--source-run',type=Path,required=True)
     a.add_argument('--output',type=Path,required=True);a.add_argument('--repository',type=Path,default=Path.cwd());a.add_argument('--formal',action='store_true')
+    a=sub.add_parser('diagnose');a.add_argument('--dataset',type=Path,required=True);a.add_argument('--checkpoint',type=Path,required=True);a.add_argument('--config',type=Path,required=True)
+    a.add_argument('--output',type=Path,required=True);a.add_argument('--repository',type=Path,default=Path.cwd());a.add_argument('--formal',action='store_true')
     args=p.parse_args(argv)
     command=[sys.executable,*sys.orig_argv[1:]] if argv is None else [sys.executable,'-m','sumodiff.diffusion',*argv]
     try:
-        if args.action=='audit-inference':
+        if args.action=='diagnose':
+            from .diagnostics import diagnose
+            result=diagnose(args.dataset,args.checkpoint,args.config,args.output,args.repository,command,args.formal)
+        elif args.action=='audit-inference':
             from .inference_audit import replay
             result=replay(args.dataset,args.checkpoint,args.source_run,args.output,args.repository,command,args.formal)
         elif args.action=='audit-continuation':

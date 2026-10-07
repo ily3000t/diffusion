@@ -56,7 +56,7 @@ $dataset = 'artifacts/processed/stage2-accepted-20261004'
 
 九个工程验收回合及少量窗口不是足够的正式研究数据。短训练epsilon MSE下降不能证明正确自由采样；高噪声x0恢复会放大epsilon误差，20步生成还需要独立质量检查。出现公里级原始/解码修正时必须公开，不截断、平滑或降低阈值来宣称通过。源正常数据已有道路/路线/jerk问题，先在train/validation定位数据/路线几何与运动质量，再确定正式训练规模和收敛标准。
 
-本阶段实测吞吐只估计相同缓存batch/车道/精度下给定更新次数的优化器时间，排除数据准备/validation/checkpoint，不能估计收敛，也不能假定最大batch。正式基础训练仍需单独授权及执行。v0.1.0需要有可用的完整可复现基础生成实验，本阶段不自动tag。阶段6可做引导数学及合成动作验证，但真实风险—质量比较以可用基础模型为前提；不得用guidance掩盖此模型的欠训练结果。
+本阶段实测吞吐只估计相同缓存batch/车道/精度下给定更新次数的优化器时间，排除数据准备/validation/checkpoint，不能估计收敛，也不能假定最大batch。正式基础训练仍需单独授权及执行。v0.1.0需要有可用的完整可复现基础生成实验，本阶段不自动tag。阶段6可做引导数学及合成动作验证，但真实风险—质量比较以可用基础模型为前提；不得用guidance掩盖当前输出失真；不能仅凭240步结果判定欠训练为唯一原因或判定架构失败。当前短checkpoint质量不阻断阶段6模块实现/合成验证，研究结论仍须独立质量证据。
 
 
 补充无标签搬迁验收：`audit-inference --dataset ... --checkpoint ... --source-run artifacts/runs/stage5-sample-accepted-20261005 --output artifacts/runs/stage5-inference-accepted-20261005 --formal`。核对源config/checkpoint/输出哈希，然后在新目录只复制该split的输入metadata及指定任务的conditioning/map（所有targets/labels文件缺失），重选任务并重放初始噪声、raw和decoded数组，要求本机bitwise相同。投影保存原始认证catalog，用于证明标签文件无需存在，不是新的完整训练数据集。
