@@ -77,3 +77,10 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\stage5a.ps1 -Actio
 旧 12/6 窗口测得 B4 单步 173–181ms，只能给相同缓存/车数/地图负载下约 86–91 分钟 optimizer-only 的粗略 30000 步估算。新数据可能多达 12 车且地图更多车道，采集/质量检查/缓存、每 epoch 全验证和 checkpoint/自由生成另计，不能承诺总时间。短预演的实际结果见 progress.md 和 stage5a_validation.json；正式采集后 training_summary 给新负载吞吐量及显存。
 
 1200/200 是计划资格数量，78 个回合只是首批候选预算，不保证保留足够窗口。此次不会自动采集第二批或启动长训练。没有阶段 6 引导、100 epoch 收敛证据或实验里程碑 tag。
+
+
+## 新回合预检发现后的源几何修正
+
+第一轮新Pilot有597候选窗、248合格窗，坐标核对0失败，但32个明显转弯路口窗口全部被motion/route拒绝。因此不把第一轮passed当作转弯数据合格。进一步核对发现route违规面积约0.02m²，来自合法相连车道分别使用flat cap buffer留下的连接楔形裂缝。route_area现在仅在合法、端点相接的中心线处构造相同宽度round join，并裁剪到drivable；既不开放不相接连接，也不加入整个junction或其他路线。
+
+新场景用network显式配置：internal_link_detail=128、corner_detail=16、output_precision=8，正常转弯平均横向加速度限值1.5m/s²。这些改变作用于SUMO源路网和正常速度，不对已记录标签平滑或放宽质量阈值。旧场景默认12/8/2/5.5保持可读。配置变更后protocol_id改变，必须使用新Pilot。详细参数依据[SUMO netconvert](https://sumo.dlr.de/docs/netconvert.html)及本机1.22.0 --help核对，能否产生合格转弯以新原始轨迹为准。

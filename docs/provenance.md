@@ -59,3 +59,6 @@ noise objective及DDIM方差来自Ho等DDPM（arxiv:2006.11239）和Song等DDIM�
 ## 2026-10-07 阶段5A
 
 采集计划、完整窗口独立资格核对、流式处理/多样性选择、真正epoch遍历和定期监测均在E:\diffusion_new自行实现，复用本仓库已验收接口。未复制旧工程，不修改旧目录。显式IDM接口及原始前保险杠/导航角定义来自本机SUMO1.22.0及官方TraCI/Intersections文档；没有复制第三方源码。正常源标签保留，连续直路用单edge去除人为分段，跟驰参数变化不等于真实行为校准或动力学保证。硬链接只在新项目内材料化已选窗口，记录方式与哈希。第三方依赖及实际环境均由RunRecorder保存。
+
+
+合法路线连接修复自行实现：端点相接且连接合法时，用相同半宽的round join消除分开flat cap缓冲产生的细缝，裁剪到drivable；不按测得轨迹膨胀路线或增加全junction。新SUMO路网细分/精度和转弯限速参数依据[netconvert官方文档](https://sumo.dlr.de/docs/netconvert.html)及本机1.22.0 --help核对，自行写入调用配置。改变源几何后重新采集短预检，不事后修改正常标签。
