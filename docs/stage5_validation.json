@@ -196,7 +196,7 @@
     }
   },
   "engineering_acceptance": "passed",
-  "research_model_quality_acceptance": "failed",
+  "research_model_quality_acceptance": "not_assessed_after_sufficient_training",
   "milestone_tag": null,
   "tests": {
     "passed": 120,
@@ -599,5 +599,8 @@
     "normal SUMO road/route/jerk defects still require train/validation diagnosis",
     "time extrapolation is same-workload optimizer cost, not convergence or maximum batch",
     "no target roles/guidance/RL/long training or milestone tag"
-  ]
+  ],
+  "convergence_status": "not_assessed",
+  "conclusion_clarification_date": "2026-10-07",
+  "short_checkpoint_quality_observation": "all six generated scenes failed the predeclared quality checks; cause undetermined; engineering acceptance passed"
 }
