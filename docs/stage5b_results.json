@@ -1,0 +1,1393 @@
+{
+  "schema_version": "sumodiff.stage5b.result.summary.v1",
+  "source_run_sha": "15f6dfe5511382b2f3e41c69cb7302ca43b2ce77",
+  "common_parent": {
+    "id": "sha256:2315fa4d57b9d86a3254a0923590efbbd48f23666f3bf0d2c733ac04b4d1769b",
+    "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-v1-train\\checkpoint_step_030000.pt",
+    "sha256": "2315fa4d57b9d86a3254a0923590efbbd48f23666f3bf0d2c733ac04b4d1769b",
+    "size_bytes": 41324202
+  },
+  "wall_seconds": 3892.9270684999938,
+  "cache_seconds": 25.517808200005675,
+  "formal_source_runs_verified": 30,
+  "training_pairing": {
+    "updates_per_arm": 3000,
+    "paired_fields": [
+      "step",
+      "window_ids",
+      "timesteps",
+      "noise_sha256"
+    ],
+    "all_equal": true
+  },
+  "generation": {
+    "parent": {
+      "counts": {
+        "planned_scenes": 200,
+        "quality_passes": 0.0,
+        "quality_unknown": 0,
+        "generation_failures": 0,
+        "metric_failures": 0,
+        "motion_bad": 200,
+        "collision_scenes": 4,
+        "collision_unknown": 0,
+        "noise_comparisons_available": 200,
+        "missing_noise": 0,
+        "road_bad": 50,
+        "road_unknown": 0,
+        "route_bad": 51,
+        "route_unknown": 0,
+        "map_coverage_bad": 0,
+        "map_coverage_unknown": 0
+      },
+      "pooled": {
+        "raw_interior_jerk": {
+          "count": 26460,
+          "mean": 2996.4345456424376,
+          "min": 3.4040195410478122,
+          "p50": 897.8763240323108,
+          "p95": 12537.789826675815,
+          "p99": 33604.8304707051,
+          "max": 111649.29160028207
+        },
+        "decoded_interior_jerk": {
+          "count": 26460,
+          "mean": 63.985096929431236,
+          "min": 0.053165769915923713,
+          "p50": 20.14540734492869,
+          "p95": 271.5056689664144,
+          "p99": 719.2254527297526,
+          "max": 2823.7644209234445
+        }
+      }
+    },
+    "A": {
+      "counts": {
+        "planned_scenes": 200,
+        "quality_passes": 0.0,
+        "quality_unknown": 0,
+        "generation_failures": 0,
+        "metric_failures": 0,
+        "motion_bad": 200,
+        "collision_scenes": 4,
+        "collision_unknown": 0,
+        "noise_comparisons_available": 200,
+        "missing_noise": 0,
+        "road_bad": 51,
+        "road_unknown": 0,
+        "route_bad": 66,
+        "route_unknown": 0,
+        "map_coverage_bad": 0,
+        "map_coverage_unknown": 0
+      },
+      "pooled": {
+        "raw_interior_jerk": {
+          "count": 26460,
+          "mean": 3913.2347012456785,
+          "min": 3.148374345874482,
+          "p50": 1086.1165525334618,
+          "p95": 16624.41681029224,
+          "p99": 39880.8521150022,
+          "max": 169386.50287521715
+        },
+        "decoded_interior_jerk": {
+          "count": 26460,
+          "mean": 82.48116913437055,
+          "min": 0.12014710082653784,
+          "p50": 22.322049908831485,
+          "p95": 348.05471112940177,
+          "p99": 889.9804919799323,
+          "max": 3192.552365002957
+        }
+      }
+    },
+    "B": {
+      "counts": {
+        "planned_scenes": 200,
+        "quality_passes": 0.0,
+        "quality_unknown": 0,
+        "generation_failures": 0,
+        "metric_failures": 0,
+        "motion_bad": 200,
+        "collision_scenes": 5,
+        "collision_unknown": 0,
+        "noise_comparisons_available": 200,
+        "missing_noise": 0,
+        "road_bad": 183,
+        "road_unknown": 0,
+        "route_bad": 183,
+        "route_unknown": 0,
+        "map_coverage_bad": 0,
+        "map_coverage_unknown": 0
+      },
+      "pooled": {
+        "raw_interior_jerk": {
+          "count": 26460,
+          "mean": 2457.108813785751,
+          "min": 10.378627362344101,
+          "p50": 1843.1021617504207,
+          "p95": 6666.832256754576,
+          "p99": 11715.412251260619,
+          "max": 26522.688165853302
+        },
+        "decoded_interior_jerk": {
+          "count": 26460,
+          "mean": 49.95037186797221,
+          "min": 0.09268890917720449,
+          "p50": 38.30357947088147,
+          "p95": 133.39953683026064,
+          "p99": 236.98547548340952,
+          "max": 673.2877818563173
+        }
+      }
+    },
+    "C": {
+      "counts": {
+        "planned_scenes": 200,
+        "quality_passes": 0.0,
+        "quality_unknown": 0,
+        "generation_failures": 0,
+        "metric_failures": 0,
+        "motion_bad": 200,
+        "collision_scenes": 5,
+        "collision_unknown": 0,
+        "noise_comparisons_available": 200,
+        "missing_noise": 0,
+        "road_bad": 181,
+        "road_unknown": 0,
+        "route_bad": 184,
+        "route_unknown": 0,
+        "map_coverage_bad": 0,
+        "map_coverage_unknown": 0
+      },
+      "pooled": {
+        "raw_interior_jerk": {
+          "count": 26460,
+          "mean": 1489.579830886464,
+          "min": 0.9896671666111061,
+          "p50": 797.6545718894151,
+          "p95": 4387.200820217539,
+          "p99": 11587.868659679556,
+          "max": 53848.12392176181
+        },
+        "decoded_interior_jerk": {
+          "count": 26460,
+          "mean": 31.53877586675561,
+          "min": 0.014672543265028152,
+          "p50": 16.91145160975129,
+          "p95": 93.93099488984292,
+          "p99": 261.5225337032151,
+          "max": 1370.4546062420363
+        }
+      }
+    },
+    "D": {
+      "counts": {
+        "planned_scenes": 200,
+        "quality_passes": 0.0,
+        "quality_unknown": 0,
+        "generation_failures": 0,
+        "metric_failures": 0,
+        "motion_bad": 200,
+        "collision_scenes": 11,
+        "collision_unknown": 0,
+        "noise_comparisons_available": 200,
+        "missing_noise": 0,
+        "road_bad": 75,
+        "road_unknown": 0,
+        "route_bad": 82,
+        "route_unknown": 0,
+        "map_coverage_bad": 0,
+        "map_coverage_unknown": 0
+      },
+      "pooled": {
+        "raw_interior_jerk": {
+          "count": 26460,
+          "mean": 6364.187541898192,
+          "min": 3.7504415171097643,
+          "p50": 2833.4289063162896,
+          "p95": 23824.566466608572,
+          "p99": 56127.63504543912,
+          "max": 245339.8787247841
+        },
+        "decoded_interior_jerk": {
+          "count": 26460,
+          "mean": 145.89025944910574,
+          "min": 0.08065932764455876,
+          "p50": 68.20947551044705,
+          "p95": 526.1576013331816,
+          "p99": 1311.103868972436,
+          "max": 5226.488349542493
+        }
+      }
+    }
+  },
+  "paired_differences": {
+    "parent->A": {
+      "quality_success": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "decoded_interior_jerk_p99": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 61.15402475069682,
+        "ci95": [
+          37.36060362749579,
+          87.05482906681348
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "boundary_jerk_max": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": -57.07689649932545,
+        "ci95": [
+          -70.33119908944782,
+          -44.5684214271924
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "position_correction_max": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.28856989451991416,
+        "ci95": [
+          -0.0016017261032953678,
+          0.5539312227358093
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "sampling_seconds": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.06471577149801305,
+        "ci95": [
+          0.06084683410831382,
+          0.06795978296072694
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      }
+    },
+    "parent->B": {
+      "quality_success": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "decoded_interior_jerk_p99": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": -124.24814884651903,
+        "ci95": [
+          -187.44140302261252,
+          -69.06925839336488
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "boundary_jerk_max": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": -80.9257326834066,
+        "ci95": [
+          -101.79817585106848,
+          -62.991949603984274
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "position_correction_max": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": -1.6563507344831214,
+        "ci95": [
+          -2.467937497400404,
+          -0.9552505751776144
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "sampling_seconds": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.03634270099879359,
+        "ci95": [
+          0.029434384786771264,
+          0.04457042275627381
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      }
+    },
+    "parent->C": {
+      "quality_success": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "decoded_interior_jerk_p99": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": -140.59535349601774,
+        "ci95": [
+          -185.51095786100393,
+          -101.97877677128594
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "boundary_jerk_max": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": -75.24332486409686,
+        "ci95": [
+          -94.34453705590846,
+          -58.32221906914196
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "position_correction_max": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": -1.9688381006437097,
+        "ci95": [
+          -2.6081331533593817,
+          -1.4377396684132258
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "sampling_seconds": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.06863591349916533,
+        "ci95": [
+          0.06311785612657883,
+          0.07345007864609208
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      }
+    },
+    "parent->D": {
+      "quality_success": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "decoded_interior_jerk_p99": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 284.4193285234426,
+        "ci95": [
+          212.54584549471085,
+          365.66019095690103
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "boundary_jerk_max": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 71.77004439521957,
+        "ci95": [
+          50.98394834567688,
+          90.46115336786893
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "position_correction_max": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 2.7886625130176195,
+        "ci95": [
+          2.0430393417511192,
+          3.6223436034217444
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "sampling_seconds": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.012929119499021908,
+        "ci95": [
+          0.00918652960475442,
+          0.015867471894184356
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      }
+    },
+    "A->B": {
+      "quality_success": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "decoded_interior_jerk_p99": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": -185.4021735972159,
+        "ci95": [
+          -268.6953538187707,
+          -110.45753202545048
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "boundary_jerk_max": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": -23.848836184081154,
+        "ci95": [
+          -45.54898555358595,
+          -5.609932984413681
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "position_correction_max": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": -1.9449206290030354,
+        "ci95": [
+          -2.899139278007944,
+          -1.1122422838549808
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "sampling_seconds": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": -0.028373070499219465,
+        "ci95": [
+          -0.03494383129473793,
+          -0.01997133056952476
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      }
+    },
+    "B->C": {
+      "quality_success": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "decoded_interior_jerk_p99": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": -16.34720464949871,
+        "ci95": [
+          -34.39701458985747,
+          3.84374556609881
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "boundary_jerk_max": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 5.682407819309744,
+        "ci95": [
+          -0.2358464554166394,
+          11.96728647365156
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "position_correction_max": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": -0.31248736616058814,
+        "ci95": [
+          -0.5202947849459625,
+          -0.08961256215715371
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "sampling_seconds": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.03229321250037174,
+        "ci95": [
+          0.024824959430036708,
+          0.03912339100191898
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      }
+    },
+    "C->D": {
+      "quality_success": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "decoded_interior_jerk_p99": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 425.0146820194604,
+        "ci95": [
+          326.3006518273317,
+          540.4640472583852
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "boundary_jerk_max": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 147.01336925931642,
+        "ci95": [
+          120.15194157641923,
+          175.3351719940294
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "position_correction_max": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 4.75750061366133,
+        "ci95": [
+          3.635808201956808,
+          6.067283503931206
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "sampling_seconds": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": -0.05570679400014342,
+        "ci95": [
+          -0.05941898598429971,
+          -0.05127153081460258
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      }
+    }
+  },
+  "position_diagnostics": {
+    "parent": {
+      "planned_scenes": 200,
+      "center_road_bad": 24,
+      "heading_velocity_bad": 26,
+      "yaw_bad": 21,
+      "mean_ade_m": 2.04769821565602,
+      "mean_fde_m": 3.4105313113047453,
+      "center_first_exit_s": {
+        "count": 24,
+        "mean": 1.5958333333333332,
+        "min": 0.30000000000000004,
+        "p50": 1.4500000000000002,
+        "p95": 3.624999999999999,
+        "p99": 3.931,
+        "max": 4.0
+      },
+      "scene_abs_lateral_error": {
+        "count": 200,
+        "mean": 0.3222369810586585,
+        "min": 0.014752477224550397,
+        "p50": 0.17387037115545664,
+        "p95": 1.0965034378139091,
+        "p99": 3.3051938269653776,
+        "max": 4.507245219290368
+      },
+      "scene_signed_lateral_error": {
+        "count": 200,
+        "mean": -0.09559345707784235,
+        "min": -3.464343312317375,
+        "p50": -0.009895505767124741,
+        "p95": 0.20380089105727892,
+        "p99": 0.3129270043067621,
+        "max": 1.6272685270565037
+      },
+      "mean_final_displacement_m": 39.399794677732004,
+      "mean_final_label_displacement_m": 41.98908758576461,
+      "pooled": {
+        "position_error": {
+          "count": 29400,
+          "mean": 2.112826251047563,
+          "min": 0.0049295234301863725,
+          "p50": 1.644039159524079,
+          "p95": 5.0822325771515615,
+          "p99": 11.369473387628558,
+          "max": 27.653598403819196
+        },
+        "lateral_abs_error": {
+          "count": 29400,
+          "mean": 0.4670349217074868,
+          "min": 5.790961582163938e-06,
+          "p50": 0.1373068771812102,
+          "p95": 1.6763853695750586,
+          "p99": 7.832732187006499,
+          "max": 18.492256164185548
+        },
+        "longitudinal_abs_error": {
+          "count": 29400,
+          "mean": 1.933015953946201,
+          "min": 6.720366925795607e-05,
+          "p50": 1.5728476466420318,
+          "p95": 4.6503976898703465,
+          "p99": 8.24745811149563,
+          "max": 27.119011587616026
+        },
+        "speed": {
+          "count": 29400,
+          "mean": 8.68961916499619,
+          "min": 0.002246775820845154,
+          "p50": 10.207019035580242,
+          "p95": 14.506785762398849,
+          "p99": 15.494302627746247,
+          "max": 21.76104488829931
+        },
+        "label_speed": {
+          "count": 29400,
+          "mean": 9.130111382136784,
+          "min": 0.0,
+          "p50": 11.033302307128906,
+          "p95": 15.390399932861328,
+          "p99": 16.0,
+          "max": 16.0
+        },
+        "speed_abs_error": {
+          "count": 29400,
+          "mean": 0.9104414863756783,
+          "min": 0.00040202971901948104,
+          "p50": 0.7426741760902553,
+          "p95": 2.2137574176431167,
+          "p99": 4.574159997834957,
+          "max": 10.954690220133056
+        },
+        "fde": {
+          "count": 735,
+          "mean": 3.501091185343853,
+          "min": 0.13103862269945415,
+          "p50": 3.0185971192959493,
+          "p95": 8.233372088273835,
+          "p99": 17.191108726283442,
+          "max": 27.653598403819196
+        },
+        "body_road_fraction": {
+          "count": 200,
+          "mean": 0.051594318181818186,
+          "min": 0.0,
+          "p50": 0.0,
+          "p95": 0.3333333333333326,
+          "p99": 0.5504583333333329,
+          "max": 0.95
+        },
+        "body_route_fraction": {
+          "count": 200,
+          "mean": 0.05695464015151515,
+          "min": 0.0,
+          "p50": 0.0,
+          "p95": 0.375,
+          "p99": 0.6206874999999988,
+          "max": 0.95
+        }
+      }
+    },
+    "A": {
+      "planned_scenes": 200,
+      "center_road_bad": 10,
+      "heading_velocity_bad": 30,
+      "yaw_bad": 18,
+      "mean_ade_m": 1.2903895260292384,
+      "mean_fde_m": 2.2549182802065943,
+      "center_first_exit_s": {
+        "count": 10,
+        "mean": 1.32,
+        "min": 0.30000000000000004,
+        "p50": 0.6500000000000001,
+        "p95": 4.0,
+        "p99": 4.0,
+        "max": 4.0
+      },
+      "scene_abs_lateral_error": {
+        "count": 200,
+        "mean": 0.41918651000196505,
+        "min": 0.08529338342839446,
+        "p50": 0.33898087875642774,
+        "p95": 0.6668125837051528,
+        "p99": 2.1713556264850697,
+        "max": 3.2589205401575376
+      },
+      "scene_signed_lateral_error": {
+        "count": 200,
+        "mean": -0.22869826440076493,
+        "min": -2.7598633410868785,
+        "p50": -0.26274305461958575,
+        "p95": 0.42573509836512774,
+        "p99": 0.5257775134418019,
+        "max": 0.5482689450718604
+      },
+      "mean_final_displacement_m": 43.214534978392656,
+      "mean_final_label_displacement_m": 41.98908758576461,
+      "pooled": {
+        "position_error": {
+          "count": 29400,
+          "mean": 1.4731848398811513,
+          "min": 0.0013298303577637773,
+          "p50": 1.0270578396259165,
+          "p95": 4.045020310469423,
+          "p99": 9.68560663742017,
+          "max": 19.398574097409195
+        },
+        "lateral_abs_error": {
+          "count": 29400,
+          "mean": 0.534018154855803,
+          "min": 6.8483766533282425e-06,
+          "p50": 0.35180736521572964,
+          "p95": 1.3511905917458364,
+          "p99": 5.469976717745836,
+          "max": 13.039729562033745
+        },
+        "longitudinal_abs_error": {
+          "count": 29400,
+          "mean": 1.2918101377050097,
+          "min": 4.8286037355752035e-06,
+          "p50": 0.8828363226931035,
+          "p95": 3.744485389811671,
+          "p99": 7.731585269279567,
+          "max": 19.047336229061177
+        },
+        "speed": {
+          "count": 29400,
+          "mean": 9.551029717405315,
+          "min": 0.020971172043680656,
+          "p50": 11.39960342138808,
+          "p95": 15.864478939346466,
+          "p99": 16.691306903921017,
+          "max": 25.244776848219207
+        },
+        "label_speed": {
+          "count": 29400,
+          "mean": 9.130111382136784,
+          "min": 0.0,
+          "p50": 11.033302307128906,
+          "p95": 15.390399932861328,
+          "p99": 16.0,
+          "max": 16.0
+        },
+        "speed_abs_error": {
+          "count": 29400,
+          "mean": 0.7563048636770058,
+          "min": 2.6240504906738238e-05,
+          "p50": 0.5308737645710644,
+          "p95": 2.2458161842223188,
+          "p99": 4.426806667084266,
+          "max": 12.071481223108151
+        },
+        "fde": {
+          "count": 735,
+          "mean": 2.5521301636865283,
+          "min": 0.018575332979481236,
+          "p50": 1.9333272585219865,
+          "p95": 6.733691015210852,
+          "p99": 14.319126497503877,
+          "max": 19.398574097409195
+        },
+        "body_road_fraction": {
+          "count": 200,
+          "mean": 0.040611268939393944,
+          "min": 0.0,
+          "p50": 0.0,
+          "p95": 0.2537499999999987,
+          "p99": 0.6500208333333334,
+          "max": 0.8875
+        },
+        "body_route_fraction": {
+          "count": 200,
+          "mean": 0.07053377525252526,
+          "min": 0.0,
+          "p50": 0.0,
+          "p95": 0.3625,
+          "p99": 0.7070208333333327,
+          "max": 0.8875
+        }
+      }
+    },
+    "B": {
+      "planned_scenes": 200,
+      "center_road_bad": 6,
+      "heading_velocity_bad": 23,
+      "yaw_bad": 1,
+      "mean_ade_m": 1.490356347864397,
+      "mean_fde_m": 2.7967728577312374,
+      "center_first_exit_s": {
+        "count": 6,
+        "mean": 0.6666666666666669,
+        "min": 0.30000000000000004,
+        "p50": 0.6000000000000001,
+        "p95": 1.225,
+        "p99": 1.3650000000000002,
+        "max": 1.4000000000000001
+      },
+      "scene_abs_lateral_error": {
+        "count": 200,
+        "mean": 0.7572915369786847,
+        "min": 0.19236173947879545,
+        "p50": 0.6905845283278464,
+        "p95": 1.280456331948263,
+        "p99": 1.8428127898865414,
+        "max": 2.6006247472548876
+      },
+      "scene_signed_lateral_error": {
+        "count": 200,
+        "mean": -0.48015147662237523,
+        "min": -2.212181886761557,
+        "p50": -0.6287529734717245,
+        "p95": 0.9243352502927139,
+        "p99": 1.1575195706281398,
+        "max": 1.203809696196587
+      },
+      "mean_final_displacement_m": 43.93456204911819,
+      "mean_final_label_displacement_m": 41.98908758576461,
+      "pooled": {
+        "position_error": {
+          "count": 29400,
+          "mean": 1.6596311285574894,
+          "min": 0.004379914724190143,
+          "p50": 1.3875982965266782,
+          "p95": 3.7346737755240125,
+          "p99": 9.160157944950354,
+          "max": 18.786763339290065
+        },
+        "lateral_abs_error": {
+          "count": 29400,
+          "mean": 0.8717377083251272,
+          "min": 0.00037567075298635885,
+          "p50": 0.7788840577732274,
+          "p95": 1.791709603132776,
+          "p99": 4.322581258069661,
+          "max": 10.583870122110607
+        },
+        "longitudinal_abs_error": {
+          "count": 29400,
+          "mean": 1.3178822590368642,
+          "min": 4.0742172798066545e-06,
+          "p50": 0.9983571502195787,
+          "p95": 3.388336105780515,
+          "p99": 7.937421017169985,
+          "max": 18.275276261754414
+        },
+        "speed": {
+          "count": 29400,
+          "mean": 9.673728941400203,
+          "min": 0.02201140153042682,
+          "p50": 11.609264839106622,
+          "p95": 16.062176538920475,
+          "p99": 16.732780442183493,
+          "max": 17.820349967438045
+        },
+        "label_speed": {
+          "count": 29400,
+          "mean": 9.130111382136784,
+          "min": 0.0,
+          "p50": 11.033302307128906,
+          "p95": 15.390399932861328,
+          "p99": 16.0,
+          "max": 16.0
+        },
+        "speed_abs_error": {
+          "count": 29400,
+          "mean": 0.7544146378228272,
+          "min": 7.009727744389238e-05,
+          "p50": 0.6490679383212119,
+          "p95": 1.7166012314643773,
+          "p99": 3.705557153434335,
+          "max": 8.521876214250494
+        },
+        "fde": {
+          "count": 735,
+          "mean": 3.0563085916327117,
+          "min": 0.6246903890775557,
+          "p50": 2.6048606231629505,
+          "p95": 6.590393450844264,
+          "p99": 13.073360380717109,
+          "max": 18.786763339290065
+        },
+        "body_road_fraction": {
+          "count": 200,
+          "mean": 0.2343691829004329,
+          "min": 0.0,
+          "p50": 0.1875,
+          "p95": 0.6170833333333332,
+          "p99": 0.6877499999999998,
+          "max": 0.75
+        },
+        "body_route_fraction": {
+          "count": 200,
+          "mean": 0.32360895562770564,
+          "min": 0.0,
+          "p50": 0.2725,
+          "p95": 0.785125,
+          "p99": 0.8136749999999999,
+          "max": 0.821875
+        }
+      }
+    },
+    "C": {
+      "planned_scenes": 200,
+      "center_road_bad": 9,
+      "heading_velocity_bad": 23,
+      "yaw_bad": 5,
+      "mean_ade_m": 1.7240553059008372,
+      "mean_fde_m": 3.2219292497147114,
+      "center_first_exit_s": {
+        "count": 9,
+        "mean": 1.9777777777777779,
+        "min": 0.4,
+        "p50": 0.8,
+        "p95": 3.96,
+        "p99": 3.992,
+        "max": 4.0
+      },
+      "scene_abs_lateral_error": {
+        "count": 200,
+        "mean": 0.790353567097107,
+        "min": 0.11867361249088401,
+        "p50": 0.7532519880437174,
+        "p95": 1.1889852351502002,
+        "p99": 1.6838427291198412,
+        "max": 2.49275330259187
+      },
+      "scene_signed_lateral_error": {
+        "count": 200,
+        "mean": -0.5290794375944239,
+        "min": -2.0342039328210015,
+        "p50": -0.699518755616237,
+        "p95": 0.7516347911854062,
+        "p99": 1.0478274204043336,
+        "max": 1.0751739804586418
+      },
+      "mean_final_displacement_m": 44.39663667493147,
+      "mean_final_label_displacement_m": 41.98908758576461,
+      "pooled": {
+        "position_error": {
+          "count": 29400,
+          "mean": 1.8295664713155455,
+          "min": 0.01915485032238764,
+          "p50": 1.542725666369718,
+          "p95": 4.009456984429495,
+          "p99": 9.09272095224303,
+          "max": 19.350866516683627
+        },
+        "lateral_abs_error": {
+          "count": 29400,
+          "mean": 0.8824199102246135,
+          "min": 5.030504149854628e-05,
+          "p50": 0.8282985756684256,
+          "p95": 1.6787195480729131,
+          "p99": 4.271894398097145,
+          "max": 10.972337571474391
+        },
+        "longitudinal_abs_error": {
+          "count": 29400,
+          "mean": 1.501056512246423,
+          "min": 1.5373685147975786e-05,
+          "p50": 1.146789710495742,
+          "p95": 3.7712425105836944,
+          "p99": 7.883327446309537,
+          "max": 19.001337329066953
+        },
+        "speed": {
+          "count": 29400,
+          "mean": 9.759071242552553,
+          "min": 0.014205691874505212,
+          "p50": 11.681055273048905,
+          "p95": 16.28745679700675,
+          "p99": 17.031156044739127,
+          "max": 19.760938033400933
+        },
+        "label_speed": {
+          "count": 29400,
+          "mean": 9.130111382136784,
+          "min": 0.0,
+          "p50": 11.033302307128906,
+          "p95": 15.390399932861328,
+          "p99": 16.0,
+          "max": 16.0
+        },
+        "speed_abs_error": {
+          "count": 29400,
+          "mean": 0.8260696227670962,
+          "min": 8.602318761319339e-06,
+          "p50": 0.7297688058407399,
+          "p95": 1.675634843548011,
+          "p99": 3.72843576059031,
+          "max": 9.76831368011061
+        },
+        "fde": {
+          "count": 735,
+          "mean": 3.377334028675991,
+          "min": 0.3302327456496199,
+          "p50": 2.957379706132719,
+          "p95": 6.527626911114507,
+          "p99": 13.481085907638409,
+          "max": 19.350866516683627
+        },
+        "body_road_fraction": {
+          "count": 200,
+          "mean": 0.28904604076479073,
+          "min": 0.0,
+          "p50": 0.27708333333333335,
+          "p95": 0.6625,
+          "p99": 0.7251249999999999,
+          "max": 0.7625
+        },
+        "body_route_fraction": {
+          "count": 200,
+          "mean": 0.3688099612193362,
+          "min": 0.0,
+          "p50": 0.33416666666666667,
+          "p95": 0.7452499999999999,
+          "p99": 0.7925749999999999,
+          "max": 0.8125
+        }
+      }
+    },
+    "D": {
+      "planned_scenes": 200,
+      "center_road_bad": 17,
+      "heading_velocity_bad": 35,
+      "yaw_bad": 27,
+      "mean_ade_m": 2.096598441225499,
+      "mean_fde_m": 3.2905302056625647,
+      "center_first_exit_s": {
+        "count": 17,
+        "mean": 2.0588235294117645,
+        "min": 0.2,
+        "p50": 2.3000000000000003,
+        "p95": 3.84,
+        "p99": 3.968,
+        "max": 4.0
+      },
+      "scene_abs_lateral_error": {
+        "count": 200,
+        "mean": 0.4193405962412193,
+        "min": 0.05369428399615282,
+        "p50": 0.3041841679772419,
+        "p95": 1.0308589812901894,
+        "p99": 2.6622292156063994,
+        "max": 3.341479560266984
+      },
+      "scene_signed_lateral_error": {
+        "count": 200,
+        "mean": -0.20533815739115638,
+        "min": -2.804826646570995,
+        "p50": -0.2037555939086399,
+        "p95": 0.26705367859863427,
+        "p99": 0.5690197071403655,
+        "max": 0.8127758208930299
+      },
+      "mean_final_displacement_m": 39.73965746782474,
+      "mean_final_label_displacement_m": 41.98908758576461,
+      "pooled": {
+        "position_error": {
+          "count": 29400,
+          "mean": 2.1588579174042635,
+          "min": 0.004083350506476369,
+          "p50": 1.6622959551036716,
+          "p95": 5.656797657882519,
+          "p99": 10.670011682163588,
+          "max": 21.185795993565023
+        },
+        "lateral_abs_error": {
+          "count": 29400,
+          "mean": 0.5344827071409056,
+          "min": 6.689109020457345e-05,
+          "p50": 0.2776033041948306,
+          "p95": 1.4908791262416254,
+          "p99": 6.3735035249989185,
+          "max": 17.634823082083006
+        },
+        "longitudinal_abs_error": {
+          "count": 29400,
+          "mean": 1.9816992760082592,
+          "min": 4.652545733066216e-05,
+          "p50": 1.5728720032964671,
+          "p95": 5.053823966058938,
+          "p99": 8.518322697714206,
+          "max": 21.185794894150042
+        },
+        "speed": {
+          "count": 29400,
+          "mean": 8.85860804909774,
+          "min": 0.0059162040302214395,
+          "p50": 10.303653536955906,
+          "p95": 14.77606637787802,
+          "p99": 15.921569705383462,
+          "max": 29.35083167879001
+        },
+        "label_speed": {
+          "count": 29400,
+          "mean": 9.130111382136784,
+          "min": 0.0,
+          "p50": 11.033302307128906,
+          "p95": 15.390399932861328,
+          "p99": 16.0,
+          "max": 16.0
+        },
+        "speed_abs_error": {
+          "count": 29400,
+          "mean": 1.0156516937210673,
+          "min": 0.00010677668271696916,
+          "p50": 0.7130032608862795,
+          "p95": 2.9534312663130997,
+          "p99": 5.400914281076428,
+          "max": 13.477231672686493
+        },
+        "fde": {
+          "count": 735,
+          "mean": 3.394672588214159,
+          "min": 0.13722503911222492,
+          "p50": 2.7998363692095154,
+          "p95": 7.926618143636234,
+          "p99": 15.180106257716039,
+          "max": 21.185795993565023
+        },
+        "body_road_fraction": {
+          "count": 200,
+          "mean": 0.0552999549062049,
+          "min": 0.0,
+          "p50": 0.0,
+          "p95": 0.33354166666666657,
+          "p99": 0.587895833333333,
+          "max": 0.9375
+        },
+        "body_route_fraction": {
+          "count": 200,
+          "mean": 0.07194152687590187,
+          "min": 0.0,
+          "p50": 0.0,
+          "p95": 0.35031249999999986,
+          "p99": 0.6608124999999996,
+          "max": 0.9375
+        }
+      }
+    }
+  },
+  "training_diagnostics": {
+    "A": {
+      "full_epochs_verified": 10,
+      "updates_verified": 3000,
+      "auxiliary_to_noise_loss_ratio": 0.0,
+      "boundary_fraction_of_auxiliary": null,
+      "total_gradient_norm": {
+        "count": 3000,
+        "mean": 0.12862153774251542,
+        "min": 0.014579074457287788,
+        "p50": 0.09506970643997192,
+        "p95": 0.34192648380994767,
+        "p99": 0.6446814084053037,
+        "max": 1.4446128606796265
+      },
+      "clipped_updates": 4,
+      "auxiliary_scene_fraction": 0.0
+    },
+    "B": {
+      "full_epochs_verified": 10,
+      "updates_verified": 3000,
+      "auxiliary_to_noise_loss_ratio": 0.09611077024414133,
+      "boundary_fraction_of_auxiliary": 0.0,
+      "total_gradient_norm": {
+        "count": 3000,
+        "mean": 0.13986473914111655,
+        "min": 0.015687983483076096,
+        "p50": 0.10802759602665901,
+        "p95": 0.3455911085009571,
+        "p99": 0.6404325968027113,
+        "max": 1.3532439470291138
+      },
+      "clipped_updates": 4,
+      "auxiliary_scene_fraction": 0.30266666666666664
+    },
+    "C": {
+      "full_epochs_verified": 10,
+      "updates_verified": 3000,
+      "auxiliary_to_noise_loss_ratio": 0.27684012131309654,
+      "boundary_fraction_of_auxiliary": 0.0,
+      "total_gradient_norm": {
+        "count": 3000,
+        "mean": 0.1621881198566407,
+        "min": 0.01931423880159855,
+        "p50": 0.131423681974411,
+        "p95": 0.37901972979307125,
+        "p99": 0.6571109193563454,
+        "max": 1.4819226264953613
+      },
+      "clipped_updates": 5,
+      "auxiliary_scene_fraction": 0.30266666666666664
+    },
+    "D": {
+      "full_epochs_verified": 10,
+      "updates_verified": 3000,
+      "auxiliary_to_noise_loss_ratio": 2.095078952360211,
+      "boundary_fraction_of_auxiliary": 0.8273786200789904,
+      "total_gradient_norm": {
+        "count": 3000,
+        "mean": 0.5009525846876204,
+        "min": 0.030181296169757843,
+        "p50": 0.4793283939361572,
+        "p95": 1.1101641178131094,
+        "p99": 1.4395832586288428,
+        "max": 2.1928000450134277
+      },
+      "clipped_updates": 270,
+      "auxiliary_scene_fraction": 0.30266666666666664
+    }
+  },
+  "road_oracle": {
+    "parent": {
+      "original_pose": {
+        "road": 50,
+        "route": 51
+      },
+      "true_heading_only": {
+        "road": 47,
+        "route": 48
+      },
+      "remove_true_lateral_error_only": {
+        "road": 19,
+        "route": 19
+      },
+      "true_heading_and_lateral": {
+        "road": 0,
+        "route": 3
+      }
+    },
+    "A": {
+      "original_pose": {
+        "road": 51,
+        "route": 66
+      },
+      "true_heading_only": {
+        "road": 43,
+        "route": 59
+      },
+      "remove_true_lateral_error_only": {
+        "road": 14,
+        "route": 16
+      },
+      "true_heading_and_lateral": {
+        "road": 4,
+        "route": 9
+      }
+    },
+    "B": {
+      "original_pose": {
+        "road": 183,
+        "route": 183
+      },
+      "true_heading_only": {
+        "road": 180,
+        "route": 180
+      },
+      "remove_true_lateral_error_only": {
+        "road": 6,
+        "route": 10
+      },
+      "true_heading_and_lateral": {
+        "road": 5,
+        "route": 10
+      }
+    },
+    "C": {
+      "original_pose": {
+        "road": 181,
+        "route": 184
+      },
+      "true_heading_only": {
+        "road": 181,
+        "route": 184
+      },
+      "remove_true_lateral_error_only": {
+        "road": 8,
+        "route": 10
+      },
+      "true_heading_and_lateral": {
+        "road": 5,
+        "route": 10
+      }
+    },
+    "D": {
+      "original_pose": {
+        "road": 75,
+        "route": 82
+      },
+      "true_heading_only": {
+        "road": 64,
+        "route": 72
+      },
+      "remove_true_lateral_error_only": {
+        "road": 14,
+        "route": 16
+      },
+      "true_heading_and_lateral": {
+        "road": 0,
+        "route": 3
+      }
+    }
+  },
+  "limitations": {
+    "single_parent_and_sampling_seed": true,
+    "convergence_assessed": false,
+    "oracle_labels": "post-hoc only, not generation results",
+    "further_training_started": false
+  },
+  "source_files": [
+    {
+      "id": "sha256:3262e4fbaa393ed475c2105982decd4a44655f425d8a8d14181b34e40b315843",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5b-v1\\suite_summary.json",
+      "sha256": "3262e4fbaa393ed475c2105982decd4a44655f425d8a8d14181b34e40b315843",
+      "size_bytes": 70658
+    },
+    {
+      "id": "sha256:737d09600b95a744d92f135890b683b9786816b599cd3cf6524ea2ec6c866e4a",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5b-v1\\report\\paired_summary.json",
+      "sha256": "737d09600b95a744d92f135890b683b9786816b599cd3cf6524ea2ec6c866e4a",
+      "size_bytes": 1407766
+    },
+    {
+      "id": "sha256:43fae56dbb967030eb0ff49c5c8d19824064aea0f61d9409bf9ec7d7570d1030",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5b-analysis-20261008\\analysis.json",
+      "sha256": "43fae56dbb967030eb0ff49c5c8d19824064aea0f61d9409bf9ec7d7570d1030",
+      "size_bytes": 28577
+    },
+    {
+      "id": "sha256:c41515d66b31f77ccf5e70b9a68b5a75d0f8ea1af8fee4dc87fd21a61276444f",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5b-road-attribution-20261008\\attribution.json",
+      "sha256": "c41515d66b31f77ccf5e70b9a68b5a75d0f8ea1af8fee4dc87fd21a61276444f",
+      "size_bytes": 8415
+    },
+    {
+      "id": "sha256:4a16a8ffc4b3d9023ca98450a5865d11373d1e26aeabcdffc0d5fd82c9357fc6",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5b-results-report-20261008-v2\\stage5b_overview.png",
+      "sha256": "4a16a8ffc4b3d9023ca98450a5865d11373d1e26aeabcdffc0d5fd82c9357fc6",
+      "size_bytes": 286093
+    }
+  ]
+}
