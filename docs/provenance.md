@@ -75,3 +75,8 @@ noise objective及DDIM方差来自Ho等DDPM（arxiv:2006.11239）和Song等DDIM�
 ## 2026-10-08 基础轨迹质量归因
 
 quality_audit.py、必要合成测试及render_quality_audit.py均在新工程自行实现，复用当前冻结采样/解码/独立评估和RunRecorder。NumPy增广最小二乘作为正常方程的独立数值核对；通道oracle仅在已生成结果上使用真实未来，重放使用WindowDataset.inference与源初始噪声，不加入标签条件。恒加速度控制使用后向区间均速约定、仅作指标数学对照，不复用旧积分器或引入新的正式生成方法。未复制外部/旧目录代码、模型或数据；Matplotlib实际版本进入环境及图表manifest。生产模型、训练目标、解码器和阈值未修改。
+
+
+## 2026-10-08 阶段5B四组损失对照
+
+physical_losses、controlled_training、stage5b入口及配对报告在新项目内自行实现，复用本仓库已验证的噪声目标、float64协调解码器、数据资格和独立评估。辅助项遵循现有后向区间均速约定，用正常标签监督差分与交界；未复制旧DDPO/DiffScene或依赖旧目录。真实原训练步骤用于A的bitwise对照，不引入新采样器或平滑器。共享完整AdamW/RNG继承和逐步噪声哈希用于控制实验混杂；来源、运行SHA、资源和结果进入独立manifest。

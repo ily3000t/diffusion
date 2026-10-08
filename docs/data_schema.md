@@ -156,3 +156,10 @@ sumodiff.base.checkpoint.v1保存epsilon网络/AdamW、CPU及CUDA随机状态、
 
 
 阶段5A路网配置新增network几何细分、输出精度和正常转弯横向加速度限值，进入完整resolved_config及源scene身份。route_corridors保留合法相接端点的round join并裁剪drivable，正面积GeometryCollection保留全部线/点组成；没有允许整个junction替代路线。window_quality和selection进一步区分无车辆对N/A与真实碰撞/未解析，并分别报告eligible与selected实际方向变化窗口数量。
+
+
+## 阶段5B受控继续学习
+
+checkpoint.v1保留现有状态布局，training_config新增sumodiff.controlled.train.config.v1，记录arm、共同父SHA-256、source_step/source_epochs、继承初始化、名义/实际追加预算与physical_loss完整配置。A additional_losses_enabled=false，B—D为true；true要求可验证的受控训练目标元数据，旧训练入口拒绝隐式启用。严格恢复签名包含目标、数据及预算；不能把不同组当作同实验resume。原窗口/模型条件/采样stages结构不变，未来标签仍仅作监督。
+
+steps.jsonl包含全局step、真实epoch/batch、窗口ID、timestep、noise_sha256、各目标/梯度norm与时间。initial_state.json包含model/AdamW/Generator/CPU-CUDA RNG哈希。完整实验最终step33000、每组3000更新；preflight_prefix另记录真实12更新，不计为10轮。arm_outputs.json允许恢复训练或独立重采样的显式路径；报告追溯原始运行SHA，失败/未知始终在计划200任务质量分母内。
