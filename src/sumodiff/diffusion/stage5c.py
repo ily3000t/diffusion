@@ -173,15 +173,64 @@ def run_suite(config_path,output,objective='unified',formal=False,allow_long_run
     return summary
 
 
+def monitor_probe(config_path,training_run,output,objective='unified',formal=False):
+    """Replay the periodic monitoring path without training or reading labels."""
+    from sumodiff.data.dataset import WindowDataset,collate_numpy
+    from sumodiff.models import prepare_conditioning
+    from .data import choose_indices,input_files
+    from .epoch_training import periodic_sample
+    from .controlled_training import tensor_hash
+    from .unified_training import monitor_quality,quality_frontier
+    c,parent,training,sampling=setup(config_path,objective)
+    root=Path(training_run).resolve(strict=True)
+    identity=read(root/'latest_checkpoint.json')['checkpoint']
+    if file_identity(identity['location'])['sha256']!=identity['sha256']:
+        raise ValueError('Monitor probe checkpoint changed')
+    payload=load_checkpoint(identity['location'])
+    budget=payload['metadata']['training_config']
+    prefix=budget['planned_additional_updates'] if budget['execution_budget_kind']=='preflight_prefix' else None
+    expected=unified_config(load_config(c['training_configs'][objective]),parent,prefix_updates=prefix)
+    if budget!=expected:
+        raise ValueError('Monitor checkpoint differs from the declared stage5C objective')
+    ds=WindowDataset(c['dataset'],'validation')
+    indices=choose_indices(ds,None)
+    samples=[ds.inference(i) for i in indices]
+    ids=[s['input_metadata']['window_id'] for s in samples]
+    if ids!=payload['metadata']['training_signature']['validation_window_ids']:
+        raise ValueError('Monitoring validation population/order changed')
+    cache=(prepare_conditioning(collate_numpy(samples),'cpu'),{},ids,[])
+    files=source_files(config_path,c)+input_files(ds,indices,False)+[identity['location']]
+    effective=dict(schema_version='sumodiff.stage5c.monitor.probe.config.v1',suite=c,objective=objective,
+        checkpoint=identity,planned_tasks=training['monitor']['limit'],training_updates=0,future_labels_accessed=False)
+    def rng():
+        return dict(cpu=tensor_hash(torch.get_rng_state()),
+                    cuda=[tensor_hash(x) for x in torch.cuda.get_rng_state_all()] if torch.cuda.is_available() else [])
+    with RunRecorder(output,Path.cwd(),effective,[sys.executable,*sys.orig_argv[1:]],{'sampling':sampling['seed']},
+        purpose='stage5c_periodic_monitor_probe',data_files=sorted(set(map(str,files))),
+        checkpoint=identity['location'],formal=formal) as run:
+        before=rng()
+        epoch=(payload['step']-1)//training['steps_per_epoch']+1
+        record=periodic_sample(c['dataset'],identity['location'],run,Path.cwd(),training,epoch,formal)
+        record.update(step=payload['step'],quality=monitor_quality(record['run'],cache))
+        result=dict(schema_version='sumodiff.stage5c.monitor.probe.metrics.v1',run_sha=run.manifest['git']['commit_sha'],
+            record=record,pareto_checkpoints=quality_frontier([record]),training_updates=0,
+            checkpoint_unchanged=file_identity(identity['location'])['sha256']==identity['sha256'],
+            global_rng_restored=before==rng(),future_labels_accessed=False,quality_or_convergence_claim=False)
+        if not result['global_rng_restored'] or not result['checkpoint_unchanged']:
+            raise RuntimeError('Monitoring altered RNG or source checkpoint')
+        write_json(run.output/'monitor_probe.json',result);run.write_metrics(result)
+    return result
+
+
 def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__);sub=p.add_subparsers(dest='action',required=True)
-    for action in ('preflight','run','train','sample','report'):
+    for action in ('preflight','run','train','sample','report','monitor-probe'):
         a=sub.add_parser(action)
         a.add_argument('--config',type=Path,required=True);a.add_argument('--output',type=Path,required=True)
         a.add_argument('--objective',choices=OBJECTIVES,default='unified');a.add_argument('--formal',action='store_true')
         if action in ('run','train'):a.add_argument('--allow-long-run',action='store_true')
         if action=='train':a.add_argument('--resume',type=Path)
-        if action in ('sample','report'):a.add_argument('--training-run',type=Path,required=True)
+        if action in ('sample','report','monitor-probe'):a.add_argument('--training-run',type=Path,required=True)
         if action=='report':a.add_argument('--sampling-run',type=Path,required=True)
     a=sub.add_parser('train-direct')
     for name in ('dataset','parent-checkpoint','scale-audit','config','output'):
@@ -196,6 +245,8 @@ def main(argv=None):
                 Path.cwd(),command,args.formal,args.resume,args.prefix_updates,args.allow_long_run)
         elif args.action=='preflight':
             result=preflight(args.config,args.output,args.objective,args.formal)
+        elif args.action=='monitor-probe':
+            result=monitor_probe(args.config,args.training_run,args.output,args.objective,args.formal)
         elif args.action=='run':
             result=run_suite(args.config,args.output,args.objective,args.formal,args.allow_long_run)
         else:
