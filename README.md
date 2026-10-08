@@ -1,6 +1,6 @@
 # SUMODiff
 
-独立的 SUMO 多车轨迹扩散生成工程。已实现阶段0至5：采集、固定坐标/地图/窗口、统一解码与独立评估、条件去噪模型，以及基础扩散训练、恢复和DDIM采样。小数据训练链路已验收；补充诊断已从240步续训至3000步，损失及自由输出失真改善，固定验证生成质量仍为0/6，收敛及充分训练质量未验证。旧checkpoint不兼容。阶段6引导尚未实现，不默认启动正式长训练。实施范围见 [设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
+独立的 SUMO 多车轨迹扩散生成工程。已实现阶段0至5及阶段5A：1200/200窗口、batch4、100个真实epoch（30000更新）已完成。基础生成仍0/200质量合格；冻结质量检查已定位速度抖动、位置—速度不一致、边界及朝向问题，收敛与稳定生成尚未达成。旧checkpoint不兼容。阶段6引导尚未实现，下一步短训练修改建议见[质量诊断报告](docs/trajectory_quality_audit.md)。实施范围见 [设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
 
 ## 目录
 `configs/` 分类保存候选配置，`src/sumodiff/` 为新代码，`scripts/` 为入口辅助，`tests/` 为短验证，`docs/` 为合同和协议。`artifacts/{raw,processed,cache,checkpoints,runs}` 全部忽略，不提交数据或权重。保留模块目录标明后续阶段，不包含假实现。
@@ -68,3 +68,7 @@ $env:PYTHONPATH = (Join-Path $PWD 'src')
 ## 阶段5A数据扩充与正式基础训练入口
 
 已完成阶段5A正式数据扩充及100个真实epoch训练：1200/200窗口、batch4、30000更新。完整200验证窗口的基础生成质量仍0/200，基础模型稳定与收敛尚未达成。见[训练结果报告](docs/stage5a_training_summary.md)与[阶段5A协议](docs/stage5a.md)。采集/训练复现入口为[scripts/stage5a.ps1](scripts/stage5a.ps1)；当前不自动追加训练或进入阶段6。正式运行要求干净已提交代码，核心标签完整性与物理质量分开检查。
+
+## 基础轨迹质量检查
+
+已用现有checkpoint与200个验证样本完成冻结归因、独立解码数值核对和6个逐步去噪重放；真实标签200/200合格，生成仍0/200。报告区分通道oracle和自由生成，不改模型/指标或启动训练。结果、下一轮一致性/边界/速度差分短对照建议及复现命令见[trajectory_quality_audit.md](docs/trajectory_quality_audit.md)。诊断入口为`python -m sumodiff.diffusion.quality_audit`，图表工具为`scripts/render_quality_audit.py`。
