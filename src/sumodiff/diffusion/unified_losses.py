@@ -225,7 +225,7 @@ def unified_objective(epsilon,noisy,noise,timestep,conditioning,targets,schedule
         observed = torch.where(a[...,None,None],c['history'][...,-2:,2:4],0.).to(prediction.states.dtype)
         p = torch.cat((observed,prediction.states[...,2:4]),-2)
         q = torch.cat((observed,label.states[...,2:4]),-2)
-        first = torch.diff(p,dim=-2)-torch.diff(q,dim=-2)
+        first = (torch.diff(p,dim=-2)-torch.diff(q,dim=-2))[...,1:,:]
         second = torch.diff(p,n=2,dim=-2)-torch.diff(q,n=2,dim=-2)
         first_mask = a[...,None].expand(*a.shape,first.shape[-2])
         second_mask = a[...,None].expand(*a.shape,second.shape[-2])
