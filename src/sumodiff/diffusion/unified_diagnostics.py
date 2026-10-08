@@ -81,3 +81,45 @@ def audit_gradients(dataset,parent,c,cache,output,updates=16):
     if not result['model_unchanged'] or result['optimizer_state_count']:
         raise RuntimeError('Gradient audit accidentally changed model/optimizer')
     return result
+
+
+def road_activation_probe(dataset,parent,c,cache):
+    """A label-derived displaced tensor checks gradients; not a generation result."""
+    from .unified_losses import UnifiedLossConfig
+    from .process import normalize
+    device=torch.device(c['device'])
+    indices=torch.arange(min(c['batch_size'],len(cache[0][2])))
+    conditions,targets,ids=select_batch(cache[0],indices,device)
+    config=resolve_unified_loss(c['loss'])
+    geometry=RoadGeometryCache(dataset,ids,config)
+    roads=geometry.batch(ids)
+    truth=targets['future'].to(torch.float64)
+    displaced=truth.clone()
+    h=truth[...,4:6]
+    normal=torch.stack((-h[...,0],h[...,1]),-1)
+    displaced[...,:2]+=16.*normal
+    schedule=NoiseSchedule(resolve_diffusion_config(c['diffusion']),device)
+    ts=torch.full((len(truth),),200,device=device,dtype=torch.long)
+    noise=torch.zeros_like(truth)
+    noisy=schedule.add_noise(normalize(truth,schedule.config),noise,ts)
+    a=schedule.coefficients(ts,noisy)
+    # epsilon variable chosen to reconstruct a known displaced raw tensor.
+    epsilon=((noisy-a.sqrt()*normalize(displaced,schedule.config))/(1-a).sqrt()).detach().requires_grad_(True)
+    isolated=UnifiedLossConfig(imitation_weight=0,temporal_weight=0,road_weight=config.road_weight,
+        road_numerical_tolerance_m=config.road_numerical_tolerance_m)
+    before=unified_objective(epsilon,noisy,noise,ts,conditions,targets,schedule,isolated,roads=roads,ramp=1.)
+    gradient=torch.autograd.grad(before['weighted_road'],epsilon)[0]
+    if not torch.isfinite(gradient).all() or not gradient.abs().max()>0:
+        raise RuntimeError('Known displaced road input supplied no finite gradient')
+    after_epsilon=epsilon.detach()-.001*gradient/gradient.abs().max()
+    after=unified_objective(after_epsilon,noisy,noise,ts,conditions,targets,schedule,isolated,roads=roads,ramp=1.)
+    result=dict(interpretation='known label-derived lateral displacement; gradient/math probe only',
+        artificial_lateral_offset_m=16.,window_ids=ids,road_proxy_before=float(before['road']),
+        road_proxy_after=float(after['road']),gradient_norm=float(gradient.norm()),
+        position_gradient_norm=float(gradient[...,:2].norm()),velocity_gradient_norm=float(gradient[...,2:4].norm()),
+        heading_gradient_norm=float(gradient[...,4:6].norm()),
+        outside_sample_fraction=float(before['road_proxy_outside_fraction']),
+        descent_verified=bool(after['road']<before['road']),optimizer_updates=0,quality_or_convergence_claim=False)
+    if not result['descent_verified']:
+        raise RuntimeError('Known road proxy gradient failed the small descent check')
+    return result

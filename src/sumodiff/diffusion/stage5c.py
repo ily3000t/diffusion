@@ -103,7 +103,7 @@ def checked_final_training(c,objective,training_run):
 
 
 def preflight(config_path,output,objective='unified',formal=False):
-    from .unified_diagnostics import audit_gradients
+    from .unified_diagnostics import audit_gradients,road_activation_probe
     from .audit import audit_continuation
     c,parent,training,sampling=setup(config_path,objective)
     started=time.perf_counter()
@@ -116,6 +116,9 @@ def preflight(config_path,output,objective='unified',formal=False):
         print(f"cache ready: {len(cache[0][2])}/{len(cache[1][2])} windows; {cache[3]:.2f}s",flush=True)
         gradient=audit_gradients(c['dataset'],parent,training,cache,run.output/'gradient_audit.json',16)
         print(f"gradient audit: {gradient['eligible_auxiliary_to_noise_norm_ratio']}",flush=True)
+        road_probe=road_activation_probe(c['dataset'],parent,training,cache) if training['loss']['road_weight'] else None
+        write_json(run.output/'road_activation_probe.json',road_probe)
+        print(f'road gradient probe: {road_probe}',flush=True)
         uninterrupted=run.output/'uninterrupted'
         result=train_one(c,objective,uninterrupted,formal,prefix=c['preflight_updates'],cache=cache)
         mid=uninterrupted/f"checkpoint_step_{30000+c['preflight_updates']//2:06d}.pt"
@@ -145,7 +148,7 @@ def preflight(config_path,output,objective='unified',formal=False):
             raise RuntimeError('New experiment retained old AdamW/scheduler state')
         summary=dict(schema_version='sumodiff.stage5c.preflight.metrics.v1',run_sha=run.manifest['git']['commit_sha'],
             objective=objective,prefix_updates=c['preflight_updates'],full_epoch_training=False,
-            gradient_audit=gradient,training=result,resumed=second,recovery=recovery,
+            gradient_audit=gradient,road_activation_probe=road_probe,training=result,resumed=second,recovery=recovery,
             scheduler_and_loss_trace_equal=True,new_AdamW_state_empty=True,free_generation=generation,
             wall_seconds=time.perf_counter()-started,quality_or_convergence_claim=False)
         write_json(run.output/'preflight_summary.json',summary);run.write_metrics(summary)

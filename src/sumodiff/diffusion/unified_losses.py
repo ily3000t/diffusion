@@ -18,7 +18,7 @@ from .process import masked_noise_mse, denormalize
 @dataclass(frozen=True)
 class UnifiedLossConfig:
     schema_version: str = 'sumodiff.unified.loss.config.v1'
-    imitation_weight: float = .01
+    imitation_weight: float = .003
     temporal_weight: float = .001
     road_weight: float = .001
     max_auxiliary_timestep: int = 300

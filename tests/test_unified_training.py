@@ -110,3 +110,22 @@ def test_quality_candidates_keep_tradeoffs_without_a_weighted_score():
                     road_bad=road,route_bad=road,motion_bad=20-good,decoded_interior_jerk_p99=jerk,unknown=unknown,failures=0))
     records=[item('a',0,10,300),item('b',2,5,200),item('c',1,4,220),item('failed',20,0,0,1)]
     assert [v['location'] for v in quality_frontier(records)]==['b','c']
+
+def test_displaced_road_activation_probe_uses_real_autograd_and_reduces_proxy(monkeypatch):
+    from types import SimpleNamespace
+    from shapely.geometry import box,mapping
+    from sumodiff.diffusion.unified_losses import prepare_roads
+    import sumodiff.diffusion.unified_diagnostics as diagnostics
+    conditions,targets=fixture(batch=2,agents=2)
+    conditions['attributes']=torch.tensor([4.,1.8,1.,0.],dtype=torch.float64).expand(2,2,4).clone()
+    config=UnifiedLossConfig()
+    roads,_=prepare_roads(dict(drivable=mapping(box(-20,-5,40,5)),
+        route_corridors=[mapping(box(-20,-5,40,5))]*2),config)
+    monkeypatch.setattr(diagnostics,'RoadGeometryCache',lambda *args:
+        SimpleNamespace(batch=lambda ids:[roads]*len(ids)))
+    cache=((conditions,targets,['a','b'],[]),None,None,None)
+    c=dict(device='cpu',batch_size=2,loss=config.to_dict(),diffusion=NoiseSchedule().config.to_dict())
+    out=diagnostics.road_activation_probe('unused',None,c,cache)
+    assert out['descent_verified'] and out['road_proxy_before']>out['road_proxy_after']
+    assert out['position_gradient_norm']>0 and out['velocity_gradient_norm']>0
+    assert not out['quality_or_convergence_claim']
