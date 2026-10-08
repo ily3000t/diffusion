@@ -25,9 +25,12 @@ class DiffusionConfig:
             v=getattr(self,key)
             if type(v) not in (int,float) or not math.isfinite(v) or v<=0: raise ValueError(f'Invalid {key}')
         if not self.beta_start < self.beta_end < 1: raise ValueError('Require 0 < beta_start < beta_end < 1')
-        for key in ('cfg','partial_diffusion','rolling_generation','additional_losses_enabled'):
+        for key in ('cfg','partial_diffusion','rolling_generation'):
             if type(getattr(self,key)) is not bool: raise ValueError(f'{key} must be boolean')
             if getattr(self,key): raise NotImplementedError(f'{key} is not supported by the base checkpoint')
+
+        if type(self.additional_losses_enabled) is not bool:
+            raise ValueError('additional_losses_enabled must be boolean')
 
     def to_dict(self): return asdict(self)
 

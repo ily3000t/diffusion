@@ -72,3 +72,16 @@ $env:PYTHONPATH = (Join-Path $PWD 'src')
 ## 基础轨迹质量检查
 
 已用现有checkpoint与200个验证样本完成冻结归因、独立解码数值核对和6个逐步去噪重放；真实标签200/200合格，生成仍0/200。报告区分通道oracle和自由生成，不改模型/指标或启动训练。结果、下一轮一致性/边界/速度差分短对照建议及复现命令见[trajectory_quality_audit.md](docs/trajectory_quality_audit.md)。诊断入口为`python -m sumodiff.diffusion.quality_audit`，图表工具为`scripts/render_quality_audit.py`。
+
+## 阶段5B四组继续训练
+
+已实现并验收A原噪声MSE、B加位置—速度一致性、C再加速度差分监督、D再加历史—未来交界监督。共同100轮checkpoint/完整AdamW/RNG、batch4/lr3e-4和配对噪声保持一致；各组固定继续10轮，3000更新。202项测试及每组12更新真实GPU预演通过；这不是完整10轮结果，短预演质量仍各0/6。完整协议、损失定义、资源与恢复命令见[stage5b.md](docs/stage5b.md)。
+
+本地启动全部四组及自动200任务配对报告：
+
+```powershell
+Set-Location E:\diffusion_new
+.\scripts\stage5b.ps1 -Stage Run -RunId stage5b-v1
+```
+
+仅优化预计四组合计约41分钟，验证/保存/监测/最终采样另计。辅助项改善与收敛尚待此对照检验，不自动延长预算或开始阶段6。

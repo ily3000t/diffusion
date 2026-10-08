@@ -46,7 +46,7 @@ def test_updated_clean_state_requires_updated_noise_and_stochastic_variance():
     torch.testing.assert_close(s.transition(noisy,x,e,500,-1,1.),x)
 
 
-@pytest.mark.parametrize('key',['cfg','partial_diffusion','rolling_generation','additional_losses_enabled'])
+@pytest.mark.parametrize('key',['cfg','partial_diffusion','rolling_generation'])
 def test_unsupported_diffusion_options_raise(key):
     with pytest.raises(NotImplementedError): DiffusionConfig(**{key:True})
 
