@@ -28,6 +28,8 @@ def train_config(value):
     if not isinstance(value,dict) or set(value)-set(TRAIN_DEFAULTS): raise ValueError('Unknown training options')
     c=deepcopy(TRAIN_DEFAULTS);c.update(value)
     c['diffusion']=resolve_diffusion_config(c['diffusion']).to_dict()
+    if c['diffusion']['additional_losses_enabled']:
+        raise ValueError('Physical objectives require the controlled continuation entry; legacy training is epsilon-only')
     if c['schema_version']!=TRAIN_DEFAULTS['schema_version'] or c['device'] not in ('cpu','cuda:0'): raise ValueError('Unsupported train schema/device')
     for key in ('seed','noise_seed','validation_seed'):
         if type(c[key]) is not int or not 0<=c[key]<2**32: raise ValueError(f'Invalid {key}')
