@@ -1,0 +1,371 @@
+{
+  "schema_version": "sumodiff.stage5b.preflight.metrics.v1",
+  "run_sha": "b40f5ade48db4d5ea3fb993ad4faa3c3516642c1",
+  "cache_preparation_seconds": 33.24008089999552,
+  "wall_seconds": 162.82141350000165,
+  "estimated_optimizer_only_seconds_all_arms": 2470.9167272905524,
+  "legacy_A_final_state_bitwise_equal": true,
+  "legacy_A_rows_equal": true,
+  "all_initial_model_optimizer_rng_equal": true,
+  "training_pairing": {
+    "updates_per_arm": 12,
+    "paired_fields": [
+      "step",
+      "window_ids",
+      "timesteps",
+      "noise_sha256"
+    ],
+    "all_equal": true
+  },
+  "sampling_pairing": {
+    "tasks_per_arm": 6,
+    "paired_fields": [
+      "window_id",
+      "initial_noise"
+    ],
+    "all_equal": true
+  },
+  "limitations": [
+    "12 update preflight is not ten epochs",
+    "no test data or trajectory smoothing",
+    "auxiliary objectives require validation; convergence not assessed"
+  ],
+  "source_summary": {
+    "id": "sha256:c45776f076916fd1ed5396433cb4c1675a03d5e84a278a4c3f7fb38b60b9f90f",
+    "location": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\preflight_summary.json",
+    "sha256": "c45776f076916fd1ed5396433cb4c1675a03d5e84a278a4c3f7fb38b60b9f90f",
+    "size_bytes": 36477
+  },
+  "common_parent": {
+    "id": "sha256:2315fa4d57b9d86a3254a0923590efbbd48f23666f3bf0d2c733ac04b4d1769b",
+    "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-v1-train\\checkpoint_step_030000.pt",
+    "sha256": "2315fa4d57b9d86a3254a0923590efbbd48f23666f3bf0d2c733ac04b4d1769b",
+    "size_bytes": 41324202
+  },
+  "tests": {
+    "passed": 202,
+    "seconds": 33.68
+  },
+  "arms": {
+    "A": {
+      "updates": 12,
+      "newly_completed_epochs": 0,
+      "optimizer_step_timing": {
+        "mean_seconds": 0.1855145363687453,
+        "median_seconds": 0.18243870002334006,
+        "warmup_updates_excluded": 1,
+        "windows_per_second": 21.56165267852241
+      },
+      "peak_allocated_bytes": 186159104,
+      "peak_reserved_bytes": 203423744,
+      "validation": [
+        {
+          "step": 30000,
+          "train_probe_mse": 0.001909861092766126,
+          "validation_probe_mse": 0.0019925981515552848
+        },
+        {
+          "step": 30012,
+          "train_probe_mse": 0.0018639509682543576,
+          "validation_probe_mse": 0.001970299876993522
+        }
+      ],
+      "mean_components": {
+        "noise_mse": 0.0027218816588477543,
+        "consistency": 0.0,
+        "velocity_difference": 0.0,
+        "boundary": 0.0,
+        "physical_total": 0.0,
+        "total_loss": 0.0027218816588477543,
+        "auxiliary_eligible_scenes": 0.0
+      },
+      "auxiliary_eligible_scenes": 0,
+      "cached_tensor_bytes": 1197506800,
+      "estimate": {
+        "optimizer_only_seconds_per_arm": 556.5436091062359,
+        "basis": "same measured workload; validation/checkpoint/IO/cache excluded; not a convergence claim"
+      }
+    },
+    "B": {
+      "updates": 12,
+      "newly_completed_epochs": 0,
+      "optimizer_step_timing": {
+        "mean_seconds": 0.19157083636276762,
+        "median_seconds": 0.19247950002318248,
+        "warmup_updates_excluded": 1,
+        "windows_per_second": 20.880004889812195
+      },
+      "peak_allocated_bytes": 187493376,
+      "peak_reserved_bytes": 203423744,
+      "validation": [
+        {
+          "step": 30000,
+          "train_probe_mse": 0.001909861092766126,
+          "validation_probe_mse": 0.0019925981515552848
+        },
+        {
+          "step": 30012,
+          "train_probe_mse": 0.0018258151055003207,
+          "validation_probe_mse": 0.0019668143789749594
+        }
+      ],
+      "mean_components": {
+        "noise_mse": 0.002760294810286723,
+        "consistency": 0.02106001282421251,
+        "velocity_difference": 0.0,
+        "boundary": 0.0,
+        "physical_total": 0.00021060012447075374,
+        "total_loss": 0.0029708949150517583,
+        "auxiliary_eligible_scenes": 1.1666666666666667
+      },
+      "auxiliary_eligible_scenes": 14,
+      "cached_tensor_bytes": 1197506800,
+      "estimate": {
+        "optimizer_only_seconds_per_arm": 574.7125090883028,
+        "basis": "same measured workload; validation/checkpoint/IO/cache excluded; not a convergence claim"
+      }
+    },
+    "C": {
+      "updates": 12,
+      "newly_completed_epochs": 0,
+      "optimizer_step_timing": {
+        "mean_seconds": 0.20393483636805534,
+        "median_seconds": 0.20245059998705983,
+        "warmup_updates_excluded": 1,
+        "windows_per_second": 19.614108463455075
+      },
+      "peak_allocated_bytes": 187526656,
+      "peak_reserved_bytes": 203423744,
+      "validation": [
+        {
+          "step": 30000,
+          "train_probe_mse": 0.001909861092766126,
+          "validation_probe_mse": 0.0019925981515552848
+        },
+        {
+          "step": 30012,
+          "train_probe_mse": 0.0018892449598448971,
+          "validation_probe_mse": 0.002072765260236338
+        }
+      ],
+      "mean_components": {
+        "noise_mse": 0.0027688152622431517,
+        "consistency": 0.02036644652253017,
+        "velocity_difference": 0.03367371903732419,
+        "boundary": 0.0,
+        "physical_total": 0.0005404016428656178,
+        "total_loss": 0.0033092168547833958,
+        "auxiliary_eligible_scenes": 1.1666666666666667
+      },
+      "auxiliary_eligible_scenes": 14,
+      "cached_tensor_bytes": 1197506800,
+      "estimate": {
+        "optimizer_only_seconds_per_arm": 611.8045091041661,
+        "basis": "same measured workload; validation/checkpoint/IO/cache excluded; not a convergence claim"
+      }
+    },
+    "D": {
+      "updates": 12,
+      "newly_completed_epochs": 0,
+      "optimizer_step_timing": {
+        "mean_seconds": 0.2426186999972825,
+        "median_seconds": 0.23116140000638552,
+        "warmup_updates_excluded": 1,
+        "windows_per_second": 16.486775339430977
+      },
+      "peak_allocated_bytes": 188323840,
+      "peak_reserved_bytes": 203423744,
+      "validation": [
+        {
+          "step": 30000,
+          "train_probe_mse": 0.001909861092766126,
+          "validation_probe_mse": 0.0019925981515552848
+        },
+        {
+          "step": 30012,
+          "train_probe_mse": 0.004416725202463567,
+          "validation_probe_mse": 0.00450438552768901
+        }
+      ],
+      "mean_components": {
+        "noise_mse": 0.00453631259733811,
+        "consistency": 0.04591326683294028,
+        "velocity_difference": 0.12367413371490936,
+        "boundary": 0.864190166541519,
+        "physical_total": 0.010337775635484025,
+        "total_loss": 0.014874088232822137,
+        "auxiliary_eligible_scenes": 1.1666666666666667
+      },
+      "auxiliary_eligible_scenes": 14,
+      "cached_tensor_bytes": 1197506800,
+      "estimate": {
+        "optimizer_only_seconds_per_arm": 727.8560999918475,
+        "basis": "same measured workload; validation/checkpoint/IO/cache excluded; not a convergence claim"
+      }
+    }
+  },
+  "completed_runs": [
+    {
+      "directory": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\A\\sample",
+      "manifest": {
+        "id": "sha256:c6f65aa589d7047c3b1e228c0ca4a9eab3d50d0e142fab20e4374565a3a994e8",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\A\\sample\\manifest.json",
+        "sha256": "c6f65aa589d7047c3b1e228c0ca4a9eab3d50d0e142fab20e4374565a3a994e8",
+        "size_bytes": 10535
+      },
+      "state": "completed",
+      "formal": true,
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "b40f5ade48db4d5ea3fb993ad4faa3c3516642c1",
+        "branch": "feat/physical-loss-ablation",
+        "dirty": false,
+        "status_porcelain": []
+      }
+    },
+    {
+      "directory": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\A\\train",
+      "manifest": {
+        "id": "sha256:10d6cc63f941f4a1729988c836060362ff562320b0498b335948fceca735788f",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\A\\train\\manifest.json",
+        "sha256": "10d6cc63f941f4a1729988c836060362ff562320b0498b335948fceca735788f",
+        "size_bytes": 2781497
+      },
+      "state": "completed",
+      "formal": true,
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "b40f5ade48db4d5ea3fb993ad4faa3c3516642c1",
+        "branch": "feat/physical-loss-ablation",
+        "dirty": false,
+        "status_porcelain": []
+      }
+    },
+    {
+      "directory": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\B\\sample",
+      "manifest": {
+        "id": "sha256:2eef577bbc084894ec137c0e388378bb62a4e8871dd13c9283f1f7ff9b7f4aa3",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\B\\sample\\manifest.json",
+        "sha256": "2eef577bbc084894ec137c0e388378bb62a4e8871dd13c9283f1f7ff9b7f4aa3",
+        "size_bytes": 10535
+      },
+      "state": "completed",
+      "formal": true,
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "b40f5ade48db4d5ea3fb993ad4faa3c3516642c1",
+        "branch": "feat/physical-loss-ablation",
+        "dirty": false,
+        "status_porcelain": []
+      }
+    },
+    {
+      "directory": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\B\\train",
+      "manifest": {
+        "id": "sha256:f94befc962d8149fe1226180fd74a60d36b582eaefc86a22f689d36544fdecf6",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\B\\train\\manifest.json",
+        "sha256": "f94befc962d8149fe1226180fd74a60d36b582eaefc86a22f689d36544fdecf6",
+        "size_bytes": 2781497
+      },
+      "state": "completed",
+      "formal": true,
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "b40f5ade48db4d5ea3fb993ad4faa3c3516642c1",
+        "branch": "feat/physical-loss-ablation",
+        "dirty": false,
+        "status_porcelain": []
+      }
+    },
+    {
+      "directory": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\C\\sample",
+      "manifest": {
+        "id": "sha256:dd5cd7768d4a2dd5698b010164a75019164f221d93ed0e54f11a68b42f32d58f",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\C\\sample\\manifest.json",
+        "sha256": "dd5cd7768d4a2dd5698b010164a75019164f221d93ed0e54f11a68b42f32d58f",
+        "size_bytes": 10535
+      },
+      "state": "completed",
+      "formal": true,
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "b40f5ade48db4d5ea3fb993ad4faa3c3516642c1",
+        "branch": "feat/physical-loss-ablation",
+        "dirty": false,
+        "status_porcelain": []
+      }
+    },
+    {
+      "directory": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\C\\train",
+      "manifest": {
+        "id": "sha256:c91a7ce5171c7cec7799c6136d0191d92e28f5aec61a7225e58b32e431c01b36",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\C\\train\\manifest.json",
+        "sha256": "c91a7ce5171c7cec7799c6136d0191d92e28f5aec61a7225e58b32e431c01b36",
+        "size_bytes": 2781497
+      },
+      "state": "completed",
+      "formal": true,
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "b40f5ade48db4d5ea3fb993ad4faa3c3516642c1",
+        "branch": "feat/physical-loss-ablation",
+        "dirty": false,
+        "status_porcelain": []
+      }
+    },
+    {
+      "directory": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\D\\sample",
+      "manifest": {
+        "id": "sha256:953f348395e13b15d522a69cd681c2fa81fa45d31ade1c5119de865ef6a455fd",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\D\\sample\\manifest.json",
+        "sha256": "953f348395e13b15d522a69cd681c2fa81fa45d31ade1c5119de865ef6a455fd",
+        "size_bytes": 10535
+      },
+      "state": "completed",
+      "formal": true,
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "b40f5ade48db4d5ea3fb993ad4faa3c3516642c1",
+        "branch": "feat/physical-loss-ablation",
+        "dirty": false,
+        "status_porcelain": []
+      }
+    },
+    {
+      "directory": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\D\\train",
+      "manifest": {
+        "id": "sha256:a8104f2635cf3437c39065bcbc053fafe74b5265c0af1742fc9acdef815d2520",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\D\\train\\manifest.json",
+        "sha256": "a8104f2635cf3437c39065bcbc053fafe74b5265c0af1742fc9acdef815d2520",
+        "size_bytes": 2781497
+      },
+      "state": "completed",
+      "formal": true,
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "b40f5ade48db4d5ea3fb993ad4faa3c3516642c1",
+        "branch": "feat/physical-loss-ablation",
+        "dirty": false,
+        "status_porcelain": []
+      }
+    },
+    {
+      "directory": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008",
+      "manifest": {
+        "id": "sha256:2ad13e8e3f26d8a70de74de3bbd4fcd8eb76b587b73fbaa9969bb340df54b6e3",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5b-preflight-20261008\\manifest.json",
+        "sha256": "2ad13e8e3f26d8a70de74de3bbd4fcd8eb76b587b73fbaa9969bb340df54b6e3",
+        "size_bytes": 5968
+      },
+      "state": "completed",
+      "formal": true,
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "b40f5ade48db4d5ea3fb993ad4faa3c3516642c1",
+        "branch": "feat/physical-loss-ablation",
+        "dirty": false,
+        "status_porcelain": []
+      }
+    }
+  ]
+}
