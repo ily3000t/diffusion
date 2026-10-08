@@ -80,3 +80,12 @@ quality_audit.py、必要合成测试及render_quality_audit.py均在新工程�
 ## 2026-10-08 阶段5B四组损失对照
 
 physical_losses、controlled_training、stage5b入口及配对报告在新项目内自行实现，复用本仓库已验证的噪声目标、float64协调解码器、数据资格和独立评估。辅助项遵循现有后向区间均速约定，用正常标签监督差分与交界；未复制旧DDPO/DiffScene或依赖旧目录。真实原训练步骤用于A的bitwise对照，不引入新采样器或平滑器。共享完整AdamW/RNG继承和逐步噪声哈希用于控制实验混杂；来源、运行SHA、资源和结果进入独立manifest。
+
+
+## 2026-10-08 阶段5C统一轨迹监督
+
+unified_losses、schedule、unified_training、unified_diagnostics、stage5c入口及报告均在E:\diffusion_new自行实现，复用本工程已验证的epsilon、固定尺度、协调解码、数据资格、独立评估和RunRecorder；未复制外部或旧工程，不依赖旧目录。损失设计依据本地阶段5B横向位置/jerk诊断及用户确认方案，候选权重仅在训练批次作参数梯度校准。
+
+Huber计算使用已有Torch smooth_l1接口；位置/速度投影、差分、门限及闭式warmup/余弦更新函数自行实现，无SGDR重启，调度状态随checkpoint保存。道路距离通过已安装Shapely covers/shortest_line/get_point接口计算精确最近点，Torch对点到detach投影的距离求导；不复制第三方代码，不用低分辨率道路栅格替代独立全车身评估。几何修复沿用本工程既有有界点集语义及1e-6容差，地图和标签未改变。
+
+实际梯度审计未更新模型；人工位移探针仅测试道路数学，不作为生成结果。20任务监测重放只读当前输入与地图，无未来标签。原0.01权重预演eff9dda、校准0.003预演9018625、监测39c34e3的运行SHA和来源清单永久保留，后续摘要提交不回填。新初始化明确重置AdamW，新实验恢复保留全部新状态；原阶段5B继承AdamW协议不修改。

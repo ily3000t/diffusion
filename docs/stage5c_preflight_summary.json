@@ -1,0 +1,344 @@
+{
+  "schema_version": "sumodiff.stage5c.delivery.summary.v1",
+  "date": "2026-10-08",
+  "feature_branch": "feat/unified-trajectory-training",
+  "code_commits": [
+    "53ce3fe",
+    "6c795d7",
+    "8a0f236",
+    "eff9dda",
+    "9018625",
+    "39c34e3"
+  ],
+  "sources": [
+    {
+      "run": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-20261008",
+      "run_sha": "eff9ddacdbb185fd648830344e7800aa8c592965",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest": {
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-20261008\\manifest.json",
+        "sha256": "93c0007923f895dab1c3237c325e73acfee569407f070492e2d580581d550f64",
+        "size_bytes": 5302
+      }
+    },
+    {
+      "run": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-20261008\\recovery_audit",
+      "run_sha": "eff9ddacdbb185fd648830344e7800aa8c592965",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest": {
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-20261008\\recovery_audit\\manifest.json",
+        "sha256": "519d94fbef8144cafbddfe32d8a0df7fc993c5e42933449b39fefb9bd7cc1e49",
+        "size_bytes": 5314
+      }
+    },
+    {
+      "run": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-20261008\\resumed",
+      "run_sha": "eff9ddacdbb185fd648830344e7800aa8c592965",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest": {
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-20261008\\resumed\\manifest.json",
+        "sha256": "1f2612e58af33179ac2c07548ce72bf37c951cfcb84d22061b34f1bb1c8319df",
+        "size_bytes": 2782143
+      }
+    },
+    {
+      "run": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-20261008\\sample",
+      "run_sha": "eff9ddacdbb185fd648830344e7800aa8c592965",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest": {
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-20261008\\sample\\manifest.json",
+        "sha256": "50c4c34442dd7492cae0a8148488c631350eb274ff7de495d78c70eb16bfb109",
+        "size_bytes": 10549
+      }
+    },
+    {
+      "run": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-20261008\\uninterrupted",
+      "run_sha": "eff9ddacdbb185fd648830344e7800aa8c592965",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest": {
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-20261008\\uninterrupted\\manifest.json",
+        "sha256": "7e5c4a433d8c954ecfccb26e914116d801fc0d60186e205073bb25fafb593f48",
+        "size_bytes": 2781535
+      }
+    },
+    {
+      "run": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-calibrated-20261008",
+      "run_sha": "9018625f5694c6fbdfc5cecf1a9063b69b7c9254",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest": {
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-calibrated-20261008\\manifest.json",
+        "sha256": "a95e4902f7ca806d9bbcc29ef9bc3af81c55a94c7aa08551156ab4fe19003384",
+        "size_bytes": 5335
+      }
+    },
+    {
+      "run": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-calibrated-20261008\\recovery_audit",
+      "run_sha": "9018625f5694c6fbdfc5cecf1a9063b69b7c9254",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest": {
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-calibrated-20261008\\recovery_audit\\manifest.json",
+        "sha256": "fff093464d2d8d2ea483f4fc68b4c6864563f4314a80d2b5e6eed4610da52d3f",
+        "size_bytes": 5490
+      }
+    },
+    {
+      "run": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-calibrated-20261008\\resumed",
+      "run_sha": "9018625f5694c6fbdfc5cecf1a9063b69b7c9254",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest": {
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-calibrated-20261008\\resumed\\manifest.json",
+        "sha256": "207ef2cbe2350a0af66714b78ea9e0cddd6a0169a7cc5e1cb9abf1497b277316",
+        "size_bytes": 2782209
+      }
+    },
+    {
+      "run": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-calibrated-20261008\\sample",
+      "run_sha": "9018625f5694c6fbdfc5cecf1a9063b69b7c9254",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest": {
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-calibrated-20261008\\sample\\manifest.json",
+        "sha256": "eef463df9e14b20e735a342732f16118f579991edc18d93145199090d35c4a9f",
+        "size_bytes": 10637
+      }
+    },
+    {
+      "run": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-calibrated-20261008\\uninterrupted",
+      "run_sha": "9018625f5694c6fbdfc5cecf1a9063b69b7c9254",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest": {
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-calibrated-20261008\\uninterrupted\\manifest.json",
+        "sha256": "6fb026087fc1ee5c8dd8b37ef5ecf9782dd3956b569a0532b208d1c419d61730",
+        "size_bytes": 2781557
+      }
+    },
+    {
+      "run": "E:\\diffusion_new\\artifacts\\runs\\stage5c-monitor-probe-20261008",
+      "run_sha": "39c34e3d84ab09c54be645ecf71395014315b08c",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest": {
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-monitor-probe-20261008\\manifest.json",
+        "sha256": "a27c7534992b21cd119fca5722cc2e0377f37a0c3ec817a06a4ca1194bf0a85e",
+        "size_bytes": 244349
+      }
+    },
+    {
+      "run": "E:\\diffusion_new\\artifacts\\runs\\stage5c-monitor-probe-20261008\\free_validation_epoch_0101",
+      "run_sha": "39c34e3d84ab09c54be645ecf71395014315b08c",
+      "formal": true,
+      "dirty": false,
+      "status": "completed",
+      "manifest": {
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-monitor-probe-20261008\\free_validation_epoch_0101\\manifest.json",
+        "sha256": "32c81494a5acf94ef00fb4efea601d75ce0755c888db51ced3daadb6b30594c7",
+        "size_bytes": 27329
+      }
+    }
+  ],
+  "parent_checkpoint_sha256": "2315fa4d57b9d86a3254a0923590efbbd48f23666f3bf0d2c733ac04b4d1769b",
+  "full_training_executed": false,
+  "full_training_budget": {
+    "additional_epochs": 50,
+    "updates": 15000,
+    "start_step": 30000,
+    "end_step": 45000,
+    "batch_size": 4,
+    "train_windows": 1200,
+    "validation_windows": 200
+  },
+  "losses": {
+    "imitation_weight": 0.003,
+    "temporal_weight": 0.001,
+    "road_weight": 0.001,
+    "gate": "t<=300, alpha_bar, full-batch mean",
+    "auxiliary_warmup_updates": 1500
+  },
+  "learning_rate": {
+    "warmup_updates": 600,
+    "peak": 0.0001,
+    "minimum": 1e-06,
+    "total_updates": 15000,
+    "restarts": false
+  },
+  "initial_gradient_ratios": {
+    "median": 0.8278131883468365,
+    "maximum": 2.6576939823091514
+  },
+  "calibrated_gradient_ratios": {
+    "median": 0.250531245376908,
+    "maximum": 0.8024450141515068
+  },
+  "gradient_audit_optimizer_updates": 0,
+  "model_unchanged_in_gradient_audit": true,
+  "road_activation_probe": {
+    "interpretation": "known label-derived lateral displacement; gradient/math probe only",
+    "artificial_lateral_offset_m": 16.0,
+    "window_ids": [
+      "3cbd390db06063872e026f2867a8838bc31becde44c9173c8debfd7c2b5a990a-t30",
+      "f8b534dc68e0669ee5300688c9f80e1474d861d38107fa62d7ada55d018e6032-t80",
+      "0d022ce8233302bde2a5a7db3f0774995b792a1711d1c6c6b984e4361f3a0bae-t70",
+      "3cbd390db06063872e026f2867a8838bc31becde44c9173c8debfd7c2b5a990a-t40"
+    ],
+    "road_proxy_before": 4.308288847417543,
+    "road_proxy_after": 4.297558482781214,
+    "gradient_norm": 0.0008750089813567058,
+    "position_gradient_norm": 0.0008604769114526989,
+    "velocity_gradient_norm": 0.00015880767147212946,
+    "heading_gradient_norm": 5.707830797539757e-07,
+    "outside_sample_fraction": 0.90375,
+    "descent_verified": true,
+    "optimizer_updates": 0,
+    "quality_or_convergence_claim": false
+  },
+  "bounded_training": {
+    "updates": 16,
+    "newly_completed_epochs": 0,
+    "validation": [
+      {
+        "step": 30000,
+        "train_probe_mse": 0.001909861092766126,
+        "validation_probe_mse": 0.0019925981515552848
+      },
+      {
+        "step": 30016,
+        "train_probe_mse": 0.0016690261642603825,
+        "validation_probe_mse": 0.0017772770673036575
+      }
+    ],
+    "scheduler_and_loss_trace_equal": true,
+    "empty_new_AdamW": true,
+    "recovery": {
+      "schema_version": "sumodiff.continuation.audit.metrics.v1",
+      "run_sha": "9018625f5694c6fbdfc5cecf1a9063b69b7c9254",
+      "final_step": 30016,
+      "resume_step": 30008,
+      "training_signature_equal": true,
+      "final_step_equal": true,
+      "model_equal": true,
+      "optimizer_equal": true,
+      "noise_generator_equal": true,
+      "cpu_rng_equal": true,
+      "cuda_rng_equal": true,
+      "continuation_trace_equal": true,
+      "compared_updates": 8,
+      "source_uninterrupted_sha": "9018625f5694c6fbdfc5cecf1a9063b69b7c9254",
+      "source_resumed_sha": "9018625f5694c6fbdfc5cecf1a9063b69b7c9254",
+      "parent_checkpoint": {
+        "id": "sha256:b1c5379b8835bae6cb59fb443f60fea91acaad88ab9ed8589bcaf8b2ff1e5509",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-calibrated-20261008\\uninterrupted\\checkpoint_step_030008.pt",
+        "sha256": "b1c5379b8835bae6cb59fb443f60fea91acaad88ab9ed8589bcaf8b2ff1e5509",
+        "size_bytes": 41328298
+      },
+      "scope": "identical local runtime/device/precision and data; cross-version bitwise equality not promised"
+    },
+    "six_task_quality_pass_rate": 0.0
+  },
+  "monitor_probe": {
+    "schema_version": "sumodiff.stage5c.monitor.probe.metrics.v1",
+    "run_sha": "39c34e3d84ab09c54be645ecf71395014315b08c",
+    "record": {
+      "epoch": 101,
+      "checkpoint": {
+        "id": "sha256:8f3d1910f38118d26d3955f4d8e7f7a5977de753092665e9e125e143966993a6",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-calibrated-20261008\\uninterrupted\\checkpoint_step_030016.pt",
+        "sha256": "8f3d1910f38118d26d3955f4d8e7f7a5977de753092665e9e125e143966993a6",
+        "size_bytes": 41328042
+      },
+      "run": "E:\\diffusion_new\\artifacts\\runs\\stage5c-monitor-probe-20261008\\free_validation_epoch_0101",
+      "raw_displacement_max_m": 60.525264739990234,
+      "position_correction_max_m": 20.915836278082082,
+      "quality_pass_rate": 0.0,
+      "planned_tasks": 20,
+      "generation_failures": 0,
+      "total_monitor_seconds": 8.683120900008362,
+      "step": 30016,
+      "quality": {
+        "planned": 20,
+        "quality_passes": 0,
+        "road_bad": 4,
+        "route_bad": 4,
+        "motion_bad": 20,
+        "unknown": 0,
+        "failures": 0,
+        "decoded_interior_jerk_p99": 1055.3398718176793
+      }
+    },
+    "pareto_checkpoints": [
+      {
+        "id": "sha256:8f3d1910f38118d26d3955f4d8e7f7a5977de753092665e9e125e143966993a6",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-calibrated-20261008\\uninterrupted\\checkpoint_step_030016.pt",
+        "sha256": "8f3d1910f38118d26d3955f4d8e7f7a5977de753092665e9e125e143966993a6",
+        "size_bytes": 41328042
+      }
+    ],
+    "training_updates": 0,
+    "checkpoint_unchanged": true,
+    "global_rng_restored": true,
+    "future_labels_accessed": false,
+    "quality_or_convergence_claim": false
+  },
+  "resources": {
+    "optimizer_step_timing": {
+      "mean_seconds": 0.19625521332685214,
+      "median_seconds": 0.1995183000108227,
+      "warmup_updates_excluded": 1
+    },
+    "cache_preparation_seconds": 21.262330400000792,
+    "geometry_preparation_seconds": 6.922751800011611,
+    "peak_allocated_bytes": 189803008,
+    "peak_reserved_bytes": 297795584,
+    "cached_tensor_bytes": 1197506800,
+    "estimate": {
+      "optimizer_only_seconds": 2943.828199902782,
+      "basis": "measured same batch/cohort workload; excludes validation/monitoring/checkpoint/cache; no convergence claim"
+    }
+  },
+  "preflight_wall_seconds": 121.67304439999862,
+  "tests": {
+    "full_suite_passed": 231,
+    "full_suite_seconds": 19.2,
+    "scope": "CPU numerical/mask/geometry/protocol + actual GPU preflight and monitoring"
+  },
+  "summary_sources": {
+    "gradient_audit.json": {
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-20261008\\gradient_audit.json",
+      "sha256": "fa2d7d494c745cef9f0764893da4c34b8ebdaeff0524794369ac3e5cf0ebe593",
+      "size_bytes": 32628
+    },
+    "preflight_summary.json": {
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-preflight-calibrated-20261008\\preflight_summary.json",
+      "sha256": "d668bea1ac30cf21d40e04a4290a04719d29e62492d55fe91c0ad8764ea9e69d",
+      "size_bytes": 50932
+    },
+    "monitor_probe.json": {
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-monitor-probe-20261008\\monitor_probe.json",
+      "sha256": "6b560c85432c903dbcda27f602e7b5c232ad8b64d0b50527ae4561f23f0003ef",
+      "size_bytes": 1711
+    }
+  },
+  "convergence_status": "not_assessed",
+  "generation_quality_status": "not_validated_after_full_training",
+  "milestone_tag_created": false,
+  "limitation": "Engineering and bounded checks only; 0/6 and 0/20 quality; no long training, test-set claim or loss-specific benefit established."
+}

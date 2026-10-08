@@ -502,3 +502,20 @@ git -C E:\diffusion_new push --atomic origin main feat/stage5a-training-review f
 只读归因支持B/C横向偏移为车身违规主要来源：中心越界6/9但车身183/181；只替换真实朝向仍180/181，事后消除真实横向误差后6/8。oracle非生成修复。D辅助/噪声项比2.095、边界占辅助82.74%、clip270次，A—C4/4/5次，待分项梯度校准。图与独立几何重放通过；后验诊断和绘图formal=false，有完整来源和脚本。结果与待审修改点见stage5b_results.md/json。
 
 建议先已有检查点小规模质量筛选，再新协议的统一低lr和较小一致性短对照；D先梯度诊断。没有实施建议、追加训练/采样、修改生产代码或指标、进入阶段6或tag。本轮无生产代码变动，不重复原202项测试；完成源hash、日志断言、几何重放与图表核对。文档分支docs/stage5b-result-analysis，验收后本地--no-ff合并，不推送；正式运行SHA不改写。
+
+
+## 阶段5C统一训练目标与余弦日程：实现及短验收（2026-10-08）
+
+用户确认在原100轮模型表现基础上实施统一损失、warmup/余弦和本地50轮入口。feature feat/unified-trajectory-training从干净main8205d29建立。53ce3fe实现低噪声配对模仿/速度一二阶差分/车身向量道路代理与11项测试，6c795d7实现更新级双预热/余弦状态与3项测试，8a0f236实现参数/RNG暖启动、新AdamW及严格同实验恢复，eff9dda实现独立协议/分项梯度/启动与配对报告，9018625按真实训练批次将模仿权重0.01校准至0.003并验证实际道路梯度，39c34e3补充无标签20任务定期监测重放。原阶段5B协议、已有数据、模型架构、尺度、解码器、阈值和旧工程均未改。
+
+预算固定原1200训练/200独立验证、batch4，101—150真实epoch共15000更新；新AdamW保持wd1e-4/betas0.9,0.999/eps1e-8，继承父参数与Generator/CPU-CUDA RNG。lr更新1为1e-6、600为1e-4、15000余弦至1e-6，无重启；辅助rho五轮升至1，t<=300/alpha_bar/全batch分母。lambda imitation=0.003、temporal=0.001、road=0.001。配对监督经同一解码器，原sin/cos监督幅值，不强制正常加速度/jerk为零；完整车身独立指标保留。
+
+两个短预演及监测共12个RunRecorder运行，全部formal/clean/completed。初始0.01权重eff9dda训练梯度比中位0.8278/最大2.6577；校准0.003后9018625中位0.2505/最大0.8024，父模型冻结16批审计无优化器更新。人工16m横向偏移的真实地图数学探针road4.30829→4.29756，位置/速度/朝向梯度有限且非零；它不是生成修复。正常重构16批道路项为0，不能宣称道路损失已有质量收益。
+
+实际新AdamW为空；连续16更新与第8步checkpoint恢复后8更新，网络、完整AdamW、Generator、CPU-CUDA RNG、逐步noise/loss/norm/lr/rho全部bitwise一致。全200val epsilon0.001992598→0.001777277，短自由生成0/6。39c34e3重放固定20任务监测，未读取未来标签/未训练、源文件和Torch RNG保持；0/20质量、road/route各4、motion20不合格、内部jerk P99=1055.34m/s³。这些是工程诊断，不是50轮、收益或收敛验收。
+
+231项完整测试通过19.20s；CLI、PowerShell语法和git diff --check通过。实际RTX4070 Laptop8188MiB/Torch2.5.1 CUDA12.4/Python3.10.16；更新均时196.26ms，Torch allocated峰值181.01MiB/reserved284MiB，CPU张量缓存1.1975GB，缓存21.26s、几何6.92s。优化15000步估计49.1min，验证/20任务监测/保存/环境/IO另计；预演主体121.67s。实测不会改写旧运行SHA。
+
+完整定义、启动与恢复见stage5c.md，小摘要stage5c_preflight_summary.json保留来源manifest/hash。默认本地scripts/stage5c.ps1 -Stage Run -RunId stage5c-v1：从原父模型训50轮，自动200任务采样/配对报告。每epoch验证epsilon并保存最佳参考，每5轮20任务保留质量多目标候选；epsilon_cosine只提供可选配置，不自动双倍训练。失效/不合格保留，不用综合场景评分、平滑或阈值放宽完成验收。
+
+本轮只完成实现与短验收，正式50轮由用户本地执行，基础模型充分训练质量仍未验证。未进入阶段6、重采数据或创建tag；新提交不自动推送远端。按规则验收后本地--no-ff合并main，精确文档/合并SHA以Git交付为准；工程完成不等于模型合格。

@@ -47,7 +47,10 @@ def load_checkpoint(path,*,signature=None,requested=None):
     if model.diffusion_embedding_steps!=diffusion.training_steps: raise ValueError('Checkpoint schedule mismatch')
     if signature is not None and signature!=m['training_signature']: raise ValueError('Resume training signature mismatch')
     if m['training_signature']['model']!=m['model_config'] or m['training_signature']['training']['diffusion']!=m['diffusion_config']: raise ValueError('Inconsistent checkpoint normalization/model metadata')
-    if diffusion.additional_losses_enabled or m['training_config'].get('schema_version')=='sumodiff.controlled.train.config.v1':
+    if m['training_config'].get('schema_version')=='sumodiff.unified.train.config.v1':
+        from .unified_training import validate_runtime
+        validate_runtime(value)
+    elif diffusion.additional_losses_enabled or m['training_config'].get('schema_version')=='sumodiff.controlled.train.config.v1':
         from .physical_losses import resolve_physical_config
         if m['training_config'].get('schema_version')!='sumodiff.controlled.train.config.v1':
             raise ValueError('Physical checkpoint needs explicit controlled training provenance')
