@@ -1,0 +1,11 @@
+schema_version: sumodiff.stage5c.suite.config.v1
+dataset: artifacts/processed/stage5a-v1/dataset
+parent_checkpoint: artifacts/runs/stage5a-v1-train/checkpoint_step_030000.pt
+scale_audit: artifacts/runs/stage5a-v1-scales/scale_audit.json
+sampling_config: configs/experiments/stage5a_validation_sampling.yaml
+baseline_run: artifacts/runs/stage5a-v1-validation-20261008
+training_configs:
+  unified: configs/train/stage5c_unified.yaml
+  epsilon_cosine: configs/train/stage5c_epsilon_cosine.yaml
+preflight_updates: 16
+bootstrap_seed: 20261017

@@ -1,0 +1,34 @@
+schema_version: sumodiff.unified.train.config.v1
+objective_name: epsilon_cosine
+additional_epochs: 50
+expected_parent_step: 30000
+expected_parent_sha256: 2315fa4d57b9d86a3254a0923590efbbd48f23666f3bf0d2c733ac04b4d1769b
+expected_train_windows: 1200
+expected_validation_windows: 200
+batch_size: 4
+device: cuda:0
+torch_threads: 1
+peak_learning_rate: 0.0001
+minimum_learning_rate: 1.0e-06
+warmup_epochs: 2
+auxiliary_warmup_epochs: 5
+validation_every_epochs: 1
+checkpoint_every_epochs: 5
+monitor_every_epochs: 5
+monitor_tasks: 20
+loss:
+  schema_version: sumodiff.unified.loss.config.v1
+  imitation_weight: 0.0
+  temporal_weight: 0.0
+  road_weight: 0.0
+  max_auxiliary_timestep: 300
+  huber_beta: 1.0
+  longitudinal_unit_m: 2.0
+  lateral_unit_m: 0.5
+  velocity_unit_mps: 5.0
+  velocity_difference_unit_mps: 1.0
+  heading_factor: 0.1
+  second_difference_factor: 0.1
+  road_distance_unit_m: 1.0
+  road_numerical_tolerance_m: 1.0e-06
+  body_grid_size: 5
