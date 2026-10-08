@@ -1,0 +1,5 @@
+schema_version: sumodiff.quality.audit.config.v1
+expected_windows: 200
+trace_limit: 6
+split: validation
+seed: 20261016

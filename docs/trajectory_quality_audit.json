@@ -1,0 +1,1205 @@
+{
+  "schema_version": "sumodiff.quality.audit.delivery.v1",
+  "audit_run": "E:/diffusion_new/artifacts/runs/stage5a-quality-audit-20261008",
+  "report_run": "E:/diffusion_new/artifacts/runs/stage5a-quality-report-20261008",
+  "runtime_sha": "4311a755dcc76421d5097d0b7edc69ffa54911e6",
+  "source_sampling_sha": "a220c9016046cc14a858d184672db1a28ded3737",
+  "report_runtime_sha": "fd9fc375719aa2803f69062c9ea36173a9a389a9",
+  "branch": "feat/trajectory-quality-audit",
+  "formal": true,
+  "dirty": false,
+  "status": "completed",
+  "checkpoint": {
+    "id": "sha256:2315fa4d57b9d86a3254a0923590efbbd48f23666f3bf0d2c733ac04b4d1769b",
+    "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-v1-train\\checkpoint_step_030000.pt",
+    "sha256": "2315fa4d57b9d86a3254a0923590efbbd48f23666f3bf0d2c733ac04b4d1769b",
+    "size_bytes": 41324202
+  },
+  "source_files_count": 1408,
+  "config_sha256": "e99b459ba8201da1b12fd88556e16732d549c156e9574566c1b4cf794fe04649",
+  "environment_sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+  "numerical_checks": {
+    "independent_position_error_max_m": 1.4921397450962104e-13,
+    "saved_decoder_error_max": 7.105427357601002e-14,
+    "label_position_correction_max_m": 6.913545036013602e-06
+  },
+  "attribution": {
+    "raw": {
+      "by_family": {
+        "ramp_merge": {
+          "scenes": 67,
+          "quality_pass": 0,
+          "quality_unknown": 0,
+          "motion_bad": 67,
+          "collision_scenes": 3,
+          "collision_unknown": 0,
+          "road_bad": 35,
+          "route_bad": 35,
+          "map_bad": 0,
+          "boundary_jerk_bad": 67,
+          "interior_jerk_bad": 67
+        },
+        "three_lane_straight": {
+          "scenes": 67,
+          "quality_pass": 0,
+          "quality_unknown": 0,
+          "motion_bad": 67,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 17,
+          "route_bad": 17,
+          "map_bad": 0,
+          "boundary_jerk_bad": 67,
+          "interior_jerk_bad": 67
+        },
+        "unsignalized_intersection": {
+          "scenes": 66,
+          "quality_pass": 0,
+          "quality_unknown": 0,
+          "motion_bad": 66,
+          "collision_scenes": 12,
+          "collision_unknown": 0,
+          "road_bad": 55,
+          "route_bad": 55,
+          "map_bad": 0,
+          "boundary_jerk_bad": 66,
+          "interior_jerk_bad": 66
+        }
+      },
+      "pooled": {
+        "interior_jerk": {
+          "count": 26460,
+          "mean": 2996.4345456424376,
+          "min": 3.4040195410478122,
+          "p50": 897.8763240323108,
+          "p95": 12537.789826675815,
+          "p99": 33604.8304707051,
+          "max": 111649.29160028207
+        },
+        "velocity_residual": {
+          "count": 29400,
+          "mean": 9.934827655758284,
+          "min": 0.025431022481852316,
+          "p50": 3.185652214142479,
+          "p95": 40.31450177603857,
+          "p99": 110.92661368417785,
+          "max": 371.00275527022427
+        }
+      },
+      "totals": {
+        "route_bad": 107,
+        "map_bad": 0,
+        "road_bad": 107,
+        "quality_unknown": 0,
+        "quality_pass": 0,
+        "collision_unknown": 0,
+        "interior_jerk_bad": 200,
+        "motion_bad": 200,
+        "boundary_jerk_bad": 200,
+        "collision_scenes": 15,
+        "scenes": 200
+      },
+      "motion_violation_points": {
+        "speed": 1953,
+        "longitudinal_acceleration": 25840,
+        "lateral_acceleration": 25518,
+        "jerk": 29377,
+        "yaw_rate": 94,
+        "heading_velocity": 7661,
+        "heading_norm": 2017,
+        "velocity_consistency": 28417
+      },
+      "motion_violation_scenes": {
+        "speed": 79,
+        "longitudinal_acceleration": 200,
+        "lateral_acceleration": 200,
+        "jerk": 200,
+        "yaw_rate": 21,
+        "heading_velocity": 161,
+        "heading_norm": 53,
+        "velocity_consistency": 200
+      }
+    },
+    "decoded": {
+      "by_family": {
+        "ramp_merge": {
+          "scenes": 67,
+          "quality_pass": 0,
+          "quality_unknown": 0,
+          "motion_bad": 67,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 15,
+          "route_bad": 15,
+          "map_bad": 0,
+          "boundary_jerk_bad": 67,
+          "interior_jerk_bad": 67
+        },
+        "three_lane_straight": {
+          "scenes": 67,
+          "quality_pass": 0,
+          "quality_unknown": 0,
+          "motion_bad": 67,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 4,
+          "route_bad": 4,
+          "map_bad": 0,
+          "boundary_jerk_bad": 67,
+          "interior_jerk_bad": 67
+        },
+        "unsignalized_intersection": {
+          "scenes": 66,
+          "quality_pass": 0,
+          "quality_unknown": 0,
+          "motion_bad": 66,
+          "collision_scenes": 4,
+          "collision_unknown": 0,
+          "road_bad": 31,
+          "route_bad": 32,
+          "map_bad": 0,
+          "boundary_jerk_bad": 66,
+          "interior_jerk_bad": 66
+        }
+      },
+      "pooled": {
+        "interior_jerk": {
+          "count": 26460,
+          "mean": 63.985096929431236,
+          "min": 0.053165769915923713,
+          "p50": 20.14540734492869,
+          "p95": 271.5056689664144,
+          "p99": 719.2254527297526,
+          "max": 2823.7644209234445
+        },
+        "velocity_residual": {
+          "count": 29400,
+          "mean": 1.454435641979617e-14,
+          "min": 0.0,
+          "p50": 2.0816681711721685e-15,
+          "p95": 7.105427357601002e-14,
+          "p99": 1.0658141036401503e-13,
+          "max": 1.4217791915866692e-13
+        }
+      },
+      "totals": {
+        "route_bad": 51,
+        "map_bad": 0,
+        "road_bad": 50,
+        "quality_unknown": 0,
+        "quality_pass": 0,
+        "collision_unknown": 0,
+        "interior_jerk_bad": 200,
+        "motion_bad": 200,
+        "boundary_jerk_bad": 200,
+        "collision_scenes": 4,
+        "scenes": 200
+      },
+      "motion_violation_points": {
+        "speed": 0,
+        "longitudinal_acceleration": 3353,
+        "lateral_acceleration": 2818,
+        "jerk": 18804,
+        "yaw_rate": 94,
+        "heading_velocity": 1272,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      },
+      "motion_violation_scenes": {
+        "speed": 0,
+        "longitudinal_acceleration": 196,
+        "lateral_acceleration": 99,
+        "jerk": 200,
+        "yaw_rate": 21,
+        "heading_velocity": 26,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      }
+    },
+    "label_raw": {
+      "by_family": {
+        "ramp_merge": {
+          "scenes": 67,
+          "quality_pass": 67,
+          "quality_unknown": 0,
+          "motion_bad": 0,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 0,
+          "route_bad": 0,
+          "map_bad": 0,
+          "boundary_jerk_bad": 0,
+          "interior_jerk_bad": 0
+        },
+        "three_lane_straight": {
+          "scenes": 67,
+          "quality_pass": 67,
+          "quality_unknown": 0,
+          "motion_bad": 0,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 0,
+          "route_bad": 0,
+          "map_bad": 0,
+          "boundary_jerk_bad": 0,
+          "interior_jerk_bad": 0
+        },
+        "unsignalized_intersection": {
+          "scenes": 66,
+          "quality_pass": 66,
+          "quality_unknown": 0,
+          "motion_bad": 0,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 0,
+          "route_bad": 0,
+          "map_bad": 0,
+          "boundary_jerk_bad": 0,
+          "interior_jerk_bad": 0
+        }
+      },
+      "pooled": {
+        "interior_jerk": {
+          "count": 26460,
+          "mean": 0.031639271850139844,
+          "min": 0.0,
+          "p50": 0.003814697265625,
+          "p95": 0.12017827127592845,
+          "p99": 0.4943601124905173,
+          "max": 14.234333985296725
+        },
+        "velocity_residual": {
+          "count": 29400,
+          "mean": 9.629100262761261e-06,
+          "min": 0.0,
+          "p50": 5.7220458984375e-06,
+          "p95": 3.1948089599609375e-05,
+          "p99": 5.307752639055199e-05,
+          "max": 9.1552734375e-05
+        }
+      },
+      "totals": {
+        "route_bad": 0,
+        "map_bad": 0,
+        "road_bad": 0,
+        "quality_unknown": 0,
+        "quality_pass": 200,
+        "collision_unknown": 0,
+        "interior_jerk_bad": 0,
+        "motion_bad": 0,
+        "boundary_jerk_bad": 0,
+        "collision_scenes": 0,
+        "scenes": 200
+      },
+      "motion_violation_points": {
+        "speed": 0,
+        "longitudinal_acceleration": 0,
+        "lateral_acceleration": 0,
+        "jerk": 0,
+        "yaw_rate": 0,
+        "heading_velocity": 0,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      },
+      "motion_violation_scenes": {
+        "speed": 0,
+        "longitudinal_acceleration": 0,
+        "lateral_acceleration": 0,
+        "jerk": 0,
+        "yaw_rate": 0,
+        "heading_velocity": 0,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      }
+    },
+    "label_decoded": {
+      "by_family": {
+        "ramp_merge": {
+          "scenes": 67,
+          "quality_pass": 67,
+          "quality_unknown": 0,
+          "motion_bad": 0,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 0,
+          "route_bad": 0,
+          "map_bad": 0,
+          "boundary_jerk_bad": 0,
+          "interior_jerk_bad": 0
+        },
+        "three_lane_straight": {
+          "scenes": 67,
+          "quality_pass": 67,
+          "quality_unknown": 0,
+          "motion_bad": 0,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 0,
+          "route_bad": 0,
+          "map_bad": 0,
+          "boundary_jerk_bad": 0,
+          "interior_jerk_bad": 0
+        },
+        "unsignalized_intersection": {
+          "scenes": 66,
+          "quality_pass": 66,
+          "quality_unknown": 0,
+          "motion_bad": 0,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 0,
+          "route_bad": 0,
+          "map_bad": 0,
+          "boundary_jerk_bad": 0,
+          "interior_jerk_bad": 0
+        }
+      },
+      "pooled": {
+        "interior_jerk": {
+          "count": 26460,
+          "mean": 0.029876119791511904,
+          "min": 0.0,
+          "p50": 0.0002942332137934068,
+          "p95": 0.1201834812995628,
+          "p99": 0.4946727772482973,
+          "max": 14.23697378976895
+        },
+        "velocity_residual": {
+          "count": 29400,
+          "mean": 1.1155955208863945e-14,
+          "min": 0.0,
+          "p50": 1.5777218104420236e-29,
+          "p95": 6.750155989720952e-14,
+          "p99": 1.0658141036401503e-13,
+          "max": 2.842171023686763e-13
+        }
+      },
+      "totals": {
+        "route_bad": 0,
+        "map_bad": 0,
+        "road_bad": 0,
+        "quality_unknown": 0,
+        "quality_pass": 200,
+        "collision_unknown": 0,
+        "interior_jerk_bad": 0,
+        "motion_bad": 0,
+        "boundary_jerk_bad": 0,
+        "collision_scenes": 0,
+        "scenes": 200
+      },
+      "motion_violation_points": {
+        "speed": 0,
+        "longitudinal_acceleration": 0,
+        "lateral_acceleration": 0,
+        "jerk": 0,
+        "yaw_rate": 0,
+        "heading_velocity": 0,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      },
+      "motion_violation_scenes": {
+        "speed": 0,
+        "longitudinal_acceleration": 0,
+        "lateral_acceleration": 0,
+        "jerk": 0,
+        "yaw_rate": 0,
+        "heading_velocity": 0,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      }
+    },
+    "oracle_position": {
+      "by_family": {
+        "ramp_merge": {
+          "scenes": 67,
+          "quality_pass": 0,
+          "quality_unknown": 0,
+          "motion_bad": 67,
+          "collision_scenes": 1,
+          "collision_unknown": 0,
+          "road_bad": 7,
+          "route_bad": 7,
+          "map_bad": 0,
+          "boundary_jerk_bad": 58,
+          "interior_jerk_bad": 67
+        },
+        "three_lane_straight": {
+          "scenes": 67,
+          "quality_pass": 0,
+          "quality_unknown": 0,
+          "motion_bad": 67,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 1,
+          "route_bad": 1,
+          "map_bad": 0,
+          "boundary_jerk_bad": 60,
+          "interior_jerk_bad": 67
+        },
+        "unsignalized_intersection": {
+          "scenes": 66,
+          "quality_pass": 0,
+          "quality_unknown": 0,
+          "motion_bad": 66,
+          "collision_scenes": 2,
+          "collision_unknown": 0,
+          "road_bad": 14,
+          "route_bad": 14,
+          "map_bad": 0,
+          "boundary_jerk_bad": 65,
+          "interior_jerk_bad": 66
+        }
+      },
+      "pooled": {
+        "interior_jerk": {
+          "count": 26460,
+          "mean": 63.86402283928763,
+          "min": 0.07462839933743756,
+          "p50": 19.85364591834511,
+          "p95": 269.9048484719217,
+          "p99": 709.8258403798542,
+          "max": 2726.541934340976
+        },
+        "velocity_residual": {
+          "count": 29400,
+          "mean": 1.4434403958129996e-14,
+          "min": 0.0,
+          "p50": 1.734723475976807e-15,
+          "p95": 7.105427357601002e-14,
+          "p99": 1.0658141609899261e-13,
+          "max": 2.1317057308434446e-13
+        }
+      },
+      "totals": {
+        "route_bad": 22,
+        "map_bad": 0,
+        "road_bad": 22,
+        "quality_unknown": 0,
+        "quality_pass": 0,
+        "collision_unknown": 0,
+        "interior_jerk_bad": 200,
+        "motion_bad": 200,
+        "boundary_jerk_bad": 183,
+        "collision_scenes": 3,
+        "scenes": 200
+      },
+      "motion_violation_points": {
+        "speed": 0,
+        "longitudinal_acceleration": 2728,
+        "lateral_acceleration": 2731,
+        "jerk": 18425,
+        "yaw_rate": 94,
+        "heading_velocity": 606,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      },
+      "motion_violation_scenes": {
+        "speed": 0,
+        "longitudinal_acceleration": 97,
+        "lateral_acceleration": 90,
+        "jerk": 200,
+        "yaw_rate": 21,
+        "heading_velocity": 25,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      }
+    },
+    "oracle_velocity": {
+      "by_family": {
+        "ramp_merge": {
+          "scenes": 67,
+          "quality_pass": 0,
+          "quality_unknown": 0,
+          "motion_bad": 67,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 14,
+          "route_bad": 14,
+          "map_bad": 0,
+          "boundary_jerk_bad": 67,
+          "interior_jerk_bad": 30
+        },
+        "three_lane_straight": {
+          "scenes": 67,
+          "quality_pass": 0,
+          "quality_unknown": 0,
+          "motion_bad": 67,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 3,
+          "route_bad": 3,
+          "map_bad": 0,
+          "boundary_jerk_bad": 67,
+          "interior_jerk_bad": 24
+        },
+        "unsignalized_intersection": {
+          "scenes": 66,
+          "quality_pass": 0,
+          "quality_unknown": 0,
+          "motion_bad": 66,
+          "collision_scenes": 4,
+          "collision_unknown": 0,
+          "road_bad": 28,
+          "route_bad": 30,
+          "map_bad": 0,
+          "boundary_jerk_bad": 66,
+          "interior_jerk_bad": 44
+        }
+      },
+      "pooled": {
+        "interior_jerk": {
+          "count": 26460,
+          "mean": 9.398942586649602,
+          "min": 0.015345879403141579,
+          "p50": 2.95817528900716,
+          "p95": 39.01314862419679,
+          "p99": 107.57539847509275,
+          "max": 368.55464769176234
+        },
+        "velocity_residual": {
+          "count": 29400,
+          "mean": 1.466812515822976e-14,
+          "min": 0.0,
+          "p50": 2.0122792321330962e-15,
+          "p95": 7.105427357601002e-14,
+          "p99": 1.065846685676022e-13,
+          "max": 1.4888583356622762e-13
+        }
+      },
+      "totals": {
+        "route_bad": 47,
+        "map_bad": 0,
+        "road_bad": 45,
+        "quality_unknown": 0,
+        "quality_pass": 0,
+        "collision_unknown": 0,
+        "interior_jerk_bad": 98,
+        "motion_bad": 200,
+        "boundary_jerk_bad": 200,
+        "collision_scenes": 4,
+        "scenes": 200
+      },
+      "motion_violation_points": {
+        "speed": 0,
+        "longitudinal_acceleration": 877,
+        "lateral_acceleration": 364,
+        "jerk": 5763,
+        "yaw_rate": 94,
+        "heading_velocity": 1042,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      },
+      "motion_violation_scenes": {
+        "speed": 0,
+        "longitudinal_acceleration": 195,
+        "lateral_acceleration": 62,
+        "jerk": 200,
+        "yaw_rate": 21,
+        "heading_velocity": 23,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      }
+    },
+    "oracle_heading": {
+      "by_family": {
+        "ramp_merge": {
+          "scenes": 67,
+          "quality_pass": 0,
+          "quality_unknown": 0,
+          "motion_bad": 67,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 15,
+          "route_bad": 15,
+          "map_bad": 0,
+          "boundary_jerk_bad": 67,
+          "interior_jerk_bad": 67
+        },
+        "three_lane_straight": {
+          "scenes": 67,
+          "quality_pass": 0,
+          "quality_unknown": 0,
+          "motion_bad": 67,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 4,
+          "route_bad": 4,
+          "map_bad": 0,
+          "boundary_jerk_bad": 67,
+          "interior_jerk_bad": 67
+        },
+        "unsignalized_intersection": {
+          "scenes": 66,
+          "quality_pass": 0,
+          "quality_unknown": 0,
+          "motion_bad": 66,
+          "collision_scenes": 4,
+          "collision_unknown": 0,
+          "road_bad": 28,
+          "route_bad": 29,
+          "map_bad": 0,
+          "boundary_jerk_bad": 66,
+          "interior_jerk_bad": 66
+        }
+      },
+      "pooled": {
+        "interior_jerk": {
+          "count": 26460,
+          "mean": 63.98509692943129,
+          "min": 0.053165769915936086,
+          "p50": 20.145407344932572,
+          "p95": 271.5056689664178,
+          "p99": 719.2254527297549,
+          "max": 2823.7644209234445
+        },
+        "velocity_residual": {
+          "count": 29400,
+          "mean": 1.4592089913286475e-14,
+          "min": 0.0,
+          "p50": 2.185751579730777e-15,
+          "p95": 7.105427357601002e-14,
+          "p99": 1.0658141036401503e-13,
+          "max": 1.4701968848782032e-13
+        }
+      },
+      "totals": {
+        "route_bad": 48,
+        "map_bad": 0,
+        "road_bad": 47,
+        "quality_unknown": 0,
+        "quality_pass": 0,
+        "collision_unknown": 0,
+        "interior_jerk_bad": 200,
+        "motion_bad": 200,
+        "boundary_jerk_bad": 200,
+        "collision_scenes": 4,
+        "scenes": 200
+      },
+      "motion_violation_points": {
+        "speed": 0,
+        "longitudinal_acceleration": 3368,
+        "lateral_acceleration": 2826,
+        "jerk": 18804,
+        "yaw_rate": 0,
+        "heading_velocity": 1298,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      },
+      "motion_violation_scenes": {
+        "speed": 0,
+        "longitudinal_acceleration": 196,
+        "lateral_acceleration": 99,
+        "jerk": 200,
+        "yaw_rate": 0,
+        "heading_velocity": 25,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      }
+    },
+    "oracle_position_velocity": {
+      "by_family": {
+        "ramp_merge": {
+          "scenes": 67,
+          "quality_pass": 58,
+          "quality_unknown": 0,
+          "motion_bad": 9,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 7,
+          "route_bad": 7,
+          "map_bad": 0,
+          "boundary_jerk_bad": 0,
+          "interior_jerk_bad": 0
+        },
+        "three_lane_straight": {
+          "scenes": 67,
+          "quality_pass": 64,
+          "quality_unknown": 0,
+          "motion_bad": 3,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 1,
+          "route_bad": 1,
+          "map_bad": 0,
+          "boundary_jerk_bad": 0,
+          "interior_jerk_bad": 0
+        },
+        "unsignalized_intersection": {
+          "scenes": 66,
+          "quality_pass": 54,
+          "quality_unknown": 0,
+          "motion_bad": 12,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 11,
+          "route_bad": 11,
+          "map_bad": 0,
+          "boundary_jerk_bad": 0,
+          "interior_jerk_bad": 0
+        }
+      },
+      "pooled": {
+        "interior_jerk": {
+          "count": 26460,
+          "mean": 0.029876119791511904,
+          "min": 0.0,
+          "p50": 0.0002942332137934068,
+          "p95": 0.1201834812995628,
+          "p99": 0.4946727772482973,
+          "max": 14.23697378976895
+        },
+        "velocity_residual": {
+          "count": 29400,
+          "mean": 1.1155955208863945e-14,
+          "min": 0.0,
+          "p50": 1.5777218104420236e-29,
+          "p95": 6.750155989720952e-14,
+          "p99": 1.0658141036401503e-13,
+          "max": 2.842171023686763e-13
+        }
+      },
+      "totals": {
+        "route_bad": 19,
+        "map_bad": 0,
+        "road_bad": 19,
+        "quality_unknown": 0,
+        "quality_pass": 176,
+        "collision_unknown": 0,
+        "interior_jerk_bad": 0,
+        "motion_bad": 24,
+        "boundary_jerk_bad": 0,
+        "collision_scenes": 0,
+        "scenes": 200
+      },
+      "motion_violation_points": {
+        "speed": 0,
+        "longitudinal_acceleration": 0,
+        "lateral_acceleration": 0,
+        "jerk": 0,
+        "yaw_rate": 94,
+        "heading_velocity": 97,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      },
+      "motion_violation_scenes": {
+        "speed": 0,
+        "longitudinal_acceleration": 0,
+        "lateral_acceleration": 0,
+        "jerk": 0,
+        "yaw_rate": 21,
+        "heading_velocity": 14,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      }
+    },
+    "current_constant_acceleration": {
+      "by_family": {
+        "ramp_merge": {
+          "scenes": 67,
+          "quality_pass": 67,
+          "quality_unknown": 0,
+          "motion_bad": 0,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 0,
+          "route_bad": 0,
+          "map_bad": 0,
+          "boundary_jerk_bad": 0,
+          "interior_jerk_bad": 0
+        },
+        "three_lane_straight": {
+          "scenes": 67,
+          "quality_pass": 66,
+          "quality_unknown": 0,
+          "motion_bad": 0,
+          "collision_scenes": 0,
+          "collision_unknown": 0,
+          "road_bad": 1,
+          "route_bad": 1,
+          "map_bad": 0,
+          "boundary_jerk_bad": 0,
+          "interior_jerk_bad": 0
+        },
+        "unsignalized_intersection": {
+          "scenes": 66,
+          "quality_pass": 57,
+          "quality_unknown": 0,
+          "motion_bad": 7,
+          "collision_scenes": 2,
+          "collision_unknown": 0,
+          "road_bad": 2,
+          "route_bad": 6,
+          "map_bad": 0,
+          "boundary_jerk_bad": 0,
+          "interior_jerk_bad": 0
+        }
+      },
+      "pooled": {
+        "interior_jerk": {
+          "count": 26460,
+          "mean": 4.581662066668071e-12,
+          "min": 0.0,
+          "p50": 3.552713678800501e-12,
+          "p95": 1.4210854715202004e-11,
+          "p99": 2.8421709430404007e-11,
+          "max": 5.6843418860808015e-11
+        },
+        "velocity_residual": {
+          "count": 29400,
+          "mean": 6.874170383867071e-15,
+          "min": 0.0,
+          "p50": 0.0,
+          "p95": 3.552713678800501e-14,
+          "p99": 7.105427357601002e-14,
+          "max": 2.1316282072803006e-13
+        }
+      },
+      "totals": {
+        "route_bad": 7,
+        "map_bad": 0,
+        "road_bad": 3,
+        "quality_unknown": 0,
+        "quality_pass": 190,
+        "collision_unknown": 0,
+        "interior_jerk_bad": 0,
+        "motion_bad": 7,
+        "boundary_jerk_bad": 0,
+        "collision_scenes": 2,
+        "scenes": 200
+      },
+      "motion_violation_points": {
+        "speed": 0,
+        "longitudinal_acceleration": 0,
+        "lateral_acceleration": 0,
+        "jerk": 0,
+        "yaw_rate": 0,
+        "heading_velocity": 139,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      },
+      "motion_violation_scenes": {
+        "speed": 0,
+        "longitudinal_acceleration": 0,
+        "lateral_acceleration": 0,
+        "jerk": 0,
+        "yaw_rate": 0,
+        "heading_velocity": 7,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      }
+    }
+  },
+  "trace_summary": [
+    {
+      "window_id": "952fc61bddbd71fa24f8d2a3803050ed699ae09553ab5b461b1e18a3be3b02c8-t30",
+      "family": "ramp_merge",
+      "source_replay": "bitwise_equal",
+      "previous": {
+        "timestep": 53,
+        "raw": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 80,
+          "interior_jerk_p99": 7275.887579971275,
+          "boundary_jerk_max": 2181.6261858695184,
+          "velocity_residual_p99": 24.08789531507764
+        },
+        "decoded": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 77,
+          "interior_jerk_p99": 172.48581802013246,
+          "boundary_jerk_max": 207.44516520527978,
+          "velocity_residual_p99": 5.3477222650144535e-14
+        },
+        "position_correction_max_m": 3.133614888588282
+      },
+      "final": {
+        "timestep": 0,
+        "raw": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 80,
+          "interior_jerk_p99": 2215.0469678696445,
+          "boundary_jerk_max": 1908.9821599883405,
+          "velocity_residual_p99": 11.503990854400895
+        },
+        "decoded": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 33,
+          "interior_jerk_p99": 46.612885976730865,
+          "boundary_jerk_max": 205.15500995184388,
+          "velocity_residual_p99": 5.551115123125783e-14
+        },
+        "position_correction_max_m": 1.724417871407635
+      },
+      "any_hard_motion_pass": false
+    },
+    {
+      "window_id": "0371cf4abe808a35e8d4a6e9fe780a03a8014d9c6950ca558ff9eef3606ca4c1-t80",
+      "family": "three_lane_straight",
+      "source_replay": "bitwise_equal",
+      "previous": {
+        "timestep": 53,
+        "raw": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 80,
+          "interior_jerk_p99": 10977.41003308131,
+          "boundary_jerk_max": 708.4600349791347,
+          "velocity_residual_p99": 36.97289431724238
+        },
+        "decoded": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 78,
+          "interior_jerk_p99": 289.5495663397641,
+          "boundary_jerk_max": 167.11232897607206,
+          "velocity_residual_p99": 2.85536160684166e-14
+        },
+        "position_correction_max_m": 2.9809052861878977
+      },
+      "final": {
+        "timestep": 0,
+        "raw": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 80,
+          "interior_jerk_p99": 2176.047175661393,
+          "boundary_jerk_max": 781.1920452555125,
+          "velocity_residual_p99": 7.953684969590114
+        },
+        "decoded": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 30,
+          "interior_jerk_p99": 31.510850857369146,
+          "boundary_jerk_max": 193.34640415599156,
+          "velocity_residual_p99": 3.8552933360793417e-14
+        },
+        "position_correction_max_m": 0.83894179029685
+      },
+      "any_hard_motion_pass": false
+    },
+    {
+      "window_id": "046439e394ec3c643e56907c98f02c4b175c091e69a3e98e82c6d66a6f456c6f-t410",
+      "family": "unsignalized_intersection",
+      "source_replay": "bitwise_equal",
+      "previous": {
+        "timestep": 53,
+        "raw": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 360,
+          "interior_jerk_p99": 63160.83243531564,
+          "boundary_jerk_max": 15268.338009982053,
+          "velocity_residual_p99": 183.8983557951584
+        },
+        "decoded": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 342,
+          "interior_jerk_p99": 1170.2406810893294,
+          "boundary_jerk_max": 797.6007960588588,
+          "velocity_residual_p99": 7.206105754984914e-14
+        },
+        "position_correction_max_m": 20.0174276743702
+      },
+      "final": {
+        "timestep": 0,
+        "raw": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 360,
+          "interior_jerk_p99": 63049.014110117874,
+          "boundary_jerk_max": 15552.209501384013,
+          "velocity_residual_p99": 184.28106490230394
+        },
+        "decoded": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 287,
+          "interior_jerk_p99": 1174.2504264299407,
+          "boundary_jerk_max": 808.0044647640744,
+          "velocity_residual_p99": 7.730428772279859e-14
+        },
+        "position_correction_max_m": 19.895929966354547
+      },
+      "any_hard_motion_pass": false
+    },
+    {
+      "window_id": "952fc61bddbd71fa24f8d2a3803050ed699ae09553ab5b461b1e18a3be3b02c8-t200",
+      "family": "ramp_merge",
+      "source_replay": "bitwise_equal",
+      "previous": {
+        "timestep": 53,
+        "raw": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 80,
+          "interior_jerk_p99": 8566.903316684544,
+          "boundary_jerk_max": 1616.743865294679,
+          "velocity_residual_p99": 28.23647284300084
+        },
+        "decoded": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 75,
+          "interior_jerk_p99": 179.80514545644965,
+          "boundary_jerk_max": 228.5422609142013,
+          "velocity_residual_p99": 1.3322676295501878e-14
+        },
+        "position_correction_max_m": 2.6999682087365495
+      },
+      "final": {
+        "timestep": 0,
+        "raw": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 80,
+          "interior_jerk_p99": 2327.133326030991,
+          "boundary_jerk_max": 1891.5630785167357,
+          "velocity_residual_p99": 15.50131164329424
+        },
+        "decoded": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 52,
+          "interior_jerk_p99": 51.36724575683874,
+          "boundary_jerk_max": 251.09920374628317,
+          "velocity_residual_p99": 1.554312234475219e-14
+        },
+        "position_correction_max_m": 1.7089634921047903
+      },
+      "any_hard_motion_pass": false
+    },
+    {
+      "window_id": "0371cf4abe808a35e8d4a6e9fe780a03a8014d9c6950ca558ff9eef3606ca4c1-t100",
+      "family": "three_lane_straight",
+      "source_replay": "bitwise_equal",
+      "previous": {
+        "timestep": 53,
+        "raw": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 80,
+          "interior_jerk_p99": 4352.857002729363,
+          "boundary_jerk_max": 679.8417064289196,
+          "velocity_residual_p99": 14.072124423464697
+        },
+        "decoded": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 70,
+          "interior_jerk_p99": 70.4231976551891,
+          "boundary_jerk_max": 138.40434316636916,
+          "velocity_residual_p99": 2.362975806733449e-14
+        },
+        "position_correction_max_m": 1.3599445796894136
+      },
+      "final": {
+        "timestep": 0,
+        "raw": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 80,
+          "interior_jerk_p99": 2045.774685960876,
+          "boundary_jerk_max": 413.40111202310413,
+          "velocity_residual_p99": 6.734840191394381
+        },
+        "decoded": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 50,
+          "interior_jerk_p99": 43.15954018394013,
+          "boundary_jerk_max": 121.1292391481364,
+          "velocity_residual_p99": 1.9680770763314217e-14
+        },
+        "position_correction_max_m": 0.7114805563510266
+      },
+      "any_hard_motion_pass": false
+    },
+    {
+      "window_id": "046439e394ec3c643e56907c98f02c4b175c091e69a3e98e82c6d66a6f456c6f-t630",
+      "family": "unsignalized_intersection",
+      "source_replay": "bitwise_equal",
+      "previous": {
+        "timestep": 53,
+        "raw": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 200,
+          "interior_jerk_p99": 7507.944851595373,
+          "boundary_jerk_max": 3716.9004997024354,
+          "velocity_residual_p99": 34.744746417276765
+        },
+        "decoded": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 182,
+          "interior_jerk_p99": 185.7880621859752,
+          "boundary_jerk_max": 105.19107022472998,
+          "velocity_residual_p99": 1.055350955052898e-13
+        },
+        "position_correction_max_m": 3.6201758650440574
+      },
+      "final": {
+        "timestep": 0,
+        "raw": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 200,
+          "interior_jerk_p99": 1199.4733672328446,
+          "boundary_jerk_max": 3245.8671227512223,
+          "velocity_residual_p99": 24.834574737458954
+        },
+        "decoded": {
+          "hard_motion_pass": false,
+          "jerk_violation_points": 42,
+          "interior_jerk_p99": 27.846941193279754,
+          "boundary_jerk_max": 125.21615940547379,
+          "velocity_residual_p99": 1.2103620569082127e-13
+        },
+        "position_correction_max_m": 3.120680239183548
+      },
+      "any_hard_motion_pass": false
+    }
+  ],
+  "training_settings": {
+    "learning_rate": 0.0003,
+    "optimizer_learning_rates": [
+      0.0003
+    ],
+    "objective": "epsilon",
+    "additional_losses_enabled": false
+  },
+  "wall_seconds": 59.69697689998429,
+  "denoiser_calls": 120,
+  "actual_gradient_calls": 0,
+  "weights_unchanged": true,
+  "planned_windows": 200,
+  "peak_gpu_memory_bytes": null,
+  "tests": {
+    "passed": 168,
+    "seconds": 15.67
+  },
+  "figures": {
+    "channel_attribution.png": {
+      "id": "sha256:dda0a0b4535dc4544030951d04804318d528804f83d0597eb29b896a5fa0d42d",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-quality-report-20261008\\channel_attribution.png",
+      "sha256": "dda0a0b4535dc4544030951d04804318d528804f83d0597eb29b896a5fa0d42d",
+      "size_bytes": 160136
+    },
+    "channel_attribution.svg": {
+      "id": "sha256:01967d1391ed7033c4ffa5587095a541399c9f5069af804de34158142c723b51",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-quality-report-20261008\\channel_attribution.svg",
+      "sha256": "01967d1391ed7033c4ffa5587095a541399c9f5069af804de34158142c723b51",
+      "size_bytes": 111604
+    },
+    "denoising_trace.png": {
+      "id": "sha256:548953a70db4397c8a9a6cd2fc47f1a46fd8f7f234f4c54e8d76956228898139",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-quality-report-20261008\\denoising_trace.png",
+      "sha256": "548953a70db4397c8a9a6cd2fc47f1a46fd8f7f234f4c54e8d76956228898139",
+      "size_bytes": 144824
+    },
+    "denoising_trace.svg": {
+      "id": "sha256:fe0059f21725062d058b2dd2e001734e36546b6a0044731147c7dbe3661e96a6",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-quality-report-20261008\\denoising_trace.svg",
+      "sha256": "fe0059f21725062d058b2dd2e001734e36546b6a0044731147c7dbe3661e96a6",
+      "size_bytes": 112847
+    }
+  },
+  "limits": [
+    "post-hoc label controls are not generation",
+    "fixed prefix replays, not random population estimate",
+    "no training, collection, production change, or stage6",
+    "root learning cause not uniquely determined"
+  ],
+  "convergence_status": "not_assessed",
+  "git_delivery": {
+    "local_integration": "ready_after_acceptance",
+    "remote_push": "not_authorized_auto_review_rejected",
+    "proposed_refs": [
+      "main",
+      "feat/trajectory-quality-audit"
+    ]
+  }
+}
