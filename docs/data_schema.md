@@ -163,3 +163,14 @@ sumodiff.base.checkpoint.v1保存epsilon网络/AdamW、CPU及CUDA随机状态、
 checkpoint.v1保留现有状态布局，training_config新增sumodiff.controlled.train.config.v1，记录arm、共同父SHA-256、source_step/source_epochs、继承初始化、名义/实际追加预算与physical_loss完整配置。A additional_losses_enabled=false，B—D为true；true要求可验证的受控训练目标元数据，旧训练入口拒绝隐式启用。严格恢复签名包含目标、数据及预算；不能把不同组当作同实验resume。原窗口/模型条件/采样stages结构不变，未来标签仍仅作监督。
 
 steps.jsonl包含全局step、真实epoch/batch、窗口ID、timestep、noise_sha256、各目标/梯度norm与时间。initial_state.json包含model/AdamW/Generator/CPU-CUDA RNG哈希。完整实验最终step33000、每组3000更新；preflight_prefix另记录真实12更新，不计为10轮。arm_outputs.json允许恢复训练或独立重采样的显式路径；报告追溯原始运行SHA，失败/未知始终在计划200任务质量分母内。
+
+
+## 阶段5C统一训练与调度状态
+
+原dataset/window/checkpoint.v1外层布局和采样stages.npz保持。新增training_config.schema_version=sumodiff.unified.train.config.v1；signature.training包含完整实际配置，不沿用旧训练签名的可变预算例外。loss为sumodiff.unified.loss.config.v1，schedule为sumodiff.warmup.cosine.config.v1。源模型30000步/100轮，新增15000步/50轮，短prefix单独记录execution_budget_kind及实际预算。
+
+checkpoint.runtime保存scheduler_state（配置hash、completed_updates、last_lr、last_auxiliary_ramp）、best_epsilon、quality_history和snapshot_kind。scheduler_state的已完成更新数必须等于checkpoint.step-source_step，实际AdamW lr须一致。best_epsilon.checkpoint=null只表示本checkpoint本身为该保存点；恢复时解析为当前文件身份，其余身份检查hash。training_recovery可恢复，monitor_assessment仅用于采样。
+
+initial_state.json记录网络/优化器/RNG哈希、实际AdamW state数量和调度起点。steps.jsonl增加lr、rho、模仿/时间/道路分项、加权贡献、道路代理越界比例、朝向回退计数及clip前范数。best_epsilon.json指向实际最佳epsilon参考；quality_candidates.json为各监测点与非支配checkpoint列表，无综合评分。full_budget_complete=true仅在实际满45000步且非preflight时成立，不能据此推断收敛或质量。
+
+gradient_audit.json保存冻结父参数、完整候选rho=1的逐批参数梯度范数/与epsilon夹角、训练窗口与时间步。road_activation_probe.json是明确标注的标签衍生位移数学探针，optimizer_updates=0，不是生成事件。monitor_probe.json使用当前条件和地图，future_labels_accessed=false、training_updates=0；检查Torch RNG恢复与源文件不变。正式200配对报告继承既有独立指标和失败分母协议。

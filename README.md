@@ -88,3 +88,15 @@ Set-Location E:\diffusion_new
 
 
 用户本地已完成阶段5B四组各10轮，质量仍各0/200。完整结果、横向偏移与损失归因及待审修改点见 [stage5b_results.md](docs/stage5b_results.md).
+
+
+## 阶段5C统一训练入口
+
+已实现统一解码轨迹模仿、正常速度差分和弱车身道路/路线损失，加两轮warmup与单段余弦衰减。原100轮模型参数/RNG暖启动，新AdamW；默认追加50轮、batch4、原1200/200数据。实际GPU短预演、恢复、道路梯度和20任务监测已验收，231项测试通过；充分训练质量与收敛仍待验证。
+
+~~~powershell
+Set-Location E:\diffusion_new
+.\scripts\stage5c.ps1 -Stage Run -RunId stage5c-v1
+~~~
+
+这个入口由本地终端执行50轮、最终200任务采样和配对报告；预计仅优化约49分钟，其他步骤另计。损失定义、一次梯度校准、结果边界、恢复/单独采样及可选epsilon对照见[stage5c.md](docs/stage5c.md)。当前完成工程与短验收，未启动50轮或阶段6。
