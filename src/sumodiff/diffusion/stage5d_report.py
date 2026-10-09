@@ -132,7 +132,7 @@ def audit_baseline(config_path,output,formal=False):
         interpretation='Epoch150 reporting replay; not epoch200 training or candidate improvement.')
     with RunRecorder(output,Path.cwd(),effective,[sys.executable,*sys.orig_argv[1:]],
         {'bootstrap':c['bootstrap_seed']},purpose='stage5d_existing_baseline_report_audit',
-        data_files=sorted(set(source_files(config_path,c)+files)),checkpoint=c['parent_checkpoint'],formal=formal) as run:
+        data_files=sorted(set(map(str,source_files(config_path,c)+files))),checkpoint=c['parent_checkpoint'],formal=formal) as run:
         result=dict(schema_version='sumodiff.stage5d.report.audit.metrics.v1',
             run_sha=run.manifest['git']['commit_sha'],existing_baseline=aggregate,
             self_paired_intervals=intervals,noise_identities=len(noises),optimizer_updates=0,
