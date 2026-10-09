@@ -1,0 +1,12 @@
+schema_version: sumodiff.velocity.validation.config.v1
+seed: 20261019
+device: cuda:0
+torch_threads: 1
+batch_size: 4
+train_windows: 48
+validation_windows: 200
+timesteps: [0, 50, 100, 200, 300]
+gradient_batches: 16
+forced_gradient_timestep: 200
+second_difference_unit_mps: 0.15
+boundary_frames: 4
