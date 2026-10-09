@@ -54,10 +54,22 @@ def test_report_recovers_boundary_jerk_from_history_and_records_unassessed_failu
     failed=tmp_path/'trajectories'/'b';failed.mkdir()
     (failed/'metrics.json').write_text(json.dumps(dict(raw={},decoded={})))
     rows=[dict(window_id='a',generation_failed=False),dict(window_id='b',generation_failed=True)]
-    aggregate=dict(pooled={})
+    aggregate=dict(pooled={},counts={})
     rows,out=extend_quality_rows(tmp_path,rows,aggregate,{'a':cond,'b':cond})
     assert out['strict_comfort']['pass_agents']==2 and out['strict_comfort']['assessed_agents']==2
     assert out['strict_comfort']['planned_agents']==4 and out['strict_comfort']['unassessed_agents']==2
     assert out['strict_comfort']['pass_rate']==.5 and rows[1]['strict_comfort_rate']==0
     assert rows[1]['decoded_boundary_jerk_p99'] is None
     assert rows[0]['velocity_correction_max']==.2 and rows[0]['decoded_boundary_jerk_p99']<1e-8
+
+def test_single_vehicle_collision_is_na_and_not_unknown_or_zero_probability(tmp_path):
+    c,t=fixture(agents=1,count=40)
+    cond={k:v[0].numpy() for k,v in c.items()}
+    source=tmp_path/'trajectories'/'single';source.mkdir(parents=True)
+    (source/'metrics.json').write_text(json.dumps(dict(raw={},decoded={})))
+    rows=[dict(window_id='single',generation_failed=True,collision=None)]
+    _,out=extend_quality_rows(tmp_path,rows,dict(pooled={},counts={}),{'single':cond})
+    assert out['counts']['collision_unknown']==0
+    assert out['counts']['collision_not_applicable_scenes']==1
+    assert out['collision_applicability']['applicable_scenes']==0
+    assert out['collision_applicability']['confirmed_collision_rate'] is None

@@ -21,6 +21,7 @@ def extend_quality_rows(directory,rows,aggregate,conditioning):
         selected=int(np.asarray(conditioning[r['window_id']]['agent_mask'],bool).sum());planned_agents+=selected
         r.update(strict_comfort_pass_agents=good,strict_comfort_assessed_agents=total,
                  strict_comfort_rate=good/selected if selected else None,strict_comfort_planned_agents=selected,
+                 collision_applicable=selected>=2,
                  decoded_boundary_jerk_p99=None,
                  raw_quality_success=float(m['raw'].get('quality_pass') is True),
                  velocity_correction_max=m.get('corrections',{}).get('velocity_correction_mps',{}).get('max'))
@@ -36,6 +37,14 @@ def extend_quality_rows(directory,rows,aggregate,conditioning):
         pass_rate=comfort_good/planned_agents if planned_agents else None,
         assessed_pass_rate=comfort_good/comfort_total if comfort_total else None)
     aggregate['pooled']['decoded_boundary_jerk']=summary(boundary)
+    applicable=[r for r in rows if r['collision_applicable']]
+    unknown=sum(r.get('collision') is None for r in applicable)
+    positives=sum(r.get('collision') is True for r in applicable)
+    aggregate['counts']['collision_unknown']=unknown
+    aggregate['counts']['collision_not_applicable_scenes']=len(rows)-len(applicable)
+    aggregate['collision_applicability']=dict(applicable_scenes=len(applicable),
+        not_applicable_scenes=len(rows)-len(applicable),unknown_or_failed=unknown,
+        confirmed_collision_rate=positives/len(applicable) if applicable else None)
     aggregate['raw_quality_passes']=sum(r['raw_quality_success'] for r in rows)
     return rows,aggregate
 
