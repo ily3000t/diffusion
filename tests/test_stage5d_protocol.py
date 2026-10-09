@@ -39,7 +39,7 @@ def test_candidate_frontier_keeps_boundary_and_interior_tradeoff_and_rejects_unk
         return dict(checkpoint={'location':name},quality=dict(planned=20,unknown=unknown,failures=0,
             collision_unknown=0,quality_passes=10,road_bad=1,route_bad=1,collision_scenes=0,
             decoded_boundary_jerk_p99=boundary,decoded_interior_jerk_p99=interior,
-            strict_comfort_pass_agents=10,strict_comfort_assessed_agents=40))
+            strict_comfort_pass_agents=10,strict_comfort_assessed_agents=40,strict_comfort_planned_agents=40))
     records=[record('a',5,20),record('b',10,10),record('dominated',15,30),record('unknown',0,0,1)]
     assert [r['location'] for r in velocity_frontier(records)]==['a','b']
 
@@ -57,5 +57,7 @@ def test_report_recovers_boundary_jerk_from_history_and_records_unassessed_failu
     aggregate=dict(pooled={})
     rows,out=extend_quality_rows(tmp_path,rows,aggregate,{'a':cond,'b':cond})
     assert out['strict_comfort']['pass_agents']==2 and out['strict_comfort']['assessed_agents']==2
+    assert out['strict_comfort']['planned_agents']==4 and out['strict_comfort']['unassessed_agents']==2
+    assert out['strict_comfort']['pass_rate']==.5 and rows[1]['strict_comfort_rate']==0
     assert rows[1]['decoded_boundary_jerk_p99'] is None
     assert rows[0]['velocity_correction_max']==.2 and rows[0]['decoded_boundary_jerk_p99']<1e-8

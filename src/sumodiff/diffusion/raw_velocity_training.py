@@ -119,13 +119,14 @@ def velocity_monitor_quality(directory,cache):
     from .quality_audit import physical_derivatives
     from .stage5b_report import read
     q=monitor_quality(directory,cache);by_id={wid:i for i,wid in enumerate(cache[2])}
-    boundary=[];good=0;assessed=0;collisions=0;unknown=0
+    boundary=[];good=0;assessed=0;planned_agents=0;collisions=0;unknown=0;not_applicable=0
     for item in read(Path(directory)/'trajectory_index.json'):
         source=Path(directory)/'trajectories'/item['window_id'];m=read(source/'metrics.json')['decoded']
+        selected=int(cache[0]['agent_mask'][by_id[item['window_id']]].sum());planned_agents+=selected
         motion=m.get('motion',{});good+=motion.get('comfort_pass_agents',0)
         assessed+=motion.get('comfort_assessed_agents',0)
         col=m.get('collisions',{}).get('groups',{}).get('any',{}).get('collision')
-        collisions+=col is True;unknown+=col is None
+        collisions+=col is True;unknown+=col is None and selected>=2;not_applicable+=selected<2
         if item['generation_status']=='completed' and (source/'stages.npz').exists():
             i=by_id[item['window_id']];cond={k:v[i].numpy() for k,v in cache[0].items()}
             with np.load(source/'stages.npz',allow_pickle=False) as a:
@@ -133,14 +134,16 @@ def velocity_monitor_quality(directory,cache):
             boundary.extend(np.linalg.norm(j[cond['agent_mask'],:4],axis=-1).ravel().tolist())
     return dict(q,decoded_boundary_jerk_p99=float(np.quantile(boundary,.99)) if boundary else None,
         decoded_boundary_jerk_max=max(boundary) if boundary else None,strict_comfort_pass_agents=good,
-        strict_comfort_assessed_agents=assessed,collision_scenes=collisions,collision_unknown=unknown)
+        strict_comfort_assessed_agents=assessed,strict_comfort_planned_agents=planned_agents,
+        strict_comfort_unassessed_agents=planned_agents-assessed,collision_scenes=collisions,
+        collision_unknown=unknown,collision_not_applicable_scenes=not_applicable)
 
 def velocity_frontier(records):
     eligible=[r for r in records if r['quality']['unknown']==0 and r['quality']['failures']==0
         and r['quality']['collision_unknown']==0 and r['quality']['decoded_interior_jerk_p99'] is not None
         and r['quality']['decoded_boundary_jerk_p99'] is not None]
     def vector(r):
-        q=r['quality'];n=q['planned'];a=q['strict_comfort_assessed_agents']
+        q=r['quality'];n=q['planned'];a=q['strict_comfort_planned_agents']
         comfort=-q['strict_comfort_pass_agents']/a if a else 0.
         return (-q['quality_passes']/n,q['road_bad']/n,q['route_bad']/n,q['collision_scenes']/n,
                 q['decoded_interior_jerk_p99'],q['decoded_boundary_jerk_p99'],comfort)

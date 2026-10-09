@@ -13,13 +13,15 @@ from .controlled_training import tree_hash
 
 def extend_quality_rows(directory,rows,aggregate,conditioning):
     """Keep per-scene comparisons distinct from pooled vehicle/frame quantiles."""
-    root=Path(directory);boundary=[];comfort_good=0;comfort_total=0
+    root=Path(directory);boundary=[];comfort_good=0;comfort_total=0;planned_agents=0
     for r in rows:
         source=root/'trajectories'/r['window_id'];m=read(source/'metrics.json')
         motion=m['decoded'].get('motion',{})
         good=motion.get('comfort_pass_agents',0);total=motion.get('comfort_assessed_agents',0)
+        selected=int(np.asarray(conditioning[r['window_id']]['agent_mask'],bool).sum());planned_agents+=selected
         r.update(strict_comfort_pass_agents=good,strict_comfort_assessed_agents=total,
-                 strict_comfort_rate=good/total if total else None,decoded_boundary_jerk_p99=None,
+                 strict_comfort_rate=good/selected if selected else None,strict_comfort_planned_agents=selected,
+                 decoded_boundary_jerk_p99=None,
                  raw_quality_success=float(m['raw'].get('quality_pass') is True),
                  velocity_correction_max=m.get('corrections',{}).get('velocity_correction_mps',{}).get('max'))
         comfort_good+=good;comfort_total+=total
@@ -30,7 +32,9 @@ def extend_quality_rows(directory,rows,aggregate,conditioning):
             r['decoded_boundary_jerk_p99']=float(np.quantile(values,.99))
             boundary.extend(values.ravel().tolist())
     aggregate['strict_comfort']=dict(pass_agents=comfort_good,assessed_agents=comfort_total,
-        pass_rate=comfort_good/comfort_total if comfort_total else None)
+        planned_agents=planned_agents,unassessed_agents=planned_agents-comfort_total,
+        pass_rate=comfort_good/planned_agents if planned_agents else None,
+        assessed_pass_rate=comfort_good/comfort_total if comfort_total else None)
     aggregate['pooled']['decoded_boundary_jerk']=summary(boundary)
     aggregate['raw_quality_passes']=sum(r['raw_quality_success'] for r in rows)
     return rows,aggregate
@@ -98,10 +102,10 @@ def report(config_path,training_run,sampling_run,output,formal=False):
             '|---|---:|---:|---:|---:|---:|---:|']
         for name,s in [('parent150',old),('candidate200',new)]:
             q=s['counts'];b=s['pooled']['decoded_boundary_jerk'].get('p99');j=s['pooled']['decoded_interior_jerk'].get('p99');co=s['strict_comfort']
-            lines.append(f"| {name} | {q['quality_passes']} | {b} | {j} | {co['pass_agents']} / {co['assessed_agents']} | {q['road_bad']} / {q['route_bad']} | {q['collision_scenes']} |")
+            lines.append(f"| {name} | {q['quality_passes']} | {b} | {j} | {co['pass_agents']} / {co['planned_agents']} | {q['road_bad']} / {q['route_bad']} | {q['collision_scenes']} |")
         lines+=['','Paired scene means and episode-cluster uncertainty: paired_summary.json.',
             'Continuous metrics use available pairs; availability and planned counts are reported.',
-            'Failed/unqualified generations remain in the quality denominator. No score, smoothing, convergence or automatic stage6 claim.',
+            'Failed/unqualified generations remain in quality and planned comfort denominators. No score, smoothing, convergence or automatic stage6 claim.',
             'Extra epochs and LR changed alongside loss; this report does not isolate a loss contribution.']
         (run.output/'report.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
     return result
