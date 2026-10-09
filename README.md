@@ -99,4 +99,18 @@ Set-Location E:\diffusion_new
 .\scripts\stage5c.ps1 -Stage Run -RunId stage5c-v1
 ~~~
 
-这个入口由本地终端执行50轮、最终200任务采样和配对报告；预计仅优化约49分钟，其他步骤另计。损失定义、一次梯度校准、结果边界、恢复/单独采样及可选epsilon对照见[stage5c.md](docs/stage5c.md)。当前完成工程与短验收，未启动50轮或阶段6。
+这个入口由本地终端执行50轮、最终200任务采样和配对报告；预计仅优化约49分钟，其他步骤另计。损失定义、一次梯度校准、结果边界、恢复/单独采样及可选epsilon对照见[stage5c.md](docs/stage5c.md)。阶段5C正式50轮已完成，场景质量50/200，收敛尚未证明；新续训使用下方阶段5D入口。
+
+
+## 阶段5D：150→200轮续训
+
+已实现并短验收原始速度二阶差分监督：内部5e-5、前四帧1e-5；保留现有模仿/时间/道路目标，继承150轮模型的完整AdamW/RNG，仅重启低幅warmup及余弦。默认峰值2e-5，原1200/200、batch4，新增50真实epoch。正式50轮尚未启动。
+
+联合梯度、真实GPU恢复和完整200任务报告重放均通过。275项全量回归及新增报告检查通过；估计仅优化约56分钟，验证/监测/保存/采样另计，不保证收敛。完整配置、资源、结果及恢复命令见[stage5d.md](docs/stage5d.md)，轻量来源摘要见[stage5d_preflight_summary.json](docs/stage5d_preflight_summary.json)。
+
+~~~powershell
+Set-Location E:\diffusion_new
+.\scripts\stage5d.ps1 -Stage Run -RunId stage5d-v1
+~~~
+
+Run从150轮checkpoint续训到200轮，每10轮固定20任务，最后自动评估200配对任务并写报告。要求已提交干净代码和未使用RunId。本入口是独立新协议；旧stage5c入口仍保留100→150轮的复现用途。当前没有充分模型质量或收敛结论，阶段6未启动。

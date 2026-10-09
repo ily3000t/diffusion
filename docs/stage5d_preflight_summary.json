@@ -1,0 +1,945 @@
+{
+  "schema_version": "sumodiff.stage5d.delivery.summary.v1",
+  "protocol": {
+    "source_epochs": 150,
+    "final_epochs": 200,
+    "source_step": 45000,
+    "final_step": 60000,
+    "additional_updates": 15000,
+    "train_windows": 1200,
+    "validation_windows": 200,
+    "batch_size": 4,
+    "peak_lr": 2e-05,
+    "minimum_lr": 1e-06,
+    "lr_warmup_updates": 600,
+    "raw_warmup_updates": 600,
+    "inherited_auxiliary_ramp": 1.0,
+    "interior_weight": 5e-05,
+    "boundary_weight": 1e-05,
+    "imitation_weight": 0.003,
+    "temporal_weight": 0.001,
+    "road_weight": 0.001,
+    "formal_fifty_epoch_training_started": false
+  },
+  "parent_checkpoint": {
+    "id": "sha256:2a25293744e0f9ff8bec9a03b3a1c3e077275bc7c9cece4119cdda13f070900e",
+    "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-v1\\train\\checkpoint_step_045000.pt",
+    "sha256": "2a25293744e0f9ff8bec9a03b3a1c3e077275bc7c9cece4119cdda13f070900e",
+    "size_bytes": 41333738
+  },
+  "preflight_source": {
+    "run": "E:\\diffusion_new\\artifacts\\runs\\stage5d-preflight-20261009-r1",
+    "manifest": {
+      "id": "sha256:ff4146e2159f483231aaf6d81702fc825eab9c62c2988f965f2606f9c9d9604d",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-preflight-20261009-r1\\manifest.json",
+      "sha256": "ff4146e2159f483231aaf6d81702fc825eab9c62c2988f965f2606f9c9d9604d",
+      "size_bytes": 2783014
+    },
+    "run_sha": "34a706738641549944c14ff3f8b182d28442ad50",
+    "wall_seconds": 179.27919349999866
+  },
+  "gradient_audit": {
+    "optimizer_updates": 0,
+    "model_unchanged": true,
+    "optimizer_unchanged": true,
+    "parameter_grad_buffers_unset": true,
+    "summaries": {
+      "natural": {
+        "batches": 16,
+        "eligible_batches": 10,
+        "components": {
+          "noise_mse": {
+            "parameter_gradient_norm": {
+              "median": 0.008851560448547596,
+              "maximum": 0.04472085190576239,
+              "minimum": 0.0039265887990368375
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 1.0,
+              "maximum": 1.0,
+              "minimum": 1.0
+            },
+            "cosine_with_epsilon": {
+              "median": 0.9999999999999999,
+              "maximum": 1.0000000000000002,
+              "minimum": 0.9999999999999996
+            },
+            "angle_degrees": {
+              "median": 8.537736462515939e-07,
+              "maximum": 1.7075472925031877e-06,
+              "minimum": 0.0
+            }
+          },
+          "weighted_imitation": {
+            "parameter_gradient_norm": {
+              "median": 0.007103233242139779,
+              "maximum": 0.01755611610669884,
+              "minimum": 0.003298228880807717
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 0.7062017081742082,
+              "maximum": 1.8447399667159954,
+              "minimum": 0.24410855500727993
+            },
+            "cosine_with_epsilon": {
+              "median": 0.14371149502031186,
+              "maximum": 0.6484626953080649,
+              "minimum": -0.054367625741512375
+            },
+            "angle_degrees": {
+              "median": 81.72143877109944,
+              "maximum": 93.1165721323622,
+              "minimum": 49.5742042816523
+            }
+          },
+          "weighted_temporal": {
+            "parameter_gradient_norm": {
+              "median": 0.0005585313877587096,
+              "maximum": 0.0012674005509843162,
+              "minimum": 0.000303391918705118
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 0.07386577830351376,
+              "maximum": 0.21937421821062167,
+              "minimum": 0.006784126548940479
+            },
+            "cosine_with_epsilon": {
+              "median": 0.11795255112838968,
+              "maximum": 0.7750299603885299,
+              "minimum": -0.08194606261724371
+            },
+            "angle_degrees": {
+              "median": 83.22341810234343,
+              "maximum": 94.70043427200886,
+              "minimum": 39.192251035118815
+            }
+          },
+          "weighted_road": {
+            "parameter_gradient_norm": {
+              "median": 0.0,
+              "maximum": 0.0,
+              "minimum": 0.0
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 0.0,
+              "maximum": 0.0,
+              "minimum": 0.0
+            },
+            "cosine_with_epsilon": {
+              "median": null,
+              "maximum": null,
+              "minimum": null
+            },
+            "angle_degrees": {
+              "median": null,
+              "maximum": null,
+              "minimum": null
+            }
+          },
+          "weighted_raw_interior": {
+            "parameter_gradient_norm": {
+              "median": 0.001084979032007799,
+              "maximum": 0.0025025049043562626,
+              "minimum": 0.0006586246210916194
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 0.15929405451731282,
+              "maximum": 0.4601694557139478,
+              "minimum": 0.020670791904090807
+            },
+            "cosine_with_epsilon": {
+              "median": 0.12755204143387228,
+              "maximum": 0.7212654656935017,
+              "minimum": -0.02712807132311293
+            },
+            "angle_degrees": {
+              "median": 82.67088644555406,
+              "maximum": 91.55451470250134,
+              "minimum": 43.84094130171422
+            }
+          },
+          "weighted_raw_boundary": {
+            "parameter_gradient_norm": {
+              "median": 0.0005672297171665719,
+              "maximum": 0.0013503292668150025,
+              "minimum": 0.00026545254415123596
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 0.05045596256397591,
+              "maximum": 0.26921159490362634,
+              "minimum": 0.014726924912878693
+            },
+            "cosine_with_epsilon": {
+              "median": 0.07464308308447798,
+              "maximum": 0.5157943395708519,
+              "minimum": -0.22630656576915373
+            },
+            "angle_degrees": {
+              "median": 85.71343334829395,
+              "maximum": 103.07972082448258,
+              "minimum": 58.949435459793776
+            }
+          },
+          "inherited_auxiliary_total": {
+            "parameter_gradient_norm": {
+              "median": 0.0072500100318960686,
+              "maximum": 0.017528246152419165,
+              "minimum": 0.003566507527815512
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 0.7246234473018953,
+              "maximum": 1.850624440567215,
+              "minimum": 0.24838775483492606
+            },
+            "cosine_with_epsilon": {
+              "median": 0.1503376251202292,
+              "maximum": 0.6597767396671459,
+              "minimum": -0.05305520631912877
+            },
+            "angle_degrees": {
+              "median": 81.33833656089804,
+              "maximum": 93.04126733057154,
+              "minimum": 48.717152086868715
+            }
+          },
+          "raw_auxiliary_total": {
+            "parameter_gradient_norm": {
+              "median": 0.0012241291775655307,
+              "maximum": 0.0030367230778115826,
+              "minimum": 0.0006931962381845266
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 0.16575352155051531,
+              "maximum": 0.6054234942167679,
+              "minimum": 0.02446380721510127
+            },
+            "cosine_with_epsilon": {
+              "median": 0.13480649850727727,
+              "maximum": 0.7339763985498938,
+              "minimum": -0.01047481949595979
+            },
+            "angle_degrees": {
+              "median": 82.2521712467784,
+              "maximum": 90.60017392398596,
+              "minimum": 42.7792062549769
+            }
+          },
+          "auxiliary_total": {
+            "parameter_gradient_norm": {
+              "median": 0.007798341028921629,
+              "maximum": 0.01760000964319113,
+              "minimum": 0.004171181065707566
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 0.8477264521340606,
+              "maximum": 1.9942910421164222,
+              "minimum": 0.2812973943886164
+            },
+            "cosine_with_epsilon": {
+              "median": 0.1515271716685891,
+              "maximum": 0.7648553180650576,
+              "minimum": -0.0450814813584507
+            },
+            "angle_degrees": {
+              "median": 81.2629140097244,
+              "maximum": 92.58385433227262,
+              "minimum": 40.10587781259518
+            }
+          },
+          "total_loss": {
+            "parameter_gradient_norm": {
+              "median": 0.015511926866955314,
+              "maximum": 0.04731541594430591,
+              "minimum": 0.005940995442626043
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 1.417265780415923,
+              "maximum": 2.5721468505098417,
+              "minimum": 1.0580168741868088
+            },
+            "cosine_with_epsilon": {
+              "median": 0.8553185657408433,
+              "maximum": 0.9818553247328083,
+              "minimum": 0.5053804757485282
+            },
+            "angle_degrees": {
+              "median": 31.19931364830783,
+              "maximum": 59.64338755254741,
+              "minimum": 10.931282132375083
+            }
+          }
+        },
+        "total_would_clip_batches": 0,
+        "total_clip_scale": {
+          "median": 1.0,
+          "maximum": 1.0,
+          "minimum": 1.0
+        },
+        "half_imitation_joint_ratio": {
+          "median": 0.5750032835921729,
+          "maximum": 1.210100001165955,
+          "minimum": 0.172649487130084
+        },
+        "interpretation": "Conditional eligible ratios; clipping counted over all batches. Vector sums, never sums of norm ratios."
+      },
+      "fixed_t200": {
+        "batches": 16,
+        "eligible_batches": 16,
+        "components": {
+          "noise_mse": {
+            "parameter_gradient_norm": {
+              "median": 0.01596676423218592,
+              "maximum": 0.030740796018936947,
+              "minimum": 0.008396855212484294
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 1.0,
+              "maximum": 1.0,
+              "minimum": 1.0
+            },
+            "cosine_with_epsilon": {
+              "median": 0.9999999999999999,
+              "maximum": 1.0000000000000004,
+              "minimum": 0.9999999999999997
+            },
+            "angle_degrees": {
+              "median": 8.537736462515939e-07,
+              "maximum": 1.4787793334710982e-06,
+              "minimum": 0.0
+            }
+          },
+          "weighted_imitation": {
+            "parameter_gradient_norm": {
+              "median": 0.0197698689141066,
+              "maximum": 0.038655260836738085,
+              "minimum": 0.011841955011667151
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 1.2712767286235012,
+              "maximum": 3.7884351841994595,
+              "minimum": 0.8681927572702305
+            },
+            "cosine_with_epsilon": {
+              "median": 0.4696039496379003,
+              "maximum": 0.764609307595544,
+              "minimum": 0.02449720859246241
+            },
+            "angle_degrees": {
+              "median": 61.98167215077931,
+              "maximum": 88.59627291472164,
+              "minimum": 40.12775319610195
+            }
+          },
+          "weighted_temporal": {
+            "parameter_gradient_norm": {
+              "median": 0.0010249591380416389,
+              "maximum": 0.002320378884177442,
+              "minimum": 0.0006462357400909372
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 0.07207662446878707,
+              "maximum": 0.15609193699846888,
+              "minimum": 0.031625777436584415
+            },
+            "cosine_with_epsilon": {
+              "median": 0.32688760804284445,
+              "maximum": 0.5300232876004124,
+              "minimum": 0.017088091957954295
+            },
+            "angle_degrees": {
+              "median": 70.91172142728514,
+              "maximum": 89.02087679580113,
+              "minimum": 57.99297170952279
+            }
+          },
+          "weighted_road": {
+            "parameter_gradient_norm": {
+              "median": 0.0,
+              "maximum": 0.0008816816396224164,
+              "minimum": 0.0
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 0.0,
+              "maximum": 0.046722351127384994,
+              "minimum": 0.0
+            },
+            "cosine_with_epsilon": {
+              "median": 0.056832303106564036,
+              "maximum": 0.4118466078588595,
+              "minimum": -0.29818200164573144
+            },
+            "angle_degrees": {
+              "median": 86.5137769418543,
+              "maximum": 107.34844260316923,
+              "minimum": 65.67911128053939
+            }
+          },
+          "weighted_raw_interior": {
+            "parameter_gradient_norm": {
+              "median": 0.0020481927846258295,
+              "maximum": 0.004478903529731435,
+              "minimum": 0.001327651030990312
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 0.13718157313225418,
+              "maximum": 0.32466061717445177,
+              "minimum": 0.0670777228432076
+            },
+            "cosine_with_epsilon": {
+              "median": 0.14865792918512938,
+              "maximum": 0.49526732981585864,
+              "minimum": -0.06213766650385528
+            },
+            "angle_degrees": {
+              "median": 81.45053752376617,
+              "maximum": 93.5625210879489,
+              "minimum": 60.3126200885791
+            }
+          },
+          "weighted_raw_boundary": {
+            "parameter_gradient_norm": {
+              "median": 0.001094683799571194,
+              "maximum": 0.0014461360603661103,
+              "minimum": 0.0007140259707479532
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 0.0677871469994033,
+              "maximum": 0.13289366963453367,
+              "minimum": 0.027829350484415937
+            },
+            "cosine_with_epsilon": {
+              "median": 0.06177164317677413,
+              "maximum": 0.46046858863356066,
+              "minimum": -0.24728461617850933
+            },
+            "angle_degrees": {
+              "median": 86.45849069906947,
+              "maximum": 104.31688774193053,
+              "minimum": 62.58265119602755
+            }
+          },
+          "inherited_auxiliary_total": {
+            "parameter_gradient_norm": {
+              "median": 0.020127924456070638,
+              "maximum": 0.03908395237880512,
+              "minimum": 0.011967141293307549
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 1.2846098379705122,
+              "maximum": 3.806919725934398,
+              "minimum": 0.8838643190368102
+            },
+            "cosine_with_epsilon": {
+              "median": 0.5055229803780201,
+              "maximum": 0.7650887121950734,
+              "minimum": 0.027122608198924623
+            },
+            "angle_degrees": {
+              "median": 59.61077446854826,
+              "maximum": 88.44579842667653,
+              "minimum": 40.08511511045722
+            }
+          },
+          "raw_auxiliary_total": {
+            "parameter_gradient_norm": {
+              "median": 0.0022851296860705427,
+              "maximum": 0.004278656110846994,
+              "minimum": 0.0016161684411003891
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 0.15570201500907613,
+              "maximum": 0.35102892092300914,
+              "minimum": 0.07399471897350784
+            },
+            "cosine_with_epsilon": {
+              "median": 0.16869988901284974,
+              "maximum": 0.511620893399654,
+              "minimum": -0.07069363547811257
+            },
+            "angle_degrees": {
+              "median": 80.28774867268379,
+              "maximum": 94.05382830684385,
+              "minimum": 59.22814292765221
+            }
+          },
+          "auxiliary_total": {
+            "parameter_gradient_norm": {
+              "median": 0.021079445238673916,
+              "maximum": 0.039234536121113356,
+              "minimum": 0.012209615827268048
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 1.2900157047988035,
+              "maximum": 3.83123740200421,
+              "minimum": 0.902218545258465
+            },
+            "cosine_with_epsilon": {
+              "median": 0.534802250352862,
+              "maximum": 0.7631609483969725,
+              "minimum": 0.030112309122042054
+            },
+            "angle_degrees": {
+              "median": 57.638319469094576,
+              "maximum": 88.2744309319263,
+              "minimum": 40.25634182571672
+            }
+          },
+          "total_loss": {
+            "parameter_gradient_norm": {
+              "median": 0.03335836424533256,
+              "maximum": 0.054836197902824166,
+              "minimum": 0.017946124663332966
+            },
+            "norm_ratio_to_epsilon": {
+              "median": 2.12001865458667,
+              "maximum": 4.186376052122729,
+              "minimum": 1.376997944708126
+            },
+            "cosine_with_epsilon": {
+              "median": 0.8095179066299254,
+              "maximum": 0.9248172923651912,
+              "minimum": 0.45951010175339985
+            },
+            "angle_degrees": {
+              "median": 35.95085505135793,
+              "maximum": 62.64450021785749,
+              "minimum": 22.359179647632764
+            }
+          }
+        },
+        "total_would_clip_batches": 0,
+        "total_clip_scale": {
+          "median": 1.0,
+          "maximum": 1.0,
+          "minimum": 1.0
+        },
+        "half_imitation_joint_ratio": {
+          "median": 0.7024791543767479,
+          "maximum": 1.9684701784153935,
+          "minimum": 0.4697566010153419
+        },
+        "interpretation": "Conditional eligible ratios; clipping counted over all batches. Vector sums, never sums of norm ratios."
+      }
+    },
+    "wall_seconds": 15.918909200001508,
+    "peak_allocated_bytes": 570579968,
+    "peak_reserved_bytes": 645922816
+  },
+  "peak_stress": {
+    "trials": [
+      {
+        "peak_lr": 2e-05,
+        "updates": 24,
+        "clipped_updates": 0,
+        "gradient_norm_max": 0.3603214919567108,
+        "validation_epsilon": 0.0005609300534706562,
+        "wall_seconds": 12.492656499998702,
+        "peak_allocated_bytes": 191041536
+      },
+      {
+        "peak_lr": 5e-05,
+        "updates": 24,
+        "clipped_updates": 0,
+        "gradient_norm_max": 0.577974259853363,
+        "validation_epsilon": 0.0010921523727301973,
+        "wall_seconds": 12.949961899998016,
+        "peak_allocated_bytes": 213427200
+      }
+    ],
+    "isolated_updates": 48,
+    "production_checkpoints_saved": false,
+    "warmup_bypassed": true,
+    "automatic_selection": false
+  },
+  "training": {
+    "start_step": 45000,
+    "end_step": 45016,
+    "updates": 16,
+    "full_budget_complete": false,
+    "newly_completed_epochs": 0,
+    "optimizer_reset_at_fork": false,
+    "initial_state": {
+      "model": "5b1d563dbb0d2337ad2213d1328cd5e960b6ad9fdf396f4c9d1934183774286e",
+      "optimizer": "572c12ca444ef59e16cbaba2f0a36feb1fa67268319d5a68a33a96413d659e94",
+      "noise_generator": "3870a39ab8f44c652410ac2fb39e3df798c18ae0a7acbe1e87561b60a36b5790",
+      "cpu_rng": "6990bc5f880320236754c3658f9391457ed1c83056199d2072238fbf8f771dd0",
+      "cuda_rng": [
+        "46c46d99b13177176c07c4bfd7d3ec42dd32bf41187734213b7d2f7e6a88b049"
+      ]
+    },
+    "optimizer_step_timing": {
+      "mean_seconds": 0.22533968666684814,
+      "median_seconds": 0.23188269999809563,
+      "warmup_updates_excluded": 1
+    },
+    "validation": [
+      {
+        "step": 45000,
+        "train_probe_mse": 0.00035914626156833646,
+        "validation_probe_mse": 0.0004948526991938706
+      },
+      {
+        "step": 45016,
+        "train_probe_mse": 0.00035892997305685034,
+        "validation_probe_mse": 0.0004946775405551307
+      }
+    ],
+    "peak_allocated_bytes": 190872576,
+    "peak_reserved_bytes": 656408576,
+    "gradient_clipped_updates": 0,
+    "estimate": {
+      "optimizer_only_seconds": 3380.095300002722,
+      "basis": "measured same batch/cohort workload; excludes validation/monitoring/checkpoint/cache; no convergence claim"
+    },
+    "cached_tensor_bytes": 1197506800
+  },
+  "recovery": {
+    "schema_version": "sumodiff.continuation.audit.metrics.v1",
+    "run_sha": "34a706738641549944c14ff3f8b182d28442ad50",
+    "final_step": 45016,
+    "resume_step": 45008,
+    "training_signature_equal": true,
+    "final_step_equal": true,
+    "model_equal": true,
+    "optimizer_equal": true,
+    "noise_generator_equal": true,
+    "cpu_rng_equal": true,
+    "cuda_rng_equal": true,
+    "continuation_trace_equal": true,
+    "compared_updates": 8,
+    "source_uninterrupted_sha": "34a706738641549944c14ff3f8b182d28442ad50",
+    "source_resumed_sha": "34a706738641549944c14ff3f8b182d28442ad50",
+    "parent_checkpoint": {
+      "id": "sha256:90daf180e32d83cf5f88bfe5d4316ba2120fb4e857128bc59649621cbc79b856",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-preflight-20261009-r1\\uninterrupted\\checkpoint_step_045008.pt",
+      "sha256": "90daf180e32d83cf5f88bfe5d4316ba2120fb4e857128bc59649621cbc79b856",
+      "size_bytes": 41329322
+    },
+    "scope": "identical local runtime/device/precision and data; cross-version bitwise equality not promised"
+  },
+  "scheduler_and_loss_trace_equal": true,
+  "free_generation_quality": {
+    "planned": 6,
+    "quality_passes": 1,
+    "road_bad": 1,
+    "route_bad": 1,
+    "motion_bad": 5,
+    "unknown": 0,
+    "failures": 0,
+    "decoded_interior_jerk_p99": 274.36669781038364,
+    "decoded_boundary_jerk_p99": 387.3132389429725,
+    "decoded_boundary_jerk_max": 403.88556391393723,
+    "strict_comfort_pass_agents": 0,
+    "strict_comfort_assessed_agents": 22,
+    "collision_scenes": 0,
+    "collision_unknown": 0
+  },
+  "baseline_report_source": {
+    "run": "E:\\diffusion_new\\artifacts\\runs\\stage5d-report-audit-20261009-r1",
+    "manifest": {
+      "id": "sha256:3cb78b137e2ba0329c797b4849abffcb51f809cafaa48caec9e75498f903792a",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-report-audit-20261009-r1\\manifest.json",
+      "sha256": "3cb78b137e2ba0329c797b4849abffcb51f809cafaa48caec9e75498f903792a",
+      "size_bytes": 409542
+    },
+    "run_sha": "e5eccbe29ff7ab33f7364551620fb9650f6195fc",
+    "optimizer_updates": 0,
+    "new_sampling_tasks": 0,
+    "counts": {
+      "planned_scenes": 200,
+      "quality_passes": 50.0,
+      "quality_unknown": 0,
+      "generation_failures": 0,
+      "metric_failures": 0,
+      "motion_bad": 150,
+      "collision_scenes": 3,
+      "collision_unknown": 0,
+      "noise_comparisons_available": 200,
+      "missing_noise": 0,
+      "road_bad": 9,
+      "road_unknown": 0,
+      "route_bad": 9,
+      "route_unknown": 0,
+      "map_coverage_bad": 0,
+      "map_coverage_unknown": 0
+    },
+    "strict_comfort": {
+      "pass_agents": 4,
+      "assessed_agents": 735,
+      "planned_agents": 735,
+      "unassessed_agents": 0,
+      "pass_rate": 0.005442176870748299,
+      "assessed_pass_rate": 0.005442176870748299
+    },
+    "pooled": {
+      "raw_interior_jerk": {
+        "count": 26460,
+        "mean": 409.9426368185012,
+        "min": 2.0779184876598062,
+        "p50": 201.99214373715515,
+        "p95": 1290.1595598531783,
+        "p99": 4177.553894867303,
+        "max": 22887.447139470798
+      },
+      "decoded_interior_jerk": {
+        "count": 26460,
+        "mean": 8.923387469840792,
+        "min": 0.017244106083145257,
+        "p50": 4.381305242515903,
+        "p95": 27.39940395689014,
+        "p99": 94.30351294355984,
+        "max": 682.141423037463
+      },
+      "decoded_boundary_jerk": {
+        "count": 2940,
+        "mean": 19.438914804762955,
+        "min": 0.13416943239310525,
+        "p50": 8.013354670504036,
+        "p95": 55.68415215490195,
+        "p99": 278.3661227672827,
+        "max": 654.8040901948601
+      }
+    },
+    "self_paired_intervals": {
+      "quality_success": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "decoded_boundary_jerk_p99": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "decoded_interior_jerk_p99": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "strict_comfort_rate": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "road_violation": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "route_violation": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "collision": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "position_correction_max": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      },
+      "velocity_correction_max": {
+        "paired_scenes": 200,
+        "planned_scenes": 200,
+        "mean_difference": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "road-stratified episode clusters, conditional on this validation cohort"
+      }
+    }
+  },
+  "source_verification": {
+    "schema_version": "sumodiff.stage5d.source.verification.v1",
+    "records": [
+      {
+        "directory": "E:\\diffusion_new\\artifacts\\runs\\stage5d-preflight-20261009-r1",
+        "run_sha": "34a706738641549944c14ff3f8b182d28442ad50",
+        "status": "completed",
+        "manifest": {
+          "id": "sha256:ff4146e2159f483231aaf6d81702fc825eab9c62c2988f965f2606f9c9d9604d",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-preflight-20261009-r1\\manifest.json",
+          "sha256": "ff4146e2159f483231aaf6d81702fc825eab9c62c2988f965f2606f9c9d9604d",
+          "size_bytes": 2783014
+        },
+        "formal": true,
+        "source_code_dirty": false
+      },
+      {
+        "directory": "E:\\diffusion_new\\artifacts\\runs\\stage5d-report-audit-20261009-r1",
+        "run_sha": "e5eccbe29ff7ab33f7364551620fb9650f6195fc",
+        "status": "completed",
+        "manifest": {
+          "id": "sha256:3cb78b137e2ba0329c797b4849abffcb51f809cafaa48caec9e75498f903792a",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-report-audit-20261009-r1\\manifest.json",
+          "sha256": "3cb78b137e2ba0329c797b4849abffcb51f809cafaa48caec9e75498f903792a",
+          "size_bytes": 409542
+        },
+        "formal": true,
+        "source_code_dirty": false
+      },
+      {
+        "directory": "E:\\diffusion_new\\artifacts\\runs\\stage5d-preflight-20261009-r1\\recovery_audit",
+        "run_sha": "34a706738641549944c14ff3f8b182d28442ad50",
+        "status": "completed",
+        "manifest": {
+          "id": "sha256:eaf4e3f34655e355742afcad98d388776d7bea3982c44fbc78675b93b70bc271",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-preflight-20261009-r1\\recovery_audit\\manifest.json",
+          "sha256": "eaf4e3f34655e355742afcad98d388776d7bea3982c44fbc78675b93b70bc271",
+          "size_bytes": 5359
+        },
+        "formal": true,
+        "source_code_dirty": false
+      },
+      {
+        "directory": "E:\\diffusion_new\\artifacts\\runs\\stage5d-preflight-20261009-r1\\resumed",
+        "run_sha": "34a706738641549944c14ff3f8b182d28442ad50",
+        "status": "completed",
+        "manifest": {
+          "id": "sha256:cf2acbfa54413d5caf75a47a5e4ca50612467d8e5200775152f6877b6f56d58e",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-preflight-20261009-r1\\resumed\\manifest.json",
+          "sha256": "cf2acbfa54413d5caf75a47a5e4ca50612467d8e5200775152f6877b6f56d58e",
+          "size_bytes": 2782182
+        },
+        "formal": true,
+        "source_code_dirty": false
+      },
+      {
+        "directory": "E:\\diffusion_new\\artifacts\\runs\\stage5d-preflight-20261009-r1\\sample",
+        "run_sha": "34a706738641549944c14ff3f8b182d28442ad50",
+        "status": "completed",
+        "manifest": {
+          "id": "sha256:0ee5c27f6a9966d5e7f5e6a3e080f96a8a4adbe146b9975c94ed89c53623ddfc",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-preflight-20261009-r1\\sample\\manifest.json",
+          "sha256": "0ee5c27f6a9966d5e7f5e6a3e080f96a8a4adbe146b9975c94ed89c53623ddfc",
+          "size_bytes": 10543
+        },
+        "formal": true,
+        "source_code_dirty": false
+      },
+      {
+        "directory": "E:\\diffusion_new\\artifacts\\runs\\stage5d-preflight-20261009-r1\\uninterrupted",
+        "run_sha": "34a706738641549944c14ff3f8b182d28442ad50",
+        "status": "completed",
+        "manifest": {
+          "id": "sha256:5c84bcb5f9c31b1bf3685a3c41d2c4122ac098be7b76601c8e22f728329664b4",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-preflight-20261009-r1\\uninterrupted\\manifest.json",
+          "sha256": "5c84bcb5f9c31b1bf3685a3c41d2c4122ac098be7b76601c8e22f728329664b4",
+          "size_bytes": 2781563
+        },
+        "formal": true,
+        "source_code_dirty": false
+      }
+    ],
+    "unique_source_files": 7424,
+    "configuration_environment_and_inputs_match": true,
+    "recovery_state_and_trace_equal": true,
+    "baseline_self_pairing_zero": true,
+    "wall_seconds": 7.4643327000012505
+  },
+  "verification_scripts": {
+    "path": "E:\\diffusion_new\\artifacts\\cache\\verify_stage5d_sources.py",
+    "identity": {
+      "id": "sha256:4bd6c2f6225775d6c2caf3521f65b40b9a6849b28c250f7c29e27474887855fc",
+      "location": "E:\\diffusion_new\\artifacts\\cache\\verify_stage5d_sources.py",
+      "sha256": "4bd6c2f6225775d6c2caf3521f65b40b9a6849b28c250f7c29e27474887855fc",
+      "size_bytes": 2605
+    }
+  },
+  "environment": {
+    "python": {
+      "version": "3.10.16 | packaged by conda-forge | (main, Apr  3 2025, 14:14:45) [MSC v.1943 64 bit (AMD64)]",
+      "executable": "E:\\diffusion_new\\.venv-model\\Scripts\\python.exe"
+    },
+    "torch": {
+      "version": "2.5.1",
+      "cuda_build": "12.4",
+      "cuda_available": true,
+      "devices": [
+        {
+          "name": "NVIDIA GeForce RTX 4070 Laptop GPU",
+          "total_memory_bytes": 8585216000
+        }
+      ]
+    },
+    "sumo_home": "E:\\Program Files\\sumo-1.22.0"
+  },
+  "tests": {
+    "full_suite_passed": 275,
+    "full_suite_seconds": 16.91,
+    "additional_collision_applicability_report_tests_passed": 6,
+    "additional_report_tests_seconds": 1.8
+  },
+  "failures_retained": {
+    "first_preflight": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\stage5d-preflight-20261009",
+      "status": {
+        "state": "failed",
+        "started_at": "2026-10-09T02:45:33.797351+00:00",
+        "updated_at": "2026-10-09T02:47:01.012288+00:00",
+        "ended_at": "2026-10-09T02:47:01.012288+00:00",
+        "error": {
+          "type": "ValueError",
+          "message": "Scale audit/config mismatch"
+        }
+      },
+      "run_sha": "392e749a8a1405e8528c657e1289c6b47bef2191"
+    },
+    "first_report_init": {
+      "run_directory_created": false,
+      "log": {
+        "id": "sha256:71c383664f451b659cb34baa496fd158ca630352210b6f070193ec432c546a92",
+        "location": "E:\\diffusion_new\\artifacts\\cache\\stage5d-report-audit-20261009.log",
+        "sha256": "71c383664f451b659cb34baa496fd158ca630352210b6f070193ec432c546a92",
+        "size_bytes": 75
+      },
+      "reason": "WindowsPath/str sort before RunRecorder; repaired and rerun under a new id"
+    },
+    "previous_approval_failure_resolved": true
+  },
+  "interpretation": "Engineering and bounded numerical checks only; no 50-epoch quality/convergence claim or isolated-loss attribution."
+}
