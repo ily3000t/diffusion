@@ -139,7 +139,7 @@ def run_suite(config_path,output,formal=False,allow_long_run=False):
 
 def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__);sub=p.add_subparsers(dest='action',required=True)
-    for action in ('preflight','run','train','warmup-check','sample','report'):
+    for action in ('preflight','run','train','warmup-check','sample','report','audit-baseline'):
         a=sub.add_parser(action);a.add_argument('--config',type=Path,required=True);a.add_argument('--output',type=Path,required=True)
         a.add_argument('--formal',action='store_true')
         if action in ('run','train'):a.add_argument('--allow-long-run',action='store_true')
@@ -156,6 +156,9 @@ def main(argv=None):
             result=train_raw_velocity(args.dataset,args.parent_checkpoint,args.config,args.scale_audit,args.output,
                 Path.cwd(),command,args.formal,args.resume,args.prefix_updates,args.allow_long_run)
         elif args.action=='preflight':result=preflight(args.config,args.output,args.formal)
+        elif args.action=='audit-baseline':
+            from .stage5d_report import audit_baseline
+            result=audit_baseline(args.config,args.output,args.formal)
         elif args.action=='run':result=run_suite(args.config,args.output,args.formal,args.allow_long_run)
         else:
             c,parent,training,sampling=setup(args.config)

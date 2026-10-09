@@ -109,3 +109,34 @@ def report(config_path,training_run,sampling_run,output,formal=False):
             'Extra epochs and LR changed alongside loss; this report does not isolate a loss contribution.']
         (run.output/'report.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
     return result
+
+def audit_baseline(config_path,output,formal=False):
+    """Exercise full reporting with existing epoch150 outputs, no new model run."""
+    from .stage5d import setup,source_files
+    c,parent,training,sampling=setup(config_path)
+    ds=WindowDataset(c['dataset'],'validation')
+    cond={e['window_id']:ds.inference(i)['conditioning'] for i,e in enumerate(ds.entries)}
+    metadata={e['window_id']:e for e in ds.entries}
+    rows,aggregate,files,noises=generation_rows(c['baseline_run'],cond,metadata)
+    if formal and (not aggregate['manifest']['formal'] or aggregate['manifest']['git']['dirty']):
+        raise ValueError('Formal baseline audit needs clean formal sampling sources')
+    rows,aggregate=extend_quality_rows(c['baseline_run'],rows,aggregate,cond)
+    intervals={k:paired_interval(rows,rows,k,c['bootstrap_seed']) for k in
+        ('quality_success','decoded_boundary_jerk_p99','decoded_interior_jerk_p99',
+         'strict_comfort_rate','road_violation','route_violation','collision','position_correction_max',
+         'velocity_correction_max')}
+    if len(noises)!=200 or any(q['mean_difference'] not in (None,0.) for q in intervals.values()):
+        raise RuntimeError('Baseline reporting pairing failed')
+    effective=dict(schema_version='sumodiff.stage5d.report.audit.config.v1',suite=c,
+        source_baseline=c['baseline_run'],optimizer_updates=0,new_sampling_tasks=0,
+        interpretation='Epoch150 reporting replay; not epoch200 training or candidate improvement.')
+    with RunRecorder(output,Path.cwd(),effective,[sys.executable,*sys.orig_argv[1:]],
+        {'bootstrap':c['bootstrap_seed']},purpose='stage5d_existing_baseline_report_audit',
+        data_files=sorted(set(source_files(config_path,c)+files)),checkpoint=c['parent_checkpoint'],formal=formal) as run:
+        result=dict(schema_version='sumodiff.stage5d.report.audit.metrics.v1',
+            run_sha=run.manifest['git']['commit_sha'],existing_baseline=aggregate,
+            self_paired_intervals=intervals,noise_identities=len(noises),optimizer_updates=0,
+            new_sampling_tasks=0,quality_or_convergence_claim=False)
+        write_json(run.output/'baseline_report_audit.json',result)
+        write_json(run.output/'baseline_rows.json',rows);run.write_metrics(result)
+    return result

@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory=$true)]
-    [ValidateSet('Preflight','Run','Train','WarmupCheck','Sample','Report')]
+    [ValidateSet('Preflight','Run','Train','WarmupCheck','Sample','Report','AuditBaseline')]
     [string]$Stage,
     [Parameter(Mandatory=$true)]
     [ValidatePattern('^[A-Za-z0-9][A-Za-z0-9._-]{0,95}$')]
@@ -23,7 +23,7 @@ $env:SUMO_HOME='E:\Program Files\sumo-1.22.0'
 $env:PYTHONUNBUFFERED='1'
 $outputPath=Join-Path $projectRoot ('artifacts\runs\'+$RunId)
 if (Test-Path -LiteralPath $outputPath) { throw 'Choose a fresh RunId; prior outputs are preserved.' }
-$arguments=@('-m','sumodiff.diffusion.stage5d',$Stage.ToLowerInvariant().Replace('warmupcheck','warmup-check'),
+$arguments=@('-m','sumodiff.diffusion.stage5d',$Stage.ToLowerInvariant().Replace('warmupcheck','warmup-check').Replace('auditbaseline','audit-baseline'),
     '--config',$Config,'--output',$outputPath,'--formal')
 if ($Stage -in @('Run','Train')) { $arguments+='--allow-long-run' }
 if ($Resume) { $arguments+=@('--resume',(Resolve-Path -LiteralPath $Resume).Path) }
