@@ -1,0 +1,613 @@
+{
+  "schema_version": "sumodiff.stage5c.validation.summary.v1",
+  "date": "2026-10-09",
+  "checkpoint": {
+    "id": "sha256:2a25293744e0f9ff8bec9a03b3a1c3e077275bc7c9cece4119cdda13f070900e",
+    "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-v1\\train\\checkpoint_step_045000.pt",
+    "sha256": "2a25293744e0f9ff8bec9a03b3a1c3e077275bc7c9cece4119cdda13f070900e",
+    "size_bytes": 41333738
+  },
+  "checkpoint_training_sha": "8ceb573cbe76a6d224869ef52c82533891f7869d",
+  "report_run_sha": "8a523d9b225ee5b597143f36a39c952f860b091f",
+  "counts": {
+    "steps20": {
+      "planned_scenes": 200,
+      "quality_passes": 50.0,
+      "quality_unknown": 0,
+      "generation_failures": 0,
+      "metric_failures": 0,
+      "motion_bad": 150,
+      "collision_scenes": 3,
+      "collision_unknown": 0,
+      "noise_comparisons_available": 200,
+      "missing_noise": 0,
+      "road_bad": 9,
+      "road_unknown": 0,
+      "route_bad": 9,
+      "route_unknown": 0,
+      "map_coverage_bad": 0,
+      "map_coverage_unknown": 0
+    },
+    "steps50": {
+      "planned_scenes": 200,
+      "quality_passes": 43.0,
+      "quality_unknown": 0,
+      "generation_failures": 0,
+      "metric_failures": 0,
+      "motion_bad": 156,
+      "collision_scenes": 3,
+      "collision_unknown": 0,
+      "noise_comparisons_available": 200,
+      "missing_noise": 0,
+      "road_bad": 11,
+      "road_unknown": 0,
+      "route_bad": 11,
+      "route_unknown": 0,
+      "map_coverage_bad": 0,
+      "map_coverage_unknown": 0
+    }
+  },
+  "pooled": {
+    "steps20": {
+      "raw_interior_jerk": {
+        "count": 26460,
+        "mean": 409.9426368185012,
+        "min": 2.0779184876598062,
+        "p50": 201.99214373715515,
+        "p95": 1290.1595598531783,
+        "p99": 4177.553894867303,
+        "max": 22887.447139470798
+      },
+      "decoded_interior_jerk": {
+        "count": 26460,
+        "mean": 8.923387469840792,
+        "min": 0.017244106083145257,
+        "p50": 4.381305242515903,
+        "p95": 27.39940395689014,
+        "p99": 94.30351294355984,
+        "max": 682.141423037463
+      }
+    },
+    "steps50": {
+      "raw_interior_jerk": {
+        "count": 26460,
+        "mean": 382.903255143487,
+        "min": 2.6391899144425537,
+        "p50": 198.95965235123242,
+        "p95": 1114.302646525312,
+        "p99": 3662.90636730383,
+        "max": 23339.601986418715
+      },
+      "decoded_interior_jerk": {
+        "count": 26460,
+        "mean": 8.44394318877126,
+        "min": 0.007026421234170086,
+        "p50": 4.296830446403261,
+        "p95": 23.93350723888249,
+        "p99": 82.58080237830357,
+        "max": 670.4527258134052
+      }
+    }
+  },
+  "paired_intervals": {
+    "quality_success": {
+      "paired_scenes": 200,
+      "planned_scenes": 200,
+      "mean_difference": -0.035,
+      "ci95": [
+        -0.08113825757575759,
+        0.010003676470588217
+      ],
+      "unit": "road-stratified episode clusters, conditional on this validation cohort"
+    },
+    "road_violation": {
+      "paired_scenes": 200,
+      "planned_scenes": 200,
+      "mean_difference": 0.01,
+      "ci95": [
+        0.0,
+        0.02456521739130435
+      ],
+      "unit": "road-stratified episode clusters, conditional on this validation cohort"
+    },
+    "route_violation": {
+      "paired_scenes": 200,
+      "planned_scenes": 200,
+      "mean_difference": 0.01,
+      "ci95": [
+        0.0,
+        0.02456521739130435
+      ],
+      "unit": "road-stratified episode clusters, conditional on this validation cohort"
+    },
+    "collision": {
+      "paired_scenes": 200,
+      "planned_scenes": 200,
+      "mean_difference": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "unit": "road-stratified episode clusters, conditional on this validation cohort"
+    },
+    "decoded_interior_jerk_p99": {
+      "paired_scenes": 200,
+      "planned_scenes": 200,
+      "mean_difference": -1.2997695128710425,
+      "ci95": [
+        -2.3170910897780086,
+        -0.37453283593086334
+      ],
+      "unit": "road-stratified episode clusters, conditional on this validation cohort"
+    },
+    "boundary_jerk_max": {
+      "paired_scenes": 200,
+      "planned_scenes": 200,
+      "mean_difference": 2.5957567826137664,
+      "ci95": [
+        1.7980449036311534,
+        3.5527967565987457
+      ],
+      "unit": "road-stratified episode clusters, conditional on this validation cohort"
+    },
+    "position_correction_max": {
+      "paired_scenes": 200,
+      "planned_scenes": 200,
+      "mean_difference": -0.022689128003652474,
+      "ci95": [
+        -0.035465708458712684,
+        -0.010107221638738085
+      ],
+      "unit": "road-stratified episode clusters, conditional on this validation cohort"
+    },
+    "sampling_seconds": {
+      "paired_scenes": 200,
+      "planned_scenes": 200,
+      "mean_difference": 0.2080235974997413,
+      "ci95": [
+        0.20512774684613577,
+        0.2113571610426922
+      ],
+      "unit": "road-stratified episode clusters, conditional on this validation cohort"
+    }
+  },
+  "transitions": {
+    "both_pass": 36,
+    "both_fail": 143,
+    "lost_pass": 14,
+    "gained_pass": 7,
+    "lost_with_boundary_t01_jerk_over_15": 9
+  },
+  "families": {
+    "steps20": {
+      "ramp_merge": {
+        "planned": 67,
+        "quality": 13,
+        "road_bad": 3,
+        "route_bad": 3,
+        "collision": 0
+      },
+      "three_lane_straight": {
+        "planned": 67,
+        "quality": 29,
+        "road_bad": 0,
+        "route_bad": 0,
+        "collision": 0
+      },
+      "unsignalized_intersection": {
+        "planned": 66,
+        "quality": 8,
+        "road_bad": 6,
+        "route_bad": 6,
+        "collision": 3
+      }
+    },
+    "steps50": {
+      "ramp_merge": {
+        "planned": 67,
+        "quality": 9,
+        "road_bad": 4,
+        "route_bad": 4,
+        "collision": 0
+      },
+      "three_lane_straight": {
+        "planned": 67,
+        "quality": 25,
+        "road_bad": 1,
+        "route_bad": 1,
+        "collision": 0
+      },
+      "unsignalized_intersection": {
+        "planned": 66,
+        "quality": 9,
+        "road_bad": 6,
+        "route_bad": 6,
+        "collision": 3
+      }
+    }
+  },
+  "motion_fail_scenes": {
+    "steps20": {
+      "speed": 0,
+      "longitudinal_acceleration": 11,
+      "lateral_acceleration": 7,
+      "jerk": 150,
+      "yaw_rate": 1,
+      "heading_velocity": 6,
+      "heading_norm": 0,
+      "velocity_consistency": 0
+    },
+    "steps50": {
+      "speed": 0,
+      "longitudinal_acceleration": 14,
+      "lateral_acceleration": 6,
+      "jerk": 156,
+      "yaw_rate": 1,
+      "heading_velocity": 6,
+      "heading_norm": 0,
+      "velocity_consistency": 0
+    }
+  },
+  "comfort": {
+    "steps20": {
+      "comfort_assessed_agents": 735,
+      "comfort_pass_agents": 4,
+      "comfort_assessed_points": 29400,
+      "comfort_violation_points": 13658
+    },
+    "steps50": {
+      "comfort_assessed_agents": 735,
+      "comfort_pass_agents": 0,
+      "comfort_assessed_points": 29400,
+      "comfort_violation_points": 13546
+    }
+  },
+  "reconstruction": {
+    "train": {
+      "0": {
+        "planned_scenes": 48,
+        "motion_pass": 24,
+        "label_control": {
+          "motion_pass": 48
+        },
+        "mean_epsilon_mse": 0.03111926777475876,
+        "channel_epsilon_mse": [
+          0.038442142986847706,
+          0.019734741693052154,
+          0.04889545851619914,
+          0.02315927721792832,
+          0.024146342620952055,
+          0.032337643613573164
+        ],
+        "decoded_interior_jerk_p99": 28.103743842034078,
+        "raw_velocity_error_p99_mps": 0.18639110684394944
+      },
+      "50": {
+        "planned_scenes": 48,
+        "motion_pass": 0,
+        "label_control": {
+          "motion_pass": 48
+        },
+        "mean_epsilon_mse": 0.0019541969403588963,
+        "channel_epsilon_mse": [
+          0.003001867190202271,
+          0.0007867761026621641,
+          0.0051121939377480885,
+          0.0010810453234929203,
+          0.0007482366114951825,
+          0.0009950624765527512
+        ],
+        "decoded_interior_jerk_p99": 96.77491874753198,
+        "raw_velocity_error_p99_mps": 1.4465060567855892
+      },
+      "100": {
+        "planned_scenes": 48,
+        "motion_pass": 0,
+        "label_control": {
+          "motion_pass": 48
+        },
+        "mean_epsilon_mse": 0.0008467249149362033,
+        "channel_epsilon_mse": [
+          0.001188449713481532,
+          0.000463138305197693,
+          0.0018346818445328001,
+          0.0007130774797587947,
+          0.0003934313338807745,
+          0.0004875708127656253
+        ],
+        "decoded_interior_jerk_p99": 121.99095054270832,
+        "raw_velocity_error_p99_mps": 1.8677653443813325
+      },
+      "200": {
+        "planned_scenes": 48,
+        "motion_pass": 0,
+        "label_control": {
+          "motion_pass": 48
+        },
+        "mean_epsilon_mse": 0.0003073640163064637,
+        "channel_epsilon_mse": [
+          0.0003757546389048609,
+          0.0002581636263888261,
+          0.0005083507755140696,
+          0.00035047529581788694,
+          0.00015870711884720853,
+          0.00019273264236593
+        ],
+        "decoded_interior_jerk_p99": 158.49554977785746,
+        "raw_velocity_error_p99_mps": 2.3691606807708756
+      },
+      "300": {
+        "planned_scenes": 48,
+        "motion_pass": 0,
+        "label_control": {
+          "motion_pass": 48
+        },
+        "mean_epsilon_mse": 0.00017095012759050913,
+        "channel_epsilon_mse": [
+          0.00019943715051340405,
+          0.00016693006621911385,
+          0.0002384994856280779,
+          0.0001948754106706474,
+          0.0001008282856673759,
+          0.00012513036684443554
+        ],
+        "decoded_interior_jerk_p99": 219.58146008778428,
+        "raw_velocity_error_p99_mps": 2.5760976362228454
+      }
+    },
+    "validation": {
+      "0": {
+        "planned_scenes": 200,
+        "motion_pass": 111,
+        "label_control": {
+          "motion_pass": 200
+        },
+        "mean_epsilon_mse": 0.03105254317963651,
+        "channel_epsilon_mse": [
+          0.04174404454417527,
+          0.019443922656355427,
+          0.046960024947766216,
+          0.021454579804558307,
+          0.027026824788190424,
+          0.029685862336773425
+        ],
+        "decoded_interior_jerk_p99": 34.483710665914316,
+        "raw_velocity_error_p99_mps": 0.22495209336280786
+      },
+      "50": {
+        "planned_scenes": 200,
+        "motion_pass": 0,
+        "label_control": {
+          "motion_pass": 200
+        },
+        "mean_epsilon_mse": 0.002016848038626146,
+        "channel_epsilon_mse": [
+          0.0028129695342795458,
+          0.0009129813250910956,
+          0.004570281364140101,
+          0.0009892908316032844,
+          0.0014097421262704302,
+          0.001405823050372419
+        ],
+        "decoded_interior_jerk_p99": 108.31528591782099,
+        "raw_velocity_error_p99_mps": 1.3741280126571649
+      },
+      "100": {
+        "planned_scenes": 200,
+        "motion_pass": 0,
+        "label_control": {
+          "motion_pass": 200
+        },
+        "mean_epsilon_mse": 0.0008879845373758144,
+        "channel_epsilon_mse": [
+          0.0010808028577594087,
+          0.0005297020360922034,
+          0.0017303513733713772,
+          0.0005649336973510799,
+          0.0006860072595009114,
+          0.0007361100001799059
+        ],
+        "decoded_interior_jerk_p99": 145.60684957212777,
+        "raw_velocity_error_p99_mps": 1.8422313654422726
+      },
+      "200": {
+        "planned_scenes": 200,
+        "motion_pass": 0,
+        "label_control": {
+          "motion_pass": 200
+        },
+        "mean_epsilon_mse": 0.000351507898330965,
+        "channel_epsilon_mse": [
+          0.00034042032504657985,
+          0.00026593009428324874,
+          0.0005071744564702386,
+          0.0002914393340688548,
+          0.00036889022752802705,
+          0.00033519295258884087
+        ],
+        "decoded_interior_jerk_p99": 180.8569172149226,
+        "raw_velocity_error_p99_mps": 2.355140027999872
+      },
+      "300": {
+        "planned_scenes": 200,
+        "motion_pass": 0,
+        "label_control": {
+          "motion_pass": 200
+        },
+        "mean_epsilon_mse": 0.00019002622535481352,
+        "channel_epsilon_mse": [
+          0.0001830950641669915,
+          0.00015444882699739538,
+          0.00023143721704400378,
+          0.0001689310134497646,
+          0.00020100227253351478,
+          0.00020124295793721102
+        ],
+        "decoded_interior_jerk_p99": 236.53285076467543,
+        "raw_velocity_error_p99_mps": 2.6666396522521953
+      }
+    }
+  },
+  "gradient_summary": {
+    "natural": {
+      "batches": 16,
+      "eligible_batches": 10,
+      "components": {
+        "noise_mse": {
+          "norm_ratio_median": 1.0,
+          "norm_ratio_max": 1.0,
+          "cosine_median": 1.0
+        },
+        "weighted_imitation": {
+          "norm_ratio_median": 0.7062017081742082,
+          "norm_ratio_max": 1.8447399667159954,
+          "cosine_median": 0.1437114947247473
+        },
+        "weighted_temporal": {
+          "norm_ratio_median": 0.07386579725091048,
+          "norm_ratio_max": 0.21937421821062167,
+          "cosine_median": 0.1179527044069415
+        },
+        "weighted_road": {
+          "norm_ratio_median": 0.0,
+          "norm_ratio_max": 0.0,
+          "cosine_median": null
+        },
+        "auxiliary_total": {
+          "norm_ratio_median": 0.7246234473018953,
+          "norm_ratio_max": 1.850624440567215,
+          "cosine_median": 0.1503376325324487
+        },
+        "raw_second": {
+          "norm_ratio_median": 2884.985653534072,
+          "norm_ratio_max": 9522.16597541262,
+          "cosine_median": 0.09042308524072462
+        },
+        "raw_second_boundary": {
+          "norm_ratio_median": 5045.596594260673,
+          "norm_ratio_max": 26921.160051039074,
+          "cosine_median": 0.07464310079457247
+        },
+        "raw_second_interior": {
+          "norm_ratio_median": 3185.8820796776213,
+          "norm_ratio_max": 9203.389917220375,
+          "cosine_median": 0.1275520482818517
+        }
+      }
+    },
+    "forced_low": {
+      "batches": 16,
+      "eligible_batches": 16,
+      "components": {
+        "noise_mse": {
+          "norm_ratio_median": 1.0,
+          "norm_ratio_max": 1.0,
+          "cosine_median": 1.0
+        },
+        "weighted_imitation": {
+          "norm_ratio_median": 1.2712762811728977,
+          "norm_ratio_max": 3.7884351841994595,
+          "cosine_median": 0.4696039496379003
+        },
+        "weighted_temporal": {
+          "norm_ratio_median": 0.07207662446878707,
+          "norm_ratio_max": 0.15609193699846888,
+          "cosine_median": 0.3268878319045124
+        },
+        "weighted_road": {
+          "norm_ratio_median": 0.0,
+          "norm_ratio_max": 0.046722351127384994,
+          "cosine_median": 0.056832303106564036
+        },
+        "auxiliary_total": {
+          "norm_ratio_median": 1.2846093828155007,
+          "norm_ratio_max": 3.806919725934398,
+          "cosine_median": 0.5055229803787242
+        },
+        "raw_second": {
+          "norm_ratio_median": 2582.8533282782914,
+          "norm_ratio_max": 6011.396724522065,
+          "cosine_median": 0.1637968813924976
+        },
+        "raw_second_boundary": {
+          "norm_ratio_median": 6778.714806166463,
+          "norm_ratio_max": 13289.368384935067,
+          "cosine_median": 0.06177162316604033
+        },
+        "raw_second_interior": {
+          "norm_ratio_median": 2743.631571200137,
+          "norm_ratio_max": 6493.212393486988,
+          "cosine_median": 0.1486579231137737
+        }
+      }
+    }
+  },
+  "verification": {
+    "original_20_bitwise_replays": 200,
+    "noise_pairs": 200,
+    "sampling_settings_differ_only_in_steps": true
+  },
+  "formal_runs": [
+    {
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-steps20-validation-20261009",
+      "code_sha": "4a7a46a579d31317b2025d0f5cebc9c9aa31330b",
+      "formal": true,
+      "state": "completed"
+    },
+    {
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-steps50-validation-20261009",
+      "code_sha": "0cac50739f21de34d53fb7cbae4842160a78fd66",
+      "formal": true,
+      "state": "completed"
+    },
+    {
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-velocity-validation-20261009",
+      "code_sha": "8a523d9b225ee5b597143f36a39c952f860b091f",
+      "formal": true,
+      "state": "completed"
+    },
+    {
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-velocity-validation-report-20261009",
+      "code_sha": "8a523d9b225ee5b597143f36a39c952f860b091f",
+      "formal": true,
+      "state": "completed"
+    }
+  ],
+  "sources": {
+    "report": {
+      "id": "sha256:77b2d40395c5a65edce7f973c11804ac641ca61982f21e490189b21068fa0513",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-velocity-validation-report-20261009\\validation_summary.json",
+      "sha256": "77b2d40395c5a65edce7f973c11804ac641ca61982f21e490189b21068fa0513",
+      "size_bytes": 96608
+    },
+    "diagnostics": {
+      "id": "sha256:c7c760ce04f831fd82a0f035dc862ba7990d9dd6ad47b899eed62907902a2014",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-velocity-validation-20261009\\velocity_summary.json",
+      "sha256": "c7c760ce04f831fd82a0f035dc862ba7990d9dd6ad47b899eed62907902a2014",
+      "size_bytes": 59972
+    }
+  },
+  "figures": {
+    "validation.png": {
+      "id": "sha256:c494744583e0a6b37801a8315ee40f510fa08b3a187ec85f4cdfc84130f135fd",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-velocity-validation-report-20261009\\validation.png",
+      "sha256": "c494744583e0a6b37801a8315ee40f510fa08b3a187ec85f4cdfc84130f135fd",
+      "size_bytes": 154542
+    },
+    "validation.svg": {
+      "id": "sha256:1ba3ef1aaece13f883faed0cb77323788163a1b3e3805c7544b75501cc6ebe76",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-velocity-validation-report-20261009\\validation.svg",
+      "sha256": "1ba3ef1aaece13f883faed0cb77323788163a1b3e3805c7544b75501cc6ebe76",
+      "size_bytes": 76301
+    }
+  },
+  "limitations": [
+    "Conditional validation only, one noise seed.",
+    "Reconstruction uses noised future labels, not free-generation quality.",
+    "Gradient probes do not update parameters or establish efficacy of a new loss.",
+    "Train-only audit uses next-epoch IDs and locally padded B4, not an exact training replay.",
+    "No attack roles or closed-loop result."
+  ],
+  "tests": "39 relevant tests passed; includes 15 new mathematical cases",
+  "actions": "Validation only; no optimizer updates or production loss/decoder/metric changes."
+}
