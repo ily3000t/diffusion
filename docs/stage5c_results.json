@@ -1,0 +1,627 @@
+{
+  "schema_version": "sumodiff.stage5c.results.summary.v1",
+  "analysis_date": "2026-10-09",
+  "official_run_sha": "8ceb573cbe76a6d224869ef52c82533891f7869d",
+  "convergence": "not_assessed",
+  "quality_status": "improved_but_150_of_200_failed",
+  "official_run": "E:\\diffusion_new\\artifacts\\runs\\stage5c-v1",
+  "parent_checkpoint": {
+    "id": "sha256:2315fa4d57b9d86a3254a0923590efbbd48f23666f3bf0d2c733ac04b4d1769b",
+    "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-v1-train\\checkpoint_step_030000.pt",
+    "sha256": "2315fa4d57b9d86a3254a0923590efbbd48f23666f3bf0d2c733ac04b4d1769b",
+    "size_bytes": 41324202
+  },
+  "final_checkpoint": {
+    "id": "sha256:2a25293744e0f9ff8bec9a03b3a1c3e077275bc7c9cece4119cdda13f070900e",
+    "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-v1\\train\\checkpoint_step_045000.pt",
+    "sha256": "2a25293744e0f9ff8bec9a03b3a1c3e077275bc7c9cece4119cdda13f070900e",
+    "size_bytes": 41333738
+  },
+  "data_manifest": {
+    "id": "sha256:c4739b4596901352b8b56d8f8566ea731cf57e3c4c34687b97c03ca7d47f6be1",
+    "location": "E:\\diffusion_new\\artifacts\\processed\\stage5a-v1\\dataset\\dataset_manifest.json",
+    "sha256": "c4739b4596901352b8b56d8f8566ea731cf57e3c4c34687b97c03ca7d47f6be1",
+    "size_bytes": 2595
+  },
+  "inputs": {
+    "train": {
+      "three_lane_straight": {
+        "windows": 400,
+        "episodes": 20,
+        "geometries": 5
+      },
+      "ramp_merge": {
+        "windows": 400,
+        "episodes": 20,
+        "geometries": 5
+      },
+      "unsignalized_intersection": {
+        "windows": 400,
+        "episodes": 20,
+        "geometries": 5
+      }
+    },
+    "validation": {
+      "three_lane_straight": {
+        "windows": 67,
+        "episodes": 6,
+        "geometries": 2
+      },
+      "ramp_merge": {
+        "windows": 67,
+        "episodes": 6,
+        "geometries": 2
+      },
+      "unsignalized_intersection": {
+        "windows": 66,
+        "episodes": 6,
+        "geometries": 2
+      }
+    }
+  },
+  "counts": {
+    "parent": {
+      "planned_scenes": 200,
+      "quality_passes": 0.0,
+      "quality_unknown": 0,
+      "generation_failures": 0,
+      "metric_failures": 0,
+      "motion_bad": 200,
+      "collision_scenes": 4,
+      "collision_unknown": 0,
+      "noise_comparisons_available": 200,
+      "missing_noise": 0,
+      "road_bad": 50,
+      "road_unknown": 0,
+      "route_bad": 51,
+      "route_unknown": 0,
+      "map_coverage_bad": 0,
+      "map_coverage_unknown": 0
+    },
+    "unified": {
+      "planned_scenes": 200,
+      "quality_passes": 50.0,
+      "quality_unknown": 0,
+      "generation_failures": 0,
+      "metric_failures": 0,
+      "motion_bad": 150,
+      "collision_scenes": 3,
+      "collision_unknown": 0,
+      "noise_comparisons_available": 200,
+      "missing_noise": 0,
+      "road_bad": 9,
+      "road_unknown": 0,
+      "route_bad": 9,
+      "route_unknown": 0,
+      "map_coverage_bad": 0,
+      "map_coverage_unknown": 0
+    }
+  },
+  "pooled_interior_jerk": {
+    "parent": {
+      "raw_interior_jerk": {
+        "count": 26460,
+        "mean": 2996.4345456424376,
+        "min": 3.4040195410478122,
+        "p50": 897.8763240323108,
+        "p95": 12537.789826675815,
+        "p99": 33604.8304707051,
+        "max": 111649.29160028207
+      },
+      "decoded_interior_jerk": {
+        "count": 26460,
+        "mean": 63.985096929431236,
+        "min": 0.053165769915923713,
+        "p50": 20.14540734492869,
+        "p95": 271.5056689664144,
+        "p99": 719.2254527297526,
+        "max": 2823.7644209234445
+      }
+    },
+    "unified": {
+      "raw_interior_jerk": {
+        "count": 26460,
+        "mean": 409.9426368185012,
+        "min": 2.0779184876598062,
+        "p50": 201.99214373715515,
+        "p95": 1290.1595598531783,
+        "p99": 4177.553894867303,
+        "max": 22887.447139470798
+      },
+      "decoded_interior_jerk": {
+        "count": 26460,
+        "mean": 8.923387469840792,
+        "min": 0.017244106083145257,
+        "p50": 4.381305242515903,
+        "p95": 27.39940395689014,
+        "p99": 94.30351294355984,
+        "max": 682.141423037463
+      }
+    }
+  },
+  "paired_intervals": {
+    "quality_success": {
+      "paired_scenes": 200,
+      "planned_scenes": 200,
+      "mean_difference": 0.25,
+      "ci95": [
+        0.19699877450980394,
+        0.30401515151515157
+      ],
+      "unit": "road-stratified episode clusters, conditional on this validation cohort"
+    },
+    "decoded_interior_jerk_p99": {
+      "paired_scenes": 200,
+      "planned_scenes": 200,
+      "mean_difference": -226.8372067017222,
+      "ci95": [
+        -291.16267331390503,
+        -173.2014436644875
+      ],
+      "unit": "road-stratified episode clusters, conditional on this validation cohort"
+    },
+    "boundary_jerk_max": {
+      "paired_scenes": 200,
+      "planned_scenes": 200,
+      "mean_difference": -195.58648748897386,
+      "ci95": [
+        -214.6564531583361,
+        -179.379665958451
+      ],
+      "unit": "road-stratified episode clusters, conditional on this validation cohort"
+    },
+    "position_correction_max": {
+      "paired_scenes": 200,
+      "planned_scenes": 200,
+      "mean_difference": -3.4971267657762595,
+      "ci95": [
+        -4.28049711560127,
+        -2.854926695457613
+      ],
+      "unit": "road-stratified episode clusters, conditional on this validation cohort"
+    },
+    "sampling_seconds": {
+      "paired_scenes": 200,
+      "planned_scenes": 200,
+      "mean_difference": 0.027206551999556725,
+      "ci95": [
+        0.022709796600977977,
+        0.0310924997361528
+      ],
+      "unit": "road-stratified episode clusters, conditional on this validation cohort"
+    }
+  },
+  "extra_intervals": {
+    "road_violation": {
+      "paired_scenes": 200,
+      "planned_scenes": 200,
+      "mean_difference": -0.205,
+      "ci95": [
+        -0.26,
+        -0.14999264705882356
+      ],
+      "unit": "road-stratified episode clusters, conditional on this validation cohort"
+    },
+    "route_violation": {
+      "paired_scenes": 200,
+      "planned_scenes": 200,
+      "mean_difference": -0.21,
+      "ci95": [
+        -0.26505064229249015,
+        -0.15440998217468807
+      ],
+      "unit": "road-stratified episode clusters, conditional on this validation cohort"
+    },
+    "collision": {
+      "paired_scenes": 200,
+      "planned_scenes": 200,
+      "mean_difference": -0.005,
+      "ci95": [
+        -0.015000000000000001,
+        0.0
+      ],
+      "unit": "road-stratified episode clusters, conditional on this validation cohort"
+    }
+  },
+  "families": {
+    "ramp_merge": {
+      "planned": 67,
+      "agents": 238,
+      "quality": 13,
+      "motion_bad": 54,
+      "road_bad": 3,
+      "route_bad": 3,
+      "collision": 0,
+      "comfort_assessed_agents": 238,
+      "comfort_pass_agents": 0,
+      "jerk_scene_failures": 54,
+      "jerk_bad_points": 681,
+      "body_frames": 9520,
+      "road_bad_body_frames": 18,
+      "pooled_interior_jerk": {
+        "count": 8568,
+        "mean": 6.085109092982946,
+        "min": 0.03267743529770058,
+        "p50": 3.9328667063887615,
+        "p95": 17.21714905655511,
+        "p99": 41.96730257826528,
+        "max": 142.7882412471326
+      },
+      "quality_rate": 0.19402985074626866,
+      "motion_bad_rate": 0.8059701492537313,
+      "road_bad_rate": 0.04477611940298507,
+      "route_bad_rate": 0.04477611940298507,
+      "collision_rate": 0.0
+    },
+    "three_lane_straight": {
+      "planned": 67,
+      "agents": 201,
+      "quality": 29,
+      "motion_bad": 38,
+      "road_bad": 0,
+      "route_bad": 0,
+      "collision": 0,
+      "comfort_assessed_agents": 201,
+      "comfort_pass_agents": 4,
+      "jerk_scene_failures": 38,
+      "jerk_bad_points": 418,
+      "body_frames": 8040,
+      "road_bad_body_frames": 0,
+      "pooled_interior_jerk": {
+        "count": 7236,
+        "mean": 5.152402647612173,
+        "min": 0.02247271146784533,
+        "p50": 3.513591853765737,
+        "p95": 14.371937368948288,
+        "p99": 33.38661745930772,
+        "max": 114.24806383700583
+      },
+      "quality_rate": 0.43283582089552236,
+      "motion_bad_rate": 0.5671641791044776,
+      "road_bad_rate": 0.0,
+      "route_bad_rate": 0.0,
+      "collision_rate": 0.0
+    },
+    "unsignalized_intersection": {
+      "planned": 66,
+      "agents": 296,
+      "quality": 8,
+      "motion_bad": 58,
+      "road_bad": 6,
+      "route_bad": 6,
+      "collision": 3,
+      "comfort_assessed_agents": 296,
+      "comfort_pass_agents": 0,
+      "jerk_scene_failures": 58,
+      "jerk_bad_points": 2491,
+      "body_frames": 11840,
+      "road_bad_body_frames": 455,
+      "pooled_interior_jerk": {
+        "count": 10656,
+        "mean": 13.766219236597953,
+        "min": 0.017244106083145257,
+        "p50": 5.770406933094247,
+        "p95": 47.330876148291296,
+        "p99": 161.89456934656334,
+        "max": 682.141423037463
+      },
+      "quality_rate": 0.12121212121212122,
+      "motion_bad_rate": 0.8787878787878788,
+      "road_bad_rate": 0.09090909090909091,
+      "route_bad_rate": 0.09090909090909091,
+      "collision_rate": 0.045454545454545456
+    }
+  },
+  "motion_fail_scenes": {
+    "speed": 0,
+    "longitudinal_acceleration": 11,
+    "lateral_acceleration": 7,
+    "jerk": 150,
+    "yaw_rate": 1,
+    "heading_velocity": 6,
+    "heading_norm": 0,
+    "velocity_consistency": 0
+  },
+  "motion_fail_points": {
+    "speed": 0,
+    "longitudinal_acceleration": 184,
+    "lateral_acceleration": 184,
+    "jerk": 3590,
+    "yaw_rate": 1,
+    "heading_velocity": 175,
+    "heading_norm": 0,
+    "velocity_consistency": 0
+  },
+  "failure_overlaps": {
+    "jerk_only_motion_scenes": 138,
+    "jerk_first_four_only_scenes": 27,
+    "jerk_interior_scenes": 123,
+    "jerk_boundary_t01_scenes": 97,
+    "jerk_endpoint_last_four_scenes": 93,
+    "jerk_bad_first_four_points": 747,
+    "jerk_bad_interior_points": 2843,
+    "jerk_only_hard_pass_agents": 350,
+    "motion_bad_without_jerk": 0,
+    "geometry_or_collision_failure_without_motion": 0,
+    "jerk_good_but_other_quality_fail": 0
+  },
+  "comfort": {
+    "comfort_assessed_agents": 735,
+    "comfort_pass_agents": 4,
+    "comfort_assessed_points": 29400,
+    "comfort_complete_assessed_points": 29400,
+    "comfort_violation_points": 13658
+  },
+  "label_control": {
+    "all_jerk": {
+      "count": 29400,
+      "mean": 0.03204371692107983,
+      "min": 0.0,
+      "p50": 0.003814697265625,
+      "p95": 0.12326288948313388,
+      "p99": 0.49591889062618333,
+      "max": 14.234333985296725
+    },
+    "motion": {
+      "hard_pass_scenes": 200,
+      "speed_bad_scenes": 0,
+      "longitudinal_acceleration_bad_scenes": 0,
+      "lateral_acceleration_bad_scenes": 0,
+      "jerk_bad_scenes": 0,
+      "yaw_rate_bad_scenes": 0,
+      "heading_velocity_bad_scenes": 0,
+      "heading_norm_bad_scenes": 0,
+      "velocity_consistency_bad_scenes": 0
+    },
+    "comfort": {
+      "comfort_assessed_agents": 735,
+      "comfort_pass_agents": 721,
+      "comfort_violation_points": 17,
+      "comfort_assessed_points": 29400
+    },
+    "scope": "existing validation labels, post-hoc motion control"
+  },
+  "correction": {
+    "parent": {
+      "count": 29400,
+      "mean": 0.9150492592650588,
+      "min": 0.0026483480608124528,
+      "p50": 0.4534158410063922,
+      "p95": 3.2608370796213673,
+      "p99": 8.063852730766618,
+      "max": 28.11917892252404
+    },
+    "unified": {
+      "count": 29400,
+      "mean": 0.1280495506742159,
+      "min": 0.0003288452196310447,
+      "p50": 0.06085859520642328,
+      "p95": 0.3980584895447493,
+      "p99": 1.4653991949809053,
+      "max": 8.5764038431165
+    }
+  },
+  "field_oracle_diagnostic": {
+    "source_sha": "8ceb573cbe76a6d224869ef52c82533891f7869d",
+    "analysis_sha": "8ceb573cbe76a6d224869ef52c82533891f7869d",
+    "scope": "Linear decoder field decomposition, not a training causal effect or attainable generation quality",
+    "planned_tasks": 200,
+    "replayed_decoder_max_error": 1.4210854715202004e-13,
+    "by_mode": {
+      "model_model": {
+        "pooled_interior_jerk": {
+          "count": 26460,
+          "mean": 8.923387469840621,
+          "min": 0.017244106086671505,
+          "p50": 4.381305242515367,
+          "p95": 27.399403956889632,
+          "p99": 94.30351294356387,
+          "max": 682.141423037463
+        },
+        "all_future_jerk_pass_scenes": 50,
+        "max_jerk": 682.141423037463
+      },
+      "model_position_label_velocity": {
+        "pooled_interior_jerk": {
+          "count": 26460,
+          "mean": 1.3287370565489243,
+          "min": 0.004370216584256382,
+          "p50": 0.6650955373404329,
+          "p95": 4.07230333427146,
+          "p99": 13.809759923793534,
+          "max": 72.77158951873008
+        },
+        "all_future_jerk_pass_scenes": 97,
+        "max_jerk": 547.5999996128758
+      },
+      "label_position_model_velocity": {
+        "pooled_interior_jerk": {
+          "count": 26460,
+          "mean": 8.930495599577705,
+          "min": 0.024901940848442262,
+          "p50": 4.358230918274708,
+          "p95": 27.51786790998906,
+          "p99": 95.4554526423334,
+          "max": 701.5538830338794
+        },
+        "all_future_jerk_pass_scenes": 61,
+        "max_jerk": 701.5538830338794
+      },
+      "label_label": {
+        "pooled_interior_jerk": {
+          "count": 26460,
+          "mean": 0.02987611979151191,
+          "min": 0.0,
+          "p50": 0.0002942332137934068,
+          "p95": 0.1201834812995628,
+          "p99": 0.4946727772482973,
+          "max": 14.23697378976895
+        },
+        "all_future_jerk_pass_scenes": 200,
+        "max_jerk": 14.23697378976895
+      }
+    },
+    "rms_interior_jerk_error": {
+      "position": 3.2450982403234057,
+      "velocity": 23.290111521672163,
+      "total": 23.06996862370667
+    },
+    "limitations": "One label future per scene; field swaps are oracle interventions, not realizable generated results. Contributions can cancel, so no additive percentage attribution."
+  },
+  "training": {
+    "updates": 15000,
+    "epochs_start": 101,
+    "epochs_end": 150,
+    "best_validation": {
+      "step": 45000,
+      "mse": 0.0004948526991938706,
+      "checkpoint": {
+        "id": "sha256:2a25293744e0f9ff8bec9a03b3a1c3e077275bc7c9cece4119cdda13f070900e",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-v1\\train\\checkpoint_step_045000.pt",
+        "sha256": "2a25293744e0f9ff8bec9a03b3a1c3e077275bc7c9cece4119cdda13f070900e",
+        "size_bytes": 41333738
+      }
+    },
+    "validation_start": {
+      "step": 30000,
+      "train_probe_mse": 0.001909861092766126,
+      "validation_probe_mse": 0.0019925981515552848
+    },
+    "validation_last_six": [
+      {
+        "step": 43500,
+        "train_probe_mse": 0.0003553516343041944,
+        "validation_probe_mse": 0.0005031402739405167
+      },
+      {
+        "step": 43800,
+        "train_probe_mse": 0.00037431914582460496,
+        "validation_probe_mse": 0.0005029587846365757
+      },
+      {
+        "step": 44100,
+        "train_probe_mse": 0.0003583904239349067,
+        "validation_probe_mse": 0.0005038683717430104
+      },
+      {
+        "step": 44400,
+        "train_probe_mse": 0.0003607995332761978,
+        "validation_probe_mse": 0.0004995191015768796
+      },
+      {
+        "step": 44700,
+        "train_probe_mse": 0.0003639217053811687,
+        "validation_probe_mse": 0.000501931097387569
+      },
+      {
+        "step": 45000,
+        "train_probe_mse": 0.00035914626156833646,
+        "validation_probe_mse": 0.0004948526991938706
+      }
+    ],
+    "gradient_clipped_updates": 29,
+    "final_lr": 1e-06,
+    "auxiliary_loss_to_noise_mean": 0.07437235717408523,
+    "auxiliary_loss_mean_shares": {
+      "weighted_imitation": 0.908156757876658,
+      "weighted_temporal": 0.08930981020548068,
+      "weighted_road": 0.0025334319178647465
+    },
+    "road_active_updates": 786,
+    "scalar_loss_shares_are_not_gradient_shares": true
+  },
+  "resource": {
+    "full_run_wall_seconds": 4691.761845,
+    "train_validation_checkpoint_seconds": 4546.3388779,
+    "update_mean_seconds": 0.2563651223948244,
+    "peak_torch_allocated_bytes": 194389504,
+    "peak_torch_reserved_bytes": 207618048,
+    "sampling_decoder_seconds": {
+      "count": 200,
+      "mean": 0.2267827725000143,
+      "p99": 0.2581797259998165,
+      "includes": "conditioning encoder, DDIM and unified decoder; excludes input IO, independent metrics and output IO"
+    },
+    "sampling_total_loop_seconds": 70.38967279999997,
+    "independent_metric_seconds": 20.944557800004077
+  },
+  "verification": {
+    "formal_clean_completed_run_count": 14,
+    "unique_manifest_source_files_verified": 7836,
+    "trace_updates": 15000,
+    "epochs": 50,
+    "unique_ids_per_epoch": 1200,
+    "learning_rate_and_auxiliary_ramp_exact": true,
+    "noise_pairs": 200,
+    "recomputed_scene_rows_equal": true,
+    "source_index_hashes_equal": true,
+    "decoded_motion_counts_replayed": true,
+    "data_episode_geometry_isolated": true
+  },
+  "posthoc_runs": [
+    {
+      "directory": "E:\\diffusion_new\\artifacts\\runs\\stage5c-analysis-20261009-r1",
+      "formal": false,
+      "state": "completed",
+      "results": {
+        "id": "sha256:77b57f78f5d3302111d833f0adb7554ee71da2b924d6d97b3820c68c9c724f60",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-analysis-20261009-r1\\analysis.json",
+        "sha256": "77b57f78f5d3302111d833f0adb7554ee71da2b924d6d97b3820c68c9c724f60",
+        "size_bytes": 570473
+      },
+      "script": {
+        "id": "sha256:a05456591f3c93950e852d863031662e802afbfcf49cd1e1633b7529358fe602",
+        "location": "E:\\diffusion_new\\artifacts\\cache\\stage5c_result_analysis.py",
+        "sha256": "a05456591f3c93950e852d863031662e802afbfcf49cd1e1633b7529358fe602",
+        "size_bytes": 22195
+      }
+    },
+    {
+      "directory": "E:\\diffusion_new\\artifacts\\runs\\stage5c-field-diagnostic-20261009",
+      "formal": false,
+      "state": "completed",
+      "results": {
+        "id": "sha256:e8b4787e848d217ded45efe7c7971985209b54958e88b741d07cb790b46d0c0e",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-field-diagnostic-20261009\\field_diagnostic.json",
+        "sha256": "e8b4787e848d217ded45efe7c7971985209b54958e88b741d07cb790b46d0c0e",
+        "size_bytes": 2263
+      },
+      "script": {
+        "id": "sha256:07d7b24d9138d553f70062a9e17d7a7f23d428ab3035f135340e95c0ab6b8833",
+        "location": "E:\\diffusion_new\\artifacts\\cache\\stage5c_field_diagnostic.py",
+        "sha256": "07d7b24d9138d553f70062a9e17d7a7f23d428ab3035f135340e95c0ab6b8833",
+        "size_bytes": 4969
+      }
+    }
+  ],
+  "figures": {
+    "diagnostic.png": {
+      "id": "sha256:8b6502e9926d74eed251c971a249a78551ee513c685dbbb1e6e9a1b8c10a111d",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-analysis-20261009-r1\\diagnostic.png",
+      "sha256": "8b6502e9926d74eed251c971a249a78551ee513c685dbbb1e6e9a1b8c10a111d",
+      "size_bytes": 315939
+    },
+    "diagnostic.svg": {
+      "id": "sha256:bbff583b7ab7558a64a2188a8c781c2de562e7a982e3d31a501bb04fa2afe509",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-analysis-20261009-r1\\diagnostic.svg",
+      "sha256": "bbff583b7ab7558a64a2188a8c781c2de562e7a982e3d31a501bb04fa2afe509",
+      "size_bytes": 144787
+    }
+  },
+  "limits": [
+    "One existing validation cohort and seed; no test-set claim.",
+    "Joint objective, extra 50 epochs, optimizer reset and learning-rate intervention; no loss-only attribution.",
+    "Scalar loss shares are not gradient shares.",
+    "All planned scenes retained; generated selected vehicles only, no closed-loop or attack-role claim.",
+    "Decoder enforces position-velocity identity, not hard dynamics/road compliance.",
+    "No additional training or generation in this post-hoc audit."
+  ],
+  "suggested_next_checks": [
+    "Preserve final 45000-step checkpoint and unchanged paired validation tasks.",
+    "Compare 20 and 50 DDIM steps from the same checkpoint before additional training.",
+    "Audit low-noise reconstruction and raw-velocity second-difference gradients before modifying losses.",
+    "If supported, calibrate a separate raw-velocity temporal term and boundary group, retaining epsilon/imitation/road objectives.",
+    "Run epsilon_cosine only when a loss-specific scientific attribution is required."
+  ],
+  "actions_this_turn": "Read-only source audit, motion/label replays, CPU oracle field diagnostics and documentation only; no production changes, training, generation, remote push, tag or stage6."
+}
