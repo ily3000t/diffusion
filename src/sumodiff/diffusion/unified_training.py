@@ -129,11 +129,12 @@ def validate_runtime(value):
         raise ValueError('Saved optimizer lr differs from unified scheduler')
 
 
-def optimize_batch(model,optimizer,conditions,targets,schedule,generator,clip_norm,objective,roads,lr_schedule,update):
+def optimize_batch(model,optimizer,conditions,targets,schedule,generator,clip_norm,objective,roads,lr_schedule,update,
+                   *, objective_fn=unified_objective):
     lr,ramp=lr_schedule.apply(optimizer,update)
     model.train();optimizer.zero_grad(set_to_none=True)
     noisy,noise,timestep=draw_noise(targets,conditions,schedule,generator)
-    terms=unified_objective(model(noisy,timestep,conditions),noisy,noise,timestep,conditions,targets,schedule,
+    terms=objective_fn(model(noisy,timestep,conditions),noisy,noise,timestep,conditions,targets,schedule,
                             objective,roads=roads,ramp=ramp)
     loss=terms['total_loss'];loss.backward()
     norm=torch.nn.utils.clip_grad_norm_(model.parameters(),clip_norm,error_if_nonfinite=True)
@@ -185,19 +186,40 @@ def quality_frontier(records):
         any(x<y for x,y in zip(vector(other),vector(r))) for other in eligible if other is not r)]
 
 
+class UnifiedProtocol:
+    """Stage5C semantics; shared loop with an explicitly separate protocol."""
+    config = staticmethod(unified_config)
+    scale_diffusion = staticmethod(lambda parent: resolve_diffusion_config(parent['metadata']['diffusion_config']))
+    resolve_loss = staticmethod(resolve_unified_loss)
+    objective = staticmethod(unified_objective)
+    initialize = staticmethod(warm_start)
+    monitor_quality = staticmethod(monitor_quality)
+    frontier = staticmethod(quality_frontier)
+    max_prefix_updates = 24
+    run_schema = 'sumodiff.unified.train.run.v1'
+    metrics_schema = 'sumodiff.unified.train.metrics.v1'
+    purpose = 'stage5c_unified_continuation'
+    full_budget_kind = 'fifty_epoch_unified'
+    optimizer_reset = True
+    loss_reduction = 'per-scene valid means; t<=300 alpha_bar; whole-minibatch denominator; linear auxiliary ramp'
+
+
 def train_unified(dataset,parent_checkpoint,config_path,scale_path,output,repository,command,
-                  formal=False,resume=None,prefix_updates=None,allow_long_run=False,cache=None,stop_after_updates=None):
+                  formal=False,resume=None,prefix_updates=None,allow_long_run=False,cache=None,stop_after_updates=None,
+                  *, _protocol=None):
+    protocol = _protocol or UnifiedProtocol()
     source=file_identity(parent_checkpoint);parent=load_checkpoint(parent_checkpoint)
-    c=unified_config(load_config(config_path),parent,prefix_updates=prefix_updates)
+    c=protocol.config(load_config(config_path),parent,prefix_updates=prefix_updates)
     if source['sha256']!=c['fork_source_sha256']:
         raise ValueError('Original parent checksum mismatch')
     if c['planned_additional_updates']>1000 and not allow_long_run:
         raise ValueError('50-epoch continuation requires explicit --allow-long-run')
     if stop_after_updates is not None and (
-        type(stop_after_updates) is not int or not 1<=stop_after_updates<=24 or prefix_updates is None):
-        raise ValueError('Diagnostic early stop only supports 1..24 updates within a short prefix')
+        type(stop_after_updates) is not int or not 1<=stop_after_updates<=protocol.max_prefix_updates or prefix_updates is None):
+        raise ValueError('Diagnostic stop must be bounded within a short prefix')
     data=dataset_identity(dataset)
-    scale=verified_scale_audit(scale_path,dataset,resolve_diffusion_config(parent['metadata']['diffusion_config']))
+    scale_config=protocol.scale_diffusion(parent)
+    scale=verified_scale_audit(scale_path,dataset,scale_config)
     if any(data[k]['sha256']!=parent['metadata']['data'][k]['sha256'] for k in data):
         raise ValueError('Warm-start dataset differs from the original parent')
     if scale['sha256']!=parent['metadata']['scale_audit']['sha256']:
@@ -217,22 +239,23 @@ def train_unified(dataset,parent_checkpoint,config_path,scale_path,output,reposi
     if not c['source_step']<=start<c['max_steps']:
         raise ValueError('Resume step outside this experiment budget')
     end=min(c['max_steps'],start+stop_after_updates) if stop_after_updates else c['max_steps']
-    objective=resolve_unified_loss(c['loss'])
+    objective=protocol.resolve_loss(c['loss'])
     geometry_start=time.perf_counter()
     geometry=RoadGeometryCache(dataset,train_cache[2],objective) if objective.road_weight else None
     geometry_seconds=time.perf_counter()-geometry_start
     files=[config_path,scale_path,parent_checkpoint,*[v['location'] for v in data.values()],*train_cache[3],*val_cache[3]]
     if resume:files.append(resume)
-    effective=dict(schema_version='sumodiff.unified.train.run.v1',training=c,data=data,scale_audit=scale,
+    effective=dict(schema_version=protocol.run_schema,training=c,data=data,scale_audit=scale,
+        scale_audit_diffusion_config=scale_config.to_dict(),
         common_parent=source,resume=file_identity(resume) if resume else None,
         train_window_ids=train_cache[2],validation_window_ids=val_cache[2],selection=selection,
         stop_after_updates=stop_after_updates,evaluation_unchanged=True,
         precision='float32 network/AdamW; float64 decoder; no AMP/TF32',
-        loss_reduction='per-scene valid means; t<=300 alpha_bar; whole-minibatch denominator; linear auxiliary ramp',
+        loss_reduction=protocol.loss_reduction,
         road_proxy='5x5 oriented body points; exact vector outside distance; detached nearest projection; no raster clipping')
     with RunRecorder(output,repository,effective,command,
         {'model':c['seed'],'training_noise':c['noise_seed'],'validation_noise':c['validation_seed']},
-        purpose='stage5c_unified_continuation',data_files=sorted(set(map(str,files))),
+        purpose=protocol.purpose,data_files=sorted(set(map(str,files))),
         data_id=data['manifest']['id'],checkpoint=resume or parent_checkpoint,formal=formal) as run:
         model=ConditionalDenoiser(resolve_model_config(parent['metadata']['model_config'])).to(device)
         optimizer=new_optimizer(model,c);generator=torch.Generator().manual_seed(c['noise_seed'])
@@ -250,8 +273,7 @@ def train_unified(dataset,parent_checkpoint,config_path,scale_path,output,reposi
                 raise ValueError('Previous best epsilon checkpoint changed')
             monitoring=deepcopy(previous['metadata']['runtime']['quality_history'])
         else:
-            initial=warm_start(parent,model,optimizer,generator,device)
-            if len(optimizer.state)!=0:raise RuntimeError('Warm start accidentally retained old optimizer moments')
+            initial=protocol.initialize(parent,model,optimizer,generator,device)
             best=None;monitoring=[]
         schedule=NoiseSchedule(resolve_diffusion_config(c['diffusion']),device)
         probe_cache=probe_subset(train_cache,c['train_probe_limit'])
@@ -282,7 +304,8 @@ def train_unified(dataset,parent_checkpoint,config_path,scale_path,output,reposi
                 indices,epoch,index=epoch_batch(step,len(train_cache[2]),c['batch_size'],c['seed'])
                 conditions,targets,ids=select_batch(train_cache,indices,device)
                 terms,norm,noise,timestep,lr=optimize_batch(model,optimizer,conditions,targets,schedule,generator,
-                    c['gradient_clip_norm'],objective,geometry.batch(ids) if geometry else None,learning,step-c['source_step'])
+                    c['gradient_clip_norm'],objective,geometry.batch(ids) if geometry else None,learning,step-c['source_step'],
+                    objective_fn=protocol.objective)
                 synchronize(device);elapsed=time.perf_counter()-tick;times.append(elapsed)
                 row=dict(step=step,additional_step=step-c['source_step'],epoch=epoch,epoch_batch=index,
                     epoch_complete=index==c['steps_per_epoch'],window_ids=ids,timesteps=timestep.cpu().tolist(),
@@ -303,16 +326,16 @@ def train_unified(dataset,parent_checkpoint,config_path,scale_path,output,reposi
                     best_changed=v['validation_probe_mse']<best['mse']
                     if best_changed:best=dict(step=step,mse=v['validation_probe_mse'],checkpoint=None)
                     print(f"objective={c['objective_name']} step={step} epoch={epoch} lr={lr:.3g} validation={v['validation_probe_mse']:.6f}",flush=True)
-                monitor_due=c['execution_budget_kind']=='fifty_epoch_unified' and index==c['steps_per_epoch'] and (
+                monitor_due=c['execution_budget_kind']==protocol.full_budget_kind and index==c['steps_per_epoch'] and (
                     (epoch-c['source_epochs'])%c['monitor_every_epochs']==0 or step==end)
                 if monitor_due:
                     assessment=run.output/f'monitor_checkpoint_step_{step:06d}.pt'
                     identity=save(assessment,step,'monitor_assessment')
                     record=periodic_sample(dataset,assessment,run,repository,c,epoch,formal)
-                    record.update(step=step,quality=monitor_quality(record['run'],val_cache),checkpoint=identity)
+                    record.update(step=step,quality=protocol.monitor_quality(record['run'],val_cache),checkpoint=identity)
                     monitoring.append(record)
                     write_json(run.output/'quality_candidates.json',
-                        dict(history=monitoring,pareto_checkpoints=quality_frontier(monitoring),
+                        dict(history=monitoring,pareto_checkpoints=protocol.frontier(monitoring),
                              selection='separate quality/road/route/motion/jerk axes; no aggregate score'))
                 prefix_midpoint = prefix_updates is not None and (step-c['source_step'])==max(1,prefix_updates//2)
                 if step%c['checkpoint_interval']==0 or step==end or best_changed or monitor_due or prefix_midpoint:
@@ -325,21 +348,21 @@ def train_unified(dataset,parent_checkpoint,config_path,scale_path,output,reposi
                 write_json(run.output/'progress.json',dict(step=step,end_step=c['max_steps'],executed_segment_end=end,
                     epoch=epoch,epoch_complete=index==c['steps_per_epoch'],learning_rate=lr,
                     auxiliary_ramp=learning.last_auxiliary_ramp,scheduler_state=learning.state_dict(),
-                    best_epsilon=best,full_budget_complete=step==c['max_steps'] and c['execution_budget_kind']=='fifty_epoch_unified'))
+                    best_epsilon=best,full_budget_complete=step==c['max_steps'] and c['execution_budget_kind']==protocol.full_budget_kind))
         duration=time.perf_counter()-started;timed=times[1:] or times;mean=float(np.mean(timed))
-        result=dict(schema_version='sumodiff.unified.train.metrics.v1',run_sha=run.manifest['git']['commit_sha'],
+        result=dict(schema_version=protocol.metrics_schema,run_sha=run.manifest['git']['commit_sha'],
             objective=c['objective_name'],common_parent=source,start_step=start,end_step=end,updates=len(times),
             planned_end_step=c['max_steps'],nominal_additional_epochs=50,execution_budget_kind=c['execution_budget_kind'],
-            full_budget_complete=end==c['max_steps'] and c['execution_budget_kind']=='fifty_epoch_unified',
+            full_budget_complete=end==c['max_steps'] and c['execution_budget_kind']==protocol.full_budget_kind,
             newly_completed_epochs=end//c['steps_per_epoch']-start//c['steps_per_epoch'],
-            optimizer_reset_at_fork=True,initial_state=initial,final_parameter_sha256=parameter_hash(model),
+            optimizer_reset_at_fork=protocol.optimizer_reset,initial_state=initial,final_parameter_sha256=parameter_hash(model),
             optimizer_step_timing=dict(mean_seconds=mean,median_seconds=float(np.median(timed)),warmup_updates_excluded=1),
             cache_preparation_seconds=cache_seconds,geometry_preparation_seconds=geometry_seconds,
             training_validation_checkpoint_wall_seconds=duration,
             peak_allocated_bytes=peak_allocated if device.type=='cuda' else None,
             peak_reserved_bytes=peak_reserved if device.type=='cuda' else None,
             validation=validations,checkpoints=checkpoints,best_epsilon=best,generation_monitor=monitoring,
-            quality_pareto_checkpoints=quality_frontier(monitoring),gradient_clipped_updates=clips,
+            quality_pareto_checkpoints=protocol.frontier(monitoring),gradient_clipped_updates=clips,
             auxiliary_eligible_scenes=eligible,mean_components={k:v/len(times) for k,v in component_sums.items()},
             scheduler_state=learning.state_dict(),
             cached_tensor_bytes=sum(v.numel()*v.element_size() for item in (train_cache,val_cache)

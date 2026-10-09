@@ -174,3 +174,16 @@ checkpoint.runtime保存scheduler_state（配置hash、completed_updates、last_
 initial_state.json记录网络/优化器/RNG哈希、实际AdamW state数量和调度起点。steps.jsonl增加lr、rho、模仿/时间/道路分项、加权贡献、道路代理越界比例、朝向回退计数及clip前范数。best_epsilon.json指向实际最佳epsilon参考；quality_candidates.json为各监测点与非支配checkpoint列表，无综合评分。full_budget_complete=true仅在实际满45000步且非preflight时成立，不能据此推断收敛或质量。
 
 gradient_audit.json保存冻结父参数、完整候选rho=1的逐批参数梯度范数/与epsilon夹角、训练窗口与时间步。road_activation_probe.json是明确标注的标签衍生位移数学探针，optimizer_updates=0，不是生成事件。monitor_probe.json使用当前条件和地图，future_labels_accessed=false、training_updates=0；检查Torch RNG恢复与源文件不变。正式200配对报告继承既有独立指标和失败分母协议。
+
+
+## 阶段5D原始速度续训与报告合同
+
+外层checkpoint/window/dataset/stages布局保持。training_config.schema_version新增sumodiff.raw.velocity.train.config.v1，loss为sumodiff.raw.velocity.loss.config.v1，内含原sumodiff.unified.loss.config.v1；签名锁定所有新损失/原损失/日程/预算和数据身份。source_step=45000/source_epochs=150，完整终点60000/200轮；preflight_prefix与正式预算分开。
+
+checkpoint仍保存完整AdamW/RNG及调度状态。源参数矩step为15000，新增模型矩step必须为15000+checkpoint.step−45000；日程completed_updates只计新阶段，不继承旧15000日程或重置矩。源状态复制避免计数别名；仅training_recovery可恢复，monitor_assessment不能作训练恢复。尺度审计显式保存原additional_losses_enabled=false，其余尺度/扩散参数、数据与原审计hash必须相同；实际新训练/采样能力标记仍true。
+
+steps.jsonl新增inherited_auxiliary_total、raw_second_boundary/interior、weighted_raw_boundary/interior、raw_auxiliary_total、inherited_auxiliary_ramp=1、raw_auxiliary_ramp。通用调度last_auxiliary_ramp在本协议只指新项预热；继承项从首步全强度。initial_state记录190个真实AdamW矩哈希，正式日志真实epoch151—200逐轮1200窗口无放回。
+
+joint_gradient_audit.json记录自然t/固定t200及同噪声、实际组合向量、范数、余弦、角度和理论clip。peak_stress.json明确隔离副本各24更新、峰值/full-strength、无正式checkpoint；不能算正式50轮完成。恢复检查含所有状态和两种ramp逐位比对。
+
+paired_summary.json/scene_rows.json报告计划200任务及可用配对数、交界/内部两时段、舒适性计划/已评估/未评估车辆数和两种率、道路/路线/覆盖、碰撞、位置/速度修正及耗时。无适用车辆对单列not_applicable而不是unknown或零事件概率。baseline_report_audit.json仅重放现有150轮输出，自配对区间为0；optimizer_updates=0/new_sampling_tasks=0，不宣称200轮模型存在。

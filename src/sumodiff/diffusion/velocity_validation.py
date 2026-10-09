@@ -59,19 +59,7 @@ def config(value):
         raise ValueError('Invalid second-difference probe unit')
     return c
 
-def velocity_residual(raw,c,targets):
-    """Raw velocity second-difference error, including observed v(-1), v(0)."""
-    active=c['agent_mask']
-    mask=targets['future_mask'] & active[...,None]
-    if not mask[active].all() or not c['history_mask'][active][...,-2:].all():
-        raise ValueError('Probe requires complete future and last two history observations')
-    raw=torch.where(active[...,None,None],raw,0.)
-    truth=torch.where(active[...,None,None],targets['future'],0.).to(raw.dtype)
-    observed=torch.where(active[...,None,None],c['history'][...,-2:,2:4],0.).to(raw.dtype)
-    p=torch.cat((observed,raw[...,2:4]),-2)
-    q=torch.cat((observed,truth[...,2:4]),-2)
-    residual=torch.diff(p,n=2,dim=-2)-torch.diff(q,n=2,dim=-2)
-    return residual,mask
+from .raw_velocity_losses import velocity_residual
 
 def velocity_probe_terms(raw,c,targets,timesteps,schedule,unit=.15,boundary=4):
     """Diagnostic Huber terms: per scene, alpha weighted, full-batch denominator."""
