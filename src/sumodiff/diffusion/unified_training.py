@@ -189,6 +189,7 @@ def quality_frontier(records):
 class UnifiedProtocol:
     """Stage5C semantics; shared loop with an explicitly separate protocol."""
     config = staticmethod(unified_config)
+    scale_diffusion = staticmethod(lambda parent: resolve_diffusion_config(parent['metadata']['diffusion_config']))
     resolve_loss = staticmethod(resolve_unified_loss)
     objective = staticmethod(unified_objective)
     initialize = staticmethod(warm_start)
@@ -217,7 +218,8 @@ def train_unified(dataset,parent_checkpoint,config_path,scale_path,output,reposi
         type(stop_after_updates) is not int or not 1<=stop_after_updates<=protocol.max_prefix_updates or prefix_updates is None):
         raise ValueError('Diagnostic stop must be bounded within a short prefix')
     data=dataset_identity(dataset)
-    scale=verified_scale_audit(scale_path,dataset,resolve_diffusion_config(parent['metadata']['diffusion_config']))
+    scale_config=protocol.scale_diffusion(parent)
+    scale=verified_scale_audit(scale_path,dataset,scale_config)
     if any(data[k]['sha256']!=parent['metadata']['data'][k]['sha256'] for k in data):
         raise ValueError('Warm-start dataset differs from the original parent')
     if scale['sha256']!=parent['metadata']['scale_audit']['sha256']:
@@ -244,6 +246,7 @@ def train_unified(dataset,parent_checkpoint,config_path,scale_path,output,reposi
     files=[config_path,scale_path,parent_checkpoint,*[v['location'] for v in data.values()],*train_cache[3],*val_cache[3]]
     if resume:files.append(resume)
     effective=dict(schema_version=protocol.run_schema,training=c,data=data,scale_audit=scale,
+        scale_audit_diffusion_config=scale_config.to_dict(),
         common_parent=source,resume=file_identity(resume) if resume else None,
         train_window_ids=train_cache[2],validation_window_ids=val_cache[2],selection=selection,
         stop_after_updates=stop_after_updates,evaluation_unchanged=True,

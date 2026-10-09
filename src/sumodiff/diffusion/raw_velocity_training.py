@@ -5,6 +5,7 @@ from pathlib import Path
 import numpy as np
 import torch
 from .checkpoint import restore_training
+from .config import resolve_diffusion_config
 from .controlled_training import inherited_state
 from .schedule import ScheduleConfig, UpdateSchedule, resolve_schedule
 from .unified_training import train_unified, UnifiedProtocol, monitor_quality
@@ -149,6 +150,14 @@ def velocity_frontier(records):
 
 class RawVelocityProtocol(UnifiedProtocol):
     config=staticmethod(raw_velocity_config)
+    @staticmethod
+    def scale_diffusion(parent):
+        # The original scale audit predates all auxiliary losses. This flag
+        # changes training capabilities, not scales/noising; all other audited
+        # fields and dataset/audit hashes must still match exactly.
+        c=deepcopy(parent['metadata']['diffusion_config'])
+        c['additional_losses_enabled']=False
+        return resolve_diffusion_config(c)
     resolve_loss=staticmethod(resolve_raw_velocity_loss)
     objective=staticmethod(raw_velocity_objective)
     initialize=staticmethod(inherit_optimizer)

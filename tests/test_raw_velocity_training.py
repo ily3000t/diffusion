@@ -106,3 +106,10 @@ def test_recovery_signature_includes_new_weights_and_budget(tmp_path):
     save_checkpoint(path,net,opt,g,45000,m)
     other=deepcopy(m['training_signature']);other['training']['loss']['interior_weight']=1e-4
     with pytest.raises(ValueError,match='signature'):load_checkpoint(path,signature=other)
+
+def test_scale_audit_preserves_every_physical_setting_and_only_uses_original_aux_flag():
+    from sumodiff.diffusion.raw_velocity_training import RawVelocityProtocol
+    p=parent150();actual=RawVelocityProtocol.scale_diffusion(p).to_dict()
+    expected=deepcopy(p['metadata']['diffusion_config']);expected['additional_losses_enabled']=False
+    assert actual==expected
+    assert p['metadata']['diffusion_config']['additional_losses_enabled'] is True
