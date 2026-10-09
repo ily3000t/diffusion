@@ -33,6 +33,10 @@ class RawVelocityLossConfig:
         return self.unified.road_weight
 
     @property
+    def road_numerical_tolerance_m(self):
+        return self.unified.road_numerical_tolerance_m
+
+    @property
     def enabled(self):
         return True
 
