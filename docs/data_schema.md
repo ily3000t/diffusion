@@ -212,3 +212,8 @@ sumodiff.decoded.temporal.gradient.audit.v1记录训练元数据选择、自然/
 sumodiff.stage5e.result.summary.v1为保存输出的CPU审计摘要：source_sha保持真实858ad6b，checkpoint和source_parent_checkpoint为文件身份；verification包括完整epoch/AdamW累计步/同噪声/独立SVD重放。counts、strict_comfort、pooled和paired_intervals沿用报告口径，混合帧分位数与场景配对均值区间分开。transitions/道路子集/dense_intersections/temporal_failures保留全部任务，新增失败时段不互相替代。label_control仅核对正常标签质量，不进入生成条件或修复。
 
 analysis/figure运行均formal=false，仅CPU后处理、输入与脚本身份可追溯。正式训练和轨迹接口未改；结果SHA不会被摘要提交SHA替换。225轮结果不自动替代200轮候选，不触发tag或阶段6。
+
+
+## 显式诊断任务前缀
+
+generation_rows默认保持完整200任务要求；planned_window_ids显式指定诊断计划时，目录必须为相同有序短计划或完整200目录的相同前缀。重复、缺失、错序拒绝，不通过删除失败样本重建分母。sumodiff.checkpoint.screen.metrics.v1记录planned_tasks/new_sampling_tasks/source_sampling_tasks/reused_sampling_tasks及optimizer_updates，将复用报告与实际新采样成本分开。对应summary.v1保存来源身份、条件配对区间、子集资格、分时段超限及成本；混合分位数不能当作整场景资格。

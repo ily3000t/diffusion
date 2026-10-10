@@ -17,3 +17,5 @@ $env:PYTHONPATH='E:\diffusion_new\src'
 $env:SUMO_HOME='E:\Program Files\sumo-1.22.0'
 .\.venv-model\Scripts\python.exe scripts\validate_intermediate_checkpoints.py --output artifacts\runs\stage5e-checkpoint-screen-20261010 --formal
 ~~~
+
+2026-10-10短验证已完成；结果见[checkpoint_screen_results.md](checkpoint_screen_results.md)，保留200轮候选。原主运行汇总保存失败，但六个采样子运行完成，已用--reuse-samples仅重算报告，旧失败目录保留。原RunId已使用，复现必须新目录。

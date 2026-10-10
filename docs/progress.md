@@ -645,3 +645,18 @@ stage5e-preflight-20261010-r1、uninterrupted/resumed/recovery_audit/sample及st
 最终CPU审计另独立核对模型/Generator/CPU-CUDA RNG哈希。首份后处理清单误标bootstrap20261017，实际区间重算一直使用20261022；保留原目录，最终r1清单正确记录20261022，数值不变。无正式实验更改。
 
 文档验收：validate_stage5e_results.py核对9个交付文件身份、41个本地Markdown链接、UTF-8、关键数字及实际bootstrap20261022；r1图与已目视核对的图逐字节一致。只改文档，未重复全量模型测试。结果原子提交8213b12a3837e28b2a3be39c59d0be139ca01692；状态索引另提交。实际分支docs/stage5e-result-analysis，验收后本地main --no-ff合并；最终合并SHA以Git记录为准，未推送。
+
+
+## 阶段5E中间checkpoint短验证（2026-10-10）
+
+用户“继续”授权执行已有中间模型短验证；从干净main0065b4a建立feat/intermediate-checkpoint-validation。bddbef1增加显式任务前缀目录校验，默认完整200合同保持；17643cb提交固定协议/采样配置/入口。26项相关回归3.62s通过，原200模型60任务CPU重放通过。固定原任务序列前60，三类各20，214车辆窗口、4个密集路口，seed20261015/DDIM20/eta0。
+
+205/210/215/218/220/221六中间恢复模型各60采样，共360次，6子目录formal/clean/completed，源SHA17643cb。首次主流程在汇总JSON时因NumPy int64失败，failed原目录保留；76eab2c修复整数写入和严格--reuse-samples，独立formal报告仅复用全部360输出，零重采样。7完成正式运行、1197唯一清单输入身份、配置/环境哈希及全部配对区间核对，8模型各60初始噪声一致，480轨迹运动重放。训练SHA858ad6b、父模型及原输出不改。
+
+同60任务资格依次200/205/210/215/218/220/221/225=26/6/13/22/19/15/20/19。215最接近，差−6.67pp区间[−14.46,+1.36]含0，不称显著更差；221虽最低epsilon仍20/60。4密集均0通过。全部失败/未知0，本队列碰撞0不代表完整200碰撞消失。部分混合P99改善不替代资格；内部与末端超限依然突出。没有发现值得替换200的证据，未自动扩大全部模型的200评估。
+
+新360采样+解码均值202.53ms，生成循环合计107.98s、主流程至汇总失败135.87s；CPU复用报告主体9.88s，准备/哈希另计。Torch采样allocated48.49MiB/reserved50MiB。没有训练或引导梯度更新。来源CPU核验与科学图在stage5e-checkpoint-screen-audit-20261010-r1，原字符编码图保留，最终图目视核对。
+
+交付checkpoint_screen.md、checkpoint_screen_results.md/json、新诊断入口和显式计划校验；后续只作结果文档及当前状态索引。源训练/采样/报告SHA分开保留，不回填结果提交SHA。保留200候选，当前日程/目标联合负结果未锁定原因；建议先审查全时域/末端尾部或可区分的短控制，暂不新loss、训练、数据、阶段6/push/tag。验收后本地main --no-ff合并，实际分支/原子提交/合并以Git为准。
+
+短验证交付验收：26相关测试通过、60任务CPU指标及JSON预演通过，7完成正式来源/1197唯一输入、4交付身份及39本地链接核对；最终科学图已目视检查。代码原子提交bddbef1、17643cb、76eab2c；结果及状态分别提交。实际分支feat/intermediate-checkpoint-validation，验收后本地main --no-ff合并，最终SHA以Git记录为准，未推送。
