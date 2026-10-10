@@ -176,7 +176,7 @@ def road_proxy(states,conditioning,roads,config):
     return torch.stack(per_scene),torch.stack(outside_counts)
 
 
-def unified_objective(epsilon,noisy,noise,timestep,conditioning,targets,schedule,config,*,roads=None,ramp=1.):
+def unified_objective(epsilon,noisy,noise,timestep,conditioning,targets,schedule,config,*,roads=None,ramp=1.,_temporal_groups=False):
     if not 0 <= ramp <= 1 or not math.isfinite(ramp):
         raise ValueError('Auxiliary ramp must be in [0,1]')
     mse = masked_noise_mse(epsilon,noise,conditioning['agent_mask'],targets['future_mask'])
@@ -186,6 +186,11 @@ def unified_objective(epsilon,noisy,noise,timestep,conditioning,targets,schedule
                weighted_imitation=zero,weighted_temporal=zero,weighted_road=zero,
                auxiliary_total=zero,total_loss=mse,auxiliary_eligible_scenes=0,
                road_proxy_outside_fraction=zero,heading_fallback_frames=0,auxiliary_ramp=float(ramp))
+    if _temporal_groups:
+        if targets['future'].shape[-2:] != (40,6):
+            raise ValueError('Grouped temporal supervision requires 40 by 6 futures')
+        out.update({k:zero for k in ('first_difference_boundary','first_difference_interior',
+                                    'second_difference_boundary','second_difference_interior')})
     if not config.enabled:
         return out
     if config.max_auxiliary_timestep >= schedule.config.training_steps:
@@ -232,6 +237,11 @@ def unified_objective(epsilon,noisy,noise,timestep,conditioning,targets,schedule
         out['first_difference'] = huber(first/config.velocity_difference_unit_mps,first_mask)
         out['second_difference'] = huber(second/config.velocity_difference_unit_mps,second_mask)
         out['temporal'] = out['first_difference']+config.second_difference_factor*out['second_difference']
+        if _temporal_groups:
+            out['first_difference_boundary'] = huber(first[...,:4,:]/config.velocity_difference_unit_mps,first_mask[...,:4])
+            out['first_difference_interior'] = huber(first[...,4:,:]/config.velocity_difference_unit_mps,first_mask[...,4:])
+            out['second_difference_boundary'] = huber(second[...,:4,:]/config.velocity_difference_unit_mps,second_mask[...,:4])
+            out['second_difference_interior'] = huber(second[...,4:,:]/config.velocity_difference_unit_mps,second_mask[...,4:])
     if config.road_weight:
         selected = [roads[i] for i in eligible.tolist()] if roads is not None else None
         scene,outside = road_proxy(prediction.states,c,selected,config)

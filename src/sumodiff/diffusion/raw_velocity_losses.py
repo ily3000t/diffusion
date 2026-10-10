@@ -78,12 +78,12 @@ def velocity_residual(raw, conditioning, targets):
 
 
 def raw_velocity_objective(epsilon, noisy, noise, timestep, conditioning, targets,
-                           schedule, config, *, roads=None, ramp=1.):
+                           schedule, config, *, roads=None, ramp=1., _temporal_groups=False):
     if type(ramp) not in (int, float) or not math.isfinite(ramp) or not 0 <= ramp <= 1:
         raise ValueError('Raw auxiliary ramp must be in [0,1]')
     # Inherited objectives are already calibrated/trained: no second warmup.
     out = unified_objective(epsilon, noisy, noise, timestep, conditioning, targets,
-                            schedule, config.unified, roads=roads, ramp=1.)
+                            schedule, config.unified, roads=roads, ramp=1., _temporal_groups=_temporal_groups)
     legacy = out['auxiliary_total']
     zero = out['noise_mse'].new_zeros(())
     out.update(inherited_auxiliary_total=legacy, inherited_auxiliary_ramp=1.,
