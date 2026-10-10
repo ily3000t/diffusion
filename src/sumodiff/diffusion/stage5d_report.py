@@ -48,24 +48,40 @@ def extend_quality_rows(directory,rows,aggregate,conditioning):
     aggregate['raw_quality_passes']=sum(r['raw_quality_success'] for r in rows)
     return rows,aggregate
 
-def report(config_path,training_run,sampling_run,output,formal=False):
-    from .stage5d import setup,source_files,checked_final_training
+def validate_schedule_row(row,training,schedule):
+    update=row['step']-training['source_step']
+    if row['learning_rate']!=schedule.learning_rate(update) or row['inherited_auxiliary_ramp']!=1.:
+        raise ValueError('Recorded continuation schedule or inherited ramp mismatch')
+    if training['schema_version']=='sumodiff.decoded.temporal.train.config.v1':
+        if row['raw_auxiliary_ramp']!=1. or row['temporal_reweight_ramp']!=schedule.auxiliary_ramp(update):
+            raise ValueError('Stage5E temporal reweight or raw inheritance mismatch')
+        loss=training['loss'];base=loss['inherited']['unified']['temporal_weight'];rho=schedule.auxiliary_ramp(update)
+        expected=(base*.1+rho*(loss['boundary_weight']-base*.1),base*.9+rho*(loss['interior_weight']-base*.9))
+        if (row['effective_decoded_boundary_weight'],row['effective_decoded_interior_weight'])!=expected:
+            raise ValueError('Stage5E effective temporal coefficients differ from protocol')
+    elif row['raw_auxiliary_ramp']!=schedule.auxiliary_ramp(update):
+        raise ValueError('Stage5D raw ramp mismatch')
+
+
+def report(config_path,training_run,sampling_run,output,formal=False,*,_suite=None):
+    if _suite is None:
+        from . import stage5d as _suite
+    setup,source_files,checked_final_training=_suite.setup,_suite.source_files,_suite.checked_final_training
     c,parent,training,sampling=setup(config_path)
+    stage='stage5e' if c['schema_version']=='sumodiff.stage5e.suite.config.v1' else 'stage5d'
+    parent_name=f"parent{training['source_epochs']}";candidate_name=f"candidate{training['epochs']}"
     root=Path(training_run).resolve(strict=True);generated=Path(sampling_run).resolve(strict=True)
     checkpoint=checked_final_training(c,training,root);identity=file_identity(checkpoint)
     payload=load_checkpoint(checkpoint)
-    trace,initial,segments=committed_lineage(root,45000,60000)
+    trace,initial,segments=committed_lineage(root,training['source_step'],training['max_steps'])
     expected=set(payload['metadata']['training_signature']['train_window_ids'])
     schedule=UpdateSchedule(resolve_schedule(training['schedule']))
-    for epoch in range(151,201):
+    for epoch in range(training['source_epochs']+1,training['epochs']+1):
         ids=[wid for r in trace if r['epoch']==epoch for wid in r['window_ids']]
         if len(ids)!=1200 or len(set(ids))!=1200 or set(ids)!=expected:
             raise ValueError('Stage5D epoch must traverse each certified window once')
     for r in trace:
-        u=r['step']-45000
-        if (r['learning_rate']!=schedule.learning_rate(u) or r['raw_auxiliary_ramp']!=schedule.auxiliary_ramp(u)
-            or r['inherited_auxiliary_ramp']!=1.):
-            raise ValueError('Stage5D recorded schedule or legacy ramp mismatch')
+        validate_schedule_row(r,training,schedule)
     if initial['optimizer']!=tree_hash(parent['optimizer']) or initial['optimizer_parameter_states']!=len(parent['optimizer']['state']):
         raise ValueError('Stage5D did not inherit the original AdamW moments')
     if formal and any(not read(p/'manifest.json')['formal'] or read(p/'manifest.json')['git']['dirty'] for p in segments):
@@ -90,26 +106,26 @@ def report(config_path,training_run,sampling_run,output,formal=False):
     files=source_files(config_path,c)+oldfiles+newfiles+[checkpoint,root/'training_summary.json']
     for segment in segments:
         files += [segment/n for n in ('manifest.json','status.json','resolved_config.yaml','steps.jsonl','initial_state.json')]
-    effective=dict(schema_version='sumodiff.stage5d.report.config.v1',suite=c,training=training,
+    effective=dict(schema_version=f'sumodiff.{stage}.report.config.v1',suite=c,training=training,
         training_run=str(root),sampling_run=str(generated),thresholds=sampling['evaluation'],
-        comparison='epoch150 to epoch200; additional training, raw supervision and new LR schedule',
+        comparison=f"epoch{training['source_epochs']} to epoch{training['epochs']}; additional training, temporal supervision and new LR schedule",
         bootstrap='2000 road-stratified episode cluster replicates; paired per-scene means, not pooled quantile CIs')
     with RunRecorder(output,Path.cwd(),effective,[sys.executable,*sys.orig_argv[1:]],{'bootstrap':c['bootstrap_seed']},
-        purpose='stage5d_paired_quality_cost_report',data_files=sorted(set(map(str,files))),checkpoint=checkpoint,formal=formal) as run:
-        result=dict(schema_version='sumodiff.stage5d.report.metrics.v1',run_sha=run.manifest['git']['commit_sha'],
-            generation=dict(parent150=old,candidate200=new),paired_differences=intervals,training_updates=15000,
+        purpose=f'{stage}_paired_quality_cost_report',data_files=sorted(set(map(str,files))),checkpoint=checkpoint,formal=formal) as run:
+        result=dict(schema_version=f'sumodiff.{stage}.report.metrics.v1',run_sha=run.manifest['git']['commit_sha'],
+            generation={parent_name:old,candidate_name:new},paired_differences=intervals,training_updates=training['nominal_additional_updates'],
             training_lineage=[str(p) for p in segments],training_initial_state=initial,
             training_summary=read(root/'training_summary.json'),sampling_noise_paired=True,
             convergence_status='not_assessed',attribution='Joint extra-training/loss/LR intervention; no loss-specific attribution.',
             extension_rule='Review both boundary/interior jerk, qualification, strict comfort, roads/routes/collisions and corrections together; no automatic extension.',
             limits='200 validation windows and one training/sampling seed; selected vehicles only, failures remain in planned denominators.')
         write_json(run.output/'paired_summary.json',result)
-        write_json(run.output/'scene_rows.json',dict(parent150=left,candidate200=right))
+        write_json(run.output/'scene_rows.json',{parent_name:left,candidate_name:right})
         run.write_metrics(result)
-        lines=['# Stage5D paired validation','','Epoch150 vs epoch200; same 200 tasks, initial noise and DDIM20/eta0.','',
+        lines=[f'# {stage.upper()} paired validation','',f"Epoch{training['source_epochs']} vs epoch{training['epochs']}; same 200 tasks, initial noise and DDIM20/eta0.",'',
             '| Model | Quality / 200 | Boundary jerk P99 | Interior jerk P99 | Strict comfort agents | Road / route scenes | Collisions |',
             '|---|---:|---:|---:|---:|---:|---:|']
-        for name,s in [('parent150',old),('candidate200',new)]:
+        for name,s in [(parent_name,old),(candidate_name,new)]:
             q=s['counts'];b=s['pooled']['decoded_boundary_jerk'].get('p99');j=s['pooled']['decoded_interior_jerk'].get('p99');co=s['strict_comfort']
             lines.append(f"| {name} | {q['quality_passes']} | {b} | {j} | {co['pass_agents']} / {co['planned_agents']} | {q['road_bad']} / {q['route_bad']} | {q['collision_scenes']} |")
         lines+=['','Paired scene means and episode-cluster uncertainty: paired_summary.json.',
@@ -119,10 +135,13 @@ def report(config_path,training_run,sampling_run,output,formal=False):
         (run.output/'report.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
     return result
 
-def audit_baseline(config_path,output,formal=False):
-    """Exercise full reporting with existing epoch150 outputs, no new model run."""
-    from .stage5d import setup,source_files
+def audit_baseline(config_path,output,formal=False,*,_suite=None):
+    """Exercise full reporting with existing parent outputs, no new model run."""
+    if _suite is None:
+        from . import stage5d as _suite
+    setup,source_files=_suite.setup,_suite.source_files
     c,parent,training,sampling=setup(config_path)
+    stage='stage5e' if c['schema_version']=='sumodiff.stage5e.suite.config.v1' else 'stage5d'
     ds=WindowDataset(c['dataset'],'validation')
     cond={e['window_id']:ds.inference(i)['conditioning'] for i,e in enumerate(ds.entries)}
     metadata={e['window_id']:e for e in ds.entries}
@@ -136,13 +155,13 @@ def audit_baseline(config_path,output,formal=False):
          'velocity_correction_max')}
     if len(noises)!=200 or any(q['mean_difference'] not in (None,0.) for q in intervals.values()):
         raise RuntimeError('Baseline reporting pairing failed')
-    effective=dict(schema_version='sumodiff.stage5d.report.audit.config.v1',suite=c,
+    effective=dict(schema_version=f'sumodiff.{stage}.report.audit.config.v1',suite=c,
         source_baseline=c['baseline_run'],optimizer_updates=0,new_sampling_tasks=0,
-        interpretation='Epoch150 reporting replay; not epoch200 training or candidate improvement.')
+        interpretation=f"Epoch{training['source_epochs']} reporting replay; no candidate training or improvement.")
     with RunRecorder(output,Path.cwd(),effective,[sys.executable,*sys.orig_argv[1:]],
-        {'bootstrap':c['bootstrap_seed']},purpose='stage5d_existing_baseline_report_audit',
+        {'bootstrap':c['bootstrap_seed']},purpose=f'{stage}_existing_baseline_report_audit',
         data_files=sorted(set(map(str,source_files(config_path,c)+files))),checkpoint=c['parent_checkpoint'],formal=formal) as run:
-        result=dict(schema_version='sumodiff.stage5d.report.audit.metrics.v1',
+        result=dict(schema_version=f'sumodiff.{stage}.report.audit.metrics.v1',
             run_sha=run.manifest['git']['commit_sha'],existing_baseline=aggregate,
             self_paired_intervals=intervals,noise_identities=len(noises),optimizer_updates=0,
             new_sampling_tasks=0,quality_or_convergence_claim=False)
