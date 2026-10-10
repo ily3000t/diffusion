@@ -136,3 +136,12 @@ CPU后处理以Torch自动微分和独立NumPy法方程核对固定解码器的�
 新scripts/validate_intermediate_checkpoints.py复用本仓库基础DDIM采样、独立指标、配对报告及RunRecorder；没有旧工程依赖、模型/loss变更或训练更新。报告公共函数增加显式任务前缀，默认200任务合同保留。采样源17643cb，报告修复/复用源76eab2c，模型训练858ad6b分别保留。首次报告JSON整数失败的主目录保留为failed，六个采样子目录completed；独立复用报告不重复360采样。
 
 CPU脚本audit_checkpoint_screen_r1.py核对7个完成正式运行、1197输入身份及区间并导出科学图，r1修正终端字符编码，旧图保留。轻量摘要保留脚本/图/源报告文件身份。本验证60任务只用于诊断，保留200轮候选，不锁定损失独立因果或证明收敛。阶段6/push/tag未启动。
+
+
+## 2026-10-11 冻结时间目标结果整理
+
+新temporal_diagnosis在本工程复用boundary_validation的当前元数据选择/标签缓存，严格调用既有decoded_temporal_objective及统一解码、位置差分运动评估。没有修改训练目标或复制旧目录。源formal/clean运行SHA b832aaedc00fe45ee1b0167bcfbdc1f880987316，640前向零优化，两个参数/源checkpoint哈希保持。实际运行日期2026-10-10，11日整理，不重命名原目录或回填SHA。
+
+CPU audit_temporal_diagnosis.py核对1602唯一输入、112组均值/计数并独立重放400条已有自由轨迹，保存完整摘要和Matplotlib图。准备时旧core_only推理保护及缺少清单种子被明确拒绝；修正为按源任务ID读取无标签推理输入和显式继承真实diagnostic_noise=20261020，随后completed。没有覆写正式输出或静默降级。重构混合分位数使用源输出，仅核对计数/均值，未重复GPU张量重放。
+
+平均监督改善与自由生成退化分开报告。整段物理jerk超限尾部只是后续可审阅候选，未实现/加训；保留200模型，不作loss或学习率独立因果结论。阶段6/push/tag未启动。

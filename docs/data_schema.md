@@ -217,3 +217,10 @@ analysis/figure运行均formal=false，仅CPU后处理、输入与脚本身份�
 ## 显式诊断任务前缀
 
 generation_rows默认保持完整200任务要求；planned_window_ids显式指定诊断计划时，目录必须为相同有序短计划或完整200目录的相同前缀。重复、缺失、错序拒绝，不通过删除失败样本重建分母。sumodiff.checkpoint.screen.metrics.v1记录planned_tasks/new_sampling_tasks/source_sampling_tasks/reused_sampling_tasks及optimizer_updates，将复用报告与实际新采样成本分开。对应summary.v1保存来源身份、条件配对区间、子集资格、分时段超限及成本；混合分位数不能当作整场景资格。
+
+
+## 冻结时间目标诊断
+
+sumodiff.temporal.diagnosis.config.v1固定200/225来源，可选至多四个t<=300；sumodiff.temporal.diagnosis.run.v1保存119训练控制、200验证的选定ID、共用225目标与full-ramp、标签/地图/模型身份，明确future_labels_used=true、optimizer_updates=0、new_free_generation=0。各逐场景文件记录实际目标分项、motion及分时段摘要，metrics.v1另保存分组混合和逐时刻分位数。组件含alpha_bar、不含lambda；按父/新权重组合的total是固定目标探针，不是历史训练日志。
+
+sumodiff.temporal.objective.result.summary.v1为Git轻量结果，保留真实运行SHA、原诊断/CPU脚本/完整摘要/图身份及验证范围。jerk误差来自解码速度监督差分，独立物理jerk来自固定历史与解码位置；前4/中间32/末4互斥，内部36包含末4。CPU自由输出重放使用输入任务ID，不用未来完整性选择推理数据；没有新增标签修复或推理条件。

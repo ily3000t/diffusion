@@ -136,3 +136,8 @@ Set-Location E:\diffusion_new
 
 
 已检查全部六个已有中间checkpoint，同60任务均未超过200轮的26/60资格；无需再训练即可复核。协议和报告入口见[checkpoint_screen.md](docs/checkpoint_screen.md)，结果、成本及限制见[checkpoint_screen_results.md](docs/checkpoint_screen_results.md)。保留200轮候选，阶段6未启动。
+
+
+## 阶段5E冻结目标诊断
+
+已冻结比较200/225模型：同噪声验证t=200边界/内部时间项下降9.48%/6.31%，但自由生成资格仍82→64/200。新增349个jerk超限车辆帧中290来自内部中段、39来自末端，不能只提高边界权重。保留200模型；后续候选是整段物理jerk超限尾部，尚未实现或训练。结果及限制见[temporal_objective_results.md](docs/temporal_objective_results.md)，复现见[temporal_objective_diagnosis.md](docs/temporal_objective_diagnosis.md)。阶段6未启动。
