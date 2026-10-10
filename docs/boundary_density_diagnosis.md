@@ -28,3 +28,10 @@ Set-Location E:\diffusion_new
 选择未使用RunId；已有失败/完成目录保留。输出在artifacts/runs/对应RunId，含manifest/config/command/environment/status/metrics、diagnosis.json、每模型/拆分/时间步的场景行、prefix_oracle.json和prefix_rows.json。清单记录数据、全部输入、两个checkpoint和实际代码SHA。记录运行时间、前向次数、峰值显存、参数哈希不变、grad buffer为空及源checkpoint不变。
 
 必要测试覆盖首帧厘米误差的单位/差分模板、局部替换结束处的尖峰、解码后固定历史恒等式、无效槽位、完整密集保留/几何回合控制选择和预算拒绝。本轮不扩展训练预算，分析后再决定是否设计新的loss或200→225/250协议。
+
+
+## 已完成诊断
+
+stage5d-boundary-density-20261010于2026-10-10在干净a1812b6上formal完成：800次前向、3190个配对重构、主体138.75s，Torch allocated56.87MiB/reserved74MiB。训练119、验证200标签运动控制均通过；参数与checkpoint保持，优化更新及新自由生成均0。
+
+配套CPU后处理stage5d-boundary-analysis-20261010为formal=false，核对线性敏感性并绘图，主体4.56s，无新增去噪网络调用。结果及下一版候选建议见[boundary_density_results.md](boundary_density_results.md)，来源及汇总见[boundary_density_results.json](boundary_density_results.json)。上述RunId已使用，复现须选择新ID。未修改生产loss或启动新训练。

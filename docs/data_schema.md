@@ -187,3 +187,12 @@ steps.jsonl新增inherited_auxiliary_total、raw_second_boundary/interior、weig
 joint_gradient_audit.json记录自然t/固定t200及同噪声、实际组合向量、范数、余弦、角度和理论clip。peak_stress.json明确隔离副本各24更新、峰值/full-strength、无正式checkpoint；不能算正式50轮完成。恢复检查含所有状态和两种ramp逐位比对。
 
 paired_summary.json/scene_rows.json报告计划200任务及可用配对数、交界/内部两时段、舒适性计划/已评估/未评估车辆数和两种率、道路/路线/覆盖、碰撞、位置/速度修正及耗时。无适用车辆对单列not_applicable而不是unknown或零事件概率。baseline_report_audit.json仅重放现有150轮输出，自配对区间为0；optimizer_updates=0/new_sampling_tasks=0，不宣称200轮模型存在。
+
+
+## 阶段5D交界与密集诊断合同
+
+sumodiff.boundary.density.config.v1锁定两个checkpoint、训练119/验证200、五个低噪声t与同一窗口Gaussian。sumodiff.boundary.density.metrics.v1保存cohorts、模型不变性、同噪声输入配对、标签控制、全部20组重构、固定历史差分恒等式、原始/解码误差和prefix_oracle。重构行包含窗口/几何/回合、有效车辆数、各运动违规及物理量摘要；label_conditioned_reconstruction=true/free_generation=false，不作为独立自由生成指标。
+
+训练密集选择及普通控制仅按当前元数据，不按未来误差或验证失败挑选；train/validation回合和几何隔离。prefix_rows保留每模式全部200任务，真值替换只能作oracle。后处理敏感性相对于同一解码器恢复的标签作线性向量分解，车辆混合RMS与每场景RMS区分，分量可相消。
+
+sumodiff.boundary.density.summary.v1只提交必要数值和来源，保存原运行SHA、源文件/脚本身份、配置环境哈希及验证范围。重构逐场景摘要不能还原逐帧分位数；轻量摘要明确标记混合P99来自正式源输出，计数、均值、极值和每场景均值分位数独立重算。原训练/推理数据接口保持。
