@@ -88,7 +88,7 @@ def joint_gradient_audit(dataset,parent,c,cache,output,batches_per_group=4):
     if device.type=='cuda':torch.cuda.reset_peak_memory_stats(device)
     for group,indices in selected.items():
         for j in range(batches_per_group):
-            cond,target,ids=select_batch(cache[0],indices[j*4:(j+1)*4],device)
+            cond,target,ids=select_batch(cache[0],np.asarray(indices[j*4:(j+1)*4],dtype=np.int64),device)
             natural,noise,ts=draw_noise(target,cond,noise_schedule,generator)
             for mode in MODES:
                 times=ts if mode=='natural' else torch.full_like(ts,int(mode[7:]))
