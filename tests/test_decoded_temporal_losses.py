@@ -79,3 +79,21 @@ def test_group_extension_requires_complete_40_future_points():
     with pytest.raises(ValueError,match='complete'):evaluate(c,t)
     c,t=fixture(count=6)
     with pytest.raises(ValueError,match='40'):evaluate(c,t)
+
+
+def test_label_acceleration_is_supervised_without_forcing_zero_derivatives():
+    c,t=fixture(count=40);s,n,ts,x=inputs(c,t)
+    out=decoded_temporal_objective(n,x,n,ts,c,t,s,config())
+    assert out['decoded_temporal_boundary']<1e-18 and out['decoded_temporal_interior']<1e-18
+    assert out['raw_second_boundary']<1e-18 and out['raw_second_interior']<1e-18
+
+
+def test_mixed_timestep_keeps_whole_batch_denominator():
+    from sumodiff.diffusion.process import normalize
+    c,t=fixture(batch=2,count=40);s,n,_,_=inputs(c,t)
+    ts=torch.tensor([0,500]);x=s.add_noise(normalize(t['future'],s.config),n,ts);p=(n+.01).requires_grad_(True)
+    both=decoded_temporal_objective(p,x,n,ts,c,t,s,config())
+    one=decoded_temporal_objective(p[:1],x[:1],n[:1],ts[:1],{k:v[:1] for k,v in c.items()},
+        {k:v[:1] for k,v in t.items()},s,config())
+    assert both['auxiliary_eligible_scenes']==1
+    torch.testing.assert_close(both['auxiliary_total'],one['auxiliary_total']/2,rtol=1e-10,atol=1e-13)
