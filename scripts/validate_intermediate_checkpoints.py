@@ -44,11 +44,11 @@ def details(directory,rows,conditions,cfg):
             values[name+'_jerk_max']=float(ja[:,slice_].max())
         scenes.append(values)
     return dict(counts=dict(counts),pooled={k:summary(v) for k,v in pools.items()},families=dict(families),
-        jerk_by_time=[dict(time_s=(t+1)/10,values=summary(v),bad_points=sum(y>15 for y in v)) for t,v in enumerate(times)],
+        jerk_by_time=[dict(time_s=(t+1)/10,values=summary(v),bad_points=int(sum(y>15 for y in v))) for t,v in enumerate(times)],
         scenes=scenes,motion_replayed=True)
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--config',default='configs/experiments/stage5e_checkpoint_screen.yaml')
-    p.add_argument('--output',required=True);p.add_argument('--formal',action='store_true');args=p.parse_args()
+    p.add_argument('--output',required=True);p.add_argument('--reuse-samples',type=Path);p.add_argument('--formal',action='store_true');args=p.parse_args()
     root=Path.cwd();suite=load_config(args.config);cfg=sample_config(load_config(suite['sampling_config']))
     assert suite['schema_version']=='sumodiff.checkpoint.screen.config.v1'
     assert suite['planned_tasks']==cfg['limit']==60 and cfg['seed']==20261015 and cfg['steps']==20 and cfg['eta']==0.
@@ -78,15 +78,30 @@ def main():
         catalog=read(path/'trajectory_index.json');assert [r['window_id'] for r in catalog[:60]]==ids
         for item in catalog[:60]:
             for ident in item['files'].values():assert file_identity(ident['location'])==ident;files.append(ident['location'])
+    if args.reuse_samples:
+        reuse=args.reuse_samples.resolve(strict=True)
+        files.extend(reuse/n for n in ('manifest.json','status.json','resolved_config.yaml'))
+        for name in expected:
+            cp=cpids[name];epoch=load_checkpoint(cp['location'])['step']//300
+            directory=reuse/f'epoch{epoch}';m=read(directory/'manifest.json')
+            assert read(directory/'status.json')['state']=='completed'
+            assert m['checkpoint']==cp and load_config(directory/'resolved_config.yaml')['sampling']==cfg
+            assert not args.formal or (m['formal'] and not m['git']['dirty'])
+            catalog=read(directory/'trajectory_index.json');assert [r['window_id'] for r in catalog]==ids
+            files.extend(directory/n for n in ('manifest.json','status.json','resolved_config.yaml','trajectory_index.json','sampling_summary.json'))
+            for item in catalog:
+                for ident in item['files'].values():
+                    assert file_identity(ident['location'])==ident;files.append(ident['location'])
+            existing[f'epoch{epoch}']=directory
     configs=dict(suite=suite,sampling=cfg,planned_window_ids=ids,checkpoint_identities=[cpids[n] for n in expected],
         selection='fixed first60 of original full validation ordering; not selected by future quality',
-        new_sampling_budget=360,optimizer_updates=0,multiple_comparisons='exploratory; no multiplicity-adjusted superiority claim')
+        new_sampling_budget=0 if args.reuse_samples else 360,reuse_samples=str(args.reuse_samples) if args.reuse_samples else None,optimizer_updates=0,multiple_comparisons='exploratory; no multiplicity-adjusted superiority claim')
     output=Path(args.output).resolve();begun=time.perf_counter()
     with RunRecorder(output,root,configs,[sys.executable,*sys.argv],{'initial_noise':cfg['seed'],'bootstrap':suite['bootstrap_seed']},
         purpose='stage5e_intermediate_checkpoint_screen',data_files=sorted(set(map(str,files))),formal=args.formal) as run:
         write_json(output/'tasks.json',[dict(window_id=w,family=meta[w]['family'],agents=int(conditions[w]['agent_mask'].sum())) for w in ids])
         results={};allrows={};details_all={};baseline_noise=None
-        for name in expected:
+        for name in ([] if args.reuse_samples else expected):
             cp=cpids[name]['location'];step=load_checkpoint(cp)['step'];epoch=step//300
             directory=output/f'epoch{epoch}'
             sample(suite['dataset'],cp,suite['sampling_config'],directory,root,
@@ -107,7 +122,7 @@ def main():
         for name,rows in allrows.items():
             transitions[name]=dict(Counter(('pass' if a['quality_success'] else 'fail')+'->'+('pass' if b['quality_success'] else 'fail') for a,b in zip(allrows['epoch200'],rows)))
         result=dict(schema_version='sumodiff.checkpoint.screen.metrics.v1',run_sha=run.manifest['git']['commit_sha'],
-            planned_tasks=60,new_sampling_tasks=360,optimizer_updates=0,initial_noise_paired=True,
+            planned_tasks=60,new_sampling_tasks=0 if args.reuse_samples else 360,source_sampling_tasks=360,reused_sampling_tasks=360 if args.reuse_samples else 0,optimizer_updates=0,initial_noise_paired=True,
             generation=results,details=details_all,paired_intervals=intervals,transitions=transitions,
             wall_seconds=time.perf_counter()-begun,limitations=['60 validation tasks, one noise seed; four dense intersection tasks only.',
             'Multiple saved candidates screened on validation; intervals are conditional and not multiplicity adjusted.',
