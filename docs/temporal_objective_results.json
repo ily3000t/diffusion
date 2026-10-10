@@ -1,0 +1,1064 @@
+{
+  "source_sha": "b832aaedc00fe45ee1b0167bcfbdc1f880987316",
+  "source": {
+    "id": "sha256:50da19a2549c41da5b7ae42d98a6ef06c7be89e5facfee7325c85d8f05c4f11b",
+    "location": "E:\\diffusion_new\\artifacts\\runs\\stage5e-temporal-diagnosis-20261010\\diagnosis.json",
+    "sha256": "50da19a2549c41da5b7ae42d98a6ef06c7be89e5facfee7325c85d8f05c4f11b",
+    "size_bytes": 8931423
+  },
+  "script": {
+    "id": "sha256:01dc03bab94c1c9a3193fb6db3ba36c0313d0c5d3bfd50534d869acba052f89f",
+    "location": "E:\\diffusion_new\\artifacts\\cache\\audit_temporal_diagnosis.py",
+    "sha256": "01dc03bab94c1c9a3193fb6db3ba36c0313d0c5d3bfd50534d869acba052f89f",
+    "size_bytes": 10183
+  },
+  "verification": {
+    "schema_version": "sumodiff.temporal.analysis.config.v1",
+    "source": "E:\\diffusion_new\\artifacts\\runs\\stage5e-temporal-diagnosis-20261010",
+    "free_sources": {
+      "epoch200": "E:\\diffusion_new\\artifacts\\runs\\stage5d-v1\\sample",
+      "epoch225": "E:\\diffusion_new\\artifacts\\runs\\stage5e-v1\\sample"
+    },
+    "optimizer_updates": 0,
+    "new_free_generation": 0,
+    "verified_input_identities": 1602,
+    "group_checks": 112,
+    "independent_free_motion_replays": 400,
+    "bootstrap_used": false,
+    "limits": "No replay of GPU reconstruction tensors; pooled reconstruction quantiles are from source, checked for count/mean consistency."
+  },
+  "checkpoints": {
+    "epoch200": {
+      "id": "sha256:b7dcb40fcd9032b76d56ad8871e986067cd29873c8d84ec461feb55b8c96db54",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-v1\\train\\checkpoint_step_060000.pt",
+      "sha256": "b7dcb40fcd9032b76d56ad8871e986067cd29873c8d84ec461feb55b8c96db54",
+      "size_bytes": 41332970
+    },
+    "epoch225": {
+      "id": "sha256:3625b5c3028e93fde90e527161f988bcba5f97cf4dd918c70daf809140eac937",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5e-v1\\train\\checkpoint_step_067500.pt",
+      "sha256": "3625b5c3028e93fde90e527161f988bcba5f97cf4dd918c70daf809140eac937",
+      "size_bytes": 41333418
+    }
+  },
+  "label_control": {
+    "train": {
+      "motion_pass_scenes": 119,
+      "comfort_pass_agents": 689,
+      "selected_agents": 710
+    },
+    "validation": {
+      "motion_pass_scenes": 200,
+      "comfort_pass_agents": 721,
+      "selected_agents": 735
+    }
+  },
+  "resources": {
+    "actual_model_forward_calls": 640,
+    "peak_allocated_bytes": 63490560,
+    "peak_reserved_bytes": 79691776,
+    "wall_seconds": 218.7922882999992
+  },
+  "model_state": {
+    "epoch200": {
+      "parameter_hash": "f11e01f6ceba01ab9057f00548b7edeb881f5fec405860e3ff07e6c801ef92f4",
+      "model_unchanged": true,
+      "grad_buffers_unset": true
+    },
+    "epoch225": {
+      "parameter_hash": "426dfd9f0e52110a12eca74cda7cf921aeb8a7d81fe9e34d2ca4ff7bbe444329",
+      "model_unchanged": true,
+      "grad_buffers_unset": true
+    }
+  },
+  "figure": {
+    "id": "sha256:07362d3829448e457f8b4d3a0ed9102e5d6df0db4e69594c7d8ce8b25f472365",
+    "location": "E:\\diffusion_new\\artifacts\\runs\\stage5e-temporal-analysis-20261010\\temporal_comparison.png",
+    "sha256": "07362d3829448e457f8b4d3a0ed9102e5d6df0db4e69594c7d8ce8b25f472365",
+    "size_bytes": 289288
+  },
+  "limits": [
+    "Known-future reconstruction is not free generation; no generated quality benefit implied.",
+    "t=0 still has Gaussian noise (alpha_bar=0.9999); not noiseless reconstruction.",
+    "One Gaussian per window, reused over timesteps/models; four fixed timesteps are not the natural training distribution.",
+    "Train controls overrepresent density; split differences are not an unbiased generalization-gap estimate.",
+    "Both model predictions use the same full-ramp 225 loss; component values include alpha_bar, but not lambda.",
+    "Parent/current weighted totals are alternative fixed objectives, not historical step logs.",
+    "No causal separation of learning-rate restart and temporal reweighting."
+  ],
+  "schema_version": "sumodiff.temporal.objective.result.summary.v1",
+  "full_audit_summary": {
+    "id": "sha256:af234f8557c30a338a9ae55ff308e31e92b0501424990b45e4839dbf91b7a71a",
+    "location": "E:\\diffusion_new\\artifacts\\runs\\stage5e-temporal-analysis-20261010\\summary.json",
+    "sha256": "af234f8557c30a338a9ae55ff308e31e92b0501424990b45e4839dbf91b7a71a",
+    "size_bytes": 1302252
+  },
+  "reconstruction": {
+    "train": {
+      "0": {
+        "epoch200": {
+          "scenes": 119,
+          "agents": 710,
+          "motion_pass": 58,
+          "jerk_bad_scenes": {
+            "boundary": 59,
+            "middle": 36,
+            "endpoint": 54,
+            "interior": 55
+          },
+          "loss_mean": {
+            "noise_mse": 0.060391921604819154,
+            "imitation": 0.005200347430246369,
+            "decoded_temporal_boundary": 0.0028158315266062946,
+            "decoded_temporal_interior": 0.0012101892603821576,
+            "raw_second_boundary": 0.16513864012795085,
+            "raw_second_interior": 0.08642499726030882,
+            "road": 1.4311023813706497e-10,
+            "total_loss": 0.060417400285252096,
+            "total_under_parent_weights": 0.060414866036878144
+          },
+          "decoded_velocity_jerk_error_p99": {
+            "boundary": 70.68276259135132,
+            "middle": 53.31995680238615,
+            "endpoint": 64.26948802190167
+          },
+          "intersection_dense": {
+            "scenes": 47,
+            "agents": 478,
+            "motion_pass": 0
+          }
+        },
+        "epoch225": {
+          "scenes": 119,
+          "agents": 710,
+          "motion_pass": 57,
+          "jerk_bad_scenes": {
+            "boundary": 62,
+            "middle": 34,
+            "endpoint": 48,
+            "interior": 48
+          },
+          "loss_mean": {
+            "noise_mse": 0.05719078957111019,
+            "imitation": 0.005035925884463584,
+            "decoded_temporal_boundary": 0.0025892548326103436,
+            "decoded_temporal_interior": 0.0011194566616417661,
+            "raw_second_boundary": 0.14688552878875316,
+            "raw_second_interior": 0.08033664864214028,
+            "road": 0.0,
+            "total_loss": 0.05721497980220275,
+            "total_under_parent_weights": 0.05721264947285341
+          },
+          "decoded_velocity_jerk_error_p99": {
+            "boundary": 67.37507973974823,
+            "middle": 52.19300065875801,
+            "endpoint": 62.13029929564252
+          },
+          "intersection_dense": {
+            "scenes": 47,
+            "agents": 478,
+            "motion_pass": 0
+          }
+        }
+      },
+      "50": {
+        "epoch200": {
+          "scenes": 119,
+          "agents": 710,
+          "motion_pass": 0,
+          "jerk_bad_scenes": {
+            "boundary": 119,
+            "middle": 119,
+            "endpoint": 119,
+            "interior": 119
+          },
+          "loss_mean": {
+            "noise_mse": 0.004568349129809928,
+            "imitation": 0.10404269957482343,
+            "decoded_temporal_boundary": 0.024779909310544627,
+            "decoded_temporal_interior": 0.011583395897987738,
+            "raw_second_boundary": 0.7349253270555945,
+            "raw_second_interior": 0.5207134144646781,
+            "road": 0.0009241330966270733,
+            "total_loss": 0.0049499912504284834,
+            "total_under_parent_weights": 0.004927689332048993
+          },
+          "decoded_velocity_jerk_error_p99": {
+            "boundary": 229.92212634877052,
+            "middle": 153.50668960161403,
+            "endpoint": 170.7713451804227
+          }
+        },
+        "epoch225": {
+          "scenes": 119,
+          "agents": 710,
+          "motion_pass": 0,
+          "jerk_bad_scenes": {
+            "boundary": 119,
+            "middle": 119,
+            "endpoint": 119,
+            "interior": 119
+          },
+          "loss_mean": {
+            "noise_mse": 0.004382684849106762,
+            "imitation": 0.10279589494145792,
+            "decoded_temporal_boundary": 0.024275846586160863,
+            "decoded_temporal_interior": 0.011089056586536722,
+            "raw_second_boundary": 0.7002259655033841,
+            "raw_second_interior": 0.5006068479739317,
+            "road": 0.0009517531888833257,
+            "total_loss": 0.00475831288565931,
+            "total_under_parent_weights": 0.004736464623731763
+          },
+          "decoded_velocity_jerk_error_p99": {
+            "boundary": 225.57420613572882,
+            "middle": 150.2267306964293,
+            "endpoint": 171.07476446412363
+          }
+        }
+      },
+      "200": {
+        "epoch200": {
+          "scenes": 119,
+          "agents": 710,
+          "motion_pass": 0,
+          "jerk_bad_scenes": {
+            "boundary": 119,
+            "middle": 119,
+            "endpoint": 119,
+            "interior": 119
+          },
+          "loss_mean": {
+            "noise_mse": 0.0011915157851371757,
+            "imitation": 0.15171099651880177,
+            "decoded_temporal_boundary": 0.04397640564286883,
+            "decoded_temporal_interior": 0.0258312780603558,
+            "raw_second_boundary": 1.146947425203163,
+            "raw_second_interior": 0.9268869947986442,
+            "road": 0.002701867660164053,
+            "total_loss": 0.0017743890210185744,
+            "total_under_parent_weights": 0.0017348102559399925
+          },
+          "decoded_velocity_jerk_error_p99": {
+            "boundary": 357.76905305692026,
+            "middle": 260.80493192372336,
+            "endpoint": 288.13236300645457
+          }
+        },
+        "epoch225": {
+          "scenes": 119,
+          "agents": 710,
+          "motion_pass": 0,
+          "jerk_bad_scenes": {
+            "boundary": 119,
+            "middle": 119,
+            "endpoint": 119,
+            "interior": 119
+          },
+          "loss_mean": {
+            "noise_mse": 0.0011385966229857584,
+            "imitation": 0.15010602981827809,
+            "decoded_temporal_boundary": 0.04075078616374925,
+            "decoded_temporal_interior": 0.024449534929028256,
+            "raw_second_boundary": 1.08494511409467,
+            "raw_second_interior": 0.8891676095854334,
+            "road": 0.00267033644254246,
+            "total_loss": 0.0017096482466489162,
+            "total_under_parent_weights": 0.001672972539101542
+          },
+          "decoded_velocity_jerk_error_p99": {
+            "boundary": 344.26634930948734,
+            "middle": 252.65870211642581,
+            "endpoint": 279.79605222142743
+          }
+        }
+      },
+      "300": {
+        "epoch200": {
+          "scenes": 119,
+          "agents": 710,
+          "motion_pass": 0,
+          "jerk_bad_scenes": {
+            "boundary": 119,
+            "middle": 119,
+            "endpoint": 119,
+            "interior": 119
+          },
+          "loss_mean": {
+            "noise_mse": 0.0007255077752455415,
+            "imitation": 0.11719345528621944,
+            "decoded_temporal_boundary": 0.043668094235384675,
+            "decoded_temporal_interior": 0.028233891129096286,
+            "raw_second_boundary": 1.02142657264441,
+            "raw_second_interior": 0.9005842940146181,
+            "road": 0.002973200722726269,
+            "total_loss": 0.0012043834170800522,
+            "total_under_parent_weights": 0.0011650821322682055
+          },
+          "decoded_velocity_jerk_error_p99": {
+            "boundary": 413.23066140994655,
+            "middle": 297.5671632027692,
+            "endpoint": 335.237925839753
+          }
+        },
+        "epoch225": {
+          "scenes": 119,
+          "agents": 710,
+          "motion_pass": 0,
+          "jerk_bad_scenes": {
+            "boundary": 119,
+            "middle": 119,
+            "endpoint": 119,
+            "interior": 119
+          },
+          "loss_mean": {
+            "noise_mse": 0.0006813115197940174,
+            "imitation": 0.11512699323520864,
+            "decoded_temporal_boundary": 0.039912421970997654,
+            "decoded_temporal_interior": 0.026507367644922418,
+            "raw_second_boundary": 0.9635565940196774,
+            "raw_second_interior": 0.8619513090919045,
+            "road": 0.0029149420527859885,
+            "total_loss": 0.0011461096244262789,
+            "total_under_parent_weights": 0.0011101884446523807
+          },
+          "decoded_velocity_jerk_error_p99": {
+            "boundary": 409.2686992214312,
+            "middle": 291.22903107785777,
+            "endpoint": 337.78135129661524
+          }
+        }
+      }
+    },
+    "validation": {
+      "0": {
+        "epoch200": {
+          "scenes": 200,
+          "agents": 735,
+          "motion_pass": 131,
+          "jerk_bad_scenes": {
+            "boundary": 51,
+            "middle": 31,
+            "endpoint": 42,
+            "interior": 55
+          },
+          "loss_mean": {
+            "noise_mse": 0.0265169676579535,
+            "imitation": 0.0028715440534365,
+            "decoded_temporal_boundary": 0.0010182864391753892,
+            "decoded_temporal_interior": 0.00033865219945767287,
+            "raw_second_boundary": 0.06587586315115913,
+            "raw_second_interior": 0.02711868236074224,
+            "road": 0.0,
+            "total_loss": 0.026528920056220113,
+            "total_under_parent_weights": 0.026528003598424856
+          },
+          "decoded_velocity_jerk_error_p99": {
+            "boundary": 50.59362929628166,
+            "middle": 29.517559001581574,
+            "endpoint": 43.87566921974676
+          },
+          "intersection_dense": {
+            "scenes": 16,
+            "agents": 159,
+            "motion_pass": 0
+          }
+        },
+        "epoch225": {
+          "scenes": 200,
+          "agents": 735,
+          "motion_pass": 126,
+          "jerk_bad_scenes": {
+            "boundary": 63,
+            "middle": 30,
+            "endpoint": 41,
+            "interior": 50
+          },
+          "loss_mean": {
+            "noise_mse": 0.025328257225919516,
+            "imitation": 0.0025741981831906313,
+            "decoded_temporal_boundary": 0.000985589655588254,
+            "decoded_temporal_interior": 0.00033021008652783015,
+            "raw_second_boundary": 0.062023097989149394,
+            "raw_second_interior": 0.02654377238592133,
+            "road": 0.0,
+            "total_loss": 0.025339210018767835,
+            "total_under_parent_weights": 0.025338322988077807
+          },
+          "decoded_velocity_jerk_error_p99": {
+            "boundary": 47.403579231038115,
+            "middle": 29.053997243724965,
+            "endpoint": 44.94637700941077
+          },
+          "intersection_dense": {
+            "scenes": 16,
+            "agents": 159,
+            "motion_pass": 1
+          }
+        }
+      },
+      "50": {
+        "epoch200": {
+          "scenes": 200,
+          "agents": 735,
+          "motion_pass": 0,
+          "jerk_bad_scenes": {
+            "boundary": 195,
+            "middle": 200,
+            "endpoint": 197,
+            "interior": 200
+          },
+          "loss_mean": {
+            "noise_mse": 0.001717184754597838,
+            "imitation": 0.031185060578402698,
+            "decoded_temporal_boundary": 0.007401392816225254,
+            "decoded_temporal_interior": 0.004032634540097387,
+            "raw_second_boundary": 0.33664841841906307,
+            "raw_second_interior": 0.2692930119484663,
+            "road": 0.00022536347719784883,
+            "total_loss": 0.0018388271980749908,
+            "total_under_parent_weights": 0.001832165944540388
+          },
+          "decoded_velocity_jerk_error_p99": {
+            "boundary": 149.18929551177885,
+            "middle": 103.30032416479932,
+            "endpoint": 124.95703020924432
+          }
+        },
+        "epoch225": {
+          "scenes": 200,
+          "agents": 735,
+          "motion_pass": 0,
+          "jerk_bad_scenes": {
+            "boundary": 192,
+            "middle": 200,
+            "endpoint": 195,
+            "interior": 200
+          },
+          "loss_mean": {
+            "noise_mse": 0.001632024384016404,
+            "imitation": 0.02960275948156716,
+            "decoded_temporal_boundary": 0.00697197253902354,
+            "decoded_temporal_interior": 0.003839800491473133,
+            "raw_second_boundary": 0.31216444335877896,
+            "raw_second_interior": 0.2582338270172477,
+            "road": 0.00021191825378634975,
+            "total_loss": 0.0017475057091008272,
+            "total_under_parent_weights": 0.0017412309338157058
+          },
+          "decoded_velocity_jerk_error_p99": {
+            "boundary": 140.93623262610666,
+            "middle": 99.45905269979282,
+            "endpoint": 127.80918209357193
+          }
+        }
+      },
+      "200": {
+        "epoch200": {
+          "scenes": 200,
+          "agents": 735,
+          "motion_pass": 0,
+          "jerk_bad_scenes": {
+            "boundary": 200,
+            "middle": 200,
+            "endpoint": 200,
+            "interior": 200
+          },
+          "loss_mean": {
+            "noise_mse": 0.00031319546380473187,
+            "imitation": 0.03684049497419051,
+            "decoded_temporal_boundary": 0.018183614107678134,
+            "decoded_temporal_interior": 0.013078401024783505,
+            "raw_second_boundary": 0.7149643393605948,
+            "raw_second_interior": 0.6669173458218575,
+            "road": 0.00025411536558489066,
+            "total_loss": 0.0004944207488589186,
+            "total_under_parent_weights": 0.0004780554961620083
+          },
+          "decoded_velocity_jerk_error_p99": {
+            "boundary": 237.6490219577116,
+            "middle": 169.9945036713898,
+            "endpoint": 209.97668176739185
+          }
+        },
+        "epoch225": {
+          "scenes": 200,
+          "agents": 735,
+          "motion_pass": 0,
+          "jerk_bad_scenes": {
+            "boundary": 200,
+            "middle": 200,
+            "endpoint": 200,
+            "interior": 200
+          },
+          "loss_mean": {
+            "noise_mse": 0.00030284077029136826,
+            "imitation": 0.03629017783047166,
+            "decoded_temporal_boundary": 0.016459762273834264,
+            "decoded_temporal_interior": 0.012253412987171782,
+            "raw_second_boundary": 0.6728673350065947,
+            "raw_second_interior": 0.6371625536680221,
+            "road": 0.0002792235101738242,
+            "total_loss": 0.00047806516136332397,
+            "total_under_parent_weights": 0.0004632513753168731
+          },
+          "decoded_velocity_jerk_error_p99": {
+            "boundary": 216.9746693848381,
+            "middle": 161.28877635909714,
+            "endpoint": 198.84007787257187
+          }
+        }
+      },
+      "300": {
+        "epoch200": {
+          "scenes": 200,
+          "agents": 735,
+          "motion_pass": 0,
+          "jerk_bad_scenes": {
+            "boundary": 200,
+            "middle": 200,
+            "endpoint": 200,
+            "interior": 200
+          },
+          "loss_mean": {
+            "noise_mse": 0.0001726419071928831,
+            "imitation": 0.031049785673758885,
+            "decoded_temporal_boundary": 0.024861115108752215,
+            "decoded_temporal_interior": 0.019307002917058013,
+            "raw_second_boundary": 0.7762159725278616,
+            "raw_second_interior": 0.7466121153533458,
+            "road": 0.00017244329637718984,
+            "total_loss": 0.0003532938896081582,
+            "total_under_parent_weights": 0.0003309188860102812
+          },
+          "decoded_velocity_jerk_error_p99": {
+            "boundary": 273.4013806361597,
+            "middle": 214.63797962674442,
+            "endpoint": 263.36890006832783
+          }
+        },
+        "epoch225": {
+          "scenes": 200,
+          "agents": 735,
+          "motion_pass": 0,
+          "jerk_bad_scenes": {
+            "boundary": 200,
+            "middle": 200,
+            "endpoint": 200,
+            "interior": 200
+          },
+          "loss_mean": {
+            "noise_mse": 0.00016710313284420408,
+            "imitation": 0.03039908688420451,
+            "decoded_temporal_boundary": 0.02206102199783573,
+            "decoded_temporal_interior": 0.01781405479164634,
+            "raw_second_boundary": 0.7224529612809419,
+            "raw_second_interior": 0.7082030947506428,
+            "road": 0.00021176506018501338,
+            "total_loss": 0.0003392405131151176,
+            "total_under_parent_weights": 0.00031938559331706545
+          },
+          "decoded_velocity_jerk_error_p99": {
+            "boundary": 254.87741247499616,
+            "middle": 204.17221766972742,
+            "endpoint": 249.2738760537274
+          }
+        }
+      }
+    }
+  },
+  "paired_loss_changes": {
+    "train": {
+      "0": {
+        "noise_mse": {
+          "mean_change": -0.0032011320337089672,
+          "improved_scenes": 84,
+          "scenes": 119
+        },
+        "imitation": {
+          "mean_change": -0.000164421545782784,
+          "improved_scenes": 89,
+          "scenes": 119
+        },
+        "decoded_temporal_boundary": {
+          "mean_change": -0.00022657669399595096,
+          "improved_scenes": 70,
+          "scenes": 119
+        },
+        "decoded_temporal_interior": {
+          "mean_change": -9.073259874039153e-05,
+          "improved_scenes": 82,
+          "scenes": 119
+        },
+        "raw_second_boundary": {
+          "mean_change": -0.01825311133919769,
+          "improved_scenes": 94,
+          "scenes": 119
+        },
+        "raw_second_interior": {
+          "mean_change": -0.00608834861816854,
+          "improved_scenes": 80,
+          "scenes": 119
+        },
+        "road": {
+          "mean_change": -1.4311023813706497e-10,
+          "improved_scenes": 1,
+          "scenes": 119
+        },
+        "total_loss": {
+          "mean_change": -0.0032024204830493393,
+          "improved_scenes": 84,
+          "scenes": 119
+        },
+        "total_under_parent_weights": {
+          "mean_change": -0.003202216564024743,
+          "improved_scenes": 84,
+          "scenes": 119
+        }
+      },
+      "50": {
+        "noise_mse": {
+          "mean_change": -0.00018566428070316608,
+          "improved_scenes": 76,
+          "scenes": 119
+        },
+        "imitation": {
+          "mean_change": -0.001246804633365455,
+          "improved_scenes": 73,
+          "scenes": 119
+        },
+        "decoded_temporal_boundary": {
+          "mean_change": -0.0005040627243837626,
+          "improved_scenes": 71,
+          "scenes": 119
+        },
+        "decoded_temporal_interior": {
+          "mean_change": -0.0004943393114510162,
+          "improved_scenes": 85,
+          "scenes": 119
+        },
+        "raw_second_boundary": {
+          "mean_change": -0.034699361552210414,
+          "improved_scenes": 85,
+          "scenes": 119
+        },
+        "raw_second_interior": {
+          "mean_change": -0.020106566490746346,
+          "improved_scenes": 90,
+          "scenes": 119
+        },
+        "road": {
+          "mean_change": 2.7620092256252554e-05,
+          "improved_scenes": 11,
+          "scenes": 119
+        },
+        "total_loss": {
+          "mean_change": -0.00019167836476917366,
+          "improved_scenes": 76,
+          "scenes": 119
+        },
+        "total_under_parent_weights": {
+          "mean_change": -0.00019122470831722831,
+          "improved_scenes": 76,
+          "scenes": 119
+        }
+      },
+      "200": {
+        "noise_mse": {
+          "mean_change": -5.291916215141742e-05,
+          "improved_scenes": 104,
+          "scenes": 119
+        },
+        "imitation": {
+          "mean_change": -0.0016049667005236848,
+          "improved_scenes": 61,
+          "scenes": 119
+        },
+        "decoded_temporal_boundary": {
+          "mean_change": -0.0032256194791196015,
+          "improved_scenes": 109,
+          "scenes": 119
+        },
+        "decoded_temporal_interior": {
+          "mean_change": -0.0013817431313275495,
+          "improved_scenes": 114,
+          "scenes": 119
+        },
+        "raw_second_boundary": {
+          "mean_change": -0.062002311108493004,
+          "improved_scenes": 104,
+          "scenes": 119
+        },
+        "raw_second_interior": {
+          "mean_change": -0.037719385213210804,
+          "improved_scenes": 116,
+          "scenes": 119
+        },
+        "road": {
+          "mean_change": -3.15312176215933e-05,
+          "improved_scenes": 12,
+          "scenes": 119
+        },
+        "total_loss": {
+          "mean_change": -6.474077436965823e-05,
+          "improved_scenes": 97,
+          "scenes": 119
+        },
+        "total_under_parent_weights": {
+          "mean_change": -6.183771683845055e-05,
+          "improved_scenes": 95,
+          "scenes": 119
+        }
+      },
+      "300": {
+        "noise_mse": {
+          "mean_change": -4.419625545152416e-05,
+          "improved_scenes": 114,
+          "scenes": 119
+        },
+        "imitation": {
+          "mean_change": -0.0020664620510108013,
+          "improved_scenes": 70,
+          "scenes": 119
+        },
+        "decoded_temporal_boundary": {
+          "mean_change": -0.003755672264387022,
+          "improved_scenes": 105,
+          "scenes": 119
+        },
+        "decoded_temporal_interior": {
+          "mean_change": -0.0017265234841738748,
+          "improved_scenes": 117,
+          "scenes": 119
+        },
+        "raw_second_boundary": {
+          "mean_change": -0.05786997862473255,
+          "improved_scenes": 104,
+          "scenes": 119
+        },
+        "raw_second_interior": {
+          "mean_change": -0.038632984922713595,
+          "improved_scenes": 115,
+          "scenes": 119
+        },
+        "road": {
+          "mean_change": -5.825866994028024e-05,
+          "improved_scenes": 10,
+          "scenes": 119
+        },
+        "total_loss": {
+          "mean_change": -5.8273792653773004e-05,
+          "improved_scenes": 101,
+          "scenes": 119
+        },
+        "total_under_parent_weights": {
+          "mean_change": -5.489368761582467e-05,
+          "improved_scenes": 97,
+          "scenes": 119
+        }
+      }
+    },
+    "validation": {
+      "0": {
+        "noise_mse": {
+          "mean_change": -0.0011887104320339858,
+          "improved_scenes": 138,
+          "scenes": 200
+        },
+        "imitation": {
+          "mean_change": -0.00029734587024586855,
+          "improved_scenes": 152,
+          "scenes": 200
+        },
+        "decoded_temporal_boundary": {
+          "mean_change": -3.269678358713506e-05,
+          "improved_scenes": 97,
+          "scenes": 200
+        },
+        "decoded_temporal_interior": {
+          "mean_change": -8.442112929842706e-06,
+          "improved_scenes": 110,
+          "scenes": 200
+        },
+        "raw_second_boundary": {
+          "mean_change": -0.0038527651620097456,
+          "improved_scenes": 126,
+          "scenes": 200
+        },
+        "raw_second_interior": {
+          "mean_change": -0.0005749099748209119,
+          "improved_scenes": 113,
+          "scenes": 200
+        },
+        "road": {
+          "mean_change": 0.0,
+          "improved_scenes": 0,
+          "scenes": 200
+        },
+        "total_loss": {
+          "mean_change": -0.0011897100374522738,
+          "improved_scenes": 138,
+          "scenes": 200
+        },
+        "total_under_parent_weights": {
+          "mean_change": -0.001189680610347045,
+          "improved_scenes": 138,
+          "scenes": 200
+        }
+      },
+      "50": {
+        "noise_mse": {
+          "mean_change": -8.516037058143411e-05,
+          "improved_scenes": 130,
+          "scenes": 200
+        },
+        "imitation": {
+          "mean_change": -0.001582301096835532,
+          "improved_scenes": 138,
+          "scenes": 200
+        },
+        "decoded_temporal_boundary": {
+          "mean_change": -0.00042942027720171435,
+          "improved_scenes": 120,
+          "scenes": 200
+        },
+        "decoded_temporal_interior": {
+          "mean_change": -0.00019283404862425414,
+          "improved_scenes": 126,
+          "scenes": 200
+        },
+        "raw_second_boundary": {
+          "mean_change": -0.024483975060284137,
+          "improved_scenes": 147,
+          "scenes": 200
+        },
+        "raw_second_interior": {
+          "mean_change": -0.011059184931218624,
+          "improved_scenes": 130,
+          "scenes": 200
+        },
+        "road": {
+          "mean_change": -1.3445223411499056e-05,
+          "improved_scenes": 5,
+          "scenes": 200
+        },
+        "total_loss": {
+          "mean_change": -9.132148897416354e-05,
+          "improved_scenes": 133,
+          "scenes": 200
+        },
+        "total_under_parent_weights": {
+          "mean_change": -9.093501072468195e-05,
+          "improved_scenes": 134,
+          "scenes": 200
+        }
+      },
+      "200": {
+        "noise_mse": {
+          "mean_change": -1.03546935133636e-05,
+          "improved_scenes": 164,
+          "scenes": 200
+        },
+        "imitation": {
+          "mean_change": -0.0005503171437188542,
+          "improved_scenes": 110,
+          "scenes": 200
+        },
+        "decoded_temporal_boundary": {
+          "mean_change": -0.0017238518338438735,
+          "improved_scenes": 181,
+          "scenes": 200
+        },
+        "decoded_temporal_interior": {
+          "mean_change": -0.0008249880376117239,
+          "improved_scenes": 200,
+          "scenes": 200
+        },
+        "raw_second_boundary": {
+          "mean_change": -0.042097004354000093,
+          "improved_scenes": 170,
+          "scenes": 200
+        },
+        "raw_second_interior": {
+          "mean_change": -0.029754792153835297,
+          "improved_scenes": 199,
+          "scenes": 200
+        },
+        "road": {
+          "mean_change": 2.5108144588933556e-05,
+          "improved_scenes": 5,
+          "scenes": 200
+        },
+        "total_loss": {
+          "mean_change": -1.6355587495594736e-05,
+          "improved_scenes": 146,
+          "scenes": 200
+        },
+        "total_under_parent_weights": {
+          "mean_change": -1.480412084513525e-05,
+          "improved_scenes": 144,
+          "scenes": 200
+        }
+      },
+      "300": {
+        "noise_mse": {
+          "mean_change": -5.5387743486789985e-06,
+          "improved_scenes": 180,
+          "scenes": 200
+        },
+        "imitation": {
+          "mean_change": -0.0006506987895543788,
+          "improved_scenes": 111,
+          "scenes": 200
+        },
+        "decoded_temporal_boundary": {
+          "mean_change": -0.002800093110916478,
+          "improved_scenes": 179,
+          "scenes": 200
+        },
+        "decoded_temporal_interior": {
+          "mean_change": -0.0014929481254116722,
+          "improved_scenes": 197,
+          "scenes": 200
+        },
+        "raw_second_boundary": {
+          "mean_change": -0.05376301124691963,
+          "improved_scenes": 170,
+          "scenes": 200
+        },
+        "raw_second_interior": {
+          "mean_change": -0.0384090206027031,
+          "improved_scenes": 195,
+          "scenes": 200
+        },
+        "road": {
+          "mean_change": 3.932176380782352e-05,
+          "improved_scenes": 6,
+          "scenes": 200
+        },
+        "total_loss": {
+          "mean_change": -1.4053376493040615e-05,
+          "improved_scenes": 165,
+          "scenes": 200
+        },
+        "total_under_parent_weights": {
+          "mean_change": -1.1533292693215796e-05,
+          "improved_scenes": 159,
+          "scenes": 200
+        }
+      }
+    }
+  },
+  "free_generation_replay": {
+    "epoch200": {
+      "quality_scenes": 82,
+      "planned_scenes": 200,
+      "agents": 735,
+      "pooled": {
+        "boundary": {
+          "count": 2940,
+          "mean": 16.402238412640273,
+          "min": 0.012483153531195702,
+          "p50": 6.209318487619168,
+          "p95": 42.815280083004836,
+          "p99": 266.43050874011317,
+          "max": 576.9981409115682
+        },
+        "middle": {
+          "count": 23520,
+          "mean": 7.006703329183879,
+          "min": 0.015846046244402244,
+          "p50": 3.364858598480521,
+          "p95": 19.69028187224631,
+          "p99": 86.99322488664653,
+          "max": 553.9721441743094
+        },
+        "endpoint": {
+          "count": 2940,
+          "mean": 8.846688360891772,
+          "min": 0.04941489053417778,
+          "p50": 4.773970775647051,
+          "p95": 25.613917242778786,
+          "p99": 96.03739590637869,
+          "max": 284.1827387982454
+        },
+        "interior": {
+          "count": 26460,
+          "mean": 7.211146110484756,
+          "min": 0.015846046244402244,
+          "p50": 3.5001453710018127,
+          "p95": 20.42180355623667,
+          "p99": 88.66727994377096,
+          "max": 553.9721441743094
+        }
+      },
+      "bad_points": {
+        "boundary": 509,
+        "middle": 1570,
+        "endpoint": 286,
+        "interior": 1856
+      },
+      "bad_scenes": {
+        "boundary": 99,
+        "middle": 77,
+        "endpoint": 60,
+        "interior": 90
+      }
+    },
+    "epoch225": {
+      "quality_scenes": 64,
+      "planned_scenes": 200,
+      "agents": 735,
+      "pooled": {
+        "boundary": {
+          "count": 2940,
+          "mean": 16.83820081982308,
+          "min": 0.05589097086815229,
+          "p50": 6.490455038300347,
+          "p95": 44.818982049965314,
+          "p99": 274.5547035034181,
+          "max": 628.6929951800715
+        },
+        "middle": {
+          "count": 23520,
+          "mean": 7.438726742831064,
+          "min": 0.014905883757554361,
+          "p50": 3.3414439624140932,
+          "p95": 21.834618510795057,
+          "p99": 92.16871672259762,
+          "max": 550.7571297736857
+        },
+        "endpoint": {
+          "count": 2940,
+          "mean": 9.215838005676943,
+          "min": 0.12539471523690354,
+          "p50": 4.79647518066193,
+          "p95": 27.62625182320402,
+          "p99": 101.96108314960846,
+          "max": 332.6633126336712
+        },
+        "interior": {
+          "count": 26460,
+          "mean": 7.63618354981394,
+          "min": 0.014905883757554361,
+          "p50": 3.467071975855139,
+          "p95": 22.319007675616664,
+          "p99": 94.26739173491389,
+          "max": 550.7571297736857
+        }
+      },
+      "bad_points": {
+        "boundary": 529,
+        "middle": 1860,
+        "endpoint": 325,
+        "interior": 2185
+      },
+      "bad_scenes": {
+        "boundary": 109,
+        "middle": 88,
+        "endpoint": 82,
+        "interior": 108
+      }
+    }
+  }
+}
