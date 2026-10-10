@@ -205,3 +205,10 @@ checkpoint外层保持，新增training_config.schema_version=sumodiff.decoded.t
 通用scheduler auxiliary_ramp在本协议只表示temporal_reweight增量rho；inherited_auxiliary_ramp/raw_auxiliary_ramp始终1。steps.jsonl增加分组一二阶差分、decoded_temporal_boundary/interior、weighted_decoded_boundary/interior、effective_decoded_*_weight、inherited_weighted_temporal及temporal_reweight_delta。旧weighted_temporal被替换，不在total中重复叠加。
 
 sumodiff.decoded.temporal.gradient.audit.v1记录训练元数据选择、自然/fixed t=0/50/200同噪声输入、实际完整向量及clip、冻结候选敏感性和N/A；不访问验证失败来选训练组。父训练timestep_coverage只统计自然低t实际访问，不称梯度占比。formal短preflight保存私有压力更新、真实前缀恢复、参数/RNG/AdamW/调度和完整loss逐位核对，full_budget_complete=false；正式报告parent200/candidate225，原报告parent150/candidate200合同保留。
+
+
+## 阶段5E正式结果摘要
+
+sumodiff.stage5e.result.summary.v1为保存输出的CPU审计摘要：source_sha保持真实858ad6b，checkpoint和source_parent_checkpoint为文件身份；verification包括完整epoch/AdamW累计步/同噪声/独立SVD重放。counts、strict_comfort、pooled和paired_intervals沿用报告口径，混合帧分位数与场景配对均值区间分开。transitions/道路子集/dense_intersections/temporal_failures保留全部任务，新增失败时段不互相替代。label_control仅核对正常标签质量，不进入生成条件或修复。
+
+analysis/figure运行均formal=false，仅CPU后处理、输入与脚本身份可追溯。正式训练和轨迹接口未改；结果SHA不会被摘要提交SHA替换。225轮结果不自动替代200轮候选，不触发tag或阶段6。
