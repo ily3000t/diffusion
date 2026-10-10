@@ -1,0 +1,1957 @@
+{
+  "schema_version": "sumodiff.stage5e.preflight.summary.v1",
+  "source_run_sha": "72051ac6e6071d755f3d5a6bbd132fa971ba3e0f",
+  "runs": {
+    "artifacts\\runs\\stage5e-preflight-20261010-r1": {
+      "manifest": {
+        "id": "sha256:367b4afdeeff4be41075079ca47fcb6ab09623416ade6639733d9d3bf6ecf705",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5e-preflight-20261010-r1\\manifest.json",
+        "sha256": "367b4afdeeff4be41075079ca47fcb6ab09623416ade6639733d9d3bf6ecf705",
+        "size_bytes": 2783872
+      },
+      "status": {
+        "state": "completed",
+        "started_at": "2026-10-10T09:37:28.631344+00:00",
+        "updated_at": "2026-10-10T09:40:07.615891+00:00",
+        "ended_at": "2026-10-10T09:40:07.615891+00:00"
+      },
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "72051ac6e6071d755f3d5a6bbd132fa971ba3e0f",
+        "branch": "feat/decoded-boundary-supervision",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "config_sha256": "577a90a49d539b640e0626e06c745eb39709a626df50f2ec43b8f3596d0827c6",
+      "environment_sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+      "input_count": 7016
+    },
+    "artifacts\\runs\\stage5e-preflight-20261010-r1\\uninterrupted": {
+      "manifest": {
+        "id": "sha256:cb1cc55f12f40a691dd40db7f6d5f39ffdd2fff1dafa997bd62395d289bf6d93",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5e-preflight-20261010-r1\\uninterrupted\\manifest.json",
+        "sha256": "cb1cc55f12f40a691dd40db7f6d5f39ffdd2fff1dafa997bd62395d289bf6d93",
+        "size_bytes": 2781583
+      },
+      "status": {
+        "state": "completed",
+        "started_at": "2026-10-10T09:38:58.491810+00:00",
+        "updated_at": "2026-10-10T09:39:23.507925+00:00",
+        "ended_at": "2026-10-10T09:39:23.507925+00:00"
+      },
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "72051ac6e6071d755f3d5a6bbd132fa971ba3e0f",
+        "branch": "feat/decoded-boundary-supervision",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "config_sha256": "0e906fa22ab2d68528dc6170a2114881e9f1d137f0ae8907ba94640c14ffdcc0",
+      "environment_sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+      "input_count": 7006
+    },
+    "artifacts\\runs\\stage5e-preflight-20261010-r1\\resumed": {
+      "manifest": {
+        "id": "sha256:0090c29beba8c87d2c217ce70b25d60cff58c11a3ae568878c4702fb61ae8632",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5e-preflight-20261010-r1\\resumed\\manifest.json",
+        "sha256": "0090c29beba8c87d2c217ce70b25d60cff58c11a3ae568878c4702fb61ae8632",
+        "size_bytes": 2782202
+      },
+      "status": {
+        "state": "completed",
+        "started_at": "2026-10-10T09:39:39.106481+00:00",
+        "updated_at": "2026-10-10T09:39:58.596368+00:00",
+        "ended_at": "2026-10-10T09:39:58.596368+00:00"
+      },
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "72051ac6e6071d755f3d5a6bbd132fa971ba3e0f",
+        "branch": "feat/decoded-boundary-supervision",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "config_sha256": "9d6512d92d547075fe084e7061c7520d6620ae6f3a0cdddfd59e9c38d2b9ac3a",
+      "environment_sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+      "input_count": 7007
+    },
+    "artifacts\\runs\\stage5e-preflight-20261010-r1\\recovery_audit": {
+      "manifest": {
+        "id": "sha256:edb0c8f28e1f9fdb4a3d6d1d43c776c4a6021423af557dbf88ae7ef4c87897ee",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5e-preflight-20261010-r1\\recovery_audit\\manifest.json",
+        "sha256": "edb0c8f28e1f9fdb4a3d6d1d43c776c4a6021423af557dbf88ae7ef4c87897ee",
+        "size_bytes": 5363
+      },
+      "status": {
+        "state": "completed",
+        "started_at": "2026-10-10T09:40:01.618516+00:00",
+        "updated_at": "2026-10-10T09:40:01.783028+00:00",
+        "ended_at": "2026-10-10T09:40:01.783028+00:00"
+      },
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "72051ac6e6071d755f3d5a6bbd132fa971ba3e0f",
+        "branch": "feat/decoded-boundary-supervision",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "config_sha256": "f5da9760a233bff4ba63864f495666556d2e8bdd85a4c0e42105f8cc365a7301",
+      "environment_sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+      "input_count": 10
+    },
+    "artifacts\\runs\\stage5e-preflight-20261010-r1\\sample": {
+      "manifest": {
+        "id": "sha256:58aebbbb7a9bbd73a376b57c95622ce935270c81004e1fde503ffbae31939310",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5e-preflight-20261010-r1\\sample\\manifest.json",
+        "sha256": "58aebbbb7a9bbd73a376b57c95622ce935270c81004e1fde503ffbae31939310",
+        "size_bytes": 10547
+      },
+      "status": {
+        "state": "completed",
+        "started_at": "2026-10-10T09:40:05.241335+00:00",
+        "updated_at": "2026-10-10T09:40:07.528012+00:00",
+        "ended_at": "2026-10-10T09:40:07.528012+00:00"
+      },
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "72051ac6e6071d755f3d5a6bbd132fa971ba3e0f",
+        "branch": "feat/decoded-boundary-supervision",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "config_sha256": "12be9c3ebb994ba59d0b1a9557839ed8b43d30f208977133cc47d1d3290667da",
+      "environment_sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+      "input_count": 22
+    },
+    "artifacts\\runs\\stage5e-report-audit-20261010": {
+      "manifest": {
+        "id": "sha256:f7de1ffd34df45d6d785dbed9a0828f77464b2081e59343f4ac3178aae35e49b",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5e-report-audit-20261010\\manifest.json",
+        "sha256": "f7de1ffd34df45d6d785dbed9a0828f77464b2081e59343f4ac3178aae35e49b",
+        "size_bytes": 403591
+      },
+      "status": {
+        "state": "completed",
+        "started_at": "2026-10-10T09:41:25.961266+00:00",
+        "updated_at": "2026-10-10T09:41:25.993163+00:00",
+        "ended_at": "2026-10-10T09:41:25.993163+00:00"
+      },
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "72051ac6e6071d755f3d5a6bbd132fa971ba3e0f",
+        "branch": "feat/decoded-boundary-supervision",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "config_sha256": "24442de241722dbeb8e08b0dcc295202844c68d3371d26e0e65eb86df2a9fc69",
+      "environment_sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+      "input_count": 1016
+    }
+  },
+  "parent_checkpoint": {
+    "id": "sha256:b7dcb40fcd9032b76d56ad8871e986067cd29873c8d84ec461feb55b8c96db54",
+    "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-v1\\train\\checkpoint_step_060000.pt",
+    "sha256": "b7dcb40fcd9032b76d56ad8871e986067cd29873c8d84ec461feb55b8c96db54",
+    "size_bytes": 41332970
+  },
+  "protocol": {
+    "source_epochs": 200,
+    "end_epochs": 225,
+    "source_step": 60000,
+    "end_step": 67500,
+    "additional_updates": 7500,
+    "batch_size": 4,
+    "train_windows": 1200,
+    "validation_windows": 200,
+    "peak_lr": 2e-05,
+    "min_lr": 1e-06,
+    "warmup_updates": 300,
+    "temporal_reweight_warmup_updates": 300,
+    "decoded_boundary_weight": 0.001,
+    "decoded_interior_weight": 0.0009,
+    "old_equivalent_weights": [
+      0.0001,
+      0.0009
+    ],
+    "inherited_optimizer_updates": 30000,
+    "epoch_sampling": "all_1200_without_replacement"
+  },
+  "gradient": {
+    "summaries": {
+      "ordinary": {
+        "natural": {
+          "batches": 4,
+          "eligible_batches": 2,
+          "total_would_clip_batches": 0,
+          "components": {
+            "noise_mse": {
+              "parameter_gradient_norm": {
+                "median": 0.032092749388079156,
+                "minimum": 0.012365647596940293,
+                "maximum": 0.05181985117921802
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 1.0,
+                "minimum": 1.0,
+                "maximum": 1.0
+              },
+              "cosine_with_epsilon": {
+                "median": 1.0,
+                "minimum": 0.9999999999999999,
+                "maximum": 1.0000000000000002
+              }
+            },
+            "weighted_imitation": {
+              "parameter_gradient_norm": {
+                "median": 0.007001575934085476,
+                "minimum": 0.0015433578947543663,
+                "maximum": 0.012459793973416585
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.1826272664958356,
+                "minimum": 0.12481011468709885,
+                "maximum": 0.24044441830457236
+              },
+              "cosine_with_epsilon": {
+                "median": 0.3460698761047607,
+                "minimum": 0.3319763842730079,
+                "maximum": 0.3601633679365135
+              }
+            },
+            "weighted_raw_interior": {
+              "parameter_gradient_norm": {
+                "median": 0.0006159241862464049,
+                "minimum": 0.0004624800177573394,
+                "maximum": 0.0007693683547354704
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.02612368457575434,
+                "minimum": 0.014846981170876461,
+                "maximum": 0.03740038798063222
+              },
+              "cosine_with_epsilon": {
+                "median": 0.349708149566756,
+                "minimum": 0.09005020320554344,
+                "maximum": 0.6093660959279685
+              }
+            },
+            "weighted_decoded_boundary": {
+              "parameter_gradient_norm": {
+                "median": 0.0005812616077962714,
+                "minimum": 0.0004551649025717911,
+                "maximum": 0.0007073583130207518
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.03299355018158693,
+                "minimum": 0.008783601114515198,
+                "maximum": 0.05720349924865866
+              },
+              "cosine_with_epsilon": {
+                "median": 0.28865277792780997,
+                "minimum": 0.23478257744819064,
+                "maximum": 0.34252297840742923
+              }
+            },
+            "auxiliary_total": {
+              "parameter_gradient_norm": {
+                "median": 0.007343336083948904,
+                "minimum": 0.0023609965555019727,
+                "maximum": 0.012325675612395835
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.21439407489429296,
+                "minimum": 0.1909318971766726,
+                "maximum": 0.2378562526119133
+              },
+              "cosine_with_epsilon": {
+                "median": 0.393366210434402,
+                "minimum": 0.3890918424293453,
+                "maximum": 0.39764057843945866
+              }
+            },
+            "total_loss": {
+              "parameter_gradient_norm": {
+                "median": 0.03564933350332369,
+                "minimum": 0.013461159166153801,
+                "maximum": 0.05783750784049357
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 1.1023598084125696,
+                "minimum": 1.088593141655159,
+                "maximum": 1.1161264751699804
+              },
+              "cosine_with_epsilon": {
+                "median": 0.9837787154784587,
+                "minimum": 0.9806965156202216,
+                "maximum": 0.9868609153366958
+              }
+            }
+          },
+          "candidates": {
+            "0.0001": {
+              "auxiliary_ratio": {
+                "median": 0.19687593006905713,
+                "minimum": 0.15277497189648795,
+                "maximum": 0.2409768882416263
+              },
+              "cosine": {
+                "median": 0.377817263036002,
+                "minimum": 0.370845359894047,
+                "maximum": 0.384789166177957
+              },
+              "total_norm": {
+                "median": 0.009987875868368232,
+                "minimum": 0.00636449880684089,
+                "maximum": 0.057785999263384694
+              },
+              "would_clip_batches": 0
+            },
+            "0.0004": {
+              "auxiliary_ratio": {
+                "median": 0.20230111336299367,
+                "minimum": 0.1646899763379652,
+                "maximum": 0.23991225038802216
+              },
+              "cosine": {
+                "median": 0.3843912452914122,
+                "minimum": 0.3797070402731384,
+                "maximum": 0.3890754503096861
+              },
+              "total_norm": {
+                "median": 0.01003277947342345,
+                "minimum": 0.00636449880684089,
+                "maximum": 0.0578028506427194
+              },
+              "would_clip_batches": 0
+            },
+            "0.001": {
+              "auxiliary_ratio": {
+                "median": 0.21439408425876078,
+                "minimum": 0.19093190054348536,
+                "maximum": 0.23785626797403617
+              },
+              "cosine": {
+                "median": 0.39336623779403146,
+                "minimum": 0.3890918770035187,
+                "maximum": 0.3976405985845442
+              },
+              "total_norm": {
+                "median": 0.010126707205823976,
+                "minimum": 0.00636449880684089,
+                "maximum": 0.05783750582522072
+              },
+              "would_clip_batches": 0
+            },
+            "0.003": {
+              "auxiliary_ratio": {
+                "median": 0.26128048366187,
+                "minimum": 0.2317380285363797,
+                "maximum": 0.2908229387873603
+              },
+              "cosine": {
+                "median": 0.40806496550617566,
+                "minimum": 0.3901930122272468,
+                "maximum": 0.4259369187851045
+              },
+              "total_norm": {
+                "median": 0.01047682978859023,
+                "minimum": 0.00636449880684089,
+                "maximum": 0.05796216739712327
+              },
+              "would_clip_batches": 0
+            }
+          }
+        },
+        "fixed_t0": {
+          "batches": 4,
+          "eligible_batches": 4,
+          "total_would_clip_batches": 4,
+          "components": {
+            "noise_mse": {
+              "parameter_gradient_norm": {
+                "median": 1.8981070833610851,
+                "minimum": 1.6045869041577727,
+                "maximum": 2.2522139416880544
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 1.0,
+                "minimum": 1.0,
+                "maximum": 1.0
+              },
+              "cosine_with_epsilon": {
+                "median": 1.0,
+                "minimum": 1.0,
+                "maximum": 1.0
+              }
+            },
+            "weighted_imitation": {
+              "parameter_gradient_norm": {
+                "median": 0.0027959757269315983,
+                "minimum": 0.0020712712945632292,
+                "maximum": 0.005683951696915774
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.0015253296869580104,
+                "minimum": 0.0011726686798162961,
+                "maximum": 0.002523717481588628
+              },
+              "cosine_with_epsilon": {
+                "median": 0.26072507514219434,
+                "minimum": 0.258584117145475,
+                "maximum": 0.3407085987184475
+              }
+            },
+            "weighted_raw_interior": {
+              "parameter_gradient_norm": {
+                "median": 7.927132544672033e-05,
+                "minimum": 6.14373277044133e-05,
+                "maximum": 8.351124246332887e-05
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 3.853131882694893e-05,
+                "minimum": 3.707962237403452e-05,
+                "maximum": 4.519882354134754e-05
+              },
+              "cosine_with_epsilon": {
+                "median": 0.07815531874597265,
+                "minimum": 0.018518889122106266,
+                "maximum": 0.17861358032175592
+              }
+            },
+            "weighted_decoded_boundary": {
+              "parameter_gradient_norm": {
+                "median": 0.00022558483492352984,
+                "minimum": 0.00018697693258337095,
+                "maximum": 0.00034982411219002137
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.0001243253336129823,
+                "minimum": 0.00010585865466497386,
+                "maximum": 0.00015532454786592126
+              },
+              "cosine_with_epsilon": {
+                "median": 0.25166603236115603,
+                "minimum": 0.17891204217072712,
+                "maximum": 0.28501307456066416
+              }
+            },
+            "auxiliary_total": {
+              "parameter_gradient_norm": {
+                "median": 0.0028330408955639453,
+                "minimum": 0.002081617906847726,
+                "maximum": 0.005843702813834706
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.001546175638051932,
+                "minimum": 0.0011785265064564274,
+                "maximum": 0.002594648184024116
+              },
+              "cosine_with_epsilon": {
+                "median": 0.2899759936773585,
+                "minimum": 0.28476290295338763,
+                "maximum": 0.35402304697703935
+              }
+            },
+            "total_loss": {
+              "parameter_gradient_norm": {
+                "median": 1.898890929202449,
+                "minimum": 1.6052530513628478,
+                "maximum": 2.254289380511699
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 1.0004438880787707,
+                "minimum": 1.000344394168338,
+                "maximum": 1.0009215105124911
+              },
+              "cosine_with_epsilon": {
+                "median": 0.9999988981185459,
+                "minimum": 0.9999970611641936,
+                "maximum": 0.9999993650620198
+              }
+            }
+          },
+          "candidates": {
+            "0.0001": {
+              "auxiliary_ratio": {
+                "median": 0.0015282820421239464,
+                "minimum": 0.0011690612276106633,
+                "maximum": 0.002528588770714288
+              },
+              "cosine": {
+                "median": 0.2754559693239347,
+                "minimum": 0.27010231883563696,
+                "maximum": 0.34831467679464867
+              },
+              "total_norm": {
+                "median": 1.8988409043020236,
+                "minimum": 1.605220465140827,
+                "maximum": 2.254203887860568
+              },
+              "would_clip_batches": 4
+            },
+            "0.0004": {
+              "auxiliary_ratio": {
+                "median": 0.0015333696352099046,
+                "minimum": 0.0011713641339449418,
+                "maximum": 0.0025499472859026083
+              },
+              "cosine": {
+                "median": 0.2805287450452877,
+                "minimum": 0.27513599415062,
+                "maximum": 0.35034115457505643
+              },
+              "total_norm": {
+                "median": 1.8988575921857136,
+                "minimum": 1.605231329268252,
+                "maximum": 2.254232378083164
+              },
+              "would_clip_batches": 4
+            },
+            "0.001": {
+              "auxiliary_ratio": {
+                "median": 0.0015461756678287486,
+                "minimum": 0.001178526522318095,
+                "maximum": 0.002594648150347329
+              },
+              "cosine": {
+                "median": 0.289976001089361,
+                "minimum": 0.2847629196811966,
+                "maximum": 0.35402305618476293
+              },
+              "total_norm": {
+                "median": 1.898890974307586,
+                "minimum": 1.605253064172632,
+                "maximum": 2.2542893721054416
+              },
+              "would_clip_batches": 4
+            },
+            "0.003": {
+              "auxiliary_ratio": {
+                "median": 0.0016129534202936743,
+                "minimum": 0.0012260909450602599,
+                "maximum": 0.0027611976148138075
+              },
+              "cosine": {
+                "median": 0.3208665260230953,
+                "minimum": 0.2996553720128626,
+                "maximum": 0.3631073830920109
+              },
+              "total_norm": {
+                "median": 1.89900230923339,
+                "minimum": 1.6053255778822242,
+                "maximum": 2.254479482906038
+              },
+              "would_clip_batches": 4
+            }
+          }
+        },
+        "fixed_t50": {
+          "batches": 4,
+          "eligible_batches": 4,
+          "total_would_clip_batches": 0,
+          "components": {
+            "noise_mse": {
+              "parameter_gradient_norm": {
+                "median": 0.10209396473397431,
+                "minimum": 0.03778851316210685,
+                "maximum": 0.11738044840799265
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 1.0,
+                "minimum": 1.0,
+                "maximum": 1.0
+              },
+              "cosine_with_epsilon": {
+                "median": 1.0,
+                "minimum": 0.9999999999999999,
+                "maximum": 1.0000000000000002
+              }
+            },
+            "weighted_imitation": {
+              "parameter_gradient_norm": {
+                "median": 0.014885153343335726,
+                "minimum": 0.009654839704473455,
+                "maximum": 0.021565774372740064
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.1967601135852079,
+                "minimum": 0.09509384091225408,
+                "maximum": 0.2554966813077745
+              },
+              "cosine_with_epsilon": {
+                "median": 0.29379636242675844,
+                "minimum": 0.1940657036436282,
+                "maximum": 0.7034151680983859
+              }
+            },
+            "weighted_raw_interior": {
+              "parameter_gradient_norm": {
+                "median": 0.0011503464599641666,
+                "minimum": 0.0007992878857352789,
+                "maximum": 0.002771653544257699
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.016050642435989436,
+                "minimum": 0.00788740454886494,
+                "maximum": 0.037917578518328415
+              },
+              "cosine_with_epsilon": {
+                "median": 0.22283523665565236,
+                "minimum": -0.044290765315428596,
+                "maximum": 0.3541595775365402
+              }
+            },
+            "weighted_decoded_boundary": {
+              "parameter_gradient_norm": {
+                "median": 0.0012390453663736257,
+                "minimum": 0.0006714016164043296,
+                "maximum": 0.00178773380448325
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.01460765936402305,
+                "minimum": 0.010709508518893473,
+                "maximum": 0.017767346746989512
+              },
+              "cosine_with_epsilon": {
+                "median": 0.24952493628002864,
+                "minimum": -0.030118041624105668,
+                "maximum": 0.545193384829163
+              }
+            },
+            "auxiliary_total": {
+              "parameter_gradient_norm": {
+                "median": 0.015747240841686636,
+                "minimum": 0.010879177491977258,
+                "maximum": 0.02200302341341938
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.20135209815043537,
+                "minimum": 0.1059204383779045,
+                "maximum": 0.287896415646397
+              },
+              "cosine_with_epsilon": {
+                "median": 0.35448023041008203,
+                "minimum": 0.18478579101251014,
+                "maximum": 0.7364105329060457
+              }
+            },
+            "total_loss": {
+              "parameter_gradient_norm": {
+                "median": 0.10972501311337124,
+                "minimum": 0.043139789771371825,
+                "maximum": 0.12526425120344922
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 1.074270485034937,
+                "minimum": 1.0671645312518652,
+                "maximum": 1.1416111977284957
+              },
+              "cosine_with_epsilon": {
+                "median": 0.9826709195198509,
+                "minimum": 0.9724816009082252,
+                "maximum": 0.997797908107067
+              }
+            }
+          },
+          "candidates": {
+            "0.0001": {
+              "auxiliary_ratio": {
+                "median": 0.19989170947712515,
+                "minimum": 0.09555408918533183,
+                "maximum": 0.27593692895498756
+              },
+              "cosine": {
+                "median": 0.34784865706383294,
+                "minimum": 0.18911064155601262,
+                "maximum": 0.7328680386295084
+              },
+              "total_norm": {
+                "median": 0.10924393974793793,
+                "minimum": 0.042835828573739555,
+                "maximum": 0.12512875031323364
+              },
+              "would_clip_batches": 0
+            },
+            "0.0004": {
+              "auxiliary_ratio": {
+                "median": 0.20031834316101654,
+                "minimum": 0.09889009206895352,
+                "maximum": 0.27987870121812897
+              },
+              "cosine": {
+                "median": 0.35016433548572523,
+                "minimum": 0.1877028886764292,
+                "maximum": 0.7350180285247734
+              },
+              "total_norm": {
+                "median": 0.10940281357620925,
+                "minimum": 0.04293644318008698,
+                "maximum": 0.1251727963276891
+              },
+              "would_clip_batches": 0
+            },
+            "0.001": {
+              "auxiliary_ratio": {
+                "median": 0.20135209717837307,
+                "minimum": 0.10592043541908958,
+                "maximum": 0.287896424285137
+              },
+              "cosine": {
+                "median": 0.3544802326840272,
+                "minimum": 0.18478578611660862,
+                "maximum": 0.7364105461073505
+              },
+              "total_norm": {
+                "median": 0.10972501095832207,
+                "minimum": 0.04313978976474509,
+                "maximum": 0.12526424811620585
+              },
+              "would_clip_batches": 0
+            },
+            "0.003": {
+              "auxiliary_ratio": {
+                "median": 0.20649591512700047,
+                "minimum": 0.13187692874895565,
+                "maximum": 0.31575321425575287
+              },
+              "cosine": {
+                "median": 0.3659353012481169,
+                "minimum": 0.1742988912727797,
+                "maximum": 0.7258080989454846
+              },
+              "total_norm": {
+                "median": 0.11084123652556889,
+                "minimum": 0.043837539593587875,
+                "maximum": 0.12560132284370845
+              },
+              "would_clip_batches": 0
+            }
+          }
+        },
+        "fixed_t200": {
+          "batches": 4,
+          "eligible_batches": 4,
+          "total_would_clip_batches": 0,
+          "components": {
+            "noise_mse": {
+              "parameter_gradient_norm": {
+                "median": 0.015011136047159824,
+                "minimum": 0.0050917545307282,
+                "maximum": 0.029476955289541678
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 1.0,
+                "minimum": 1.0,
+                "maximum": 1.0
+              },
+              "cosine_with_epsilon": {
+                "median": 1.0,
+                "minimum": 1.0,
+                "maximum": 1.0000000000000004
+              }
+            },
+            "weighted_imitation": {
+              "parameter_gradient_norm": {
+                "median": 0.02571287883633465,
+                "minimum": 0.01861911037198838,
+                "maximum": 0.08440476142823318
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 2.3665148458498253,
+                "minimum": 0.9673578454828723,
+                "maximum": 6.1434374251417925
+              },
+              "cosine_with_epsilon": {
+                "median": 0.29171254397636914,
+                "minimum": 0.20843093775485153,
+                "maximum": 0.36684672348433267
+              }
+            },
+            "weighted_raw_interior": {
+              "parameter_gradient_norm": {
+                "median": 0.003071516207389013,
+                "minimum": 0.001839998659414243,
+                "maximum": 0.0034650848377989086
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.24089330351206792,
+                "minimum": 0.0624215982058048,
+                "maximum": 0.5679038698553911
+              },
+              "cosine_with_epsilon": {
+                "median": 0.34187257073925004,
+                "minimum": -0.10155717784670282,
+                "maximum": 0.6124763113739062
+              }
+            },
+            "weighted_decoded_boundary": {
+              "parameter_gradient_norm": {
+                "median": 0.0026243261342435457,
+                "minimum": 0.0016673526366901223,
+                "maximum": 0.0038727385149828343
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.23249137126229363,
+                "minimum": 0.08164056916767937,
+                "maximum": 0.32746131547147955
+              },
+              "cosine_with_epsilon": {
+                "median": 0.16442608693629557,
+                "minimum": -0.011664565577942288,
+                "maximum": 0.3601171505057858
+              }
+            },
+            "auxiliary_total": {
+              "parameter_gradient_norm": {
+                "median": 0.02699697122155742,
+                "minimum": 0.020309352980006162,
+                "maximum": 0.08545853529507715
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 2.45669369778436,
+                "minimum": 1.055174578665534,
+                "maximum": 6.3418058521648195
+              },
+              "cosine_with_epsilon": {
+                "median": 0.3776926125647101,
+                "minimum": 0.21045736320121214,
+                "maximum": 0.47379062380349485
+              }
+            },
+            "total_loss": {
+              "parameter_gradient_norm": {
+                "median": 0.03436370925261191,
+                "minimum": 0.027224532596771153,
+                "maximum": 0.09608517569949805
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 2.893168285488426,
+                "minimum": 1.7644423802276108,
+                "maximum": 6.828002760190675
+              },
+              "cosine_with_epsilon": {
+                "median": 0.6002403437543159,
+                "minimum": 0.4939610241165304,
+                "maximum": 0.8500882786607293
+              }
+            }
+          },
+          "candidates": {
+            "0.0001": {
+              "auxiliary_ratio": {
+                "median": 2.4064454180711383,
+                "minimum": 1.0188891625011283,
+                "maximum": 6.225801146280931
+              },
+              "cosine": {
+                "median": 0.3763494721291455,
+                "minimum": 0.20748647381453014,
+                "maximum": 0.43448136720617786
+              },
+              "total_norm": {
+                "median": 0.033520548051042404,
+                "minimum": 0.02650414136274842,
+                "maximum": 0.09513249045612673
+              },
+              "would_clip_batches": 0
+            },
+            "0.0004": {
+              "auxiliary_ratio": {
+                "median": 2.421653147662907,
+                "minimum": 1.0275864618583166,
+                "maximum": 6.263167431680969
+              },
+              "cosine": {
+                "median": 0.37968736703115347,
+                "minimum": 0.20849629538572728,
+                "maximum": 0.44420264680160426
+              },
+              "total_norm": {
+                "median": 0.03378028512366038,
+                "minimum": 0.026719232636838564,
+                "maximum": 0.09544564696165456
+              },
+              "would_clip_batches": 0
+            },
+            "0.001": {
+              "auxiliary_ratio": {
+                "median": 2.456693668217583,
+                "minimum": 1.0551745786044648,
+                "maximum": 6.341806028486787
+              },
+              "cosine": {
+                "median": 0.3776926144552583,
+                "minimum": 0.21045736031546983,
+                "maximum": 0.47379061378458504
+              },
+              "total_norm": {
+                "median": 0.03436370872380751,
+                "minimum": 0.027224531940509646,
+                "maximum": 0.09608517264448208
+              },
+              "would_clip_batches": 0
+            },
+            "0.003": {
+              "auxiliary_ratio": {
+                "median": 2.61277525908189,
+                "minimum": 1.2310346286272291,
+                "maximum": 6.639294333223256
+              },
+              "cosine": {
+                "median": 0.36468551758899415,
+                "minimum": 0.2164469913581316,
+                "maximum": 0.5238269337225133
+              },
+              "total_norm": {
+                "median": 0.036858861931778925,
+                "minimum": 0.02956414292855358,
+                "maximum": 0.0983400808949309
+              },
+              "would_clip_batches": 0
+            }
+          }
+        }
+      },
+      "dense_intersection": {
+        "natural": {
+          "batches": 4,
+          "eligible_batches": 3,
+          "total_would_clip_batches": 0,
+          "components": {
+            "noise_mse": {
+              "parameter_gradient_norm": {
+                "median": 0.03203268503565749,
+                "minimum": 0.007482045127203074,
+                "maximum": 0.26580940603954306
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 1.0,
+                "minimum": 1.0,
+                "maximum": 1.0
+              },
+              "cosine_with_epsilon": {
+                "median": 1.0000000000000002,
+                "minimum": 1.0,
+                "maximum": 1.0000000000000002
+              }
+            },
+            "weighted_imitation": {
+              "parameter_gradient_norm": {
+                "median": 0.005815383417675981,
+                "minimum": 0.0038358397493093613,
+                "maximum": 0.027212227605570478
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.5126726294877706,
+                "minimum": 0.021878019684566232,
+                "maximum": 0.849514412397179
+              },
+              "cosine_with_epsilon": {
+                "median": 0.2929835970284344,
+                "minimum": 0.08154036494840247,
+                "maximum": 0.3392929925099544
+              }
+            },
+            "weighted_raw_interior": {
+              "parameter_gradient_norm": {
+                "median": 0.0005918715628929681,
+                "minimum": 0.000560428109451352,
+                "maximum": 0.0008187252085957736
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.02555905656002305,
+                "minimum": 0.0022266765187568967,
+                "maximum": 0.07490306459309613
+              },
+              "cosine_with_epsilon": {
+                "median": 0.07121119268096696,
+                "minimum": -0.21968902932552753,
+                "maximum": 0.12990835976556642
+              }
+            },
+            "weighted_decoded_boundary": {
+              "parameter_gradient_norm": {
+                "median": 0.002013500893510882,
+                "minimum": 0.0009826553789981664,
+                "maximum": 0.002087733301931537
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.06517509536298804,
+                "minimum": 0.0075749798455640215,
+                "maximum": 0.1313351312765339
+              },
+              "cosine_with_epsilon": {
+                "median": 0.06795954703032266,
+                "minimum": -0.06519286731825692,
+                "maximum": 0.08986146381665348
+              }
+            },
+            "auxiliary_total": {
+              "parameter_gradient_norm": {
+                "median": 0.005984612577685691,
+                "minimum": 0.004036524462150938,
+                "maximum": 0.02826397621552712
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.5394948030285224,
+                "minimum": 0.022514675710141693,
+                "maximum": 0.882348019969753
+              },
+              "cosine_with_epsilon": {
+                "median": 0.26532695924507776,
+                "minimum": 0.09588295479694262,
+                "maximum": 0.3267509031453659
+              }
+            },
+            "total_loss": {
+              "parameter_gradient_norm": {
+                "median": 0.04470530641092063,
+                "minimum": 0.009396864322316633,
+                "maximum": 0.2678246003464093
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 1.2559218987000889,
+                "minimum": 1.0075813506259688,
+                "maximum": 1.3956153335618444
+              },
+              "cosine_with_epsilon": {
+                "median": 0.9102019526283909,
+                "minimum": 0.7771497502528671,
+                "maximum": 0.9997769741648815
+              }
+            }
+          },
+          "candidates": {
+            "0.0001": {
+              "auxiliary_ratio": {
+                "median": 0.5154488853410977,
+                "minimum": 0.022051893640362263,
+                "maximum": 0.8643676891247024
+              },
+              "cosine": {
+                "median": 0.29265448888265283,
+                "minimum": 0.09326562216391597,
+                "maximum": 0.3058268824787787
+              },
+              "total_norm": {
+                "median": 0.026809120162357807,
+                "minimum": 0.008496861274691752,
+                "maximum": 0.2676602272214575
+              },
+              "would_clip_batches": 0
+            },
+            "0.0004": {
+              "auxiliary_ratio": {
+                "median": 0.520613532036236,
+                "minimum": 0.021973448250922335,
+                "maximum": 0.8699630676287852
+              },
+              "cosine": {
+                "median": 0.28481740506761716,
+                "minimum": 0.0941931616025146,
+                "maximum": 0.3162121596287007
+              },
+              "total_norm": {
+                "median": 0.02688098493061862,
+                "minimum": 0.008496861274691752,
+                "maximum": 0.26771367156334247
+              },
+              "would_clip_batches": 0
+            },
+            "0.001": {
+              "auxiliary_ratio": {
+                "median": 0.5394948167333111,
+                "minimum": 0.022514675912960642,
+                "maximum": 0.8823480160084118
+              },
+              "cosine": {
+                "median": 0.2653269709066327,
+                "minimum": 0.09588295469360764,
+                "maximum": 0.3267509084567745
+              },
+              "total_norm": {
+                "median": 0.027051085962953983,
+                "minimum": 0.008496861274691752,
+                "maximum": 0.26782461539918107
+              },
+              "would_clip_batches": 0
+            },
+            "0.003": {
+              "auxiliary_ratio": {
+                "median": 0.6689317711398948,
+                "minimum": 0.02975817503408854,
+                "maximum": 0.9343272907554292
+              },
+              "cosine": {
+                "median": 0.18838736425346675,
+                "minimum": 0.1000299136995871,
+                "maximum": 0.2929644847408605
+              },
+              "total_norm": {
+                "median": 0.027864144198812942,
+                "minimum": 0.008496861274691752,
+                "maximum": 0.2682333970384473
+              },
+              "would_clip_batches": 0
+            }
+          }
+        },
+        "fixed_t0": {
+          "batches": 4,
+          "eligible_batches": 4,
+          "total_would_clip_batches": 4,
+          "components": {
+            "noise_mse": {
+              "parameter_gradient_norm": {
+                "median": 1.6881945171637038,
+                "minimum": 1.4820986534587086,
+                "maximum": 1.9573949653044775
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 1.0,
+                "minimum": 1.0,
+                "maximum": 1.0
+              },
+              "cosine_with_epsilon": {
+                "median": 1.0,
+                "minimum": 0.9999999999999999,
+                "maximum": 1.0
+              }
+            },
+            "weighted_imitation": {
+              "parameter_gradient_norm": {
+                "median": 0.005865916316606279,
+                "minimum": 0.002780545004200395,
+                "maximum": 0.0069238793206620585
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.003475137999137426,
+                "minimum": 0.0018760863170016106,
+                "maximum": 0.00353729290377787
+              },
+              "cosine_with_epsilon": {
+                "median": 0.589133595550206,
+                "minimum": 0.32669568389846054,
+                "maximum": 0.6478726634993962
+              }
+            },
+            "weighted_raw_interior": {
+              "parameter_gradient_norm": {
+                "median": 0.00012492472958683758,
+                "minimum": 0.0001140217294329543,
+                "maximum": 0.0001445312483310773
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 7.432244642237544e-05,
+                "minimum": 5.825177414575497e-05,
+                "maximum": 9.751796750762242e-05
+              },
+              "cosine_with_epsilon": {
+                "median": 0.0981317700440816,
+                "minimum": 0.0927749595131346,
+                "maximum": 0.2806790305411893
+              }
+            },
+            "weighted_decoded_boundary": {
+              "parameter_gradient_norm": {
+                "median": 0.0004691226698274668,
+                "minimum": 0.0003146261839931664,
+                "maximum": 0.0007656285030195538
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.0002803152137704875,
+                "minimum": 0.00016073719896598666,
+                "maximum": 0.0005165840352346588
+              },
+              "cosine_with_epsilon": {
+                "median": 0.11730967175070466,
+                "minimum": 0.10395716034736825,
+                "maximum": 0.2959478783164175
+              }
+            },
+            "auxiliary_total": {
+              "parameter_gradient_norm": {
+                "median": 0.005954864108096545,
+                "minimum": 0.003035939181293746,
+                "maximum": 0.0070281689758091926
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.003527933988985796,
+                "minimum": 0.002048405599862673,
+                "maximum": 0.0035905727256818317
+              },
+              "cosine_with_epsilon": {
+                "median": 0.599105026069126,
+                "minimum": 0.41624106763800744,
+                "maximum": 0.6576797778339052
+              }
+            },
+            "total_loss": {
+              "parameter_gradient_norm": {
+                "median": 1.6918776757487746,
+                "minimum": 1.4833649211275037,
+                "maximum": 1.9617916055546298
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 1.002140940626096,
+                "minimum": 1.0008543747515324,
+                "maximum": 1.0023152567700013
+              },
+              "cosine_with_epsilon": {
+                "median": 0.9999962980110191,
+                "minimum": 0.9999958115946443,
+                "maximum": 0.9999982684462848
+              }
+            }
+          },
+          "candidates": {
+            "0.0001": {
+              "auxiliary_ratio": {
+                "median": 0.003507081289055437,
+                "minimum": 0.001935020481790984,
+                "maximum": 0.0035680625743025585
+              },
+              "cosine": {
+                "median": 0.5964761128831948,
+                "minimum": 0.3695241591518631,
+                "maximum": 0.6536198114673487
+              },
+              "total_norm": {
+                "median": 1.691832333231839,
+                "minimum": 1.483160802679961,
+                "maximum": 1.961756737662593
+              },
+              "would_clip_batches": 4
+            },
+            "0.0004": {
+              "auxiliary_ratio": {
+                "median": 0.003511960220222274,
+                "minimum": 0.001961332050691552,
+                "maximum": 0.0035749313398230525
+              },
+              "cosine": {
+                "median": 0.5976427755047318,
+                "minimum": 0.3879513425224114,
+                "maximum": 0.6552200132001506
+              },
+              "total_norm": {
+                "median": 1.691847424113051,
+                "minimum": 1.4832288041989914,
+                "maximum": 1.9617683591969088
+              },
+              "would_clip_batches": 4
+            },
+            "0.001": {
+              "auxiliary_ratio": {
+                "median": 0.003527933860190769,
+                "minimum": 0.0020484056258252563,
+                "maximum": 0.0035905727769316104
+              },
+              "cosine": {
+                "median": 0.5991050228995707,
+                "minimum": 0.4162410817924146,
+                "maximum": 0.6576797917649903
+              },
+              "total_norm": {
+                "median": 1.691877641934283,
+                "minimum": 1.4833649045818653,
+                "maximum": 1.9617916156828787
+              },
+              "would_clip_batches": 4
+            },
+            "0.003": {
+              "auxiliary_ratio": {
+                "median": 0.0036227898659555316,
+                "minimum": 0.0025975835108417366,
+                "maximum": 0.0036931925740875562
+              },
+              "cosine": {
+                "median": 0.596121516419873,
+                "minimum": 0.445950812986555,
+                "maximum": 0.6589153122530528
+              },
+              "total_norm": {
+                "median": 1.6919787152061678,
+                "minimum": 1.483819509503424,
+                "maximum": 1.9618692664993689
+              },
+              "would_clip_batches": 4
+            }
+          }
+        },
+        "fixed_t50": {
+          "batches": 4,
+          "eligible_batches": 4,
+          "total_would_clip_batches": 0,
+          "components": {
+            "noise_mse": {
+              "parameter_gradient_norm": {
+                "median": 0.11061479334861224,
+                "minimum": 0.08771390036173637,
+                "maximum": 0.2159023795775551
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 1.0,
+                "minimum": 1.0,
+                "maximum": 1.0
+              },
+              "cosine_with_epsilon": {
+                "median": 0.9999999999999999,
+                "minimum": 0.9999999999999998,
+                "maximum": 1.0
+              }
+            },
+            "weighted_imitation": {
+              "parameter_gradient_norm": {
+                "median": 0.022461165982722846,
+                "minimum": 0.015473340338351217,
+                "maximum": 0.04051833193909071
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.19409053395246345,
+                "minimum": 0.1714345507340197,
+                "maximum": 0.2087070802613781
+              },
+              "cosine_with_epsilon": {
+                "median": 0.23556381693826967,
+                "minimum": 0.044341957771159166,
+                "maximum": 0.34596437977941513
+              }
+            },
+            "weighted_raw_interior": {
+              "parameter_gradient_norm": {
+                "median": 0.001074125653253122,
+                "minimum": 0.0008226773938302909,
+                "maximum": 0.001200806820276075
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.008743504892929469,
+                "minimum": 0.0055618044721212935,
+                "maximum": 0.01291141493605267
+              },
+              "cosine_with_epsilon": {
+                "median": 0.1583532973400535,
+                "minimum": 0.06638008515476011,
+                "maximum": 0.3442159223392438
+              }
+            },
+            "weighted_decoded_boundary": {
+              "parameter_gradient_norm": {
+                "median": 0.0019757806025207368,
+                "minimum": 0.0012944376048605107,
+                "maximum": 0.002123503934370375
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.01582351824947235,
+                "minimum": 0.009460679033406121,
+                "maximum": 0.02352704296617956
+              },
+              "cosine_with_epsilon": {
+                "median": 0.2388579815613564,
+                "minimum": 0.04443153749462113,
+                "maximum": 0.3345560629524086
+              }
+            },
+            "auxiliary_total": {
+              "parameter_gradient_norm": {
+                "median": 0.022744187675349574,
+                "minimum": 0.017002910377368147,
+                "maximum": 0.04087517826890407
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.19587706024737614,
+                "minimum": 0.188381192294353,
+                "maximum": 0.21174294270581703
+              },
+              "cosine_with_epsilon": {
+                "median": 0.27794661433191725,
+                "minimum": 0.0852184768251893,
+                "maximum": 0.3656974486817261
+              }
+            },
+            "total_loss": {
+              "parameter_gradient_norm": {
+                "median": 0.12003663867102696,
+                "minimum": 0.09096402885428997,
+                "maximum": 0.23005004236097504
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 1.0680011086755212,
+                "minimum": 1.0370537449497732,
+                "maximum": 1.095309479082029
+              },
+              "cosine_with_epsilon": {
+                "median": 0.9844377181272117,
+                "minimum": 0.9809047578628678,
+                "maximum": 0.985744221015586
+              }
+            }
+          },
+          "candidates": {
+            "0.0001": {
+              "auxiliary_ratio": {
+                "median": 0.1953009429215416,
+                "minimum": 0.17869119015889628,
+                "maximum": 0.20976668850579747
+              },
+              "cosine": {
+                "median": 0.26562938047234574,
+                "minimum": 0.06483747255581791,
+                "maximum": 0.35786605854756787
+              },
+              "total_norm": {
+                "median": 0.11949503398144874,
+                "minimum": 0.09060652415722557,
+                "maximum": 0.22994254240977216
+              },
+              "would_clip_batches": 0
+            },
+            "0.0004": {
+              "auxiliary_ratio": {
+                "median": 0.1953664006459998,
+                "minimum": 0.18170457438413168,
+                "maximum": 0.21038571589746194
+              },
+              "cosine": {
+                "median": 0.2700709126601606,
+                "minimum": 0.07171370735457977,
+                "maximum": 0.3605609288923457
+              },
+              "total_norm": {
+                "median": 0.11967329814637848,
+                "minimum": 0.09072223272874815,
+                "maximum": 0.2299767486011696
+              },
+              "would_clip_batches": 0
+            },
+            "0.001": {
+              "auxiliary_ratio": {
+                "median": 0.19587706121835916,
+                "minimum": 0.18838119842916234,
+                "maximum": 0.21174293056917567
+              },
+              "cosine": {
+                "median": 0.27794660005005134,
+                "minimum": 0.08521848265314137,
+                "maximum": 0.36569745766989104
+              },
+              "total_norm": {
+                "median": 0.1200366343358312,
+                "minimum": 0.09096402564076483,
+                "maximum": 0.23005004244871022
+              },
+              "would_clip_batches": 0
+            },
+            "0.003": {
+              "auxiliary_ratio": {
+                "median": 0.21286369392077356,
+                "minimum": 0.19245289767807366,
+                "maximum": 0.21737694946799332
+              },
+              "cosine": {
+                "median": 0.2957903006238022,
+                "minimum": 0.12613316878744588,
+                "maximum": 0.380401229544324
+              },
+              "total_norm": {
+                "median": 0.12131190443443784,
+                "minimum": 0.09186859430209705,
+                "maximum": 0.23034128513003616
+              },
+              "would_clip_batches": 0
+            }
+          }
+        },
+        "fixed_t200": {
+          "batches": 4,
+          "eligible_batches": 4,
+          "total_would_clip_batches": 0,
+          "components": {
+            "noise_mse": {
+              "parameter_gradient_norm": {
+                "median": 0.03170778661249907,
+                "minimum": 0.018981466513470373,
+                "maximum": 0.04632811150954609
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 1.0,
+                "minimum": 1.0,
+                "maximum": 1.0
+              },
+              "cosine_with_epsilon": {
+                "median": 1.0,
+                "minimum": 0.9999999999999998,
+                "maximum": 1.0000000000000002
+              }
+            },
+            "weighted_imitation": {
+              "parameter_gradient_norm": {
+                "median": 0.03395491118535562,
+                "minimum": 0.026978984705428834,
+                "maximum": 0.04097541436556109
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 1.0974364358050834,
+                "minimum": 0.8677091979553224,
+                "maximum": 1.421332997968463
+              },
+              "cosine_with_epsilon": {
+                "median": 0.2924557143987126,
+                "minimum": 0.11059190268497877,
+                "maximum": 0.3511112425917543
+              }
+            },
+            "weighted_raw_interior": {
+              "parameter_gradient_norm": {
+                "median": 0.0016597751128738774,
+                "minimum": 0.001327873157857587,
+                "maximum": 0.0017697175352559197
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.04860154785268363,
+                "minimum": 0.03683606039835203,
+                "maximum": 0.08497789730292142
+              },
+              "cosine_with_epsilon": {
+                "median": 0.06120757485009607,
+                "minimum": 0.03896660424129111,
+                "maximum": 0.18909031787238464
+              }
+            },
+            "weighted_decoded_boundary": {
+              "parameter_gradient_norm": {
+                "median": 0.005995305040210768,
+                "minimum": 0.004912168706559371,
+                "maximum": 0.007451846129302455
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 0.17128895369733174,
+                "minimum": 0.14315542711880264,
+                "maximum": 0.3530780024410402
+              },
+              "cosine_with_epsilon": {
+                "median": 0.14349505468974721,
+                "minimum": 0.06935861103289567,
+                "maximum": 0.22594537981052887
+              }
+            },
+            "auxiliary_total": {
+              "parameter_gradient_norm": {
+                "median": 0.035006841639538114,
+                "minimum": 0.031920144111267555,
+                "maximum": 0.04575700905524966
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 1.1418347356148015,
+                "minimum": 0.9412476553118433,
+                "maximum": 1.6816479426716124
+              },
+              "cosine_with_epsilon": {
+                "median": 0.31502360854710965,
+                "minimum": 0.139450739425982,
+                "maximum": 0.36210850225894786
+              }
+            },
+            "total_loss": {
+              "parameter_gradient_norm": {
+                "median": 0.05251684966974286,
+                "minimum": 0.0426378764994275,
+                "maximum": 0.07421223917999129
+              },
+              "norm_ratio_to_epsilon": {
+                "median": 1.741394345308096,
+                "minimum": 1.465763452894955,
+                "maximum": 2.2462898991060114
+              },
+              "cosine_with_epsilon": {
+                "median": 0.7657900688073791,
+                "minimum": 0.7162651178003985,
+                "maximum": 0.8085898783174563
+              }
+            }
+          },
+          "candidates": {
+            "0.0001": {
+              "auxiliary_ratio": {
+                "median": 1.10476667451948,
+                "minimum": 0.8853644672185506,
+                "maximum": 1.4895936224873165
+              },
+              "cosine": {
+                "median": 0.30731263285149635,
+                "minimum": 0.1381595208735107,
+                "maximum": 0.3605952290519467
+              },
+              "total_norm": {
+                "median": 0.05179586331197103,
+                "minimum": 0.039329533880743665,
+                "maximum": 0.07104865206800706
+              },
+              "would_clip_batches": 0
+            },
+            "0.0004": {
+              "auxiliary_ratio": {
+                "median": 1.1152245808701489,
+                "minimum": 0.9023342402721033,
+                "maximum": 1.5490211575871902
+              },
+              "cosine": {
+                "median": 0.3103243182176658,
+                "minimum": 0.13886234559815674,
+                "maximum": 0.36221148663068586
+              },
+              "total_norm": {
+                "median": 0.05199345526708854,
+                "minimum": 0.040362351515351114,
+                "maximum": 0.07204927139509763
+              },
+              "would_clip_batches": 0
+            },
+            "0.001": {
+              "auxiliary_ratio": {
+                "median": 1.141834753560201,
+                "minimum": 0.9412477044623454,
+                "maximum": 1.6816479782026104
+              },
+              "cosine": {
+                "median": 0.31502361902790726,
+                "minimum": 0.13945073709309008,
+                "maximum": 0.36210852083128026
+              },
+              "total_norm": {
+                "median": 0.05251685026504095,
+                "minimum": 0.042637875382567914,
+                "maximum": 0.07421224163141175
+              },
+              "would_clip_batches": 0
+            },
+            "0.003": {
+              "auxiliary_ratio": {
+                "median": 1.2798413446279513,
+                "minimum": 1.109796010666502,
+                "maximum": 2.214596514627226
+              },
+              "cosine": {
+                "median": 0.3140647152259495,
+                "minimum": 0.1361653927789475,
+                "maximum": 0.35811150036159284
+              },
+              "total_norm": {
+                "median": 0.05542991737782378,
+                "minimum": 0.05177948268661976,
+                "maximum": 0.0827692203712805
+              },
+              "would_clip_batches": 0
+            }
+          }
+        }
+      }
+    },
+    "calls": 32,
+    "optimizer_updates": 0,
+    "model_unchanged": true,
+    "optimizer_unchanged": true,
+    "grad_buffers_unset": true,
+    "forced_t0_clips": 8,
+    "forced_t0_epsilon_alone_clips": 8,
+    "wall_seconds": 20.39796179998666,
+    "peak_allocated_bytes": 654150656,
+    "peak_reserved_bytes": 736100352
+  },
+  "coverage": {
+    "source": "E:\\diffusion_new\\artifacts\\runs\\stage5d-v1\\train\\steps.jsonl",
+    "steps": 15000,
+    "scene_visits": 60000,
+    "groups": {
+      "all": {
+        "scene_visits": 60000,
+        "eligible_visits": 17867,
+        "t0": 61,
+        "t1_50": 3007,
+        "t51_200": 8908,
+        "t201_300": 5891,
+        "t301_999": 42133,
+        "eligible_fraction": 0.29778333333333334
+      },
+      "ordinary": {
+        "scene_visits": 57650,
+        "eligible_visits": 17171,
+        "t0": 58,
+        "t1_50": 2859,
+        "t51_200": 8586,
+        "t201_300": 5668,
+        "t301_999": 40479,
+        "eligible_fraction": 0.2978490893321769
+      },
+      "ramp_merge": {
+        "scene_visits": 20000,
+        "eligible_visits": 5970,
+        "t0": 18,
+        "t1_50": 1027,
+        "t51_200": 2945,
+        "t201_300": 1980,
+        "t301_999": 14030,
+        "eligible_fraction": 0.2985
+      },
+      "three_lane_straight": {
+        "scene_visits": 20000,
+        "eligible_visits": 5931,
+        "t0": 18,
+        "t1_50": 944,
+        "t51_200": 2962,
+        "t201_300": 2007,
+        "t301_999": 14069,
+        "eligible_fraction": 0.29655
+      },
+      "unsignalized_intersection": {
+        "scene_visits": 20000,
+        "eligible_visits": 5966,
+        "t0": 25,
+        "t1_50": 1036,
+        "t51_200": 3001,
+        "t201_300": 1904,
+        "t301_999": 14034,
+        "eligible_fraction": 0.2983
+      },
+      "dense_intersection": {
+        "scene_visits": 2350,
+        "eligible_visits": 696,
+        "t0": 3,
+        "t1_50": 148,
+        "t51_200": 322,
+        "t201_300": 223,
+        "t301_999": 1654,
+        "eligible_fraction": 0.29617021276595745
+      }
+    },
+    "interpretation": "Parent natural uniform timestep exposure; scene counts do not measure gradient influence.",
+    "training_distribution_changed": false,
+    "validation_failure_used": false
+  },
+  "stress": {
+    "schema_version": "sumodiff.decoded.temporal.stress.v1",
+    "isolated_optimizer_updates": 12,
+    "production_training_updates": 0,
+    "production_checkpoints_saved": false,
+    "warmup_bypassed": true,
+    "clipped_updates": 0,
+    "gradient_norm_max": 0.4145911931991577,
+    "validation_epsilon": 0.0005209456931333989,
+    "wall_seconds": 10.84893569999258,
+    "peak_allocated_bytes": 189474816,
+    "interpretation": "Peak/full-temporal private stress only; does not determine optimum lr or generation quality."
+  },
+  "learning_prefix": {
+    "start_step": 60000,
+    "end_step": 60016,
+    "updates": 16,
+    "nominal_additional_epochs": 25,
+    "full_budget_complete": false,
+    "newly_completed_epochs": 0,
+    "optimizer_reset_at_fork": false,
+    "optimizer_step_timing": {
+      "mean_seconds": 0.22650582666586463,
+      "median_seconds": 0.23761760001070797,
+      "warmup_updates_excluded": 1
+    },
+    "cache_preparation_seconds": 23.2091986000014,
+    "geometry_preparation_seconds": 7.209269899991341,
+    "training_validation_checkpoint_wall_seconds": 13.71163550001802,
+    "peak_allocated_bytes": 189521408,
+    "peak_reserved_bytes": 736100352,
+    "validation": [
+      {
+        "step": 60000,
+        "train_probe_mse": 0.0003174663344301128,
+        "validation_probe_mse": 0.00043875073024537416
+      },
+      {
+        "step": 60016,
+        "train_probe_mse": 0.00031260764784140824,
+        "validation_probe_mse": 0.0004362052748183487
+      }
+    ],
+    "gradient_clipped_updates": 0,
+    "cached_tensor_bytes": 1197506800,
+    "estimate": {
+      "optimizer_only_seconds": 1698.7936999939848,
+      "basis": "measured same batch/cohort workload; excludes validation/monitoring/checkpoint/cache; no convergence claim"
+    }
+  },
+  "initial_state": {
+    "model": "f11e01f6ceba01ab9057f00548b7edeb881f5fec405860e3ff07e6c801ef92f4",
+    "optimizer": "aa62f70a2ad2c03661dce485b959fc56730324334d498c673a8965577b082563",
+    "noise_generator": "9cd779a0e7f73f58c210067aff5899b425872b9c2a76b1aa1d5c544c526139b3",
+    "cpu_rng": "6990bc5f880320236754c3658f9391457ed1c83056199d2072238fbf8f771dd0",
+    "cuda_rng": [
+      "46c46d99b13177176c07c4bfd7d3ec42dd32bf41187734213b7d2f7e6a88b049"
+    ],
+    "optimizer_parameter_states": 190,
+    "scheduler_state": {
+      "schema_version": "sumodiff.warmup.cosine.state.v1",
+      "config_sha256": "10e120b3baf2bbabd9aa009e060b9c1701a5d923ec86e215b7c2b4f6d73f49df",
+      "completed_updates": 0,
+      "last_lr": null,
+      "last_auxiliary_ramp": null
+    },
+    "initialization": "inherit_model_AdamW_moments_and_noise_Torch_RNG_reset_scheduler_only"
+  },
+  "recovery": {
+    "schema_version": "sumodiff.continuation.audit.metrics.v1",
+    "run_sha": "72051ac6e6071d755f3d5a6bbd132fa971ba3e0f",
+    "final_step": 60016,
+    "resume_step": 60008,
+    "training_signature_equal": true,
+    "final_step_equal": true,
+    "model_equal": true,
+    "optimizer_equal": true,
+    "noise_generator_equal": true,
+    "cpu_rng_equal": true,
+    "cuda_rng_equal": true,
+    "continuation_trace_equal": true,
+    "compared_updates": 8,
+    "source_uninterrupted_sha": "72051ac6e6071d755f3d5a6bbd132fa971ba3e0f",
+    "source_resumed_sha": "72051ac6e6071d755f3d5a6bbd132fa971ba3e0f",
+    "parent_checkpoint": {
+      "id": "sha256:18ee9e1b31736b8ffa8fa493eb4dc3fee5861f430f894d0a8ebe0655a7990a25",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5e-preflight-20261010-r1\\uninterrupted\\checkpoint_step_060008.pt",
+      "sha256": "18ee9e1b31736b8ffa8fa493eb4dc3fee5861f430f894d0a8ebe0655a7990a25",
+      "size_bytes": 41329706
+    },
+    "scope": "identical local runtime/device/precision and data; cross-version bitwise equality not promised"
+  },
+  "all_loss_trace_equal": true,
+  "scheduler_equal": true,
+  "six_task_probe": {
+    "parent_quality": 1,
+    "candidate_quality": {
+      "planned": 6,
+      "quality_passes": 1,
+      "road_bad": 1,
+      "route_bad": 1,
+      "motion_bad": 5,
+      "unknown": 0,
+      "failures": 0,
+      "decoded_interior_jerk_p99": 235.82032991960432,
+      "decoded_boundary_jerk_p99": 425.1583092280832,
+      "decoded_boundary_jerk_max": 427.33900704349105,
+      "strict_comfort_pass_agents": 0,
+      "strict_comfort_assessed_agents": 22,
+      "strict_comfort_planned_agents": 22,
+      "strict_comfort_unassessed_agents": 0,
+      "collision_scenes": 0,
+      "collision_unknown": 0,
+      "collision_not_applicable_scenes": 0
+    },
+    "initial_noise_pairs": 6,
+    "training_updates": 16,
+    "quality_or_convergence_claim": false
+  },
+  "report_audit": {
+    "schema_version": "sumodiff.stage5e.report.audit.metrics.v1",
+    "counts": {
+      "planned_scenes": 200,
+      "quality_passes": 82.0,
+      "quality_unknown": 0,
+      "generation_failures": 0,
+      "metric_failures": 0,
+      "motion_bad": 118,
+      "collision_scenes": 3,
+      "collision_unknown": 0,
+      "noise_comparisons_available": 200,
+      "missing_noise": 0,
+      "road_bad": 8,
+      "road_unknown": 0,
+      "route_bad": 9,
+      "route_unknown": 0,
+      "map_coverage_bad": 0,
+      "map_coverage_unknown": 0,
+      "collision_not_applicable_scenes": 0
+    },
+    "comfort": {
+      "pass_agents": 10,
+      "assessed_agents": 735,
+      "planned_agents": 735,
+      "unassessed_agents": 0,
+      "pass_rate": 0.013605442176870748,
+      "assessed_pass_rate": 0.013605442176870748
+    },
+    "self_paired_metrics": [
+      "quality_success",
+      "decoded_boundary_jerk_p99",
+      "decoded_interior_jerk_p99",
+      "strict_comfort_rate",
+      "road_violation",
+      "route_violation",
+      "collision",
+      "position_correction_max",
+      "velocity_correction_max"
+    ],
+    "self_paired_differences_all_zero": true,
+    "noise_identities": 200,
+    "optimizer_updates": 0,
+    "new_sampling_tasks": 0
+  },
+  "preflight_wall_seconds": 174.87139820001903,
+  "unique_verified_inputs": 7427,
+  "total_actual_private_updates": 36,
+  "completed_formal_epochs": 0,
+  "sources": {
+    "preflight_summary": {
+      "id": "sha256:c7f1a038bf28bf4043df6e2f8b9beb9a50fd7571c242a4edcda3d5016fe656cf",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5e-preflight-20261010-r1\\preflight_summary.json",
+      "sha256": "c7f1a038bf28bf4043df6e2f8b9beb9a50fd7571c242a4edcda3d5016fe656cf",
+      "size_bytes": 452610
+    },
+    "gradient_audit": {
+      "id": "sha256:cdfb90b7eb36581113bce32cde53a1178edcc1b105b433f5be1d1c62701d5079",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5e-preflight-20261010-r1\\joint_gradient_audit.json",
+      "sha256": "cdfb90b7eb36581113bce32cde53a1178edcc1b105b433f5be1d1c62701d5079",
+      "size_bytes": 400943
+    },
+    "coverage": {
+      "id": "sha256:afc0a06289fd8285135abac017c6ff62242d662bed493b444b9d30cb55436fe7",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5e-preflight-20261010-r1\\parent_timestep_coverage.json",
+      "sha256": "afc0a06289fd8285135abac017c6ff62242d662bed493b444b9d30cb55436fe7",
+      "size_bytes": 1843
+    },
+    "stress": {
+      "id": "sha256:96f0407bafe22f265de4cb31e1a4ae8af03e4942374ddf25e633bdd194866e22",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5e-preflight-20261010-r1\\stress.json",
+      "sha256": "96f0407bafe22f265de4cb31e1a4ae8af03e4942374ddf25e633bdd194866e22",
+      "size_bytes": 10256
+    },
+    "report_audit": {
+      "id": "sha256:0a10636d732fb7a92694da6e97898535bad554e53bad9fa86848bc5e5d2c2efa",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5e-report-audit-20261010\\baseline_report_audit.json",
+      "sha256": "0a10636d732fb7a92694da6e97898535bad554e53bad9fa86848bc5e5d2c2efa",
+      "size_bytes": 264709
+    },
+    "audit_script": {
+      "id": "sha256:acc7ece03d909696e805f8c1600319c9da39b7aebe97ef9ea0e9093fff6a060c",
+      "location": "E:\\diffusion_new\\artifacts\\cache\\audit_stage5e_preflight.py",
+      "sha256": "acc7ece03d909696e805f8c1600319c9da39b7aebe97ef9ea0e9093fff6a060c",
+      "size_bytes": 9553
+    },
+    "failed_status": {
+      "id": "sha256:85d5fd35265b1792fb9f7e4f520c6e65cf8e5f3160ca1606a93ee10dec87bed3",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5e-preflight-20261010\\status.json",
+      "sha256": "85d5fd35265b1792fb9f7e4f520c6e65cf8e5f3160ca1606a93ee10dec87bed3",
+      "size_bytes": 283
+    }
+  },
+  "tests": {
+    "full_regression_passed": 322,
+    "full_regression_seconds": 16.76,
+    "later_entry_checks_passed": 14,
+    "later_index_checks_passed": 8,
+    "cli_and_powershell_parse": true
+  },
+  "limits": [
+    "Formal 25 epochs not launched. All work is local; no stage6/push/tag.",
+    "Frozen ratios are conditional on eligible training batches; vector sensitivities do not prove loss benefit.",
+    "Forced all-t0 clipping is dominated by epsilon itself; it is not the natural training clip rate.",
+    "Private full-strength stress skips warmup; validation epsilon increased, so it is only a finite-gradient check.",
+    "6 tasks and 16 updates check the chain only; generated quality is unchanged at 1/6 in this probe.",
+    "New budget/lr/loss change together; no isolated loss causality or convergence claim."
+  ]
+}

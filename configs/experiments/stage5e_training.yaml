@@ -1,0 +1,11 @@
+schema_version: sumodiff.stage5e.suite.config.v1
+dataset: artifacts/processed/stage5a-v1/dataset
+parent_checkpoint: artifacts/runs/stage5d-v1/train/checkpoint_step_060000.pt
+scale_audit: artifacts/runs/stage5a-v1-scales/scale_audit.json
+sampling_config: configs/experiments/stage5a_validation_sampling.yaml
+baseline_run: artifacts/runs/stage5d-v1/sample
+training_config: configs/train/stage5e_decoded_temporal.yaml
+preflight_updates: 16
+gradient_batches_per_group: 4
+stress_updates: 12
+bootstrap_seed: 20261022

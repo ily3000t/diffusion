@@ -121,3 +121,15 @@ Run从150轮checkpoint续训到200轮，每10轮固定20任务，最后自动评
 已完成冻结150/200轮模型的低噪声重构及现有200任务oracle检查，未继续训练。t=0时密集路口训练0/47、验证0/16运动通过；普通路口分别17/24、30/50。协调后的首帧受到整段预测影响，仅新增原始首四帧位置loss的证据不足。当前自由生成质量仍为82/200；重构与标签替换不替代生成评价。
 
 结果、限制及下一版监督建议见[boundary_density_results.md](docs/boundary_density_results.md)，数值与来源见[轻量摘要](docs/boundary_density_results.json)，冻结入口见[诊断协议](docs/boundary_density_diagnosis.md)。200轮保持当前候选，后续先校准解码边界与整段速度监督，阶段6未启动。
+
+
+## 阶段5E：200→225轮解码边界监督
+
+已实现并完成短GPU验收：解码时间监督按前4帧/内部36帧独立归一化并替换旧时间项；候选系数0.001/0.0009，仅增量预热1轮。保留原始速度、模仿和道路目标，继承200轮完整AdamW/RNG，逐轮无放回数据保持。322项全量回归及后续入口/修复检查通过，实际恢复逐位一致。
+
+~~~powershell
+Set-Location E:\diffusion_new
+.\scripts\stage5e.ps1 -Stage Run -RunId stage5e-v1
+~~~
+
+此命令从原200轮父模型开始25个真实epoch，到225轮后自动生成/评估200配对任务。当前未启动长训练；RunId须未使用、代码已提交且工作区干净。实测纯优化约28.31分钟，验证/监测/保存/缓存/最终采样报告另计，不保证收敛。6任务短前缀资格与父模型同为1/6，不称新loss收益。完整公式、校准/裁剪限制、恢复和命令见[stage5e.md](docs/stage5e.md)，验收数值与来源见[stage5e_preflight_summary.json](docs/stage5e_preflight_summary.json)。阶段6未启动。

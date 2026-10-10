@@ -80,15 +80,15 @@ def raw_velocity_config(value,parent,*,prefix_updates=None):
     c['max_steps']=45000+c['planned_additional_updates']
     return c
 
-def inherit_optimizer(parent,model,optimizer,generator,device):
+def inherit_optimizer(parent,model,optimizer,generator,device,*,expected_updates=15000):
     # AdamW's CPU step tensors may otherwise alias the loaded source payload.
     restore_training(deepcopy(parent),model,optimizer,generator,device)
     state=inherited_state(model,optimizer,generator)
     if len(optimizer.state)!=sum(p.requires_grad for p in model.parameters()):
         raise ValueError('Source AdamW must have moments for every trainable parameter')
     for v in optimizer.state.values():
-        if set(v)!={'step','exp_avg','exp_avg_sq'} or float(v['step'])!=15000:
-            raise ValueError('Expected 15000 source AdamW updates since stage5C reset')
+        if set(v)!={'step','exp_avg','exp_avg_sq'} or float(v['step'])!=expected_updates:
+            raise ValueError(f'Expected {expected_updates} source AdamW updates since stage5C reset')
         if not all(torch.isfinite(v[k]).all() for k in ('exp_avg','exp_avg_sq')):
             raise ValueError('Nonfinite inherited optimizer moments')
     return state
