@@ -1,0 +1,15 @@
+schema_version: sumodiff.checkpoint.screen.config.v1
+dataset: artifacts/processed/stage5a-v1/dataset
+source_training: artifacts/runs/stage5e-v1/train
+sampling_config: configs/experiments/stage5e_checkpoint_screen_sampling.yaml
+baseline_run: artifacts/runs/stage5d-v1/sample
+endpoint_run: artifacts/runs/stage5e-v1/sample
+checkpoints:
+  - checkpoint_step_061500.pt
+  - checkpoint_step_063000.pt
+  - checkpoint_step_064500.pt
+  - checkpoint_step_065400.pt
+  - checkpoint_step_066000.pt
+  - checkpoint_step_066300.pt
+bootstrap_seed: 20261022
+planned_tasks: 60

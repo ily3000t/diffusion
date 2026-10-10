@@ -133,3 +133,6 @@ Set-Location E:\diffusion_new
 ~~~
 
 用户本地已完成stage5e-v1的25真实epoch及完整200任务配对评估。资格82→64/200（41%→32%），前四帧/内部jerk P99均变差；严格舒适性10→18/735，道路/路线各少1个违规场景，密集路口仍0/16。保留200轮候选，不自动按现配方延长训练。全流程36.32分钟，收敛尚未证明。结果见[stage5e_results.md](docs/stage5e_results.md)和[轻量摘要](docs/stage5e_results.json)，公式、恢复和复现入口见[stage5e.md](docs/stage5e.md)。上述RunId已使用，复现必须使用新RunId、已提交干净代码。阶段6未启动。
+
+
+已检查全部六个已有中间checkpoint，同60任务均未超过200轮的26/60资格；无需再训练即可复核。协议和报告入口见[checkpoint_screen.md](docs/checkpoint_screen.md)，结果、成本及限制见[checkpoint_screen_results.md](docs/checkpoint_screen_results.md)。保留200轮候选，阶段6未启动。
