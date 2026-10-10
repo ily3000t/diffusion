@@ -132,4 +132,4 @@ Set-Location E:\diffusion_new
 .\scripts\stage5e.ps1 -Stage Run -RunId stage5e-v1
 ~~~
 
-此命令从原200轮父模型开始25个真实epoch，到225轮后自动生成/评估200配对任务。当前未启动长训练；RunId须未使用、代码已提交且工作区干净。实测纯优化约28.31分钟，验证/监测/保存/缓存/最终采样报告另计，不保证收敛。6任务短前缀资格与父模型同为1/6，不称新loss收益。完整公式、校准/裁剪限制、恢复和命令见[stage5e.md](docs/stage5e.md)，验收数值与来源见[stage5e_preflight_summary.json](docs/stage5e_preflight_summary.json)。阶段6未启动。
+用户本地已完成stage5e-v1的25真实epoch及完整200任务配对评估。资格82→64/200（41%→32%），前四帧/内部jerk P99均变差；严格舒适性10→18/735，道路/路线各少1个违规场景，密集路口仍0/16。保留200轮候选，不自动按现配方延长训练。全流程36.32分钟，收敛尚未证明。结果见[stage5e_results.md](docs/stage5e_results.md)和[轻量摘要](docs/stage5e_results.json)，公式、恢复和复现入口见[stage5e.md](docs/stage5e.md)。上述RunId已使用，复现必须使用新RunId、已提交干净代码。阶段6未启动。
