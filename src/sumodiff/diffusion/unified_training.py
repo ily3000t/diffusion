@@ -213,7 +213,7 @@ def train_unified(dataset,parent_checkpoint,config_path,scale_path,output,reposi
     if source['sha256']!=c['fork_source_sha256']:
         raise ValueError('Original parent checksum mismatch')
     if c['planned_additional_updates']>1000 and not allow_long_run:
-        raise ValueError('50-epoch continuation requires explicit --allow-long-run')
+        raise ValueError('Continuation requires explicit --allow-long-run')
     if stop_after_updates is not None and (
         type(stop_after_updates) is not int or not 1<=stop_after_updates<=protocol.max_prefix_updates or prefix_updates is None):
         raise ValueError('Diagnostic stop must be bounded within a short prefix')
@@ -352,7 +352,7 @@ def train_unified(dataset,parent_checkpoint,config_path,scale_path,output,reposi
         duration=time.perf_counter()-started;timed=times[1:] or times;mean=float(np.mean(timed))
         result=dict(schema_version=protocol.metrics_schema,run_sha=run.manifest['git']['commit_sha'],
             objective=c['objective_name'],common_parent=source,start_step=start,end_step=end,updates=len(times),
-            planned_end_step=c['max_steps'],nominal_additional_epochs=50,execution_budget_kind=c['execution_budget_kind'],
+            planned_end_step=c['max_steps'],nominal_additional_epochs=c['additional_epochs'],execution_budget_kind=c['execution_budget_kind'],
             full_budget_complete=end==c['max_steps'] and c['execution_budget_kind']==protocol.full_budget_kind,
             newly_completed_epochs=end//c['steps_per_epoch']-start//c['steps_per_epoch'],
             optimizer_reset_at_fork=protocol.optimizer_reset,initial_state=initial,final_parameter_sha256=parameter_hash(model),
