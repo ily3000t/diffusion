@@ -196,3 +196,12 @@ sumodiff.boundary.density.config.v1锁定两个checkpoint、训练119/验证200�
 训练密集选择及普通控制仅按当前元数据，不按未来误差或验证失败挑选；train/validation回合和几何隔离。prefix_rows保留每模式全部200任务，真值替换只能作oracle。后处理敏感性相对于同一解码器恢复的标签作线性向量分解，车辆混合RMS与每场景RMS区分，分量可相消。
 
 sumodiff.boundary.density.summary.v1只提交必要数值和来源，保存原运行SHA、源文件/脚本身份、配置环境哈希及验证范围。重构逐场景摘要不能还原逐帧分位数；轻量摘要明确标记混合P99来自正式源输出，计数、均值、极值和每场景均值分位数独立重算。原训练/推理数据接口保持。
+
+
+## 阶段5E解码时间监督续训合同
+
+checkpoint外层保持，新增training_config.schema_version=sumodiff.decoded.temporal.train.config.v1；loss为sumodiff.decoded.temporal.loss.config.v1，完整保留inherited的5D目标。source_step=60000/source_epochs=200，225轮终点67500/7500新更新；inherited_optimizer_updates=30000，总矩步37500。signature锁定新loss、真实epoch、数据、尺度、监测及日程，不沿用5D签名或重复150→200入口。
+
+通用scheduler auxiliary_ramp在本协议只表示temporal_reweight增量rho；inherited_auxiliary_ramp/raw_auxiliary_ramp始终1。steps.jsonl增加分组一二阶差分、decoded_temporal_boundary/interior、weighted_decoded_boundary/interior、effective_decoded_*_weight、inherited_weighted_temporal及temporal_reweight_delta。旧weighted_temporal被替换，不在total中重复叠加。
+
+sumodiff.decoded.temporal.gradient.audit.v1记录训练元数据选择、自然/fixed t=0/50/200同噪声输入、实际完整向量及clip、冻结候选敏感性和N/A；不访问验证失败来选训练组。父训练timestep_coverage只统计自然低t实际访问，不称梯度占比。formal短preflight保存私有压力更新、真实前缀恢复、参数/RNG/AdamW/调度和完整loss逐位核对，full_budget_complete=false；正式报告parent200/candidate225，原报告parent150/candidate200合同保留。
