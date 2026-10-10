@@ -1,0 +1,37 @@
+# 阶段5D：交界位置与密集路口冻结诊断
+
+本入口只检查现有150/200轮checkpoint，不创建优化器、不继续训练、不执行新的DDIM自由生成，不修改loss、解码器、数据或独立阈值。结果不能用作阶段6危险事件或基础模型收敛证明。
+
+## 范围与预算
+
+训练集1200窗口中，保留全部47个8—12车路口窗口；另按当前元数据、几何/回合轮询，从每类道路选择24个普通窗口，共119。种子和窗口ID哈希确定各组内部顺序，不依据未来误差、生成失败或验证表现挑选训练样本。验证保留全部200窗口，训练与验证回合/几何必须隔离。
+
+冻结150/200轮模型，在t=0/50/100/200/300对标签加同一噪声，再预测干净状态。batch4，最多800次模型前向，无梯度和优化。t=0仍包含扩散日程的微量噪声，不是无噪声标签直接复制。双方每个窗口/时间步的实际带噪输入哈希须一致。
+
+这种单步重构能够诊断低噪声去噪误差，对未来标签有访问，必须与纯噪声自由生成区分。分组报告所有道路、普通/密集路口；车辆帧混合统计与每场景均值分别保存。训练控制子集与验证分布不同，不能将拆分差异单独归为过拟合或跨几何泛化。
+
+## 交界和oracle定位
+
+历史固定时，首帧位置误差e1对应首帧jerk误差e1/dt³；dt=0.1时，1cm对应10m/s³。检查原始及协调后首帧/前四帧位置与速度残差、位置导出速度、加速度/jerk、协调修正及独立运动通过情况。数值恒等式和不变历史用于检查实现，不强制正常加速度或jerk为零。
+
+只读取现有200轮200任务的原始输出，分别以标签替换前1/2/4/8/40帧位置、完整速度或前4帧位置＋速度，再经原协调器解码。替换可能在结束处制造新交界，必须同时报告前四帧和内部jerk，不能仅截取变好的区域。标签替换是oracle误差定位，不能作为可实现的生成修复或新基线。
+
+## 运行与输出
+
+源候选哈希锁定：150轮2a252937…、200轮b7dcb40f…。配置为configs/experiments/stage5d_boundary_validation.yaml。正式短诊断要求代码已提交且工作区干净；checkpoint和源轨迹完整身份进入清单。
+
+~~~powershell
+Set-Location E:\diffusion_new
+.\scripts\stage5d_boundary_validation.ps1 -RunId stage5d-boundary-density-20261010
+~~~
+
+选择未使用RunId；已有失败/完成目录保留。输出在artifacts/runs/对应RunId，含manifest/config/command/environment/status/metrics、diagnosis.json、每模型/拆分/时间步的场景行、prefix_oracle.json和prefix_rows.json。清单记录数据、全部输入、两个checkpoint和实际代码SHA。记录运行时间、前向次数、峰值显存、参数哈希不变、grad buffer为空及源checkpoint不变。
+
+必要测试覆盖首帧厘米误差的单位/差分模板、局部替换结束处的尖峰、解码后固定历史恒等式、无效槽位、完整密集保留/几何回合控制选择和预算拒绝。本轮不扩展训练预算，分析后再决定是否设计新的loss或200→225/250协议。
+
+
+## 已完成诊断
+
+stage5d-boundary-density-20261010于2026-10-10在干净a1812b6上formal完成：800次前向、3190个配对重构、主体138.75s，Torch allocated56.87MiB/reserved74MiB。训练119、验证200标签运动控制均通过；参数与checkpoint保持，优化更新及新自由生成均0。
+
+配套CPU后处理stage5d-boundary-analysis-20261010为formal=false，核对线性敏感性并绘图，主体4.56s，无新增去噪网络调用。结果及下一版候选建议见[boundary_density_results.md](boundary_density_results.md)，来源及汇总见[boundary_density_results.json](boundary_density_results.json)。上述RunId已使用，复现须选择新ID。未修改生产loss或启动新训练。

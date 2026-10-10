@@ -1,0 +1,1817 @@
+{
+  "schema_version": "sumodiff.boundary.density.summary.v1",
+  "date": "2026-10-10",
+  "source_run_sha": "a1812b60cef144626183e4fd0014408b2d90a472",
+  "scope": "Frozen label-conditioned reconstruction and saved-output oracle diagnostics; no new training or free generation.",
+  "runs": {
+    "stage5d-boundary-density-20261010": {
+      "manifest": {
+        "id": "sha256:3c939acc5434ca950845687b52e566fe1862dae51a6420eea499a39576d44dad",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-boundary-density-20261010\\manifest.json",
+        "sha256": "3c939acc5434ca950845687b52e566fe1862dae51a6420eea499a39576d44dad",
+        "size_bytes": 796333
+      },
+      "status": {
+        "state": "completed",
+        "started_at": "2026-10-10T07:35:32.359747+00:00",
+        "updated_at": "2026-10-10T07:37:51.312378+00:00",
+        "ended_at": "2026-10-10T07:37:51.312378+00:00"
+      },
+      "source_git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "a1812b60cef144626183e4fd0014408b2d90a472",
+        "branch": "feat/boundary-density-diagnosis",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "formal": true,
+      "config_sha256": "8cd4bed530f2ae993f167ceecdc5ffff0b5f5eb7fad9c0c7fefb72b767ee8145",
+      "environment_sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+      "input_count": 2005
+    },
+    "stage5d-boundary-analysis-20261010": {
+      "manifest": {
+        "id": "sha256:7339fd59f024e0cde62b953c84e5c1de709c4a60fc57a588c563f099a16c2133",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-boundary-analysis-20261010\\manifest.json",
+        "sha256": "7339fd59f024e0cde62b953c84e5c1de709c4a60fc57a588c563f099a16c2133",
+        "size_bytes": 321651
+      },
+      "status": {
+        "state": "completed",
+        "started_at": "2026-10-10T07:50:39.404987+00:00",
+        "updated_at": "2026-10-10T07:50:43.982451+00:00",
+        "ended_at": "2026-10-10T07:50:43.982451+00:00"
+      },
+      "source_git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "a1812b60cef144626183e4fd0014408b2d90a472",
+        "branch": "feat/boundary-density-diagnosis",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "formal": false,
+      "config_sha256": "4577e21fae04f2015e41ab600e49c2e591b98ef395e6aa7f5b850bd1b91b4626",
+      "environment_sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+      "input_count": 808
+    }
+  },
+  "checkpoints": {
+    "parent150": {
+      "id": "sha256:2a25293744e0f9ff8bec9a03b3a1c3e077275bc7c9cece4119cdda13f070900e",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5c-v1\\train\\checkpoint_step_045000.pt",
+      "sha256": "2a25293744e0f9ff8bec9a03b3a1c3e077275bc7c9cece4119cdda13f070900e",
+      "size_bytes": 41333738
+    },
+    "candidate200": {
+      "id": "sha256:b7dcb40fcd9032b76d56ad8871e986067cd29873c8d84ec461feb55b8c96db54",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-v1\\train\\checkpoint_step_060000.pt",
+      "sha256": "b7dcb40fcd9032b76d56ad8871e986067cd29873c8d84ec461feb55b8c96db54",
+      "size_bytes": 41332970
+    }
+  },
+  "cohort_counts": {
+    "train": {
+      "scenes": 119,
+      "agents": 710,
+      "families": {
+        "unsignalized_intersection": 71,
+        "ramp_merge": 24,
+        "three_lane_straight": 24
+      },
+      "dense_intersections": 47
+    },
+    "validation": {
+      "scenes": 200,
+      "agents": 735,
+      "families": {
+        "three_lane_straight": 67,
+        "ramp_merge": 67,
+        "unsignalized_intersection": 66
+      },
+      "dense_intersections": 16
+    }
+  },
+  "label_control": {
+    "train": {
+      "motion_pass_scenes": 119,
+      "comfort_pass_agents": 689,
+      "agents": 710
+    },
+    "validation": {
+      "motion_pass_scenes": 200,
+      "comfort_pass_agents": 721,
+      "agents": 735
+    }
+  },
+  "model_state": {
+    "parent150": {
+      "parameter_hash": "5b1d563dbb0d2337ad2213d1328cd5e960b6ad9fdf396f4c9d1934183774286e",
+      "model_unchanged": true,
+      "parameter_grad_buffers_unset": true
+    },
+    "candidate200": {
+      "parameter_hash": "f11e01f6ceba01ab9057f00548b7edeb881f5fec405860e3ff07e6c801ef92f4",
+      "model_unchanged": true,
+      "parameter_grad_buffers_unset": true
+    }
+  },
+  "paired_noisy_inputs": true,
+  "optimizer_updates": 0,
+  "new_free_generation": 0,
+  "actual_model_forward_calls": 800,
+  "reconstruction_cases": 3190,
+  "reconstruction_p99_order": [
+    "raw_position_first",
+    "decoded_position_first",
+    "raw_velocity_first4",
+    "decoded_jerk_boundary",
+    "decoded_jerk_interior"
+  ],
+  "reconstruction_units": [
+    "m",
+    "m",
+    "m/s",
+    "m/s^3",
+    "m/s^3"
+  ],
+  "reconstruction_table": [
+    {
+      "model": "parent150",
+      "split": "train",
+      "timestep": 0,
+      "group": "all",
+      "scenes": 119,
+      "motion_pass": 46,
+      "mean_scene_epsilon_mse": 0.06758868537291478,
+      "p99": [
+        0.9563926663466196,
+        0.044332291979062424,
+        0.40634943706901877,
+        72.85264063996287,
+        57.965838410371
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "train",
+      "timestep": 0,
+      "group": "intersection_dense",
+      "scenes": 47,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.13830296383800764,
+      "p99": [
+        0.9862982440189475,
+        0.04784163123770059,
+        0.4329424471808399,
+        76.47639217330047,
+        62.935739655086074
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "train",
+      "timestep": 0,
+      "group": "intersection_normal",
+      "scenes": 24,
+      "motion_pass": 15,
+      "mean_scene_epsilon_mse": 0.024175555668383215,
+      "p99": [
+        0.3603384423668143,
+        0.02029844441860268,
+        0.1629497959506897,
+        22.5196582945777,
+        12.306959959195005
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "train",
+      "timestep": 50,
+      "group": "all",
+      "scenes": 119,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.005202453087888387,
+      "p99": [
+        2.973413017205516,
+        0.23503515241575795,
+        1.9519755659335511,
+        242.7014272452164,
+        163.87489655151705
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "train",
+      "timestep": 50,
+      "group": "intersection_dense",
+      "scenes": 47,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.012006855966706581,
+      "p99": [
+        3.097145715024488,
+        0.24672070055613138,
+        2.024816509468939,
+        266.3408453539451,
+        179.62296568712927
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "train",
+      "timestep": 50,
+      "group": "intersection_normal",
+      "scenes": 24,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0004319501004425143,
+      "p99": [
+        0.7265011537605122,
+        0.04821194962250693,
+        0.35456033682274746,
+        58.45290440238859,
+        51.01347310598493
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "train",
+      "timestep": 100,
+      "group": "all",
+      "scenes": 119,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0027755978162760674,
+      "p99": [
+        3.1784331514566193,
+        0.3065016619034183,
+        2.6519515183544744,
+        308.09321913369047,
+        220.4299111014943
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "train",
+      "timestep": 100,
+      "group": "intersection_dense",
+      "scenes": 47,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.006568691386159671,
+      "p99": [
+        3.46641400620645,
+        0.3340071179868444,
+        2.711710226472342,
+        333.60943747103187,
+        240.073734299504
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "train",
+      "timestep": 100,
+      "group": "intersection_normal",
+      "scenes": 24,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.00019225543143066814,
+      "p99": [
+        0.8129386438138969,
+        0.04568722194881128,
+        0.4186356654840127,
+        85.57950533447105,
+        72.24754222795782
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "train",
+      "timestep": 200,
+      "group": "all",
+      "scenes": 119,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0013224451762174237,
+      "p99": [
+        3.5078507778653565,
+        0.36022834803134285,
+        3.335197824612756,
+        374.6600524809342,
+        275.66642301087353
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "train",
+      "timestep": 200,
+      "group": "intersection_dense",
+      "scenes": 47,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0031564895377175703,
+      "p99": [
+        3.807639255309063,
+        0.3841162277775068,
+        3.4913239388025796,
+        402.53498563655666,
+        303.74648651767427
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "train",
+      "timestep": 200,
+      "group": "intersection_normal",
+      "scenes": 24,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.00010333815455649326,
+      "p99": [
+        1.1938567765337011,
+        0.07606712001911269,
+        0.6541668115416762,
+        138.022588670074,
+        119.19631582827505
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "train",
+      "timestep": 300,
+      "group": "all",
+      "scenes": 119,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0008092566312006457,
+      "p99": [
+        4.621473682476914,
+        0.38493739430707063,
+        3.697738206099923,
+        433.9199225913603,
+        321.95031682717763
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "train",
+      "timestep": 300,
+      "group": "intersection_dense",
+      "scenes": 47,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0019094696207832113,
+      "p99": [
+        4.871679033485937,
+        0.4295406528620752,
+        3.945556831262716,
+        468.04632376362673,
+        353.817269650206
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "train",
+      "timestep": 300,
+      "group": "intersection_normal",
+      "scenes": 24,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 8.432280987512464e-05,
+      "p99": [
+        1.9624775616109498,
+        0.1148857039025102,
+        0.9988162352088058,
+        199.98614426449367,
+        189.42659293044824
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "validation",
+      "timestep": 0,
+      "group": "all",
+      "scenes": 200,
+      "motion_pass": 107,
+      "mean_scene_epsilon_mse": 0.030726447565733297,
+      "p99": [
+        0.6286953685505764,
+        0.037638929810174845,
+        0.31266737043307413,
+        52.616865672761804,
+        32.502423543069945
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "validation",
+      "timestep": 0,
+      "group": "intersection_dense",
+      "scenes": 16,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.11225907023375234,
+      "p99": [
+        0.948883144542447,
+        0.04792129871118333,
+        0.3772118156118704,
+        88.40697410881974,
+        56.81844228136347
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "validation",
+      "timestep": 0,
+      "group": "intersection_normal",
+      "scenes": 50,
+      "motion_pass": 22,
+      "mean_scene_epsilon_mse": 0.029268790006948014,
+      "p99": [
+        0.42336384013657247,
+        0.030408909273548793,
+        0.26794444699809405,
+        31.814065766465404,
+        14.512674762752283
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "validation",
+      "timestep": 50,
+      "group": "all",
+      "scenes": 200,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0019118314159337992,
+      "p99": [
+        2.3679597885736268,
+        0.15371777758924615,
+        1.3637095921626619,
+        150.3878511342773,
+        113.56147935327563
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "validation",
+      "timestep": 50,
+      "group": "intersection_dense",
+      "scenes": 16,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.01008057542306536,
+      "p99": [
+        2.8482953113383247,
+        0.2091029397144506,
+        1.800857719299613,
+        245.25353142842704,
+        180.32538315718426
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "validation",
+      "timestep": 50,
+      "group": "intersection_normal",
+      "scenes": 50,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0015036779523506993,
+      "p99": [
+        0.6517019650576932,
+        0.10538658319620772,
+        1.264869967530884,
+        64.56861107458353,
+        53.592374187945566
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "validation",
+      "timestep": 100,
+      "group": "all",
+      "scenes": 200,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0008681713571483368,
+      "p99": [
+        2.452741324883948,
+        0.20214796878037586,
+        2.005293738725734,
+        196.03284783952185,
+        150.91740390620015
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "validation",
+      "timestep": 100,
+      "group": "intersection_dense",
+      "scenes": 16,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.005202575893842247,
+      "p99": [
+        2.976200301606721,
+        0.28850018803429855,
+        2.634234981525682,
+        300.34512669988413,
+        231.84963911202917
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "validation",
+      "timestep": 100,
+      "group": "intersection_normal",
+      "scenes": 50,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0005838850392077196,
+      "p99": [
+        0.9760727892722836,
+        0.10054897227972258,
+        1.3047962477386919,
+        79.25997107121627,
+        68.03368331111345
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "validation",
+      "timestep": 200,
+      "group": "all",
+      "scenes": 200,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0003463190569891594,
+      "p99": [
+        2.5416399623274533,
+        0.24195633569395975,
+        2.6482351147111474,
+        248.87759831185127,
+        187.45156468821128
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "validation",
+      "timestep": 200,
+      "group": "intersection_dense",
+      "scenes": 16,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.002242419101473085,
+      "p99": [
+        3.8972135850769045,
+        0.360725285872308,
+        3.6247750170402786,
+        372.5919274172359,
+        294.57478129620995
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "validation",
+      "timestep": 200,
+      "group": "intersection_normal",
+      "scenes": 50,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.00020685223419908045,
+      "p99": [
+        1.4619055382928057,
+        0.11994334440280151,
+        1.3789475109778466,
+        124.69597266517259,
+        113.3841209392714
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "validation",
+      "timestep": 300,
+      "group": "all",
+      "scenes": 200,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.00018727712672292302,
+      "p99": [
+        3.5935805207885205,
+        0.2615892075952068,
+        2.9550136300483985,
+        290.3795158729736,
+        235.16757200101884
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "validation",
+      "timestep": 300,
+      "group": "intersection_dense",
+      "scenes": 16,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.001051706245599841,
+      "p99": [
+        4.813493032318818,
+        0.3973056139899166,
+        4.312405819331297,
+        417.5665365617539,
+        360.1612522981536
+      ]
+    },
+    {
+      "model": "parent150",
+      "split": "validation",
+      "timestep": 300,
+      "group": "intersection_normal",
+      "scenes": 50,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0001233337878632786,
+      "p99": [
+        2.246060399399371,
+        0.12959475354313785,
+        1.5582799425137146,
+        174.71412714333982,
+        176.23806300512348
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "train",
+      "timestep": 0,
+      "group": "all",
+      "scenes": 119,
+      "motion_pass": 58,
+      "mean_scene_epsilon_mse": 0.06039192219292851,
+      "p99": [
+        0.8760088086681531,
+        0.043883051547968246,
+        0.41943857007309554,
+        70.77453335247127,
+        55.06425015009098
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "train",
+      "timestep": 0,
+      "group": "intersection_dense",
+      "scenes": 47,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.12641401329995897,
+      "p99": [
+        0.9656547159076381,
+        0.049833362698916375,
+        0.45294036658354764,
+        76.77632966758354,
+        60.021647935613764
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "train",
+      "timestep": 0,
+      "group": "intersection_normal",
+      "scenes": 24,
+      "motion_pass": 17,
+      "mean_scene_epsilon_mse": 0.0183316552898355,
+      "p99": [
+        0.3174776442255324,
+        0.019955088955316076,
+        0.1764467584752862,
+        18.67618685183472,
+        11.085237895037391
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "train",
+      "timestep": 50,
+      "group": "all",
+      "scenes": 119,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.00456834932154262,
+      "p99": [
+        2.7145704022630506,
+        0.22102827617676574,
+        1.923750295058629,
+        232.68881216888627,
+        156.98229591808933
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "train",
+      "timestep": 50,
+      "group": "intersection_dense",
+      "scenes": 47,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.010515707143979125,
+      "p99": [
+        2.897285866432963,
+        0.23815018510330715,
+        2.011308238252895,
+        241.98679722463095,
+        168.81717423795814
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "train",
+      "timestep": 50,
+      "group": "intersection_normal",
+      "scenes": 24,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.00035528470910624793,
+      "p99": [
+        0.6292013242233958,
+        0.04260971013769327,
+        0.2929799577453364,
+        59.12042907898231,
+        44.125369892453875
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "train",
+      "timestep": 100,
+      "group": "all",
+      "scenes": 119,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.002470692535590039,
+      "p99": [
+        2.681629401933378,
+        0.28498791664017026,
+        2.547821284943004,
+        287.6939953842993,
+        210.5151773991808
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "train",
+      "timestep": 100,
+      "group": "intersection_dense",
+      "scenes": 47,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.005829675405464591,
+      "p99": [
+        3.18037630501064,
+        0.3081634117079668,
+        2.6351428290733505,
+        310.62556167209374,
+        229.816038364777
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "train",
+      "timestep": 100,
+      "group": "intersection_normal",
+      "scenes": 24,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0001664574065216584,
+      "p99": [
+        0.7542012231480207,
+        0.04482082977216469,
+        0.36482919534041053,
+        71.52464701507346,
+        64.25004104623312
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "train",
+      "timestep": 200,
+      "group": "all",
+      "scenes": 119,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.00119151584696753,
+      "p99": [
+        3.249637009413445,
+        0.3378738448520915,
+        3.3198124364738764,
+        357.7353358802944,
+        262.8754217833652
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "train",
+      "timestep": 200,
+      "group": "intersection_dense",
+      "scenes": 47,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.002848840925246721,
+      "p99": [
+        3.482780159556883,
+        0.37451502278839965,
+        3.4692702990016175,
+        396.33000318369176,
+        288.6377817031616
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "train",
+      "timestep": 200,
+      "group": "intersection_normal",
+      "scenes": 24,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 8.43121900591844e-05,
+      "p99": [
+        1.165687634377,
+        0.06450726738358938,
+        0.5280131838535135,
+        125.28889400737842,
+        107.09403335933146
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "train",
+      "timestep": 300,
+      "group": "all",
+      "scenes": 119,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0007255078030857602,
+      "p99": [
+        4.129762896806957,
+        0.408505569157364,
+        3.776686979605842,
+        413.4733779479299,
+        302.6638916673056
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "train",
+      "timestep": 300,
+      "group": "intersection_dense",
+      "scenes": 47,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0017136700705335933,
+      "p99": [
+        4.78859852225672,
+        0.4137440082618165,
+        4.012093467476624,
+        449.84426069279385,
+        332.79733330133354
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "train",
+      "timestep": 300,
+      "group": "intersection_normal",
+      "scenes": 24,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 7.358984756441107e-05,
+      "p99": [
+        2.028219395795086,
+        0.09800597550407816,
+        0.796022728075743,
+        182.80602350615948,
+        174.07496245588763
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "validation",
+      "timestep": 0,
+      "group": "all",
+      "scenes": 200,
+      "motion_pass": 131,
+      "mean_scene_epsilon_mse": 0.026516968199381763,
+      "p99": [
+        0.6224482510852232,
+        0.03788386313501698,
+        0.30775327693535204,
+        50.615770848430465,
+        30.947065335382177
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "validation",
+      "timestep": 0,
+      "group": "intersection_dense",
+      "scenes": 16,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.10299644905414121,
+      "p99": [
+        0.9474988805730713,
+        0.04880211618355682,
+        0.3716026254668791,
+        86.51784809291475,
+        55.37216820741343
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "validation",
+      "timestep": 0,
+      "group": "intersection_normal",
+      "scenes": 50,
+      "motion_pass": 30,
+      "mean_scene_epsilon_mse": 0.024704783018678428,
+      "p99": [
+        0.3384575193022239,
+        0.029990198389542085,
+        0.2721670384533676,
+        27.586632653239576,
+        13.041468541617963
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "validation",
+      "timestep": 50,
+      "group": "all",
+      "scenes": 200,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0017171848321807675,
+      "p99": [
+        1.995369093081995,
+        0.16115958682195805,
+        1.3411189834779138,
+        149.1725795177314,
+        106.16760920260407
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "validation",
+      "timestep": 50,
+      "group": "intersection_dense",
+      "scenes": 16,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.009097155624961792,
+      "p99": [
+        2.6767908484822014,
+        0.19849908034288768,
+        1.745879300780613,
+        214.69553059113377,
+        171.3315223573653
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "validation",
+      "timestep": 50,
+      "group": "intersection_normal",
+      "scenes": 50,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0014342206177874082,
+      "p99": [
+        0.5248389150170215,
+        0.09424521015089354,
+        1.1479298849715818,
+        58.46101239321723,
+        42.61906941449649
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "validation",
+      "timestep": 100,
+      "group": "all",
+      "scenes": 200,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0007964713582259719,
+      "p99": [
+        2.285107685479921,
+        0.19219601273322182,
+        1.8735642556885124,
+        188.9928156141113,
+        143.39778461218452
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "validation",
+      "timestep": 100,
+      "group": "intersection_dense",
+      "scenes": 16,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.004686326188524012,
+      "p99": [
+        2.8172534393337223,
+        0.270558669282338,
+        2.541231533289118,
+        271.00624644972015,
+        221.91322872577925
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "validation",
+      "timestep": 100,
+      "group": "intersection_normal",
+      "scenes": 50,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0005472727005326305,
+      "p99": [
+        0.8433465943353738,
+        0.0945991819943465,
+        1.2119987434425727,
+        68.66874378916653,
+        59.93712259816718
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "validation",
+      "timestep": 200,
+      "group": "all",
+      "scenes": 200,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0003131954779367636,
+      "p99": [
+        2.315617923088959,
+        0.2359711087601048,
+        2.63994884332294,
+        237.67584916128686,
+        174.88394926913196
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "validation",
+      "timestep": 200,
+      "group": "intersection_dense",
+      "scenes": 16,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.0020374983809006153,
+      "p99": [
+        3.6486140254571517,
+        0.35744387768352665,
+        3.67054111663437,
+        346.6046476273445,
+        278.1498904456491
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "validation",
+      "timestep": 200,
+      "group": "intersection_normal",
+      "scenes": 50,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.00018153858589964027,
+      "p99": [
+        1.3518550815758903,
+        0.11525592905397934,
+        1.2987542488642725,
+        103.1627263261009,
+        101.43367656786141
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "validation",
+      "timestep": 300,
+      "group": "all",
+      "scenes": 200,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.00017264191790673068,
+      "p99": [
+        3.3611289211075266,
+        0.27822205194349703,
+        3.0442444098101253,
+        273.4415408003368,
+        219.5306598880364
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "validation",
+      "timestep": 300,
+      "group": "intersection_dense",
+      "scenes": 16,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.00100183346845976,
+      "p99": [
+        4.346955750905706,
+        0.40143692852153484,
+        4.45921534917878,
+        402.73137939312096,
+        346.7921713962439
+      ]
+    },
+    {
+      "model": "candidate200",
+      "split": "validation",
+      "timestep": 300,
+      "group": "intersection_normal",
+      "scenes": 50,
+      "motion_pass": 0,
+      "mean_scene_epsilon_mse": 0.00010908667675418354,
+      "p99": [
+        2.0913909791351837,
+        0.1312564372181973,
+        1.4603681660328878,
+        165.72732842406504,
+        159.7654728237937
+      ]
+    }
+  ],
+  "candidate_t0_counts": {
+    "train": {
+      "all": {
+        "scenes": 119,
+        "counts": {
+          "motion_pass_scenes": 58,
+          "comfort_pass_agents": 9,
+          "selected_agents": 710,
+          "speed_bad_scenes": 0,
+          "longitudinal_acceleration_bad_scenes": 3,
+          "lateral_acceleration_bad_scenes": 6,
+          "jerk_bad_scenes": 61,
+          "yaw_rate_bad_scenes": 0,
+          "heading_velocity_bad_scenes": 2,
+          "heading_norm_bad_scenes": 0,
+          "velocity_consistency_bad_scenes": 0
+        }
+      },
+      "unsignalized_intersection": {
+        "scenes": 71,
+        "counts": {
+          "motion_pass_scenes": 17,
+          "comfort_pass_agents": 3,
+          "selected_agents": 550,
+          "speed_bad_scenes": 0,
+          "longitudinal_acceleration_bad_scenes": 3,
+          "lateral_acceleration_bad_scenes": 6,
+          "jerk_bad_scenes": 54,
+          "yaw_rate_bad_scenes": 0,
+          "heading_velocity_bad_scenes": 2,
+          "heading_norm_bad_scenes": 0,
+          "velocity_consistency_bad_scenes": 0
+        }
+      },
+      "intersection_dense": {
+        "scenes": 47,
+        "counts": {
+          "motion_pass_scenes": 0,
+          "comfort_pass_agents": 0,
+          "selected_agents": 478,
+          "speed_bad_scenes": 0,
+          "longitudinal_acceleration_bad_scenes": 3,
+          "lateral_acceleration_bad_scenes": 6,
+          "jerk_bad_scenes": 47,
+          "yaw_rate_bad_scenes": 0,
+          "heading_velocity_bad_scenes": 2,
+          "heading_norm_bad_scenes": 0,
+          "velocity_consistency_bad_scenes": 0
+        }
+      },
+      "ramp_merge": {
+        "scenes": 24,
+        "counts": {
+          "motion_pass_scenes": 20,
+          "comfort_pass_agents": 3,
+          "selected_agents": 86,
+          "speed_bad_scenes": 0,
+          "longitudinal_acceleration_bad_scenes": 0,
+          "lateral_acceleration_bad_scenes": 0,
+          "jerk_bad_scenes": 4,
+          "yaw_rate_bad_scenes": 0,
+          "heading_velocity_bad_scenes": 0,
+          "heading_norm_bad_scenes": 0,
+          "velocity_consistency_bad_scenes": 0
+        }
+      },
+      "other_roads": {
+        "scenes": 48,
+        "counts": {
+          "motion_pass_scenes": 41,
+          "comfort_pass_agents": 6,
+          "selected_agents": 160,
+          "speed_bad_scenes": 0,
+          "longitudinal_acceleration_bad_scenes": 0,
+          "lateral_acceleration_bad_scenes": 0,
+          "jerk_bad_scenes": 7,
+          "yaw_rate_bad_scenes": 0,
+          "heading_velocity_bad_scenes": 0,
+          "heading_norm_bad_scenes": 0,
+          "velocity_consistency_bad_scenes": 0
+        }
+      },
+      "three_lane_straight": {
+        "scenes": 24,
+        "counts": {
+          "motion_pass_scenes": 21,
+          "comfort_pass_agents": 3,
+          "selected_agents": 74,
+          "speed_bad_scenes": 0,
+          "longitudinal_acceleration_bad_scenes": 0,
+          "lateral_acceleration_bad_scenes": 0,
+          "jerk_bad_scenes": 3,
+          "yaw_rate_bad_scenes": 0,
+          "heading_velocity_bad_scenes": 0,
+          "heading_norm_bad_scenes": 0,
+          "velocity_consistency_bad_scenes": 0
+        }
+      },
+      "intersection_normal": {
+        "scenes": 24,
+        "counts": {
+          "motion_pass_scenes": 17,
+          "comfort_pass_agents": 3,
+          "selected_agents": 72,
+          "speed_bad_scenes": 0,
+          "longitudinal_acceleration_bad_scenes": 0,
+          "lateral_acceleration_bad_scenes": 0,
+          "jerk_bad_scenes": 7,
+          "yaw_rate_bad_scenes": 0,
+          "heading_velocity_bad_scenes": 0,
+          "heading_norm_bad_scenes": 0,
+          "velocity_consistency_bad_scenes": 0
+        }
+      }
+    },
+    "validation": {
+      "all": {
+        "scenes": 200,
+        "counts": {
+          "motion_pass_scenes": 131,
+          "comfort_pass_agents": 12,
+          "selected_agents": 735,
+          "speed_bad_scenes": 0,
+          "longitudinal_acceleration_bad_scenes": 1,
+          "lateral_acceleration_bad_scenes": 1,
+          "jerk_bad_scenes": 69,
+          "yaw_rate_bad_scenes": 0,
+          "heading_velocity_bad_scenes": 1,
+          "heading_norm_bad_scenes": 0,
+          "velocity_consistency_bad_scenes": 0
+        }
+      },
+      "three_lane_straight": {
+        "scenes": 67,
+        "counts": {
+          "motion_pass_scenes": 58,
+          "comfort_pass_agents": 5,
+          "selected_agents": 201,
+          "speed_bad_scenes": 0,
+          "longitudinal_acceleration_bad_scenes": 0,
+          "lateral_acceleration_bad_scenes": 0,
+          "jerk_bad_scenes": 9,
+          "yaw_rate_bad_scenes": 0,
+          "heading_velocity_bad_scenes": 0,
+          "heading_norm_bad_scenes": 0,
+          "velocity_consistency_bad_scenes": 0
+        }
+      },
+      "other_roads": {
+        "scenes": 134,
+        "counts": {
+          "motion_pass_scenes": 101,
+          "comfort_pass_agents": 11,
+          "selected_agents": 439,
+          "speed_bad_scenes": 0,
+          "longitudinal_acceleration_bad_scenes": 0,
+          "lateral_acceleration_bad_scenes": 0,
+          "jerk_bad_scenes": 33,
+          "yaw_rate_bad_scenes": 0,
+          "heading_velocity_bad_scenes": 0,
+          "heading_norm_bad_scenes": 0,
+          "velocity_consistency_bad_scenes": 0
+        }
+      },
+      "ramp_merge": {
+        "scenes": 67,
+        "counts": {
+          "motion_pass_scenes": 43,
+          "comfort_pass_agents": 6,
+          "selected_agents": 238,
+          "speed_bad_scenes": 0,
+          "longitudinal_acceleration_bad_scenes": 0,
+          "lateral_acceleration_bad_scenes": 0,
+          "jerk_bad_scenes": 24,
+          "yaw_rate_bad_scenes": 0,
+          "heading_velocity_bad_scenes": 0,
+          "heading_norm_bad_scenes": 0,
+          "velocity_consistency_bad_scenes": 0
+        }
+      },
+      "unsignalized_intersection": {
+        "scenes": 66,
+        "counts": {
+          "motion_pass_scenes": 30,
+          "comfort_pass_agents": 1,
+          "selected_agents": 296,
+          "speed_bad_scenes": 0,
+          "longitudinal_acceleration_bad_scenes": 1,
+          "lateral_acceleration_bad_scenes": 1,
+          "jerk_bad_scenes": 36,
+          "yaw_rate_bad_scenes": 0,
+          "heading_velocity_bad_scenes": 1,
+          "heading_norm_bad_scenes": 0,
+          "velocity_consistency_bad_scenes": 0
+        }
+      },
+      "intersection_dense": {
+        "scenes": 16,
+        "counts": {
+          "motion_pass_scenes": 0,
+          "comfort_pass_agents": 0,
+          "selected_agents": 159,
+          "speed_bad_scenes": 0,
+          "longitudinal_acceleration_bad_scenes": 1,
+          "lateral_acceleration_bad_scenes": 1,
+          "jerk_bad_scenes": 16,
+          "yaw_rate_bad_scenes": 0,
+          "heading_velocity_bad_scenes": 1,
+          "heading_norm_bad_scenes": 0,
+          "velocity_consistency_bad_scenes": 0
+        }
+      },
+      "intersection_normal": {
+        "scenes": 50,
+        "counts": {
+          "motion_pass_scenes": 30,
+          "comfort_pass_agents": 1,
+          "selected_agents": 137,
+          "speed_bad_scenes": 0,
+          "longitudinal_acceleration_bad_scenes": 0,
+          "lateral_acceleration_bad_scenes": 0,
+          "jerk_bad_scenes": 20,
+          "yaw_rate_bad_scenes": 0,
+          "heading_velocity_bad_scenes": 0,
+          "heading_norm_bad_scenes": 0,
+          "velocity_consistency_bad_scenes": 0
+        }
+      }
+    }
+  },
+  "prefix_oracle": {
+    "planned_scenes": 200,
+    "decoder_replay_max_error": 7.105427357601002e-14,
+    "modes": {
+      "unchanged": {
+        "counts": {
+          "jerk_pass_scenes": 82,
+          "boundary_jerk_pass_scenes": 101,
+          "interior_jerk_pass_scenes": 110
+        },
+        "pooled": {
+          "jerk_boundary": {
+            "count": 2940,
+            "mean": 16.40223841264047,
+            "min": 0.012483153531195702,
+            "p50": 6.209318487619168,
+            "p95": 42.81528008300475,
+            "p99": 266.43050874011317,
+            "max": 576.9981409115682
+          },
+          "jerk_interior": {
+            "count": 26460,
+            "mean": 7.2111461104847265,
+            "min": 0.015846046244399427,
+            "p50": 3.500145371001274,
+            "p95": 20.42180355623698,
+            "p99": 88.66727994377207,
+            "max": 553.9721441743094
+          },
+          "jerk_all": {
+            "count": 29400,
+            "mean": 8.130255340700302,
+            "min": 0.012483153531195702,
+            "p50": 3.690051058668627,
+            "p95": 22.89709941760273,
+            "p99": 102.34700810566123,
+            "max": 576.9981409115682
+          }
+        }
+      },
+      "position_1": {
+        "counts": {
+          "jerk_pass_scenes": 87,
+          "boundary_jerk_pass_scenes": 109,
+          "interior_jerk_pass_scenes": 110
+        },
+        "pooled": {
+          "jerk_boundary": {
+            "count": 2940,
+            "mean": 15.80781425000886,
+            "min": 0.1304975143655899,
+            "p50": 5.9909441277487705,
+            "p95": 42.38345804495667,
+            "p99": 271.37242404475273,
+            "max": 551.5662319781212
+          },
+          "jerk_interior": {
+            "count": 26460,
+            "mean": 7.21114539116466,
+            "min": 0.015826317911509392,
+            "p50": 3.5003148983959123,
+            "p95": 20.421808224582986,
+            "p99": 88.67122080472664,
+            "max": 553.9707112496494
+          },
+          "jerk_all": {
+            "count": 29400,
+            "mean": 8.070812277049079,
+            "min": 0.015826317911509392,
+            "p50": 3.685498275382362,
+            "p95": 22.61934461649453,
+            "p99": 102.22775545757888,
+            "max": 553.9707112496494
+          }
+        }
+      },
+      "position_2": {
+        "counts": {
+          "jerk_pass_scenes": 88,
+          "boundary_jerk_pass_scenes": 113,
+          "interior_jerk_pass_scenes": 110
+        },
+        "pooled": {
+          "jerk_boundary": {
+            "count": 2940,
+            "mean": 15.459856427022618,
+            "min": 0.1263050056062782,
+            "p50": 5.937494020926827,
+            "p95": 42.72375925360117,
+            "p99": 261.2810017490656,
+            "max": 544.7711734099299
+          },
+          "jerk_interior": {
+            "count": 26460,
+            "mean": 7.211141509482719,
+            "min": 0.01585187935387055,
+            "p50": 3.500576750897098,
+            "p95": 20.421814246276146,
+            "p99": 88.67416566987178,
+            "max": 553.9649403366572
+          },
+          "jerk_all": {
+            "count": 29400,
+            "mean": 8.036013001236707,
+            "min": 0.01585187935387055,
+            "p50": 3.679756693088814,
+            "p95": 22.63597462065061,
+            "p99": 100.22638700111118,
+            "max": 553.9649403366572
+          }
+        }
+      },
+      "position_4": {
+        "counts": {
+          "jerk_pass_scenes": 88,
+          "boundary_jerk_pass_scenes": 113,
+          "interior_jerk_pass_scenes": 110
+        },
+        "pooled": {
+          "jerk_boundary": {
+            "count": 2940,
+            "mean": 14.831304609697112,
+            "min": 0.1116899895542332,
+            "p50": 5.756748071919194,
+            "p95": 41.56913240428988,
+            "p99": 253.3349127659463,
+            "max": 521.6876825479253
+          },
+          "jerk_interior": {
+            "count": 26460,
+            "mean": 7.224542678244163,
+            "min": 0.01601219938377897,
+            "p50": 3.504931394128184,
+            "p95": 20.42921473439142,
+            "p99": 89.89780188384458,
+            "max": 553.9691471261976
+          },
+          "jerk_all": {
+            "count": 29400,
+            "mean": 7.985218871389457,
+            "min": 0.01601219938377897,
+            "p50": 3.669044525196663,
+            "p95": 22.5752819802826,
+            "p99": 100.22158299651902,
+            "max": 553.9691471261976
+          }
+        }
+      },
+      "position_8": {
+        "counts": {
+          "jerk_pass_scenes": 91,
+          "boundary_jerk_pass_scenes": 122,
+          "interior_jerk_pass_scenes": 110
+        },
+        "pooled": {
+          "jerk_boundary": {
+            "count": 2940,
+            "mean": 13.566196510482811,
+            "min": 0.09341621855318354,
+            "p50": 5.452081465188163,
+            "p95": 40.40505164594928,
+            "p99": 216.02589701260626,
+            "max": 452.8572343124444
+          },
+          "jerk_interior": {
+            "count": 26460,
+            "mean": 7.234047468271478,
+            "min": 0.01629866916912024,
+            "p50": 3.5044657153158045,
+            "p95": 20.453896654177143,
+            "p99": 90.12061406051889,
+            "max": 553.9067935589848
+          },
+          "jerk_all": {
+            "count": 29400,
+            "mean": 7.867262372492611,
+            "min": 0.01629866916912024,
+            "p50": 3.64773470878579,
+            "p95": 22.40519595781294,
+            "p99": 99.79956952928445,
+            "max": 553.9067935589848
+          }
+        }
+      },
+      "position_40": {
+        "counts": {
+          "jerk_pass_scenes": 91,
+          "boundary_jerk_pass_scenes": 123,
+          "interior_jerk_pass_scenes": 113
+        },
+        "pooled": {
+          "jerk_boundary": {
+            "count": 2940,
+            "mean": 10.78743966873284,
+            "min": 0.04658415081037721,
+            "p50": 5.182349795328695,
+            "p95": 38.08992548816621,
+            "p99": 117.93139359003804,
+            "max": 379.12001116663697
+          },
+          "jerk_interior": {
+            "count": 26460,
+            "mean": 7.228799760206786,
+            "min": 0.01257466929483075,
+            "p50": 3.499014138731776,
+            "p95": 20.26788830408804,
+            "p99": 88.08794705706202,
+            "max": 571.6074259383378
+          },
+          "jerk_all": {
+            "count": 29400,
+            "mean": 7.584663751059391,
+            "min": 0.01257466929483075,
+            "p50": 3.629678496175325,
+            "p95": 21.89239290731002,
+            "p99": 94.33501372485736,
+            "max": 571.6074259383378
+          }
+        }
+      },
+      "velocity_40": {
+        "counts": {
+          "jerk_pass_scenes": 126,
+          "boundary_jerk_pass_scenes": 126,
+          "interior_jerk_pass_scenes": 194
+        },
+        "pooled": {
+          "jerk_boundary": {
+            "count": 2940,
+            "mean": 11.193032328569906,
+            "min": 0.019809069616631078,
+            "p50": 2.1204953191841254,
+            "p95": 26.08035724308878,
+            "p99": 277.231580144354,
+            "max": 559.7061814938282
+          },
+          "jerk_interior": {
+            "count": 26460,
+            "mean": 1.0778616333191884,
+            "min": 0.004862526297697613,
+            "p50": 0.5282526868766797,
+            "p95": 3.136044462367758,
+            "p99": 12.711697410341218,
+            "max": 59.27592520692942
+          },
+          "jerk_all": {
+            "count": 29400,
+            "mean": 2.08937870284426,
+            "min": 0.004862526297697613,
+            "p50": 0.5667112567852122,
+            "p95": 6.056859022626344,
+            "p99": 21.18937064059656,
+            "max": 559.7061814938282
+          }
+        }
+      },
+      "position_velocity_4": {
+        "counts": {
+          "jerk_pass_scenes": 88,
+          "boundary_jerk_pass_scenes": 180,
+          "interior_jerk_pass_scenes": 89
+        },
+        "pooled": {
+          "jerk_boundary": {
+            "count": 2940,
+            "mean": 4.214122724944132,
+            "min": 0.0015776409676114636,
+            "p50": 0.6329236890337361,
+            "p95": 10.199953218433802,
+            "p99": 90.73974233382253,
+            "max": 238.83127523096672
+          },
+          "jerk_interior": {
+            "count": 26460,
+            "mean": 7.953756249161367,
+            "min": 0.01564692657067881,
+            "p50": 3.5652738188770248,
+            "p95": 21.51852539672062,
+            "p99": 102.54989148647009,
+            "max": 553.8513122423286
+          },
+          "jerk_all": {
+            "count": 29400,
+            "mean": 7.5797928967396455,
+            "min": 0.0015776409676114636,
+            "p50": 3.3689978838009322,
+            "p95": 20.563543287719575,
+            "p99": 100.26470688685968,
+            "max": 553.8513122423286
+          }
+        }
+      }
+    },
+    "future_labels_used": true,
+    "optimizer_updates": 0,
+    "free_generation": false,
+    "interpretation": "Oracle swaps in saved trajectories; prefix edits may create a junction at the edit endpoint. Not achievable generated quality."
+  },
+  "decoder_sensitivity": {
+    "position_weights": [
+      0.009049360483833603,
+      0.008189214572505541,
+      0.007410960806902535,
+      0.006706816649368549,
+      0.00606974065832825,
+      0.005493362073871233,
+      0.004971917110152928,
+      0.0045001913175361525,
+      0.0040734674380947375,
+      0.0036874782330342704,
+      0.0033383638103041454,
+      0.003022633025677062,
+      0.0027371285713067494,
+      0.0024789954026495043,
+      0.0022456521880187545,
+      0.0020347654952681924,
+      0.0018442264574703127,
+      0.001672129684247136,
+      0.0015167542078664306,
+      0.0013765462735643894,
+      0.0012501038019979923,
+      0.001136162368451575,
+      0.0010335825585896738,
+      0.0009413385743136692,
+      0.0008585079757808014,
+      0.0007842624570057417,
+      0.0007178595628007394,
+      0.0006586352642237445,
+      0.0006059973182889871,
+      0.0005594193455371194,
+      0.000518435566240623,
+      0.0004826361426065328,
+      0.0004516630803985078,
+      0.00042520664899446794,
+      0.0004030022840803728,
+      0.00038482794200708136,
+      0.00037050187935386064,
+      0.00035988083549417854,
+      0.00035285859998943823,
+      0.0003493649504845923
+    ],
+    "velocity_weights": [
+      0.09049360483833603,
+      -0.008601459113280613,
+      -0.00778253765603007,
+      -0.007041441575339855,
+      -0.006370759910402993,
+      -0.005763785844570171,
+      -0.005214449637183052,
+      -0.004717257926167756,
+      -0.004267238794414145,
+      -0.00385989205060467,
+      -0.003491144227301249,
+      -0.0031573078462708397,
+      -0.0028550445437031217,
+      -0.002581331686572451,
+      -0.0023334321463075007,
+      -0.002108866927505622,
+      -0.001905390377978794,
+      -0.0017209677322317686,
+      -0.0015537547638070533,
+      -0.001402079343020413,
+      -0.001264424715663971,
+      -0.0011394143354641721,
+      -0.0010257980986190136,
+      -0.0009224398427600446,
+      -0.0008283059853286777,
+      -0.0007424551877505976,
+      -0.0006640289420500227,
+      -0.0005922429857699489,
+      -0.0005263794593475743,
+      -0.00046577972751867674,
+      -0.0004098377929649642,
+      -0.0003579942363409021,
+      -0.0003097306220802504,
+      -0.00026456431404039884,
+      -0.00022204364914095095,
+      -0.0001817434207329145,
+      -0.00014326062653220728,
+      -0.000106210438596821,
+      -7.022235504740293e-05,
+      -3.4936495048459425e-05
+    ],
+    "position_prefix_weight_sums": {
+      "1": 0.009049360483833603,
+      "2": 0.017238575056339144,
+      "4": 0.03135635251261023,
+      "8": 0.052391563672498795,
+      "16": 0.07601004783685221,
+      "40": 0.09506395161664018
+    },
+    "position_weight_sum": 0.09506395161664018,
+    "linear_replay_max_error": 1.3667886267221263e-14,
+    "first_decoded_position_error_rms_m": {
+      "position_full": 0.06480778071209423,
+      "velocity_full": 0.019779354354027168,
+      "total": 0.06483936290997788,
+      "position_first1": 0.004798506480239883,
+      "position_after1": 0.06391665926598147,
+      "position_first2": 0.006941869415245129,
+      "position_after2": 0.062102395941154916,
+      "position_first4": 0.010938122759087334,
+      "position_after4": 0.058464210964280505,
+      "position_first8": 0.019406221215957305,
+      "position_after8": 0.04883220530392271,
+      "position_first16": 0.0367756371511689,
+      "position_after16": 0.030249384029347542
+    },
+    "interpretation": "Whole-horizon linear coupling. Signed vectors may cancel; RMS components do not add."
+  },
+  "runtime": {
+    "frozen_seconds": 138.75021589998505,
+    "posthoc_seconds": 4.561150200024713,
+    "torch_peak_allocated_bytes": 59636736,
+    "torch_peak_reserved_bytes": 77594624
+  },
+  "sources": {
+    "diagnosis": {
+      "id": "sha256:5a9c9638370212df043d56bbc120274bb3099daa3f0ce429ae43d009ef2052e5",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-boundary-density-20261010\\diagnosis.json",
+      "sha256": "5a9c9638370212df043d56bbc120274bb3099daa3f0ce429ae43d009ef2052e5",
+      "size_bytes": 1996500
+    },
+    "prefix_rows": {
+      "id": "sha256:4a041144cd773c84e2ee372f5d604e2f4d34bda2ff8fb98bf96a825354596e0a",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-boundary-density-20261010\\prefix_rows.json",
+      "sha256": "4a041144cd773c84e2ee372f5d604e2f4d34bda2ff8fb98bf96a825354596e0a",
+      "size_bytes": 391974
+    },
+    "sensitivity": {
+      "id": "sha256:e7cfe1b00f88f32722ea88fbff8cb4542b1978a4a46eef2ebb33b7cc42737f49",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-boundary-analysis-20261010\\decoder_sensitivity.json",
+      "sha256": "e7cfe1b00f88f32722ea88fbff8cb4542b1978a4a46eef2ebb33b7cc42737f49",
+      "size_bytes": 3392
+    },
+    "posthoc_script": {
+      "id": "sha256:802493623046373afddf3bb75a0a2a2d096ecef17aab2d5ce63ddedc2d44b18a",
+      "location": "E:\\diffusion_new\\artifacts\\cache\\analyze_boundary_density.py",
+      "sha256": "802493623046373afddf3bb75a0a2a2d096ecef17aab2d5ce63ddedc2d44b18a",
+      "size_bytes": 8573
+    },
+    "summary_audit_script": {
+      "id": "sha256:6cb6f947b75cf5e5888f4f6920c9ce4866c402505678054c72322455fe05c351",
+      "location": "E:\\diffusion_new\\artifacts\\cache\\audit_boundary_density_summary.py",
+      "sha256": "6cb6f947b75cf5e5888f4f6920c9ce4866c402505678054c72322455fe05c351",
+      "size_bytes": 9839
+    }
+  },
+  "figures": {
+    "diagnosis.png": {
+      "id": "sha256:a7ea09686a32a389d2df80b80b88b7f11820369068a284e4a16e92a1716e06a7",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-boundary-analysis-20261010\\diagnosis.png",
+      "sha256": "a7ea09686a32a389d2df80b80b88b7f11820369068a284e4a16e92a1716e06a7",
+      "size_bytes": 353384
+    },
+    "diagnosis.svg": {
+      "id": "sha256:a52a5a8e2341168de206a90c4c103bb4d597324a6f23166634199fedb1fbade9",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5d-boundary-analysis-20261010\\diagnosis.svg",
+      "sha256": "a52a5a8e2341168de206a90c4c103bb4d597324a6f23166634199fedb1fbade9",
+      "size_bytes": 180800
+    }
+  },
+  "verification": {
+    "unique_input_identities": 2012,
+    "reconstruction_rows": 3190,
+    "aggregated_groups": 140,
+    "prefix_rows": 1600,
+    "sensitivity_rows": 200,
+    "row_counts_means_extrema_and_scene_percentiles_recomputed": true,
+    "pooled_percentiles_copied_from_source": true,
+    "pooled_percentile_note": "Per-frame arrays are not stored in reconstruction row summaries; pooled quantiles are source-run outputs, not percentiles of scene quantiles.",
+    "tests": {
+      "command": ".venv-model/Scripts/python.exe -m pytest tests/test_boundary_validation.py tests/test_decoding.py -q",
+      "passed": 22,
+      "seconds": 10.86
+    },
+    "figure_visually_checked": true
+  },
+  "limits": [
+    "Single fixed Gaussian per window reused over timesteps and candidates.",
+    "Denoising reconstruction accesses known future labels; it is not label-free generation.",
+    "Train controls are a small metadata-selected cohort; geometry/episode/domain composition may confound split differences.",
+    "Oracle prefix edits use labels and may transfer error to a later junction.",
+    "No training loss, threshold, decoder, sampling protocol or dataset change.",
+    "Train probe overrepresents dense scenes; split totals are not distribution-matched.",
+    "Oracle field substitutions use true future states and cannot be used as a baseline or inference repair.",
+    "Suggested loss reweighting and denser training emphasis remain untrained candidates."
+  ]
+}
