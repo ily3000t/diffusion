@@ -64,14 +64,30 @@ def paired_interval(left,right,key,seed,iterations=2000):
         unit='road-stratified episode clusters, conditional on this validation cohort')
 
 
-def generation_rows(directory,conditionings,metadata,baseline_noise=None):
+def planned_catalog(catalog, planned_window_ids):
+    """Default full validation, or an explicitly declared diagnostic prefix."""
+    ids=[r['window_id'] for r in catalog]
+    if len(set(ids))!=len(ids):
+        raise ValueError('Duplicated generation task catalog')
+    if planned_window_ids is None:
+        if len(ids)!=200:
+            raise ValueError('Final comparison requires all 200 planned tasks')
+        return catalog
+    plan=list(planned_window_ids)
+    if not plan or len(plan)>200 or len(set(plan))!=len(plan):
+        raise ValueError('Invalid explicit diagnostic task plan')
+    if len(ids) not in (len(plan),200) or ids[:len(plan)]!=plan:
+        raise ValueError('Diagnostic catalog must equal the declared plan or its full-validation prefix')
+    return catalog[:len(plan)]
+
+
+def generation_rows(directory,conditionings,metadata,baseline_noise=None,*,planned_window_ids=None):
     root=Path(directory)
     manifest=read(root/'manifest.json');status=read(root/'status.json')['state']
     if status not in ('completed','failed') or not (root/'trajectory_index.json').exists():
         raise ValueError('Generation lacks a final full planned-task catalog')
     catalog=read(root/'trajectory_index.json')
-    if len(catalog)!=200 or len({r['window_id'] for r in catalog})!=200:
-        raise ValueError('Final comparison requires all 200 planned tasks')
+    catalog=planned_catalog(catalog,planned_window_ids)
     rows=[];pool=defaultdict(list);files=[root/name for name in
         ('manifest.json','status.json','resolved_config.yaml','trajectory_index.json','sampling_summary.json')]
     noises={};missing_noise=0
