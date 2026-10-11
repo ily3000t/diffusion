@@ -75,14 +75,16 @@ def probe(model,cache,schedule,device,batch_size,seed):
 
 def training_signature(model_config,c,data,scale,train_ids,val_ids):
     mutable={'max_steps','validation_interval','checkpoint_interval','require_probe_improvement','minimum_probe_relative_improvement','formal_estimate_steps','epochs','validation_every_epochs','checkpoint_every_epochs','monitor_every_epochs','train_probe_limit','monitor'}
+    if c['schema_version']=='sumodiff.base.epoch.config.v2':mutable=set()
     return dict(model=model_config.to_dict(),training={k:v for k,v in c.items() if k not in mutable},
         dataset_hashes={k:v['sha256'] for k,v in data.items()},scale_audit_sha256=scale['sha256'],
         train_window_ids=train_ids,validation_window_ids=val_ids)
 
 
-def train(dataset_path,model_config_path,config_path,scale_audit_path,output,repository,command,formal=False,resume=None,allow_long_run=False):
+def train(dataset_path,model_config_path,config_path,scale_audit_path,output,repository,command,formal=False,resume=None,allow_long_run=False,prefix_updates=None):
     source_config=load_config(config_path)
-    epoch_mode=source_config.get('schema_version')=='sumodiff.base.epoch.config.v1'
+    epoch_mode=source_config.get('schema_version') in ('sumodiff.base.epoch.config.v1','sumodiff.base.epoch.config.v2')
+    fresh=source_config.get('schema_version')=='sumodiff.base.epoch.config.v2'
     if epoch_mode:
         from .epoch_training import epoch_config,verified_curated_dataset,epoch_batch,probe_subset,periodic_sample
         c=epoch_config(source_config);selection=verified_curated_dataset(dataset_path,c)
@@ -92,6 +94,9 @@ def train(dataset_path,model_config_path,config_path,scale_audit_path,output,rep
     if architecture.diffusion_embedding_steps!=diffusion.training_steps: raise ValueError('Model embedding/schedule mismatch')
     if c['max_steps']>1000 and not allow_long_run: raise ValueError('More than 1000 total steps requires explicit --allow-long-run')
     data=dataset_identity(dataset_path);scale=verified_scale_audit(scale_audit_path,dataset_path,diffusion)
+    if fresh:
+        from .fresh_protocol import verify_calibration
+        c['calibration_identity']=verify_calibration(c,architecture,data)
     configure(c['seed'],c['torch_threads']);device=torch.device(c['device'])
     if device.type=='cuda' and not torch.cuda.is_available(): raise RuntimeError('CUDA requested but unavailable')
     cache_started=time.perf_counter()
@@ -104,11 +109,16 @@ def train(dataset_path,model_config_path,config_path,scale_audit_path,output,rep
     parent=load_checkpoint(resume,signature=signature) if resume else None
     start_step=parent['step'] if parent else 0
     if start_step>=c['max_steps']: raise ValueError('Resume checkpoint already reaches the requested total steps')
-    effective=dict(schema_version='sumodiff.base.train.run.v1',model=architecture.to_dict(),training=c,data=data,scale_audit=scale,
+    if prefix_updates is not None and (not fresh or type(prefix_updates) is not int or not 1<=prefix_updates<=64):
+        raise ValueError('Fresh prefix diagnostic supports at most 64 optimizer updates')
+    stop_step=min(c['max_steps'],start_step+prefix_updates) if prefix_updates else c['max_steps']
+    effective=dict(prefix_updates=prefix_updates,schema_version='sumodiff.base.train.run.v1',model=architecture.to_dict(),training=c,data=data,scale_audit=scale,
         task_selection=dict(train_window_ids=train_cache[2],validation_window_ids=val_cache[2],core_only=True,selection='certified quality cohort; complete H+F; epochs traverse each train window exactly once' if epoch_mode else 'input-family round robin; complete H+F for training/probe only'),
         resume=file_identity(resume) if resume else None,allow_long_run=allow_long_run,
         precision='float32 network/optimizer; no AMP or TF32; strict determinism',sampling_not_performed=not epoch_mode or c['monitor_every_epochs']==0,quality_selection=selection)
     files=[model_config_path,config_path,scale_audit_path,*[v['location'] for v in data.values()],*train_cache[3],*val_cache[3]]
+    if selection:files.append(selection['location'])
+    if fresh:files.append(c['calibration_identity']['location'])
     with RunRecorder(output,repository,effective,command,{'model':c['seed'],'training_noise':c['noise_seed'],'validation_noise':c['validation_seed']},
         purpose='stage5a_epoch_base_training' if epoch_mode else ('stage5_short_base_training' if c['max_steps']<=1000 else 'base_training'),data_files=sorted(set(map(str,files))),
         data_id=data['manifest']['id'],checkpoint=resume,formal=formal) as run:
@@ -119,6 +129,17 @@ def train(dataset_path,model_config_path,config_path,scale_audit_path,output,rep
             training_signature=signature,data=data,scale_audit=scale,run_sha=run.manifest['git']['commit_sha'],run_branch=run.manifest['git']['branch'],
             run_dirty=run.manifest['git']['dirty'],parent_checkpoint=file_identity(resume) if resume else None,
             runtime=dict(torch=str(torch.__version__),device=str(device),strict_determinism=True,network_dtype='float32'))
+        update_schedule=None
+        if fresh:
+            from .schedule import UpdateSchedule,ScheduleConfig
+            from .raw_velocity_losses import resolve_raw_velocity_loss
+            from .jerk_tail import JerkTailConfig,fresh_objective
+            from .unified_losses import RoadGeometryCache
+            raw_loss=resolve_raw_velocity_loss(c['raw_loss']);tail=JerkTailConfig(**c['jerk_tail'])
+            roads=RoadGeometryCache(dataset_path,train_cache[2],raw_loss)
+            update_schedule=UpdateSchedule(ScheduleConfig(**c['schedule']))
+            if parent:update_schedule.load_state_dict(parent['metadata']['runtime']['update_schedule'],optimizer,start_step)
+            metadata['runtime']['update_schedule']=update_schedule.state_dict()
         initial_hash=parameter_hash(model)
         validation=[dict(step=start_step,train_probe_mse=probe(model,train_probe_cache,schedule,device,c['batch_size'],c['validation_seed']),
             validation_probe_mse=probe(model,val_cache,schedule,device,c['batch_size'],c['validation_seed']))]
@@ -126,7 +147,7 @@ def train(dataset_path,model_config_path,config_path,scale_audit_path,output,rep
         started=time.perf_counter()
         if device.type=='cuda': torch.cuda.reset_peak_memory_stats(device)
         with (run.output/'steps.jsonl').open('w',encoding='utf-8') as log:
-            for step in range(start_step+1,c['max_steps']+1):
+            for step in range(start_step+1,stop_step+1):
                 synchronize(device);tick=time.perf_counter()
                 if epoch_mode: indices,epoch,epoch_batch_index=epoch_batch(step,len(train_cache[2]),c['batch_size'],c['seed'])
                 else: indices=torch.randint(len(train_cache[2]),(c['batch_size'],),generator=generator)
@@ -134,17 +155,30 @@ def train(dataset_path,model_config_path,config_path,scale_audit_path,output,rep
                 conditions,targets,ids=select_batch(train_cache,indices,device)
                 model.train();optimizer.zero_grad(set_to_none=True)
                 noisy,noise,timestep=draw_noise(targets,conditions,schedule,generator)
-                loss=masked_noise_mse(model(noisy,timestep,conditions),noise,conditions['agent_mask'],targets['future_mask'])
+                epsilon=model(noisy,timestep,conditions)
+                components=None
+                if fresh:
+                    lr,ramp=update_schedule.apply(optimizer,step)
+                    components=fresh_objective(epsilon,noisy,noise,timestep,conditions,targets,schedule,
+                        raw_loss,tail,c['tail_weight'],roads=roads.batch(ids),ramp=ramp)
+                    loss=components['total_loss']
+                else:loss=masked_noise_mse(epsilon,noise,conditions['agent_mask'],targets['future_mask'])
                 loss.backward();norm=torch.nn.utils.clip_grad_norm_(model.parameters(),c['gradient_clip_norm'],error_if_nonfinite=True)
                 if not torch.isfinite(loss): raise FloatingPointError('Nonfinite training loss')
                 optimizer.step();synchronize(device);elapsed=time.perf_counter()-tick;times.append(elapsed)
-                row=dict(step=step,noise_mse=float(loss),gradient_norm_before_clip=float(norm),window_ids=ids,timesteps=timestep.cpu().tolist(),seconds=elapsed)
+                if fresh:
+                    update_schedule.complete(step);metadata['runtime']['update_schedule']=update_schedule.state_dict()
+                row=dict(step=step,noise_mse=float(components['noise_mse']) if fresh else float(loss),gradient_norm_before_clip=float(norm),window_ids=ids,timesteps=timestep.cpu().tolist(),seconds=elapsed)
+                if fresh:
+                    row.update(learning_rate=lr,auxiliary_ramp=ramp,total_loss=float(loss),
+                        clipping_applied=float(norm)>c['gradient_clip_norm'],
+                        loss_components={k:float(v.detach()) for k,v in components.items() if isinstance(v,torch.Tensor) and v.ndim==0})
                 if epoch_mode: row.update(epoch=epoch,epoch_batch=epoch_batch_index,epoch_complete=epoch_batch_index==c['steps_per_epoch'])
                 log.write(json.dumps(row,allow_nan=False)+chr(10));log.flush()
                 steps.append(row)
                 if device.type=='cuda':
                     peak_allocated=max(peak_allocated,torch.cuda.max_memory_allocated(device));peak_reserved=max(peak_reserved,torch.cuda.max_memory_reserved(device))
-                if step%c['validation_interval']==0 or step==c['max_steps']:
+                if step%c['validation_interval']==0 or step==stop_step:
                     validation.append(dict(step=step,train_probe_mse=probe(model,train_probe_cache,schedule,device,c['batch_size'],c['validation_seed']),
                         validation_probe_mse=probe(model,val_cache,schedule,device,c['batch_size'],c['validation_seed'])))
                     write_json(run.output/'validation.json',validation)
@@ -153,7 +187,7 @@ def train(dataset_path,model_config_path,config_path,scale_audit_path,output,rep
                         epoch=epoch if epoch_mode else None,total_epochs=c.get('epochs'),validation=validation[-1]))
                 monitor_due=bool(epoch_mode and c['monitor_every_epochs'] and epoch_batch_index==c['steps_per_epoch'] and
                     (epoch%c['monitor_every_epochs']==0 or step==c['max_steps']))
-                if step%c['checkpoint_interval']==0 or step==c['max_steps'] or monitor_due:
+                if step%c['checkpoint_interval']==0 or step==stop_step or monitor_due:
                     path=run.output/f'checkpoint_step_{step:06d}.pt'
                     save_checkpoint(path,model,optimizer,generator,step,metadata);checkpoints.append(file_identity(path))
                     write_json(run.output/'latest_checkpoint.json',dict(step=step,checkpoint=checkpoints[-1]))
@@ -163,7 +197,7 @@ def train(dataset_path,model_config_path,config_path,scale_audit_path,output,rep
         last_hash=parameter_hash(model)
         improvement=1-validation[-1]['train_probe_mse']/validation[0]['train_probe_mse']
         timed=times[1:] or times;median=float(np.median(timed));mean=float(np.mean(timed))
-        result=dict(schema_version='sumodiff.base.train.metrics.v1',run_sha=metadata['run_sha'],start_step=start_step,end_step=c['max_steps'],updates=len(times),
+        result=dict(schema_version='sumodiff.base.train.metrics.v1',run_sha=metadata['run_sha'],start_step=start_step,end_step=stop_step,nominal_total_updates=c['max_steps'],complete_budget=stop_step==c['max_steps'],updates=len(times),
             train_windows=len(train_cache[2]),validation_windows=len(val_cache[2]),batch_size=c['batch_size'],validation=validation,
             train_probe_relative_improvement=improvement,weight_update_verified=last_hash!=initial_hash,initial_parameter_sha256=initial_hash,final_parameter_sha256=last_hash,
             cache_preparation_seconds=cache_seconds,training_validation_checkpoint_wall_seconds=time.perf_counter()-started,
@@ -181,7 +215,7 @@ def train(dataset_path,model_config_path,config_path,scale_audit_path,output,rep
                 train_probe_windows=len(train_probe_cache[2]),generation_monitor=monitoring,
                 quality_selection=selection,cached_tensor_bytes=sum(v.numel()*v.element_size() for cache in (train_cache,val_cache)
                     for part in cache[:2] for v in part.values()),
-                convergence_status='not_assessed',limitations=['100 epochs is an initial budget, not proof of convergence',
+                convergence_status='not_assessed',limitations=[f"{c['epochs']} epochs is an initial budget, not proof of convergence",
                     'curated SUMO labels do not establish real driving realism','held-out geometry/episode validation; overlapping within-episode windows remain',
                     'quality thresholds are declared engineering candidates'])
         run.write_metrics(result);write_json(run.output/'training_summary.json',result)

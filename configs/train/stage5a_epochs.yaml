@@ -1,15 +1,20 @@
-schema_version: sumodiff.base.epoch.config.v1
+schema_version: sumodiff.base.epoch.config.v2
 budget_kind: full
-seed: 20261012
-noise_seed: 20261013
-validation_seed: 20261014
+seed: 20261024
+noise_seed: 20261025
+validation_seed: 20261026
 device: cuda:0
 torch_threads: 1
-batch_size: 4
-epochs: 100
-expected_train_windows: 1200
-expected_validation_windows: 200
-learning_rate: 0.0003
+batch_size: 16
+epochs: 200
+expected_train_windows: 6000
+expected_validation_windows: 600
+expected_test_windows: 600
+learning_rate: 0.000001
+minimum_learning_rate: 0.000001
+peak_learning_rate: 0.0001
+lr_warmup_epochs: 10
+auxiliary_warmup_epochs: 10
 weight_decay: 0.0001
 gradient_clip_norm: 1.0
 train_probe_limit: 60
@@ -17,8 +22,8 @@ validation_every_epochs: 1
 checkpoint_every_epochs: 5
 monitor_every_epochs: 10
 monitor:
-  seed: 20261015
-  limit: 6
+  seed: 20261027
+  limit: 60
   minimum_agents: 2
   steps: 20
   eta: 0.0
@@ -28,8 +33,16 @@ monitor:
       numerical_tolerance_m: 0.000001
       max_repair_area_change_m2: 0.000001
       max_repair_hausdorff_m: 0.000001
+raw_loss: {}
+jerk_tail:
+  threshold_mps3: 15.0
+  top_fraction: 0.1
+  top_multiplier: 1.0
+  huber_beta: 1.0
+  dt: 0.1
+tail_weight: null
+calibration_report: null
 diffusion:
-  schema_version: sumodiff.diffusion.config.v1
   training_steps: 1000
   beta_start: 0.0001
   beta_end: 0.02
@@ -39,4 +52,4 @@ diffusion:
   cfg: false
   partial_diffusion: false
   rolling_generation: false
-  additional_losses_enabled: false
+  additional_losses_enabled: true

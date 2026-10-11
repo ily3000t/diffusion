@@ -22,14 +22,22 @@ EXTRA=dict(epochs=100,expected_train_windows=1200,expected_validation_windows=20
 def epoch_config(value):
     from .training import TRAIN_DEFAULTS,train_config
     if not isinstance(value,dict): raise ValueError('Epoch training config must be a mapping')
+    from .fresh_protocol import SCHEMA as FRESH_SCHEMA, EXTRA as FRESH_EXTRA, resolve_extra
+    fresh=value.get('schema_version')==FRESH_SCHEMA
     allowed=(set(TRAIN_DEFAULTS)-{'max_steps','validation_interval','checkpoint_interval','train_limit','validation_limit'})|set(EXTRA)
-    if set(value)-allowed or value.get('schema_version')!=SCHEMA:
+    if fresh:allowed|=set(FRESH_EXTRA)
+    if set(value)-allowed or value.get('schema_version') not in (SCHEMA,FRESH_SCHEMA):
         raise ValueError('Unknown/unsupported epoch training options; step budgets/limits must not masquerade as epochs')
     base={k:v for k,v in value.items() if k in TRAIN_DEFAULTS}
     base['schema_version']=TRAIN_DEFAULTS['schema_version']
     base.update(train_limit=None,validation_limit=None)
     base.setdefault('require_probe_improvement',False)
+    if fresh:
+        if 'additional_losses_enabled' in base.get('diffusion',{}) and base['diffusion']['additional_losses_enabled'] is not True:
+            raise ValueError('Fresh training requires its explicit auxiliary-loss capability')
+        base['diffusion']=deepcopy(base.get('diffusion',{}));base['diffusion']['additional_losses_enabled']=False
     c=train_config(base)
+    if fresh:c['diffusion']['additional_losses_enabled']=True
     extra=deepcopy(EXTRA);extra.update({k:v for k,v in value.items() if k in EXTRA})
     for k in ('epochs','expected_train_windows','expected_validation_windows','train_probe_limit',
               'validation_every_epochs','checkpoint_every_epochs'):
@@ -42,12 +50,16 @@ def epoch_config(value):
     from .sampling import sample_config
     monitor=deepcopy(extra['monitor']);monitor.update(device=c['device'],torch_threads=c['torch_threads'],split='validation')
     extra['monitor']=sample_config(monitor)
-    if extra['monitor']['limit'] is None or extra['monitor']['limit']>12 or extra['monitor']['eta']!=0 or extra['monitor']['steps']>100:
+    if extra['monitor']['limit'] is None or extra['monitor']['limit']>(60 if fresh else 12) or extra['monitor']['eta']!=0 or extra['monitor']['steps']>100:
         raise ValueError('Periodic monitor requires bounded fixed validation tasks and deterministic DDIM')
     c.update(extra);c['schema_version']=SCHEMA;c['sampling_mode']='epoch_shuffle_without_replacement'
     steps=math.ceil(c['expected_train_windows']/c['batch_size'])
     c.update(max_steps=c['epochs']*steps,validation_interval=c['validation_every_epochs']*steps,
              checkpoint_interval=c['checkpoint_every_epochs']*steps,steps_per_epoch=steps)
+    if fresh:
+        c.update(resolve_extra(value,steps,c['epochs']));c['schema_version']=FRESH_SCHEMA
+        c['formal_estimate_steps']=c['max_steps']
+        c['learning_rate']=c['minimum_learning_rate']
     return c
 
 
@@ -58,7 +70,9 @@ def verified_curated_dataset(directory,c):
     if not m.get('curation',{}).get('label_quality_filtered') or selection['sha256']!=m['curation']['selection']['sha256']:
         raise ValueError('Epoch training requires an intact stage5A quality-curated dataset')
     s=json.loads((directory/'selection.json').read_text(encoding='utf-8'))
-    if s.get('schema_version')!='sumodiff.stage5a.selection.v1' or s['profile']!=('pilot' if c['budget_kind']=='smoke' else 'full'):
+    fresh=c['schema_version']=='sumodiff.base.epoch.config.v2'
+    expected_schema='sumodiff.stage5a.selection.v2' if fresh else 'sumodiff.stage5a.selection.v1'
+    if s.get('schema_version')!=expected_schema or s['profile']!=('pilot' if c['budget_kind']=='smoke' else 'full'):
         raise ValueError('Pilot data cannot be used as a full-budget training cohort')
     ds=WindowDataset(directory)
     rows=s['selected']
@@ -74,13 +88,21 @@ def verified_curated_dataset(directory,c):
         for family,n in quotas.items():
             if sum(r['split']==split and r['family']==family for r in rows)!=n:
                 raise ValueError('Selected family counts differ from the declared quotas')
-    for split,n in [('train',c['expected_train_windows']),('validation',c['expected_validation_windows'])]:
+    populations=[('train',c['expected_train_windows']),('validation',c['expected_validation_windows'])]
+    if fresh and c['budget_kind']=='full':populations.append(('test',c['expected_test_windows']))
+    for split,n in populations:
         selected=[r for r in rows if r['split']==split]
         if len(selected)!=n or any(not e['core_training_eligible'] for e in ds.entries if e['split']==split):
             raise ValueError(f'Expected exactly {n} certified complete {split} windows')
         if any(not v['passed'] for v in s['selection'][split].values()):
             raise ValueError('Dataset quota/diversity report was not passed')
-    if any(r['split'] not in ('train','validation') for r in rows): raise ValueError('Test data excluded from stage5A training')
+    permitted=('train','validation','test') if fresh else ('train','validation')
+    if any(r['split'] not in permitted for r in rows):raise ValueError('Unexpected split')
+    from itertools import combinations
+    for left,right in combinations(permitted,2):
+        for field in ('geometry_id','episode_key'):
+            if {r[field] for r in rows if r['split']==left}&{r[field] for r in rows if r['split']==right}:
+                raise ValueError(f'Curated {field} leakage between {left} and {right}')
     if {r['geometry_id'] for r in rows if r['split']=='train'} & {r['geometry_id'] for r in rows if r['split']=='validation'}:
         raise ValueError('Curated geometry leakage')
     if {r['episode_key'] for r in rows if r['split']=='train'} & {r['episode_key'] for r in rows if r['split']=='validation'}:

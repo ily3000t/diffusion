@@ -40,7 +40,7 @@ class UpdateSchedule:
     """Update 1 uses min_lr, warmup-end peak_lr, final update min_lr.
 
     The auxiliary coefficient is min(update/auxiliary_warmup,1). The budget
-    stays at 15000 even in a short prefix; recovery never restarts either ramp.
+    stays at the full declared budget even in a short prefix; recovery never restarts either ramp.
     """
     def __init__(self,config):
         self.config = config
