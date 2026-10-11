@@ -44,10 +44,11 @@ def source_config():
         validation_every_epochs=1,checkpoint_every_epochs=5,monitor_every_epochs=0,
         tail_weight=1e-6,calibration_report='synthetic-fixture-not-production')
 
-def test_existing_training_entry_real_model_prefix_resume_is_exact_and_never_loads_test_labels(tmp_path,monkeypatch):
+@pytest.mark.parametrize('device',['cpu',pytest.param('cuda:0',marks=pytest.mark.skipif(not torch.cuda.is_available(),reason='CUDA unavailable'))])
+def test_existing_training_entry_real_model_prefix_resume_is_exact_and_never_loads_test_labels(tmp_path,monkeypatch,device):
     import sumodiff.diffusion.fresh_protocol as protocol
     import sumodiff.diffusion.training as training
-    data=dataset(tmp_path);cfg=source_config();config=tmp_path/'training.yaml';config.write_text(yaml.safe_dump(cfg))
+    data=dataset(tmp_path);cfg=source_config();cfg['device']=device;config=tmp_path/'training.yaml';config.write_text(yaml.safe_dump(cfg))
     model=tmp_path/'model.yaml';model.write_text(yaml.safe_dump(ModelConfig(condition_dimension=16,
         unet_channels=(8,16,32),raster_channels=(8,8,8,8,8)).to_dict()))
     audit(data,config,tmp_path/'scale',Path.cwd(),False,['synthetic-scale-test'])
@@ -66,7 +67,7 @@ def test_existing_training_entry_real_model_prefix_resume_is_exact_and_never_loa
     assert not first['complete_budget'] and second['end_step']==7 and uninterrupted['end_step']==7
     a=load_checkpoint(tmp_path/'resumed'/'checkpoint_step_000007.pt')
     b=load_checkpoint(tmp_path/'uninterrupted'/'checkpoint_step_000007.pt')
-    for key in ('model','optimizer','generator_state','cpu_rng'):
+    for key in ('model','optimizer','generator_state','cpu_rng','cuda_rng'):
         assert exact_tree(a[key],b[key])
     assert a['metadata']['runtime']['update_schedule']==b['metadata']['runtime']['update_schedule']
     assert seen==['train','validation']*3
