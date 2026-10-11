@@ -53,6 +53,10 @@ def test_all_auxiliary_components_share_one_ramp_and_mixed_t_uses_full_batch():
     half=fresh_objective(p,x,n,ts,c,t,s,cfg,JerkTailConfig(),1e-5,ramp=.5)
     off=fresh_objective(p,x,n,ts,c,t,s,cfg,JerkTailConfig(),1e-5,ramp=0.)
     assert torch.equal(off['total_loss'],off['noise_mse'])
+    assert half['raw_auxiliary_ramp']==half['inherited_auxiliary_ramp']==.5
+    torch.testing.assert_close(half['raw_auxiliary_total'],half['weighted_raw_boundary']+half['weighted_raw_interior'])
+    torch.testing.assert_close(half['auxiliary_total'],sum(half[k] for k in ('weighted_imitation','weighted_temporal','weighted_road',
+        'weighted_raw_boundary','weighted_raw_interior','weighted_tail')))
     for k in ('weighted_imitation','weighted_temporal','weighted_raw_boundary','weighted_raw_interior','weighted_tail','auxiliary_total'):
         torch.testing.assert_close(half[k],on[k]/2)
     ts[1]=800;x=s.add_noise(t['future']/t['future'].new_tensor([50,50,20,20,1,1]),n,ts)

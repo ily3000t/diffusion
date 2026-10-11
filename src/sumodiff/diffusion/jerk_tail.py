@@ -85,6 +85,10 @@ def fresh_objective(epsilon,noisy,noise,timestep,conditioning,targets,schedule,
     for key in ('weighted_imitation','weighted_temporal','weighted_road',
                 'weighted_raw_boundary','weighted_raw_interior'):
         out[key] = ramp*out[key]
+    out['raw_auxiliary_total'] = ramp*out['raw_auxiliary_total']
+    out['inherited_auxiliary_total'] = ramp*out['inherited_auxiliary_total']
+    out['raw_auxiliary_ramp'] = float(ramp)
+    out['inherited_auxiliary_ramp'] = float(ramp)
     out['weighted_tail'] = ramp*tail_weight*out['tail']
     out['auxiliary_total'] = ramp*(baseline+tail_weight*out['tail'])
     out['total_loss'] = out['noise_mse']+out['auxiliary_total']
