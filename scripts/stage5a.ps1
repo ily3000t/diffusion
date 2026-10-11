@@ -17,6 +17,10 @@ $ErrorActionPreference='Stop'
 if ($Name -notmatch '^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$' -or ($RunSuffix -and $RunSuffix -notmatch '^[a-zA-Z0-9_-]{1,32}$')) {
     throw 'Name/RunSuffix must be simple identifiers.'
 }
+if ($Checkpoint -and $Action -notin @('Resume','Validate','Seal','Test')) {
+    throw 'Checkpoint is only valid for Resume/Validate/Seal/Test; Train always starts from random initialization.'
+}
+if ($RunSuffix -and $Action -eq 'Prepare') { throw 'Prepare creates the named dataset once; choose a fresh -Name rather than a suffix.' }
 $taskRoot=Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $taskRoot
 $taskPython=Join-Path $taskRoot '.venv-model\Scripts\python.exe'

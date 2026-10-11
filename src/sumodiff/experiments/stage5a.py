@@ -98,7 +98,7 @@ def collect_campaign(config_path,plan,campaign,output,repository,command,formal,
 
 
 def verified_pilot_sources(directory,plan):
-    """Reuse only the six exact new-episode jobs from an earlier formal pilot."""
+    """Reuse exact checked jobs; V2 recollects changed jobs instead of copying data."""
     from .stage5a_data import inspect_sources
     directory=Path(directory).resolve(strict=True)
     manifest=json.loads((directory/'manifest.json').read_text(encoding='utf-8'))
