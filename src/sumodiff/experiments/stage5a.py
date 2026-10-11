@@ -104,10 +104,11 @@ def verified_pilot_sources(directory,plan):
     manifest=json.loads((directory/'manifest.json').read_text(encoding='utf-8'))
     resolved=load_config(directory/'resolved_config.yaml')
     if (manifest['purpose']!='stage5a_short_new_episode_pilot' or manifest['git']['dirty'] or
-        not manifest['formal'] or resolved['plan']!=plan or resolved['jobs']!=jobs(plan,True)):
+        not manifest['formal'] or json.loads((directory/'status.json').read_text(encoding='utf-8'))['state']!='completed' or
+        (not plan['schema_version'].endswith('.v2') and (resolved['plan']!=plan or resolved['jobs']!=jobs(plan,True)))):
         raise ValueError('Reused raw pilot does not match the exact current source plan')
     registry=directory/'sources.json';sources,_,_=inspect_sources(registry)
-    expected=jobs(plan,True)
+    expected=resolved['jobs']
     if len(sources)!=len(expected): raise ValueError('Reused pilot needs all six collected episodes')
     for source,job in zip(sources,expected):
         ep_path=Path(source['manifest'])
@@ -120,7 +121,15 @@ def verified_pilot_sources(directory,plan):
             not run_manifest['formal'] or run_manifest['git']['dirty'] or
             json.loads((ep_path.parent/'status.json').read_text(encoding='utf-8'))['state']!='completed'):
             raise ValueError('Reused pilot contains a mismatched/incomplete collection job')
-    return registry,[dict(manifest=s['manifest'],split=s['split']) for s in sources]
+    matches={}
+    for job in jobs(plan,True):
+        for source in sources:
+            path=Path(source['manifest']);m=json.loads(path.read_text(encoding='utf-8'))
+            cfg=load_config(path.parent/'resolved_config.yaml')['scenario']
+            if source['split']==job['split'] and m['seed']==job['seed'] and cfg=={**job['scenario'],'runtime':cfg['runtime']}:
+                matches[job['job_id']]=dict(manifest=source['manifest'],split=source['split'])
+    if not matches:raise ValueError('No exact completed source jobs can be reused')
+    return registry,matches
 
 def pilot(config_path,plan,output,repository,command,formal,reuse_pilot=None):
     reused_registry,reused_sources=verified_pilot_sources(reuse_pilot,plan) if reuse_pilot else (None,None)
@@ -128,9 +137,10 @@ def pilot(config_path,plan,output,repository,command,formal,reuse_pilot=None):
         reused_source_pilot=file_identity(reused_registry) if reused_registry else None),
         command,{'pilot':plan['seed']},purpose='stage5a_short_new_episode_pilot',
         data_files=[config_path,*([reused_registry] if reused_registry else [])],formal=formal) as run:
-        sources=list(reused_sources) if reused_sources else []
-        if not reused_sources:
-            for job in jobs(plan,True):
+        sources=[]
+        for job in jobs(plan,True):
+            if reused_sources and job['job_id'] in reused_sources:sources.append(reused_sources[job['job_id']])
+            else:
                 path,_=collect_job(job,run.output,repository,formal)
                 sources.append(dict(manifest=str(path),split=job['split']))
         registry=run.output/'sources.json';write_json(registry,dict(schema_version='sumodiff.sources.v1',episodes=sources))

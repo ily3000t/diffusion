@@ -26,10 +26,11 @@ def dataset(tmp_path):
             w.input_metadata.update(window_id=wid,split=split,family=family,geometry_id=wid,episode_key=wid)
             e=save_window(dest/'windows'/wid,w);e['family']=family;entries.append(e)
             rows.append(dict(window_id=wid,split=split,family=family,geometry_id=wid,episode_key=wid,
-                eligible=True,core_complete=True,reasons=[]))
+                eligible=True,core_complete=True,reasons=[],actual_turning_agents=int(family=='unsignalized_intersection')))
     write_json(dest/'windows.json',entries)
     write_json(dest/'selection.json',dict(schema_version='sumodiff.stage5a.selection.v2',profile='full',
-        selected=rows,quotas={s:{f:1 for f in FAMILIES} for s in ('train','validation','test')},
+        selected=rows,minimum_turning_fraction=.05,
+        turning_coverage={s:{'passed':True,'selected_windows':1} for s in ('train','validation','test')},quotas={s:{f:1 for f in FAMILIES} for s in ('train','validation','test')},
         selection={s:{f:{'passed':True} for f in FAMILIES} for s in ('train','validation','test')}))
     write_json(dest/'dataset_manifest.json',dict(schema_version='sumodiff.dataset.v1',
         window_index=file_identity(dest/'windows.json'),

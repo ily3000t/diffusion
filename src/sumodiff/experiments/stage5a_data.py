@@ -128,12 +128,23 @@ def prepare(config_path, plan, registry, output, repository, command, formal=Fal
             fraction=eligible/len(pool) if pool else 0.
             pilot_families[f]=dict(core_multiagent=len(pool),eligible=eligible,retention_fraction=fraction,
                 passed=eligible>=plan['pilot_minimum_eligible_per_family'] and fraction>=plan['pilot_minimum_retention_fraction'])
+        turning_coverage={}
+        if plan['schema_version'].endswith('.v2'):
+            import math
+            for split in quotas:
+                candidates=[r for r in rows if r['split']==split and r['family']=='unsignalized_intersection' and r['eligible'] and r.get('actual_turning_agents',0)>0]
+                chosen=[r for r in selected if r['split']==split and r['family']=='unsignalized_intersection' and r.get('actual_turning_agents',0)>0]
+                required=1 if pilot else math.ceil(quotas[split]['unsignalized_intersection']*plan['minimum_turning_fraction'])
+                measured=candidates if pilot else chosen
+                turning_coverage[split]=dict(required_windows=required,eligible_pool=len(candidates),selected_windows=len(chosen),
+                    measured_windows=len(measured),geometry_groups=len({r['geometry_id'] for r in measured}),
+                    episodes=len({r['episode_key'] for r in measured}),passed=len(measured)>=required)
         quota_pass=all(v['passed'] for fs in selection.values() for v in fs.values())
-        passed=quota_pass and audit_failures==0 and conversion_failures==0 and (
+        passed=quota_pass and all(v['passed'] for v in turning_coverage.values()) and audit_failures==0 and conversion_failures==0 and (
             not pilot or all(v['passed'] for v in pilot_families.values()))
         report=dict(schema_version='sumodiff.stage5a.quality.report.v1',protocol_id=protocol_id(plan),
             run_sha=run.manifest['git']['commit_sha'],profile='pilot' if pilot else 'full',
-            by_split_family=groups,selection=selection,pilot_families=pilot_families,
+            by_split_family=groups,selection=selection,pilot_families=pilot_families,turning_coverage=turning_coverage,
             audit_failures=audit_failures,conversion_failures=conversion_failures,passed=passed,
             windows=len(rows),skipped_reference_ticks=len(skipped),elapsed_seconds=time.perf_counter()-start,
             sampled_peak_rss_bytes=peak_rss,core_semantics='history+future completeness only',
@@ -156,7 +167,8 @@ def prepare(config_path, plan, registry, output, repository, command, formal=Fal
             new_index.append({**entry,'files':identities})
         selected_document=dict(schema_version='sumodiff.stage5a.selection.v2' if plan['schema_version'].endswith('.v2') else 'sumodiff.stage5a.selection.v1',profile=report['profile'],
             protocol_id=protocol_id(plan),quality_report=file_identity(run.output/'quality_report.json'),
-            quotas=quotas,selection=selection,selected=[{k:r[k] for k in (
+            quotas=quotas,selection=selection,turning_coverage=turning_coverage,
+            minimum_turning_fraction=plan.get('minimum_turning_fraction',0.),selected=[{k:r[k] for k in (
                 'window_id','split','family','geometry_id','episode_key','eligible','core_complete','reasons','actual_turning_agents','selected_agents')} for r in selected],
             file_materialization=dict(methods),quality_config=plan['evaluation'],no_smoothing_or_clipping=True)
         write_json(dataset/'selection.json',selected_document)

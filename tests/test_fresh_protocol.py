@@ -36,6 +36,10 @@ def test_three_splits_preassigned_disjoint_and_old_protocol_preserved():
     assert not shapes['train']&shapes['validation'] and not shapes['train']&shapes['test'] and not shapes['validation']&shapes['test']
     assert protocol_id(c)!=protocol_id(resolve_plan({}))
     assert len(jobs(resolve_plan({})))==78
+    pilot=jobs(c,True)
+    assert next(j for j in pilot if j['split']=='train' and j['scenario']['family']=='unsignalized_intersection')['geometry_slot'].endswith('g06')
+    assert next(j for j in pilot if j['split']=='validation' and j['scenario']['family']=='unsignalized_intersection')['geometry_slot'].endswith('g02')
+    assert all(j['scenario']['traffic']['end_seconds']==30 for j in pilot if j['scenario']['family']=='unsignalized_intersection')
     for split,n in [('train',144),('validation',36),('test',36)]:
         assert sum(j['split']==split for j in schedule)==n
 

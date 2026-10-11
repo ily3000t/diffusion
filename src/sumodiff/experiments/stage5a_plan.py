@@ -32,7 +32,9 @@ def resolve_plan(value):
     defaults = deepcopy(DEFAULTS)
     if fresh:
         defaults.update(schema_version='sumodiff.stage5a.config.v2',test_geometries=3,
-            test_seeds_per_geometry=4,test_quotas={f:200 for f in FAMILIES})
+            test_seeds_per_geometry=4,test_quotas={f:200 for f in FAMILIES},train_geometries=8,validation_geometries=3,
+            pilot_intersection_train_geometry=6,pilot_intersection_validation_geometry=2,
+            pilot_intersection_demand_seconds=30.,minimum_turning_fraction=.05)
     c = strict_merge(defaults, supplied, 'stage5a')
     if c['schema_version'] != defaults['schema_version']:
         raise ValueError('Unsupported stage5A schema')
@@ -57,6 +59,13 @@ def resolve_plan(value):
         if set(c[k]) != set(FAMILIES) or any(type(v) is not int or v < 1 for v in c[k].values()):
             raise ValueError('Each split requires three positive integer family quotas')
     if fresh:
+        for split in ('train','validation'):
+            idx=c[f'pilot_intersection_{split}_geometry']
+            if type(idx) is not int or not 0<=idx<c[f'{split}_geometries']:raise ValueError('Pilot geometry must belong to its full split')
+        if any(type(c[k]) not in (int,float) or not math.isfinite(c[k]) for k in ('pilot_intersection_demand_seconds','minimum_turning_fraction')):
+            raise ValueError('Pilot duration and turn floor must be finite numbers')
+        if not 0<c['pilot_intersection_demand_seconds']<=30 or not 0<c['minimum_turning_fraction']<=1:
+            raise ValueError('Invalid pilot duration/turn coverage floor')
         if type(c['test_geometries']) is not int or not c['minimum_geometries_per_family']<=c['test_geometries']<=10:
             raise ValueError('Test requires multiple bounded geometry groups')
         if type(c['test_seeds_per_geometry']) is not int or c['test_seeds_per_geometry']<1:
@@ -78,6 +87,9 @@ def protocol_id(c):
             'position_roundtrip_tolerance_m','velocity_roundtrip_tolerance_mps','heading_roundtrip_tolerance')
     version = 'stage5a.geometry.v3-three-splits' if c['schema_version'].endswith('.v2') else 'stage5a.geometry.v2-connected-corridors'
     payload = dict(version=version, **{k:c[k] for k in keys})
+    if c['schema_version'].endswith('.v2'):
+        payload.update({k:c[k] for k in ('pilot_intersection_train_geometry','pilot_intersection_validation_geometry',
+            'pilot_intersection_demand_seconds','minimum_turning_fraction')})
     return 'sha256:' + hashlib.sha256(json.dumps(payload,sort_keys=True).encode()).hexdigest()
 
 
@@ -101,11 +113,13 @@ def scenario(c, family, split, index, seed_index, *, pilot=False):
                  'west_north','north_east','east_south','south_west',
                  'west_south','south_east','east_north','north_west')
         rates = {name:100. if k<4 else 60.+10*(seed_index%3) for k,name in enumerate(names)}
+    demand=c['pilot_demand_seconds'] if pilot else c['demand_seconds']
+    if fresh and pilot and family=='unsignalized_intersection':demand=c['pilot_intersection_demand_seconds']
     driver = deepcopy(c['driver'])
     driver['tau'] += .1*(seed_index%3)
     driver['speedFactor'] -= .03*(seed_index%3)
     return scenario_config(dict(family=family,geometry=geometry,driver=driver,runtime=c['runtime'],network=c['network'],
-        traffic=dict(end_seconds=c['pilot_demand_seconds'] if pilot else c['demand_seconds'],route_rates_per_hour=rates),
+        traffic=dict(end_seconds=demand,route_rates_per_hour=rates),
         simulation=dict(max_seconds=c['max_episode_seconds'],lane_change_duration=3.)))
 
 
@@ -116,7 +130,8 @@ def jobs(c, pilot=False):
         ng = 1 if pilot else c[f'{split}_geometries']
         ns = 1 if pilot else c[f'{split}_seeds_per_geometry']
         for fi, family in enumerate(FAMILIES):
-            for gi in range(ng):
+            for slot in range(ng):
+                gi=c[f'pilot_intersection_{split}_geometry'] if pilot and c['schema_version'].endswith('.v2') and family=='unsignalized_intersection' else slot
                 for si in range(ns):
                     # Non-overlapping seeds across split/family/geometry/repetition.
                     seed = (c['seed'] + 100000*('train','validation','test').index(split) + fi*10000+gi*100+si) % 2**32

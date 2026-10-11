@@ -96,6 +96,15 @@ def verified_curated_dataset(directory,c):
             raise ValueError(f'Expected exactly {n} certified complete {split} windows')
         if any(not v['passed'] for v in s['selection'][split].values()):
             raise ValueError('Dataset quota/diversity report was not passed')
+    if fresh and c['budget_kind']=='full':
+        fraction=s.get('minimum_turning_fraction')
+        if type(fraction) not in (int,float) or not 0<fraction<=1:raise ValueError('Missing certified turning coverage')
+        for split,_ in populations:
+            selected_turns=sum(r['split']==split and r['family']=='unsignalized_intersection' and r.get('actual_turning_agents',0)>0 for r in rows)
+            required=math.ceil(s['quotas'][split]['unsignalized_intersection']*fraction)
+            coverage=s.get('turning_coverage',{}).get(split,{})
+            if selected_turns<required or not coverage.get('passed') or coverage.get('selected_windows')!=selected_turns:
+                raise ValueError('Certified turning coverage does not match selected windows')
     permitted=('train','validation','test') if fresh else ('train','validation')
     if any(r['split'] not in permitted for r in rows):raise ValueError('Unexpected split')
     from itertools import combinations

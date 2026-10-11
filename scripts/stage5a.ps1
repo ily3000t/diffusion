@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory=$true)][ValidateSet('Pilot','Collect','Prepare','Audit','Calibrate','Preflight','Train','Resume','Validate','Seal','Test')][string]$Action,
-    [string]$Name='stage5a-v2',
+    [string]$Name='stage5a-fresh',
     [string]$RunSuffix='',
     [string]$Checkpoint='',
     [string]$PilotReport='',
