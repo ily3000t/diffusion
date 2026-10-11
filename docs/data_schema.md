@@ -224,3 +224,15 @@ generation_rows默认保持完整200任务要求；planned_window_ids显式指�
 sumodiff.temporal.diagnosis.config.v1固定200/225来源，可选至多四个t<=300；sumodiff.temporal.diagnosis.run.v1保存119训练控制、200验证的选定ID、共用225目标与full-ramp、标签/地图/模型身份，明确future_labels_used=true、optimizer_updates=0、new_free_generation=0。各逐场景文件记录实际目标分项、motion及分时段摘要，metrics.v1另保存分组混合和逐时刻分位数。组件含alpha_bar、不含lambda；按父/新权重组合的total是固定目标探针，不是历史训练日志。
 
 sumodiff.temporal.objective.result.summary.v1为Git轻量结果，保留真实运行SHA、原诊断/CPU脚本/完整摘要/图身份及验证范围。jerk误差来自解码速度监督差分，独立物理jerk来自固定历史与解码位置；前4/中间32/末4互斥，内部36包含末4。CPU自由输出重放使用输入任务ID，不用未来完整性选择推理数据；没有新增标签修复或推理条件。
+
+## 固定从头训练协议（v2）
+
+sumodiff.stage5a.config.v2新增test_geometries/test_seeds_per_geometry/test_quotas，三划分几何索引使用3*index+split_index，种子相隔100000；v1仍支持历史复现。新增代表性路口Pilot几何/30秒需求和minimum_turning_fraction；均进入Pilot协议哈希，旧0转弯报告无法授权新批量计划。复用原始Pilot逐job验证真实配置、种子、划分与完成状态，只重采未匹配部分。
+
+sumodiff.stage5a.selection.v2记录三个划分配额、完整标签与质量资格、实际转弯标记、覆盖下限及turning_coverage；训练校验选定转弯计数与证书一致。actual_turning_agents是离线标签审计字段，不进入conditioning。测试标签不参与训练缓存、尺度统计或lambda选择；准备测试标签时仅执行已经固定的质量规则，不调用覆盖阈值校准。窗口掩码、固定t0坐标、未来位移及地图格式不变。
+
+sumodiff.base.epoch.config.v2记录随机初始化、200轮/75000更新的完整不可变配方，raw_loss、jerk_tail、tail_weight、calibration_report与序列化schedule。核心MSE与所有辅助项按场景归一化；全辅助共用低t门控、alpha_bar和预热。尾部输入是统一解码绝对位置+固定最后3个历史点；K=ceil(q*M)，含有效零项，掩码先于差分；dt=0.1。旧checkpoint外层schema保留，新训练schema单独检查AdamW步数、完整日程及恢复状态，拒绝旧模型续接。
+
+sumodiff.fresh.calibration.v1保留普通/密集训练窗口ID、自然/固定低t、初始及32更新状态、分项和实际组合梯度、范数比/夹角/裁剪、候选筛选、4个全强度B16压力更新与资源。development_only禁止生成正式训练配置；生产报告、实际配置、数据/model/recipe哈希锁定。校准checkpoint不继承给Train。
+
+sumodiff.fresh.test.seal.v1绑定选定checkpoint、数据哈希、采样配置及已完成完整验证来源。测试先验证冻结证书，再读取任务输入；模型、数据、随机种子或采样设置漂移会拒绝。现有manifest/config/command/environment/status格式保持，完整训练日志新增实际LR、统一辅助ramp、loss分项与裁剪。短prefix不缩短总日程，并明确complete_budget=false。

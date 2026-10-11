@@ -11,7 +11,7 @@ from .training import train,train_config
 
 def audit(dataset,config_path,output,repository,formal,command):
     source=load_config(config_path)
-    if source.get('schema_version')=='sumodiff.base.epoch.config.v1':
+    if source.get('schema_version') in ('sumodiff.base.epoch.config.v1','sumodiff.base.epoch.config.v2'):
         from .epoch_training import epoch_config
         parsed=epoch_config(source)
     else: parsed=train_config(source)
@@ -32,8 +32,15 @@ def main(argv=None):
         a.add_argument('--output',type=Path,required=True);a.add_argument('--repository',type=Path,default=Path.cwd());a.add_argument('--formal',action='store_true')
         if action=='train':
             a.add_argument('--model-config',type=Path,required=True);a.add_argument('--scale-audit',type=Path,required=True)
-            a.add_argument('--resume',type=Path);a.add_argument('--allow-long-run',action='store_true')
-        if action=='sample': a.add_argument('--checkpoint',type=Path,required=True)
+            a.add_argument('--resume',type=Path);a.add_argument('--allow-long-run',action='store_true');a.add_argument('--prefix-updates',type=int)
+        if action=='sample':
+            a.add_argument('--checkpoint',type=Path,required=True);a.add_argument('--test-seal',type=Path)
+    a=sub.add_parser('seal-test');a.add_argument('--dataset',type=Path,required=True);a.add_argument('--checkpoint',type=Path,required=True)
+    a.add_argument('--config',type=Path,required=True);a.add_argument('--validation-run',type=Path,required=True)
+    a.add_argument('--output',type=Path,required=True);a.add_argument('--repository',type=Path,default=Path.cwd());a.add_argument('--formal',action='store_true')
+    a=sub.add_parser('calibrate');a.add_argument('--dataset',type=Path,required=True);a.add_argument('--model-config',type=Path,required=True)
+    a.add_argument('--config',type=Path,required=True);a.add_argument('--output',type=Path,required=True)
+    a.add_argument('--repository',type=Path,default=Path.cwd());a.add_argument('--formal',action='store_true');a.add_argument('--development',action='store_true')
     a=sub.add_parser('audit-continuation');a.add_argument('--uninterrupted',type=Path,required=True);a.add_argument('--resumed',type=Path,required=True)
     a.add_argument('--output',type=Path,required=True);a.add_argument('--repository',type=Path,default=Path.cwd());a.add_argument('--formal',action='store_true')
     a=sub.add_parser('audit-inference');a.add_argument('--dataset',type=Path,required=True);a.add_argument('--checkpoint',type=Path,required=True);a.add_argument('--source-run',type=Path,required=True)
@@ -43,7 +50,13 @@ def main(argv=None):
     args=p.parse_args(argv)
     command=[sys.executable,*sys.orig_argv[1:]] if argv is None else [sys.executable,'-m','sumodiff.diffusion',*argv]
     try:
-        if args.action=='diagnose':
+        if args.action=='seal-test':
+            from .fresh_protocol import seal_test
+            result=seal_test(args.dataset,args.checkpoint,args.config,args.validation_run,args.output,args.repository,command,args.formal)
+        elif args.action=='calibrate':
+            from .fresh_calibration import calibrate
+            result=calibrate(args.dataset,args.model_config,args.config,args.output,args.repository,command,args.formal,args.development)
+        elif args.action=='diagnose':
             from .diagnostics import diagnose
             result=diagnose(args.dataset,args.checkpoint,args.config,args.output,args.repository,command,args.formal)
         elif args.action=='audit-inference':
@@ -53,10 +66,10 @@ def main(argv=None):
             from .audit import audit_continuation
             result=audit_continuation(args.uninterrupted,args.resumed,args.output,args.repository,command,args.formal)
         elif args.action=='audit-scales': result=audit(args.dataset,args.config,args.output,args.repository,args.formal,command)
-        elif args.action=='train': result=train(args.dataset,args.model_config,args.config,args.scale_audit,args.output,args.repository,command,args.formal,args.resume,args.allow_long_run)
+        elif args.action=='train': result=train(args.dataset,args.model_config,args.config,args.scale_audit,args.output,args.repository,command,args.formal,args.resume,args.allow_long_run,args.prefix_updates)
         else:
             from .sampling import sample
-            result=sample(args.dataset,args.checkpoint,args.config,args.output,args.repository,command,args.formal)
+            result=sample(args.dataset,args.checkpoint,args.config,args.output,args.repository,command,args.formal,args.test_seal)
     except Exception as exc:
         print(f'{type(exc).__name__}: {exc}',file=sys.stderr);return 2
     print({k:v for k,v in result.items() if k in ('run_sha','updates','train_probe_relative_improvement','planned_tasks','generation_failures','displacement_norm_m','speed_norm_mps','optimizer_step_timing','peak_allocated_bytes')})

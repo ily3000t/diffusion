@@ -1,25 +1,35 @@
-schema_version: sumodiff.stage5a.config.v1
-seed: 20261010
-train_geometries: 5
-validation_geometries: 2
-train_seeds_per_geometry: 4
-validation_seeds_per_geometry: 3
-demand_seconds: 120.0
+schema_version: sumodiff.stage5a.config.v2
+seed: 20261024
+train_geometries: 8
+validation_geometries: 3
+test_geometries: 3
+train_seeds_per_geometry: 6
+validation_seeds_per_geometry: 4
+test_seeds_per_geometry: 4
+demand_seconds: 180.0
 pilot_demand_seconds: 18.0
+pilot_intersection_train_geometry: 6
+pilot_intersection_validation_geometry: 2
+pilot_intersection_demand_seconds: 30.0
+minimum_turning_fraction: 0.05
 max_episode_seconds: 600.0
 train_quotas:
-  three_lane_straight: 400
-  ramp_merge: 400
-  unsignalized_intersection: 400
+  three_lane_straight: 2000
+  ramp_merge: 2000
+  unsignalized_intersection: 2000
 validation_quotas:
-  three_lane_straight: 67
-  ramp_merge: 67
-  unsignalized_intersection: 66
+  three_lane_straight: 200
+  ramp_merge: 200
+  unsignalized_intersection: 200
+test_quotas:
+  three_lane_straight: 200
+  ramp_merge: 200
+  unsignalized_intersection: 200
 minimum_agents: 2
-minimum_geometries_per_family: 2
-minimum_episodes_per_family: 4
-max_episode_fraction: 0.25
-selection_seed: 20261011
+minimum_geometries_per_family: 3
+minimum_episodes_per_family: 8
+max_episode_fraction: 0.1
+selection_seed: 20261025
 pilot_minimum_eligible_per_family: 3
 pilot_minimum_retention_fraction: 0.1
 driver:

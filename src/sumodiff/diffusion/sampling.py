@@ -55,9 +55,13 @@ def failed_report(meta,error):
         quality_pass=None,effective_target_event=None,error=dict(type=type(error).__name__,message=str(error)))
 
 
-def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=False):
+def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=False,test_seal=None):
     c=sample_config(load_config(config_path));payload=load_checkpoint(checkpoint,requested={k:c[k] for k in ('cfg','partial_diffusion','rolling_generation')})
     architecture=resolve_model_config(payload['metadata']['model_config']);diffusion=resolve_diffusion_config(payload['metadata']['diffusion_config'])
+    seal_identity=None
+    if c['split']=='test' and payload['metadata']['training_config']['schema_version']=='sumodiff.base.epoch.config.v2':
+        from .fresh_protocol import verify_test_seal
+        seal_identity=verify_test_seal(test_seal,dataset_path,checkpoint,c)
     ds=WindowDataset(dataset_path,c['split']);indices=choose_indices(ds,c['limit'],minimum_agents=c['minimum_agents'])
     if not indices: raise ValueError('No eligible current-state sampling tasks')
     tasks=[ds._json(ds.entries[i],'input.json') for i in indices]
@@ -68,6 +72,8 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
         task_window_ids=[t['window_id'] for t in tasks],checkpoint_training_sha=payload['metadata']['run_sha'],target_pair=None,
         precision='float32 model, float64 decoder solve; strict determinism, no AMP/TF32')
     files=[config_path,*[v['location'] for v in data.values()],*input_files(ds,indices,False)]
+    if seal_identity:
+        effective['test_seal']=seal_identity;files.append(seal_identity['location'])
     with RunRecorder(output,repository,effective,command,{'initial_noise':c['seed']},purpose='stage5_offline_base_generation',
         data_files=sorted(set(map(str,files))),data_id=data['manifest']['id'],checkpoint=checkpoint,formal=formal) as run:
         configure(c['seed'],c['torch_threads']);device=torch.device(c['device'])

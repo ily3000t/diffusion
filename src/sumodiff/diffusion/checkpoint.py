@@ -47,7 +47,10 @@ def load_checkpoint(path,*,signature=None,requested=None):
     if model.diffusion_embedding_steps!=diffusion.training_steps: raise ValueError('Checkpoint schedule mismatch')
     if signature is not None and signature!=m['training_signature']: raise ValueError('Resume training signature mismatch')
     if m['training_signature']['model']!=m['model_config'] or m['training_signature']['training']['diffusion']!=m['diffusion_config']: raise ValueError('Inconsistent checkpoint normalization/model metadata')
-    if m['training_config'].get('schema_version')=='sumodiff.decoded.temporal.train.config.v1':
+    if m['training_config'].get('schema_version')=='sumodiff.base.epoch.config.v2':
+        from .fresh_protocol import validate_runtime
+        validate_runtime(value)
+    elif m['training_config'].get('schema_version')=='sumodiff.decoded.temporal.train.config.v1':
         from .decoded_temporal_training import validate_runtime
         validate_runtime(value)
     elif m['training_config'].get('schema_version')=='sumodiff.raw.velocity.train.config.v1':
