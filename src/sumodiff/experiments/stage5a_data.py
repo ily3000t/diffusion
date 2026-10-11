@@ -24,8 +24,8 @@ def inspect_sources(registry):
         raise ValueError('Invalid source registry')
     geos={};ids=set();sources=[];files=[registry]
     for source in doc['episodes']:
-        if set(source)!={'manifest','split'} or source['split'] not in ('train','validation'):
-            raise ValueError('Stage5A preparation accepts only preassigned train/validation sources')
+        if set(source)!={'manifest','split'} or source['split'] not in ('train','validation','test'):
+            raise ValueError('Stage5A preparation requires preassigned train/validation/test sources')
         path=Path(source['manifest'])
         if not path.is_absolute(): path=registry.parent/path
         path=path.resolve(strict=True);m=json.loads(path.read_text(encoding='utf-8'))
@@ -45,7 +45,7 @@ def inspect_sources(registry):
 
 def summarize(rows):
     groups={}
-    for split in ('train','validation'):
+    for split in sorted({r['split'] for r in rows}):
         groups[split]={}
         for f in FAMILIES:
             subset=[r for r in rows if r['split']==split and r['family']==f]
@@ -82,7 +82,8 @@ def prepare(config_path, plan, registry, output, repository, command, formal=Fal
         with (run.output/'window_quality.jsonl').open('w',encoding='utf-8') as log:
             for source in sources:
                 ep=load_episode(source['manifest'],source['split'])
-                audit_calibration_episodes([ep],plan['window'])
+                if source['split']!='test':
+                    audit_calibration_episodes([ep],plan['window'])
                 road=RoadMap.read(ep.network_path)
                 network_diagnostics.append(dict(episode_key=ep.key,family=source['family'],split=source['split'],
                     geometry_id=ep.manifest['geometry_id'],lane_length_mismatches=[
@@ -113,6 +114,8 @@ def prepare(config_path, plan, registry, output, repository, command, formal=Fal
         _dataset_manifest(candidate,index,plan['window'],run,registry)
         quotas={'train':{f:4 for f in FAMILIES},'validation':{f:2 for f in FAMILIES}} if pilot else {
             'train':plan['train_quotas'],'validation':plan['validation_quotas']}
+        if not pilot and plan['schema_version'].endswith('.v2'):
+            quotas['test']=plan['test_quotas']
         selected,selection=select_balanced(rows,quotas,plan['selection_seed'],
             1 if pilot else plan['minimum_geometries_per_family'],
             1 if pilot else plan['minimum_episodes_per_family'],1. if pilot else plan['max_episode_fraction'])
@@ -151,10 +154,10 @@ def prepare(config_path, plan, registry, output, repository, command, formal=Fal
                 except OSError: shutil.copy2(src,target);methods['copy']+=1
                 identities[name]={**file_identity(target),'relative_path':str(target.relative_to(dataset))}
             new_index.append({**entry,'files':identities})
-        selected_document=dict(schema_version='sumodiff.stage5a.selection.v1',profile=report['profile'],
+        selected_document=dict(schema_version='sumodiff.stage5a.selection.v2' if plan['schema_version'].endswith('.v2') else 'sumodiff.stage5a.selection.v1',profile=report['profile'],
             protocol_id=protocol_id(plan),quality_report=file_identity(run.output/'quality_report.json'),
             quotas=quotas,selection=selection,selected=[{k:r[k] for k in (
-                'window_id','split','family','geometry_id','episode_key','eligible','core_complete','reasons','actual_turning_agents')} for r in selected],
+                'window_id','split','family','geometry_id','episode_key','eligible','core_complete','reasons','actual_turning_agents','selected_agents')} for r in selected],
             file_materialization=dict(methods),quality_config=plan['evaluation'],no_smoothing_or_clipping=True)
         write_json(dataset/'selection.json',selected_document)
         _dataset_manifest(dataset,new_index,plan['window'],run,registry,

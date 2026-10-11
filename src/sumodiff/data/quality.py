@@ -172,6 +172,8 @@ def select_balanced(rows, quotas, seed, min_geometries, min_episodes, max_episod
                 selected_geometry_groups=len(geos),selected_episodes=len(episodes),episode_counts=dict(epcounts),
                 eligible_actual_turning_windows=sum(r.get('actual_turning_agents',0)>0 for r in pool),
                 selected_actual_turning_windows=sum(r.get('actual_turning_agents',0)>0 for r in selected),
+                eligible_dense_windows=sum(r.get('selected_agents',0)>=8 for r in pool),
+                selected_dense_windows=sum(r.get('selected_agents',0)>=8 for r in selected),
                 max_windows_per_episode=cap,passed=passed)
             chosen.extend(selected)
     return chosen,summary

@@ -28,8 +28,13 @@ DEFAULTS = dict(schema_version='sumodiff.stage5a.config.v1', seed=20261010,
 def resolve_plan(value):
     supplied = deepcopy(value)
     supplied.pop('window', None); supplied.pop('evaluation', None)
-    c = strict_merge(DEFAULTS, supplied, 'stage5a')
-    if c['schema_version'] != DEFAULTS['schema_version']:
+    fresh = supplied.get('schema_version') == 'sumodiff.stage5a.config.v2'
+    defaults = deepcopy(DEFAULTS)
+    if fresh:
+        defaults.update(schema_version='sumodiff.stage5a.config.v2',test_geometries=3,
+            test_seeds_per_geometry=4,test_quotas={f:200 for f in FAMILIES})
+    c = strict_merge(defaults, supplied, 'stage5a')
+    if c['schema_version'] != defaults['schema_version']:
         raise ValueError('Unsupported stage5A schema')
     for k in ('seed','selection_seed'):
         if type(c[k]) is not int or not 0 <= c[k] < 2**32: raise ValueError(f'Invalid {k}')
@@ -51,6 +56,13 @@ def resolve_plan(value):
     for k in ('train_quotas','validation_quotas'):
         if set(c[k]) != set(FAMILIES) or any(type(v) is not int or v < 1 for v in c[k].values()):
             raise ValueError('Each split requires three positive integer family quotas')
+    if fresh:
+        if type(c['test_geometries']) is not int or not c['minimum_geometries_per_family']<=c['test_geometries']<=10:
+            raise ValueError('Test requires multiple bounded geometry groups')
+        if type(c['test_seeds_per_geometry']) is not int or c['test_seeds_per_geometry']<1:
+            raise ValueError('Invalid test episode count')
+        if set(c['test_quotas'])!=set(FAMILIES) or any(type(v) is not int or v<1 for v in c['test_quotas'].values()):
+            raise ValueError('Invalid test quotas')
     c['window'] = window_config(value.get('window', {}))
     c['evaluation'] = evaluation_config(value.get('evaluation', {}))
     c['evaluation']['cuda_smoke'] = False
@@ -64,13 +76,15 @@ def protocol_id(c):
     keys = ('window','evaluation','driver','runtime','network','minimum_agents','pilot_demand_seconds',
             'pilot_minimum_eligible_per_family','pilot_minimum_retention_fraction',
             'position_roundtrip_tolerance_m','velocity_roundtrip_tolerance_mps','heading_roundtrip_tolerance')
-    payload = dict(version='stage5a.geometry.v2-connected-corridors', **{k:c[k] for k in keys})
+    version = 'stage5a.geometry.v3-three-splits' if c['schema_version'].endswith('.v2') else 'stage5a.geometry.v2-connected-corridors'
+    payload = dict(version=version, **{k:c[k] for k in keys})
     return 'sha256:' + hashlib.sha256(json.dumps(payload,sort_keys=True).encode()).hexdigest()
 
 
 def scenario(c, family, split, index, seed_index, *, pilot=False):
     # Split difference changes actual shape/width, not merely seed or filename.
-    j = index * 2 + (1 if split == 'validation' else 0)
+    fresh = c['schema_version'].endswith('.v2')
+    j = index*3+('train','validation','test').index(split) if fresh else index*2+(1 if split=='validation' else 0)
     if family == 'three_lane_straight':
         geometry = dict(core_length=400.+25*j, entry_buffer=300., exit_buffer=300.,
                         lane_width=3.5+.02*j, speed_limit=16., rotation_degrees=3.*j,
@@ -97,14 +111,15 @@ def scenario(c, family, split, index, seed_index, *, pilot=False):
 
 def jobs(c, pilot=False):
     result = []
-    for split in ('train','validation'):
+    splits = ('train','validation','test') if c['schema_version'].endswith('.v2') and not pilot else ('train','validation')
+    for split in splits:
         ng = 1 if pilot else c[f'{split}_geometries']
         ns = 1 if pilot else c[f'{split}_seeds_per_geometry']
         for fi, family in enumerate(FAMILIES):
             for gi in range(ng):
                 for si in range(ns):
                     # Non-overlapping seeds across split/family/geometry/repetition.
-                    seed = (c['seed'] + (100000 if split=='validation' else 0) + fi*10000+gi*100+si) % 2**32
+                    seed = (c['seed'] + 100000*('train','validation','test').index(split) + fi*10000+gi*100+si) % 2**32
                     name = f'{split}-{family}-g{gi:02d}-s{si:02d}'
                     result.append(dict(job_id=name,split=split,seed=seed,geometry_slot=f'{split}-{family}-g{gi:02d}',
                         scenario=scenario(c,family,split,gi,si,pilot=pilot)))
