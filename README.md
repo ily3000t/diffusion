@@ -1,6 +1,6 @@
 # SUMODiff
 
-独立的 SUMO 多车轨迹扩散生成工程。已实现阶段0至5及阶段5A：1200/200窗口、batch4、100个真实epoch（30000更新）已完成。基础生成仍0/200质量合格；冻结质量检查已定位速度抖动、位置—速度不一致、边界及朝向问题，收敛与稳定生成尚未达成。旧checkpoint不兼容。阶段6引导尚未实现，下一步短训练修改建议见[质量诊断报告](docs/trajectory_quality_audit.md)。实施范围见 [设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
+独立的 SUMO 多车轨迹扩散生成工程。当前已完成固定从头训练方案的工程验收：6000/600/600三划分、batch16、200轮、统一预热与余弦、全时域物理jerk尾部。现有stage5a入口已就地修改，代表性短回合与B16资源校准通过；正式数据扩充、新数据权重校准和长训练由用户在终端启动，收敛及生成质量仍待验证。当前命令见[阶段5A协议](docs/stage5a.md)，实测与来源见[轻量验收摘要](docs/fresh_training_implementation_summary.json)。阶段6尚未启动；实施合同见[设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
 
 ## 目录
 `configs/` 分类保存候选配置，`src/sumodiff/` 为新代码，`scripts/` 为入口辅助，`tests/` 为短验证，`docs/` 为合同和协议。`artifacts/{raw,processed,cache,checkpoints,runs}` 全部忽略，不提交数据或权重。保留模块目录标明后续阶段，不包含假实现。
@@ -141,3 +141,7 @@ Set-Location E:\diffusion_new
 ## 阶段5E冻结目标诊断
 
 已冻结比较200/225模型：同噪声验证t=200边界/内部时间项下降9.48%/6.31%，但自由生成资格仍82→64/200。新增349个jerk超限车辆帧中290来自内部中段、39来自末端，不能只提高边界权重。保留200模型；后续候选是整段物理jerk超限尾部，尚未实现或训练。结果及限制见[temporal_objective_results.md](docs/temporal_objective_results.md)，复现见[temporal_objective_diagnosis.md](docs/temporal_objective_diagnosis.md)。阶段6未启动。
+
+## 当前从头训练方案
+
+现有入口已更新为6000/600/600窗口、batch16、200轮的固定方案；随机模型与新AdamW、统一10轮辅助预热、单段warmup/余弦，以及全时域物理jerk Huber尾部项。没有新增重复训练入口。代表性SUMO短回合和B16资源校准通过，357项全集及新增CUDA恢复检查通过；正式扩充数据和新模型结果仍待本地运行。新默认运行名stage5a-fresh；完整命令、恢复和测试冻结协议见[当前阶段5A协议](docs/stage5a.md)，来源和实测见[轻量验收摘要](docs/fresh_training_implementation_summary.json)。上文100至225轮内容是历史记录。

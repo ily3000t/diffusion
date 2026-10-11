@@ -145,3 +145,11 @@ CPU脚本audit_checkpoint_screen_r1.py核对7个完成正式运行、1197输入�
 CPU audit_temporal_diagnosis.py核对1602唯一输入、112组均值/计数并独立重放400条已有自由轨迹，保存完整摘要和Matplotlib图。准备时旧core_only推理保护及缺少清单种子被明确拒绝；修正为按源任务ID读取无标签推理输入和显式继承真实diagnostic_noise=20261020，随后completed。没有覆写正式输出或静默降级。重构混合分位数使用源输出，仅核对计数/均值，未重复GPU张量重放。
 
 平均监督改善与自由生成退化分开报告。整段物理jerk超限尾部只是后续可审阅候选，未实现/加训；保留200模型，不作loss或学习率独立因果结论。阶段6/push/tag未启动。
+
+## 固定从头训练与物理尾部（2026-10-11）
+
+新jerk_tail模块由当前方案实现，物理差分和独立quality_audit.physical_derivatives交叉核对；复用本仓库RawVelocityLossConfig的200轮目标、统一解码器、道路代理和UpdateSchedule。直接修改epoch_training/training/cli及stage5a.ps1，没有复制旧工程或创建重复训练入口；不依赖E:\diffusion_fix或E:\diffusion运行。
+
+数据复用仅引用本仓库已完成的4个正常短回合，并核对原清单、实际配置、种子和划分；路口补采2个代表性回合。原0转弯小试验及拒绝原因保留，没有平滑原始轨迹、放宽运动阈值或覆写失败结果。固定目标和Huber尾部不自行构成创新或生成质量证据。
+
+验收的开发资源校准真实运行SHA为cb557d6843f63ee63d0a3e60de2f687d487d7073；代表性正式Pilot真实SHA为f1f5bf4，完整哈希见其manifest及轻量摘要。后续文档或merge的SHA不回填成这两个运行SHA。开发校准明确仅用旧训练标签，不能据此冻结新6000数据权重。

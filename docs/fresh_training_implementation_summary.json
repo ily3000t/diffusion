@@ -1,0 +1,521 @@
+{
+  "schema_version": "sumodiff.fresh.implementation.summary.v1",
+  "data_budget": {
+    "train": 6000,
+    "validation": 600,
+    "test": 600,
+    "batch_size": 16,
+    "epochs": 200,
+    "updates": 75000,
+    "candidate_episodes": {
+      "train": 144,
+      "validation": 36,
+      "test": 36
+    }
+  },
+  "calibration": {
+    "source_report": {
+      "id": "sha256:0cb64fed69efb0af968cc9ff08e82eb4e4d9229486903727882f6a47fb0aa0c6",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\fresh-dev-calibration-accepted-20261011\\calibration.json",
+      "sha256": "0cb64fed69efb0af968cc9ff08e82eb4e4d9229486903727882f6a47fb0aa0c6",
+      "size_bytes": 317643
+    },
+    "source_manifest": {
+      "id": "sha256:10f4e959d4b5a9fc03143b040c3a6f3db9e798578e9d8dc731962c9afecaceae",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\fresh-dev-calibration-accepted-20261011\\manifest.json",
+      "sha256": "10f4e959d4b5a9fc03143b040c3a6f3db9e798578e9d8dc731962c9afecaceae",
+      "size_bytes": 66705
+    },
+    "source_sha": "cb557d6843f63ee63d0a3e60de2f687d487d7073",
+    "source_dirty": false,
+    "formal": false,
+    "development_only": true,
+    "selected_candidate_tail_weight": 0.0003,
+    "production_weight_still_unresolved": true,
+    "train_windows_only": 32,
+    "private_warmup_updates": 32,
+    "private_stress_updates": 4,
+    "rows": [
+      {
+        "state": "random_initialization",
+        "group": "ordinary",
+        "mode": "natural",
+        "eligible_scenes": 4,
+        "weighted_tail_ratio": 0.023279717978177964,
+        "auxiliary_ratio": 0.08647337611745165,
+        "auxiliary_angle_degrees": 78.64140284317934,
+        "total_gradient_norm": 2.1733872533617484,
+        "epsilon_would_clip": true,
+        "total_would_clip": true,
+        "direct_autograd_verified": true
+      },
+      {
+        "state": "random_initialization",
+        "group": "ordinary",
+        "mode": "fixed_t0",
+        "eligible_scenes": 16,
+        "weighted_tail_ratio": 0.00039267919949393005,
+        "auxiliary_ratio": 0.002300802899212034,
+        "auxiliary_angle_degrees": 74.9186685680127,
+        "total_gradient_norm": 3.4061016048264903,
+        "epsilon_would_clip": true,
+        "total_would_clip": true,
+        "direct_autograd_verified": true
+      },
+      {
+        "state": "random_initialization",
+        "group": "ordinary",
+        "mode": "fixed_t50",
+        "eligible_scenes": 16,
+        "weighted_tail_ratio": 0.019584480504607434,
+        "auxiliary_ratio": 0.14632729815965564,
+        "auxiliary_angle_degrees": 74.71260952934622,
+        "total_gradient_norm": 3.000921409555044,
+        "epsilon_would_clip": true,
+        "total_would_clip": true,
+        "direct_autograd_verified": true
+      },
+      {
+        "state": "random_initialization",
+        "group": "ordinary",
+        "mode": "fixed_t200",
+        "eligible_scenes": 16,
+        "weighted_tail_ratio": 0.13966686013398938,
+        "auxiliary_ratio": 0.41762583963210986,
+        "auxiliary_angle_degrees": 75.63738264641488,
+        "total_gradient_norm": 2.672456415563197,
+        "epsilon_would_clip": true,
+        "total_would_clip": true,
+        "direct_autograd_verified": true
+      },
+      {
+        "state": "random_initialization",
+        "group": "dense_intersection",
+        "mode": "natural",
+        "eligible_scenes": 8,
+        "weighted_tail_ratio": 0.044764801809179404,
+        "auxiliary_ratio": 0.10095182233347658,
+        "auxiliary_angle_degrees": 77.04707826008959,
+        "total_gradient_norm": 2.4391947332950203,
+        "epsilon_would_clip": true,
+        "total_would_clip": true,
+        "direct_autograd_verified": true
+      },
+      {
+        "state": "random_initialization",
+        "group": "dense_intersection",
+        "mode": "fixed_t0",
+        "eligible_scenes": 16,
+        "weighted_tail_ratio": 0.0003174035551895321,
+        "auxiliary_ratio": 0.0009281519665647577,
+        "auxiliary_angle_degrees": 84.91134437834036,
+        "total_gradient_norm": 2.9262601133329165,
+        "epsilon_would_clip": true,
+        "total_would_clip": true,
+        "direct_autograd_verified": true
+      },
+      {
+        "state": "random_initialization",
+        "group": "dense_intersection",
+        "mode": "fixed_t50",
+        "eligible_scenes": 16,
+        "weighted_tail_ratio": 0.015577813574108215,
+        "auxiliary_ratio": 0.06249922024375572,
+        "auxiliary_angle_degrees": 81.7890994202739,
+        "total_gradient_norm": 2.781232585877597,
+        "epsilon_would_clip": true,
+        "total_would_clip": true,
+        "direct_autograd_verified": true
+      },
+      {
+        "state": "random_initialization",
+        "group": "dense_intersection",
+        "mode": "fixed_t200",
+        "eligible_scenes": 16,
+        "weighted_tail_ratio": 0.10905542911612978,
+        "auxiliary_ratio": 0.2517429105652,
+        "auxiliary_angle_degrees": 72.78970948314308,
+        "total_gradient_norm": 2.826747821839918,
+        "epsilon_would_clip": true,
+        "total_would_clip": true,
+        "direct_autograd_verified": true
+      },
+      {
+        "state": "after_32_warmup_updates",
+        "group": "ordinary",
+        "mode": "natural",
+        "eligible_scenes": 5,
+        "weighted_tail_ratio": 0.0373296955010577,
+        "auxiliary_ratio": 0.06067930777877641,
+        "auxiliary_angle_degrees": 69.4149874706441,
+        "total_gradient_norm": 1.8459299480617901,
+        "epsilon_would_clip": true,
+        "total_would_clip": true,
+        "direct_autograd_verified": true
+      },
+      {
+        "state": "after_32_warmup_updates",
+        "group": "ordinary",
+        "mode": "fixed_t0",
+        "eligible_scenes": 16,
+        "weighted_tail_ratio": 0.0005809482867367062,
+        "auxiliary_ratio": 0.0033952447267669122,
+        "auxiliary_angle_degrees": 63.610353278912775,
+        "total_gradient_norm": 2.2150422968413896,
+        "epsilon_would_clip": true,
+        "total_would_clip": true,
+        "direct_autograd_verified": true
+      },
+      {
+        "state": "after_32_warmup_updates",
+        "group": "ordinary",
+        "mode": "fixed_t50",
+        "eligible_scenes": 16,
+        "weighted_tail_ratio": 0.027619185017254817,
+        "auxiliary_ratio": 0.1887659658009506,
+        "auxiliary_angle_degrees": 64.71810199816211,
+        "total_gradient_norm": 2.081681928762943,
+        "epsilon_would_clip": true,
+        "total_would_clip": true,
+        "direct_autograd_verified": true
+      },
+      {
+        "state": "after_32_warmup_updates",
+        "group": "ordinary",
+        "mode": "fixed_t200",
+        "eligible_scenes": 16,
+        "weighted_tail_ratio": 0.16191761441878877,
+        "auxiliary_ratio": 0.45531708615186717,
+        "auxiliary_angle_degrees": 69.98814923088085,
+        "total_gradient_norm": 2.260520999998475,
+        "epsilon_would_clip": true,
+        "total_would_clip": true,
+        "direct_autograd_verified": true
+      },
+      {
+        "state": "after_32_warmup_updates",
+        "group": "dense_intersection",
+        "mode": "natural",
+        "eligible_scenes": 6,
+        "weighted_tail_ratio": 0.038772705455186865,
+        "auxiliary_ratio": 0.06805428585283885,
+        "auxiliary_angle_degrees": 73.09348230290445,
+        "total_gradient_norm": 2.039621381169523,
+        "epsilon_would_clip": true,
+        "total_would_clip": true,
+        "direct_autograd_verified": true
+      },
+      {
+        "state": "after_32_warmup_updates",
+        "group": "dense_intersection",
+        "mode": "fixed_t0",
+        "eligible_scenes": 16,
+        "weighted_tail_ratio": 0.0003657569594169048,
+        "auxiliary_ratio": 0.0009295273089703468,
+        "auxiliary_angle_degrees": 83.733954639818,
+        "total_gradient_norm": 2.4151099917076744,
+        "epsilon_would_clip": true,
+        "total_would_clip": true,
+        "direct_autograd_verified": true
+      },
+      {
+        "state": "after_32_warmup_updates",
+        "group": "dense_intersection",
+        "mode": "fixed_t50",
+        "eligible_scenes": 16,
+        "weighted_tail_ratio": 0.019242712871347895,
+        "auxiliary_ratio": 0.06354567251219796,
+        "auxiliary_angle_degrees": 80.82433513535875,
+        "total_gradient_norm": 2.257828782165393,
+        "epsilon_would_clip": true,
+        "total_would_clip": true,
+        "direct_autograd_verified": true
+      },
+      {
+        "state": "after_32_warmup_updates",
+        "group": "dense_intersection",
+        "mode": "fixed_t200",
+        "eligible_scenes": 16,
+        "weighted_tail_ratio": 0.13060094403511827,
+        "auxiliary_ratio": 0.2407489468766182,
+        "auxiliary_angle_degrees": 71.72418611678604,
+        "total_gradient_norm": 2.3413108218659646,
+        "epsilon_would_clip": true,
+        "total_would_clip": true,
+        "direct_autograd_verified": true
+      }
+    ],
+    "resource": {
+      "peak_allocated_bytes": 453418496,
+      "peak_reserved_bytes": 1000341504,
+      "calibration_peak_allocated_bytes": 800714240,
+      "cached_tensor_bytes": 27371584,
+      "estimated_full_cohort_cache_bytes": 5645389200.0,
+      "optimizer_mean_seconds": 0.7655135161260278,
+      "full_strength_optimizer_mean_seconds": 1.1999139999970794,
+      "total_seconds": 56.135087600006955
+    },
+    "optimizer_only_estimate_hours": 15.948198252625579
+  },
+  "pilot": {
+    "source_sha": "f1f5bf4008f3d0d80666c248dce6e3cd5875aebe",
+    "formal": true,
+    "source_dirty": false,
+    "source_report": {
+      "id": "sha256:056f509438b60b271edaf543da0633af355523312909ed0affe3000f0a38bcb7",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-pilot\\preparation\\quality_report.json",
+      "sha256": "056f509438b60b271edaf543da0633af355523312909ed0affe3000f0a38bcb7",
+      "size_bytes": 11470
+    },
+    "source_manifest": {
+      "id": "sha256:8b20e8b3870668a0421155c9fa074d380d786804f3b1c4431a80fb66e991d0b3",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-pilot\\manifest.json",
+      "sha256": "8b20e8b3870668a0421155c9fa074d380d786804f3b1c4431a80fb66e991d0b3",
+      "size_bytes": 2261
+    },
+    "passed": true,
+    "candidate_windows": 697,
+    "audit_failures": 0,
+    "conversion_failures": 0,
+    "turning_coverage": {
+      "train": {
+        "required_windows": 1,
+        "eligible_pool": 9,
+        "selected_windows": 1,
+        "measured_windows": 9,
+        "geometry_groups": 1,
+        "episodes": 1,
+        "passed": true
+      },
+      "validation": {
+        "required_windows": 1,
+        "eligible_pool": 1,
+        "selected_windows": 0,
+        "measured_windows": 1,
+        "geometry_groups": 1,
+        "episodes": 1,
+        "passed": true
+      }
+    },
+    "by_split_family": {
+      "train": {
+        "three_lane_straight": {
+          "windows": 87,
+          "core_complete": 62,
+          "eligible": 42,
+          "rejection_reasons": {
+            "too_few_agents": 10,
+            "raw64:no_applicable_pairs": 10,
+            "stored32:no_applicable_pairs": 10,
+            "incomplete_history_or_future": 25,
+            "raw64:motion": 10,
+            "stored32:motion": 10
+          },
+          "max_coordinate_errors": {
+            "position_m": 3.8121847865113523e-06,
+            "velocity_mps": 7.706186693212658e-07,
+            "heading": 2.965518897113384e-08
+          },
+          "peak_source_attribution": {
+            "vehicle_id": "flow_main.1",
+            "tick": 160,
+            "road_id": "main",
+            "lane_id": "main_0",
+            "center_jerk_mps3": 58.73429416074689,
+            "front_jerk_mps3": 116.66668418713896,
+            "reported_scalar_jerk_mps3": 0.06393833933291404
+          },
+          "eligible_actual_turning_windows": 0,
+          "eligible_geometries": 1,
+          "eligible_episodes": 1
+        },
+        "ramp_merge": {
+          "windows": 83,
+          "core_complete": 59,
+          "eligible": 20,
+          "rejection_reasons": {
+            "incomplete_history_or_future": 24,
+            "raw64:motion": 31,
+            "stored32:motion": 31,
+            "too_few_agents": 8,
+            "raw64:no_applicable_pairs": 8,
+            "stored32:no_applicable_pairs": 8
+          },
+          "max_coordinate_errors": {
+            "position_m": 3.8114972937819402e-06,
+            "velocity_mps": 4.763602987623017e-07,
+            "heading": 2.9673255297346657e-08
+          },
+          "peak_source_attribution": {
+            "vehicle_id": "flow_main.1",
+            "tick": 446,
+            "road_id": ":merge_end_0",
+            "lane_id": ":merge_end_0_0",
+            "center_jerk_mps3": 958.7409943695021,
+            "front_jerk_mps3": 145.11086351125914,
+            "reported_scalar_jerk_mps3": 0.00010167110442438343
+          },
+          "eligible_actual_turning_windows": 0,
+          "eligible_geometries": 1,
+          "eligible_episodes": 1
+        },
+        "unsignalized_intersection": {
+          "windows": 179,
+          "core_complete": 149,
+          "eligible": 90,
+          "rejection_reasons": {
+            "incomplete_history_or_future": 30,
+            "raw64:motion": 13,
+            "stored32:motion": 13,
+            "too_few_agents": 46,
+            "raw64:no_applicable_pairs": 46,
+            "stored32:no_applicable_pairs": 46
+          },
+          "max_coordinate_errors": {
+            "position_m": 3.8140570950417896e-06,
+            "velocity_mps": 2.3841764829057865e-07,
+            "heading": 2.9785149124883503e-08
+          },
+          "peak_source_attribution": {
+            "vehicle_id": "flow_north_east.0",
+            "tick": 751,
+            "road_id": "north_in",
+            "lane_id": "north_in_0",
+            "center_jerk_mps3": 40.000000000489415,
+            "front_jerk_mps3": 40.0000000004768,
+            "reported_scalar_jerk_mps3": 40.0
+          },
+          "eligible_actual_turning_windows": 9,
+          "eligible_geometries": 1,
+          "eligible_episodes": 1
+        }
+      },
+      "validation": {
+        "three_lane_straight": {
+          "windows": 89,
+          "core_complete": 71,
+          "eligible": 51,
+          "rejection_reasons": {
+            "too_few_agents": 11,
+            "raw64:no_applicable_pairs": 11,
+            "stored32:no_applicable_pairs": 11,
+            "incomplete_history_or_future": 18,
+            "raw64:motion": 9,
+            "stored32:motion": 9
+          },
+          "max_coordinate_errors": {
+            "position_m": 5.690242090850006e-06,
+            "velocity_mps": 9.47267984940936e-07,
+            "heading": 2.917295272020226e-08
+          },
+          "peak_source_attribution": {
+            "vehicle_id": "flow_main.1",
+            "tick": 632,
+            "road_id": "main",
+            "lane_id": "main_0",
+            "center_jerk_mps3": 59.066226109274,
+            "front_jerk_mps3": 117.33333333334879,
+            "reported_scalar_jerk_mps3": 0.0
+          },
+          "eligible_actual_turning_windows": 0,
+          "eligible_geometries": 1,
+          "eligible_episodes": 1
+        },
+        "ramp_merge": {
+          "windows": 94,
+          "core_complete": 74,
+          "eligible": 20,
+          "rejection_reasons": {
+            "incomplete_history_or_future": 20,
+            "raw64:motion": 44,
+            "stored32:motion": 44,
+            "too_few_agents": 10,
+            "raw64:no_applicable_pairs": 10,
+            "stored32:no_applicable_pairs": 10
+          },
+          "max_coordinate_errors": {
+            "position_m": 3.814404166746499e-06,
+            "velocity_mps": 4.7657592894267964e-07,
+            "heading": 2.9800679257618867e-08
+          },
+          "peak_source_attribution": {
+            "vehicle_id": "flow_main.0",
+            "tick": 445,
+            "road_id": ":merge_end_0",
+            "lane_id": ":merge_end_0_0",
+            "center_jerk_mps3": 198.489824978343,
+            "front_jerk_mps3": 364.06675029855046,
+            "reported_scalar_jerk_mps3": 0.0
+          },
+          "eligible_actual_turning_windows": 0,
+          "eligible_geometries": 1,
+          "eligible_episodes": 1
+        },
+        "unsignalized_intersection": {
+          "windows": 165,
+          "core_complete": 144,
+          "eligible": 84,
+          "rejection_reasons": {
+            "incomplete_history_or_future": 21,
+            "raw64:motion": 24,
+            "stored32:motion": 24,
+            "too_few_agents": 36,
+            "raw64:no_applicable_pairs": 36,
+            "stored32:no_applicable_pairs": 36
+          },
+          "max_coordinate_errors": {
+            "position_m": 3.811564823763547e-06,
+            "velocity_mps": 2.384087691709169e-07,
+            "heading": 2.9755490627003667e-08
+          },
+          "peak_source_attribution": {
+            "vehicle_id": "flow_south_north.0",
+            "tick": 602,
+            "road_id": "south_in",
+            "lane_id": "south_in_0",
+            "center_jerk_mps3": 39.99999999916339,
+            "front_jerk_mps3": 39.99999999914879,
+            "reported_scalar_jerk_mps3": 40.0
+          },
+          "eligible_actual_turning_windows": 1,
+          "eligible_geometries": 1,
+          "eligible_episodes": 1
+        }
+      }
+    },
+    "new_short_episodes": 2,
+    "reused_exact_completed_episodes": 4,
+    "selected_windows": {
+      "train": 12,
+      "validation": 6
+    },
+    "full_cohort_not_generated": true
+  },
+  "first_pilot": {
+    "source_report": {
+      "id": "sha256:949bc2451ec182330b69438f0fb68a54228894eaa53bc4322592fac5acbdb1f9",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-v2-pilot\\preparation\\quality_report.json",
+      "sha256": "949bc2451ec182330b69438f0fb68a54228894eaa53bc4322592fac5acbdb1f9",
+      "size_bytes": 11106
+    },
+    "superseded_quality_protocol": true,
+    "eligible_turning_windows": 0,
+    "reason": "34 turning core windows rejected by original motion thresholds; source braking jerk, not coordinate mismatch"
+  },
+  "verification": {
+    "regression_tests_passed": 357,
+    "powershell_syntax_passed": true,
+    "real_model_prefix_resume_exact": true,
+    "parameters_adamw_rng_and_schedule_equal": true,
+    "physical_jerk_cross_checked_independent_evaluation": true,
+    "additional_cuda_recovery_passed": true,
+    "total_distinct_test_cases_verified": 358
+  },
+  "limitations": [
+    "Development calibration does not authorize production Train.",
+    "Formal 7200 windows, production calibration and 200-epoch model are pending local terminal runs.",
+    "Representative pilot has only one eligible validation turning window; full selected coverage remains unverified.",
+    "Throughput/cache estimates depend on new cohort workload and exclude preprocessing/validation/checkpoint IO.",
+    "No convergence or free-generation quality claim; stage6 not started."
+  ]
+}
