@@ -1,0 +1,1869 @@
+{
+  "schema_version": "sumodiff.fresh.result.summary.v1",
+  "run_sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+  "cohorts": {
+    "train": {
+      "windows": 6000,
+      "families": {
+        "three_lane_straight": 2000,
+        "ramp_merge": 2000,
+        "unsignalized_intersection": 2000
+      },
+      "episodes": 144,
+      "geometries": 24,
+      "turning": 116
+    },
+    "validation": {
+      "windows": 600,
+      "families": {
+        "three_lane_straight": 200,
+        "ramp_merge": 200,
+        "unsignalized_intersection": 200
+      },
+      "episodes": 36,
+      "geometries": 9,
+      "turning": 21
+    },
+    "test": {
+      "windows": 600,
+      "families": {
+        "three_lane_straight": 200,
+        "ramp_merge": 200,
+        "unsignalized_intersection": 200
+      },
+      "episodes": 36,
+      "geometries": 9,
+      "turning": 19
+    }
+  },
+  "training": {
+    "checkpoint": {
+      "id": "sha256:e6f20667eb3cd943cd02aadb38d9342f500afac98469e988f0e59135ffb1daaf",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-recovery1-resume\\checkpoint_step_075000.pt",
+      "sha256": "e6f20667eb3cd943cd02aadb38d9342f500afac98469e988f0e59135ffb1daaf",
+      "size_bytes": 41742058
+    },
+    "training_sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+    "parent": {
+      "id": "sha256:da5b790ff114ecc718dfd89e09c4eda1047b0167f1fd18c3e5012b0c0d909986",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-train\\checkpoint_step_069375.pt",
+      "sha256": "da5b790ff114ecc718dfd89e09c4eda1047b0167f1fd18c3e5012b0c0d909986",
+      "size_bytes": 41741162
+    },
+    "schedule": {
+      "schema_version": "sumodiff.warmup.cosine.state.v1",
+      "config_sha256": "989710f6b38cc77844b353eee00cf3d75675205b1988dc6b9cdd4e66d75f9892",
+      "completed_updates": 75000,
+      "last_lr": 1e-06,
+      "last_auxiliary_ramp": 1.0
+    },
+    "optimizer_state_count": 190,
+    "optimizer_step": 75000,
+    "original_logged_updates": 70703,
+    "original_last_step": 70703,
+    "replayed_updates_verified": 1328,
+    "restored_at_step": 69375,
+    "unique_updates": 75000,
+    "epochs": 200,
+    "windows_per_epoch": 6000,
+    "batch_size": 16,
+    "optimizer_seconds_unique": 67648.03533829917,
+    "optimizer_seconds_recomputed": 1130.0658666013042,
+    "mean_optimizer_seconds": 0.9019738045106557,
+    "clipping_updates": 5911,
+    "max_gradient_norm": 14.373820304870605,
+    "last10_epoch_mean_losses": {
+      "noise_mse": 0.00021953530200989916,
+      "weighted_imitation": 1.1330328238284848e-05,
+      "weighted_temporal": 1.1646766307746391e-06,
+      "weighted_road": 1.7369396595003557e-08,
+      "weighted_raw_boundary": 8.16501761093491e-07,
+      "weighted_raw_interior": 3.7380058269140665e-06,
+      "weighted_tail": 8.250057667743589e-05,
+      "auxiliary_total": 9.95674585277186e-05,
+      "total_loss": 0.0003191027605376178
+    },
+    "convergence_status": "not_assessed; completed budget is not a convergence test",
+    "original_status_note": "original status remains running, no original trainer process observed; completed recovery is the budget authority"
+  },
+  "calibration": {
+    "run_sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+    "selected_tail_weight": 0.0003,
+    "passed": true,
+    "development_only": false,
+    "calibration_peak_allocated_bytes": 802792960,
+    "peak_allocated_bytes": 455896576,
+    "peak_reserved_bytes": 1002438656,
+    "total_seconds": 71.21013739999034,
+    "probe_rows": 16,
+    "total_cosine_min": 0.9177855952197583,
+    "total_cosine_max": 0.999999760045606,
+    "auxiliary_noise_norm_ratio_max": 0.5755986120917195,
+    "weighted_tail_noise_norm_ratio_max": 0.15955073791884833
+  },
+  "full_validation": {
+    "source_run": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-validate",
+    "source_sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+    "checkpoint": {
+      "id": "sha256:e6f20667eb3cd943cd02aadb38d9342f500afac98469e988f0e59135ffb1daaf",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-recovery1-resume\\checkpoint_step_075000.pt",
+      "sha256": "e6f20667eb3cd943cd02aadb38d9342f500afac98469e988f0e59135ffb1daaf",
+      "size_bytes": 41742058
+    },
+    "metrics": {
+      "schema_version": "sumodiff.base.sample.metrics.v1",
+      "run_sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+      "checkpoint_training_sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+      "planned_tasks": 600,
+      "generation_failures": 0,
+      "raw": {
+        "planned_scenes": 600,
+        "failed_scenes": 0,
+        "quality_pass_rate": 0.0,
+        "quality_unknown_scenes": 0,
+        "event_rates": {
+          "any": {
+            "denominator": 600,
+            "confirmed_positive": 15,
+            "confirmed_negative": 585,
+            "unknown_or_failed": 0,
+            "confirmed_event_rate": 0.025
+          },
+          "target": {
+            "denominator": 0,
+            "confirmed_positive": 0,
+            "confirmed_negative": 0,
+            "unknown_or_failed": 0,
+            "confirmed_event_rate": null
+          },
+          "non_target": {
+            "denominator": 600,
+            "confirmed_positive": 15,
+            "confirmed_negative": 585,
+            "unknown_or_failed": 0,
+            "confirmed_event_rate": 0.025
+          },
+          "background_background": {
+            "denominator": 0,
+            "confirmed_positive": 0,
+            "confirmed_negative": 0,
+            "unknown_or_failed": 0,
+            "confirmed_event_rate": null
+          },
+          "attacker_background": {
+            "denominator": 0,
+            "confirmed_positive": 0,
+            "confirmed_negative": 0,
+            "unknown_or_failed": 0,
+            "confirmed_event_rate": null
+          },
+          "target_background": {
+            "denominator": 0,
+            "confirmed_positive": 0,
+            "confirmed_negative": 0,
+            "unknown_or_failed": 0,
+            "confirmed_event_rate": null
+          }
+        },
+        "effective_target_event_rate": null,
+        "effective_target_denominator": 0
+      },
+      "decoded": {
+        "planned_scenes": 600,
+        "failed_scenes": 0,
+        "quality_pass_rate": 0.705,
+        "quality_unknown_scenes": 0,
+        "event_rates": {
+          "any": {
+            "denominator": 600,
+            "confirmed_positive": 15,
+            "confirmed_negative": 585,
+            "unknown_or_failed": 0,
+            "confirmed_event_rate": 0.025
+          },
+          "target": {
+            "denominator": 0,
+            "confirmed_positive": 0,
+            "confirmed_negative": 0,
+            "unknown_or_failed": 0,
+            "confirmed_event_rate": null
+          },
+          "non_target": {
+            "denominator": 600,
+            "confirmed_positive": 15,
+            "confirmed_negative": 585,
+            "unknown_or_failed": 0,
+            "confirmed_event_rate": 0.025
+          },
+          "background_background": {
+            "denominator": 0,
+            "confirmed_positive": 0,
+            "confirmed_negative": 0,
+            "unknown_or_failed": 0,
+            "confirmed_event_rate": null
+          },
+          "attacker_background": {
+            "denominator": 0,
+            "confirmed_positive": 0,
+            "confirmed_negative": 0,
+            "unknown_or_failed": 0,
+            "confirmed_event_rate": null
+          },
+          "target_background": {
+            "denominator": 0,
+            "confirmed_positive": 0,
+            "confirmed_negative": 0,
+            "unknown_or_failed": 0,
+            "confirmed_event_rate": null
+          }
+        },
+        "effective_target_event_rate": null,
+        "effective_target_denominator": 0
+      },
+      "selected_agent_windows": 2287,
+      "excluded_current_vehicle_windows": 10405,
+      "denoiser_calls_per_completed_scene": 20,
+      "actual_gradient_calls": 0,
+      "steps": 20,
+      "eta": 0.0,
+      "sampling_decoder_seconds": {
+        "count": 600,
+        "mean": 0.40627133716693303,
+        "p99": 1.1457668069953797,
+        "includes": "conditioning encoder, DDIM and unified decoder; excludes input IO, independent metrics and output IO"
+      },
+      "independent_evaluation_seconds": 85.5716982005979,
+      "total_loop_wall_seconds": 343.46151850000024,
+      "peak_allocated_bytes": 50846208,
+      "peak_reserved_bytes": 52428800,
+      "max_position_correction_m": 3.2040540192419327,
+      "max_velocity_correction_mps": 1.5299441807128193,
+      "heading_fallback_count": 0,
+      "limitations": [
+        "offline selected vehicles only",
+        "checkpoint training budget does not establish convergence or quality",
+        "no attack roles, target event N/A",
+        "failed and unqualified scenes retained"
+      ]
+    },
+    "overall": {
+      "scenes": 600,
+      "completed": 600,
+      "qualified": 423,
+      "qualified_rate": 0.705,
+      "motion_pass": 423,
+      "strict_comfort_agents": 190,
+      "agents": 2287,
+      "strict_comfort_scenes": 5,
+      "collisions": 15,
+      "road_scenes": {
+        "road": 14,
+        "route": 21,
+        "map_coverage": 0
+      },
+      "road_frames": {
+        "road": 302,
+        "route": 873,
+        "map_coverage": 0
+      },
+      "motion_violation_scenes": {
+        "speed": 0,
+        "longitudinal_acceleration": 15,
+        "lateral_acceleration": 10,
+        "jerk": 177,
+        "yaw_rate": 0,
+        "heading_velocity": 26,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      },
+      "motion_violation_frames": {
+        "speed": 0,
+        "longitudinal_acceleration": 27,
+        "lateral_acceleration": 14,
+        "jerk": 4434,
+        "yaw_rate": 0,
+        "heading_velocity": 342,
+        "heading_norm": 0,
+        "velocity_consistency": 0
+      },
+      "jerk_exceed_frames": {
+        "all": 4434,
+        "first4": 850,
+        "interior36": 3584,
+        "middle32": 2928,
+        "last4": 656
+      },
+      "jerk_exceed_scenes": {
+        "all": 177,
+        "first4": 113,
+        "interior36": 147,
+        "middle32": 120,
+        "last4": 93
+      }
+    },
+    "families": {
+      "ramp_merge": {
+        "scenes": 200,
+        "completed": 200,
+        "qualified": 152,
+        "qualified_rate": 0.76,
+        "motion_pass": 152,
+        "strict_comfort_agents": 94,
+        "agents": 734,
+        "strict_comfort_scenes": 1,
+        "collisions": 0,
+        "road_scenes": {
+          "road": 0,
+          "route": 0,
+          "map_coverage": 0
+        },
+        "road_frames": {
+          "road": 0,
+          "route": 0,
+          "map_coverage": 0
+        },
+        "motion_violation_scenes": {
+          "speed": 0,
+          "longitudinal_acceleration": 1,
+          "lateral_acceleration": 0,
+          "jerk": 48,
+          "yaw_rate": 0,
+          "heading_velocity": 0,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "motion_violation_frames": {
+          "speed": 0,
+          "longitudinal_acceleration": 1,
+          "lateral_acceleration": 0,
+          "jerk": 145,
+          "yaw_rate": 0,
+          "heading_velocity": 0,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "jerk_exceed_frames": {
+          "all": 145,
+          "first4": 46,
+          "interior36": 99,
+          "middle32": 75,
+          "last4": 24
+        },
+        "jerk_exceed_scenes": {
+          "all": 48,
+          "first4": 23,
+          "interior36": 42,
+          "middle32": 33,
+          "last4": 18
+        }
+      },
+      "three_lane_straight": {
+        "scenes": 200,
+        "completed": 200,
+        "qualified": 180,
+        "qualified_rate": 0.9,
+        "motion_pass": 180,
+        "strict_comfort_agents": 71,
+        "agents": 575,
+        "strict_comfort_scenes": 4,
+        "collisions": 0,
+        "road_scenes": {
+          "road": 0,
+          "route": 0,
+          "map_coverage": 0
+        },
+        "road_frames": {
+          "road": 0,
+          "route": 0,
+          "map_coverage": 0
+        },
+        "motion_violation_scenes": {
+          "speed": 0,
+          "longitudinal_acceleration": 0,
+          "lateral_acceleration": 0,
+          "jerk": 20,
+          "yaw_rate": 0,
+          "heading_velocity": 0,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "motion_violation_frames": {
+          "speed": 0,
+          "longitudinal_acceleration": 0,
+          "lateral_acceleration": 0,
+          "jerk": 43,
+          "yaw_rate": 0,
+          "heading_velocity": 0,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "jerk_exceed_frames": {
+          "all": 43,
+          "first4": 16,
+          "interior36": 27,
+          "middle32": 21,
+          "last4": 6
+        },
+        "jerk_exceed_scenes": {
+          "all": 20,
+          "first4": 9,
+          "interior36": 14,
+          "middle32": 11,
+          "last4": 5
+        }
+      },
+      "unsignalized_intersection": {
+        "scenes": 200,
+        "completed": 200,
+        "qualified": 91,
+        "qualified_rate": 0.455,
+        "motion_pass": 91,
+        "strict_comfort_agents": 25,
+        "agents": 978,
+        "strict_comfort_scenes": 0,
+        "collisions": 15,
+        "road_scenes": {
+          "road": 14,
+          "route": 21,
+          "map_coverage": 0
+        },
+        "road_frames": {
+          "road": 302,
+          "route": 873,
+          "map_coverage": 0
+        },
+        "motion_violation_scenes": {
+          "speed": 0,
+          "longitudinal_acceleration": 14,
+          "lateral_acceleration": 10,
+          "jerk": 109,
+          "yaw_rate": 0,
+          "heading_velocity": 26,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "motion_violation_frames": {
+          "speed": 0,
+          "longitudinal_acceleration": 26,
+          "lateral_acceleration": 14,
+          "jerk": 4246,
+          "yaw_rate": 0,
+          "heading_velocity": 342,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "jerk_exceed_frames": {
+          "all": 4246,
+          "first4": 788,
+          "interior36": 3458,
+          "middle32": 2832,
+          "last4": 626
+        },
+        "jerk_exceed_scenes": {
+          "all": 109,
+          "first4": 81,
+          "interior36": 91,
+          "middle32": 76,
+          "last4": 70
+        }
+      }
+    },
+    "agent_groups": {
+      "2to3": {
+        "scenes": 405,
+        "completed": 405,
+        "qualified": 311,
+        "qualified_rate": 0.7679012345679013,
+        "motion_pass": 311,
+        "strict_comfort_agents": 109,
+        "agents": 1022,
+        "strict_comfort_scenes": 5,
+        "collisions": 0,
+        "road_scenes": {
+          "road": 1,
+          "route": 1,
+          "map_coverage": 0
+        },
+        "road_frames": {
+          "road": 2,
+          "route": 2,
+          "map_coverage": 0
+        },
+        "motion_violation_scenes": {
+          "speed": 0,
+          "longitudinal_acceleration": 1,
+          "lateral_acceleration": 0,
+          "jerk": 94,
+          "yaw_rate": 0,
+          "heading_velocity": 0,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "motion_violation_frames": {
+          "speed": 0,
+          "longitudinal_acceleration": 1,
+          "lateral_acceleration": 0,
+          "jerk": 270,
+          "yaw_rate": 0,
+          "heading_velocity": 0,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "jerk_exceed_frames": {
+          "all": 270,
+          "first4": 81,
+          "interior36": 189,
+          "middle32": 140,
+          "last4": 49
+        },
+        "jerk_exceed_scenes": {
+          "all": 94,
+          "first4": 47,
+          "interior36": 70,
+          "middle32": 49,
+          "last4": 37
+        }
+      },
+      "4to7": {
+        "scenes": 145,
+        "completed": 145,
+        "qualified": 108,
+        "qualified_rate": 0.7448275862068966,
+        "motion_pass": 108,
+        "strict_comfort_agents": 74,
+        "agents": 721,
+        "strict_comfort_scenes": 0,
+        "collisions": 1,
+        "road_scenes": {
+          "road": 1,
+          "route": 2,
+          "map_coverage": 0
+        },
+        "road_frames": {
+          "road": 23,
+          "route": 55,
+          "map_coverage": 0
+        },
+        "motion_violation_scenes": {
+          "speed": 0,
+          "longitudinal_acceleration": 3,
+          "lateral_acceleration": 0,
+          "jerk": 37,
+          "yaw_rate": 0,
+          "heading_velocity": 0,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "motion_violation_frames": {
+          "speed": 0,
+          "longitudinal_acceleration": 5,
+          "lateral_acceleration": 0,
+          "jerk": 272,
+          "yaw_rate": 0,
+          "heading_velocity": 0,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "jerk_exceed_frames": {
+          "all": 272,
+          "first4": 80,
+          "interior36": 192,
+          "middle32": 160,
+          "last4": 32
+        },
+        "jerk_exceed_scenes": {
+          "all": 37,
+          "first4": 23,
+          "interior36": 31,
+          "middle32": 28,
+          "last4": 13
+        }
+      },
+      "8to12": {
+        "scenes": 50,
+        "completed": 50,
+        "qualified": 4,
+        "qualified_rate": 0.08,
+        "motion_pass": 4,
+        "strict_comfort_agents": 7,
+        "agents": 544,
+        "strict_comfort_scenes": 0,
+        "collisions": 14,
+        "road_scenes": {
+          "road": 12,
+          "route": 18,
+          "map_coverage": 0
+        },
+        "road_frames": {
+          "road": 277,
+          "route": 816,
+          "map_coverage": 0
+        },
+        "motion_violation_scenes": {
+          "speed": 0,
+          "longitudinal_acceleration": 11,
+          "lateral_acceleration": 10,
+          "jerk": 46,
+          "yaw_rate": 0,
+          "heading_velocity": 26,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "motion_violation_frames": {
+          "speed": 0,
+          "longitudinal_acceleration": 21,
+          "lateral_acceleration": 14,
+          "jerk": 3892,
+          "yaw_rate": 0,
+          "heading_velocity": 342,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "jerk_exceed_frames": {
+          "all": 3892,
+          "first4": 689,
+          "interior36": 3203,
+          "middle32": 2628,
+          "last4": 575
+        },
+        "jerk_exceed_scenes": {
+          "all": 46,
+          "first4": 43,
+          "interior36": 46,
+          "middle32": 43,
+          "last4": 43
+        }
+      },
+      "dense_intersections": {
+        "scenes": 46,
+        "completed": 46,
+        "qualified": 0,
+        "qualified_rate": 0.0,
+        "motion_pass": 0,
+        "strict_comfort_agents": 1,
+        "agents": 511,
+        "strict_comfort_scenes": 0,
+        "collisions": 14,
+        "road_scenes": {
+          "road": 12,
+          "route": 18,
+          "map_coverage": 0
+        },
+        "road_frames": {
+          "road": 277,
+          "route": 816,
+          "map_coverage": 0
+        },
+        "motion_violation_scenes": {
+          "speed": 0,
+          "longitudinal_acceleration": 11,
+          "lateral_acceleration": 10,
+          "jerk": 46,
+          "yaw_rate": 0,
+          "heading_velocity": 26,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "motion_violation_frames": {
+          "speed": 0,
+          "longitudinal_acceleration": 21,
+          "lateral_acceleration": 14,
+          "jerk": 3892,
+          "yaw_rate": 0,
+          "heading_velocity": 342,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "jerk_exceed_frames": {
+          "all": 3892,
+          "first4": 689,
+          "interior36": 3203,
+          "middle32": 2628,
+          "last4": 575
+        },
+        "jerk_exceed_scenes": {
+          "all": 46,
+          "first4": 43,
+          "interior36": 46,
+          "middle32": 43,
+          "last4": 43
+        }
+      },
+      "turning_intersections": {
+        "scenes": 21,
+        "completed": 21,
+        "qualified": 0,
+        "qualified_rate": 0.0,
+        "motion_pass": 0,
+        "strict_comfort_agents": 0,
+        "agents": 226,
+        "strict_comfort_scenes": 0,
+        "collisions": 8,
+        "road_scenes": {
+          "road": 11,
+          "route": 17,
+          "map_coverage": 0
+        },
+        "road_frames": {
+          "road": 283,
+          "route": 846,
+          "map_coverage": 0
+        },
+        "motion_violation_scenes": {
+          "speed": 0,
+          "longitudinal_acceleration": 12,
+          "lateral_acceleration": 9,
+          "jerk": 21,
+          "yaw_rate": 0,
+          "heading_velocity": 13,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "motion_violation_frames": {
+          "speed": 0,
+          "longitudinal_acceleration": 23,
+          "lateral_acceleration": 13,
+          "jerk": 2778,
+          "yaw_rate": 0,
+          "heading_velocity": 163,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "jerk_exceed_frames": {
+          "all": 2778,
+          "first4": 451,
+          "interior36": 2327,
+          "middle32": 1931,
+          "last4": 396
+        },
+        "jerk_exceed_scenes": {
+          "all": 21,
+          "first4": 21,
+          "interior36": 21,
+          "middle32": 21,
+          "last4": 20
+        }
+      }
+    },
+    "physical_quantiles": {
+      "raw.all": {
+        "count": 91480,
+        "mean": 229.363914415395,
+        "min": 0.3561402228536306,
+        "p50": 143.9877066072813,
+        "p95": 679.4607188617579,
+        "p99": 1709.8552797551506,
+        "max": 9147.809628801988
+      },
+      "raw.first4": {
+        "count": 9148,
+        "mean": 271.4967576399467,
+        "min": 1.0901164058716541,
+        "p50": 158.63801822428468,
+        "p95": 866.6361671109157,
+        "p99": 2246.797353632358,
+        "max": 9147.809628801988
+      },
+      "raw.interior36": {
+        "count": 82332,
+        "mean": 224.68248739044472,
+        "min": 0.3561402228536306,
+        "p50": 142.7196798197761,
+        "p95": 659.5002279085303,
+        "p99": 1663.941855824798,
+        "max": 7056.478050204836
+      },
+      "raw.middle32": {
+        "count": 73184,
+        "mean": 215.08369729929282,
+        "min": 0.3561402228536306,
+        "p50": 138.70135180529962,
+        "p95": 620.7433330145209,
+        "p99": 1548.913156012154,
+        "max": 6781.5765496358745
+      },
+      "raw.last4": {
+        "count": 9148,
+        "mean": 301.4728081196606,
+        "min": 0.8076485006030335,
+        "p50": 178.30970050203203,
+        "p95": 973.8136039808635,
+        "p99": 2440.1860880437152,
+        "max": 7056.478050204836
+      },
+      "decoded.all": {
+        "count": 91480,
+        "mean": 4.849405350994327,
+        "min": 0.004332278319378057,
+        "p50": 2.964781227277543,
+        "p95": 14.662011517553982,
+        "p99": 37.693870209441464,
+        "max": 218.84021589470004
+      },
+      "decoded.first4": {
+        "count": 9148,
+        "mean": 7.477851411675695,
+        "min": 0.06948959517705747,
+        "p50": 4.3669342661600385,
+        "p95": 26.275813380909543,
+        "p99": 59.737319949215546,
+        "max": 218.84021589470004
+      },
+      "decoded.interior36": {
+        "count": 82332,
+        "mean": 4.557355788696397,
+        "min": 0.004332278319378057,
+        "p50": 2.84570970903101,
+        "p95": 13.602793707128637,
+        "p99": 34.11806406099337,
+        "max": 167.07757595967138
+      },
+      "decoded.middle32": {
+        "count": 73184,
+        "mean": 4.349285719558727,
+        "min": 0.004332278319378057,
+        "p50": 2.7527746517032354,
+        "p95": 12.877364787596054,
+        "p99": 32.22720052004789,
+        "max": 152.55382053498965
+      },
+      "decoded.last4": {
+        "count": 9148,
+        "mean": 6.22191634179776,
+        "min": 0.030558687398865476,
+        "p50": 3.788708404454251,
+        "p95": 19.499413552007578,
+        "p99": 49.4062540037118,
+        "max": 167.07757595967138
+      },
+      "position_correction": {
+        "count": 91480,
+        "mean": 0.06095260535381714,
+        "min": 0.00013513183581036854,
+        "p50": 0.03533357206255454,
+        "p95": 0.19650414484629722,
+        "p99": 0.5003006694340711,
+        "max": 3.2040540192419327
+      },
+      "velocity_correction": {
+        "count": 91480,
+        "mean": 0.03474040460516113,
+        "min": 7.618067329731087e-05,
+        "p50": 0.021223818360696534,
+        "p95": 0.11001044751129478,
+        "p99": 0.26506310321545484,
+        "max": 1.5299441807128193
+      },
+      "raw_velocity_residual": {
+        "count": 91480,
+        "mean": 0.7509652690766219,
+        "min": 0.0011099038406946968,
+        "p50": 0.46558387805280205,
+        "p95": 2.2465535406496953,
+        "p99": 5.733448806325915,
+        "max": 36.32244622426759
+      }
+    },
+    "independent_decoder_max_absolute_error_m": 1.7053025658242404e-13,
+    "scene_quality_cluster_ci": {
+      "point": 0.705,
+      "lower": 0.6757503942977301,
+      "upper": 0.7344275808968295,
+      "replicates": 4000,
+      "seed": 20261028,
+      "method": "road-family-stratified episode cluster percentile; conditional on collected geometries"
+    }
+  },
+  "paired_monitor_170_to_200": {
+    "qualified_change": {
+      "point": -0.016666666666666666,
+      "lower": -0.09999999999999999,
+      "upper": 0.016666666666666666,
+      "replicates": 4000,
+      "seed": 20261028,
+      "method": "road-family-stratified episode cluster percentile; conditional on collected geometries"
+    },
+    "improved": 1,
+    "degraded": 2,
+    "unchanged": 57,
+    "initial_noise_exact_match": true,
+    "interpretation": "60 monitoring tasks only; not a full 600 checkpoint comparison"
+  },
+  "label_controls": {
+    "raw": {
+      "scenes": 600,
+      "hard_motion_pass_scenes": 600,
+      "strict_comfort_pass_agents": 2259,
+      "agents": 2287,
+      "strict_comfort_pass_scenes": 574,
+      "jerk_norm_mps3": {
+        "count": 91480,
+        "mean": 0.030965641561357757,
+        "min": 0.0,
+        "p50": 0.003814697265624999,
+        "p95": 0.11444091796874997,
+        "p99": 0.5005553042204868,
+        "max": 14.932119720327698
+      },
+      "max_position_correction_m": 6.953920149044279e-06
+    },
+    "decoded": {
+      "scenes": 600,
+      "hard_motion_pass_scenes": 600,
+      "strict_comfort_pass_agents": 2259,
+      "agents": 2287,
+      "strict_comfort_pass_scenes": 574,
+      "jerk_norm_mps3": {
+        "count": 91480,
+        "mean": 0.029290185486354443,
+        "min": 0.0,
+        "p50": 0.00036224170330001546,
+        "p95": 0.1151971931210749,
+        "p99": 0.4995296167066092,
+        "max": 14.932825843580822
+      },
+      "max_position_correction_m": 6.953920149044279e-06
+    }
+  },
+  "monitor_reports": {
+    "170": {
+      "source_run": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-train\\free_validation_epoch_0170",
+      "source_sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+      "checkpoint": {
+        "id": "sha256:1045b5c624293e33317cb6a244a5e8a2b398d0a5e1c5a1cd149439f3df00d4a1",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-train\\checkpoint_step_063750.pt",
+        "sha256": "1045b5c624293e33317cb6a244a5e8a2b398d0a5e1c5a1cd149439f3df00d4a1",
+        "size_bytes": 41741162
+      },
+      "overall": {
+        "scenes": 60,
+        "completed": 60,
+        "qualified": 40,
+        "qualified_rate": 0.6666666666666666,
+        "motion_pass": 40,
+        "strict_comfort_agents": 7,
+        "agents": 213,
+        "strict_comfort_scenes": 0,
+        "collisions": 2,
+        "road_scenes": {
+          "road": 0,
+          "route": 1,
+          "map_coverage": 0
+        },
+        "road_frames": {
+          "road": 0,
+          "route": 14,
+          "map_coverage": 0
+        },
+        "motion_violation_scenes": {
+          "speed": 0,
+          "longitudinal_acceleration": 0,
+          "lateral_acceleration": 0,
+          "jerk": 20,
+          "yaw_rate": 0,
+          "heading_velocity": 1,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "motion_violation_frames": {
+          "speed": 0,
+          "longitudinal_acceleration": 0,
+          "lateral_acceleration": 0,
+          "jerk": 402,
+          "yaw_rate": 0,
+          "heading_velocity": 5,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "jerk_exceed_frames": {
+          "all": 402,
+          "first4": 134,
+          "interior36": 268,
+          "middle32": 222,
+          "last4": 46
+        },
+        "jerk_exceed_scenes": {
+          "all": 20,
+          "first4": 16,
+          "interior36": 14,
+          "middle32": 10,
+          "last4": 8
+        }
+      },
+      "physical_quantiles": {
+        "raw.all": {
+          "count": 8520,
+          "mean": 223.28768942506815,
+          "min": 2.0778444691089435,
+          "p50": 153.50309349626036,
+          "p95": 590.825726370001,
+          "p99": 1480.6690656217868,
+          "max": 4947.393604778991
+        },
+        "raw.first4": {
+          "count": 852,
+          "mean": 278.0164256627225,
+          "min": 2.5663360319963204,
+          "p50": 189.26672386279483,
+          "p95": 723.5712717334594,
+          "p99": 2186.2260188260334,
+          "max": 3213.021972947368
+        },
+        "raw.interior36": {
+          "count": 7668,
+          "mean": 217.20671873199547,
+          "min": 2.0778444691089435,
+          "p50": 150.4559957385208,
+          "p95": 560.558405766329,
+          "p99": 1430.603124768549,
+          "max": 4947.393604778991
+        },
+        "raw.middle32": {
+          "count": 6816,
+          "mean": 208.54149949947202,
+          "min": 2.0778444691089435,
+          "p50": 147.10713994538287,
+          "p95": 532.8244514118023,
+          "p99": 1314.2413652788177,
+          "max": 4947.393604778991
+        },
+        "raw.last4": {
+          "count": 852,
+          "mean": 286.52847259218277,
+          "min": 8.492279961686123,
+          "p50": 190.65777874142591,
+          "p95": 841.1615552942138,
+          "p99": 1908.5387738715722,
+          "max": 3792.689181975783
+        },
+        "decoded.all": {
+          "count": 8520,
+          "mean": 4.740577558485327,
+          "min": 0.03829337627967373,
+          "p50": 3.1048620746741724,
+          "p95": 14.209942568880015,
+          "p99": 31.870162205395754,
+          "max": 106.44570944261433
+        },
+        "decoded.first4": {
+          "count": 852,
+          "mean": 8.538258543202144,
+          "min": 0.3441605576910693,
+          "p50": 5.235724824969694,
+          "p95": 28.035969501001087,
+          "p99": 47.61524760624365,
+          "max": 90.65978978269463
+        },
+        "decoded.interior36": {
+          "count": 7668,
+          "mean": 4.318613004627903,
+          "min": 0.03829337627967373,
+          "p50": 2.9588564731474163,
+          "p95": 11.671267660874275,
+          "p99": 28.676127669075882,
+          "max": 106.44570944261433
+        },
+        "decoded.middle32": {
+          "count": 6816,
+          "mean": 4.127199139687153,
+          "min": 0.05245148516707007,
+          "p50": 2.856908520632434,
+          "p95": 11.07662415010558,
+          "p99": 27.89131750312998,
+          "max": 106.44570944261433
+        },
+        "decoded.last4": {
+          "count": 852,
+          "mean": 5.84992392415391,
+          "min": 0.03829337627967373,
+          "p50": 4.155122815723731,
+          "p95": 15.812025564996123,
+          "p99": 42.474542803410294,
+          "max": 70.97341132559347
+        },
+        "position_correction": {
+          "count": 8520,
+          "mean": 0.06332072124314556,
+          "min": 0.0005884425545258552,
+          "p50": 0.04311889496490885,
+          "p95": 0.17835124067917713,
+          "p99": 0.42474255034508956,
+          "max": 1.2021208958606937
+        },
+        "velocity_correction": {
+          "count": 8520,
+          "mean": 0.04643105967588865,
+          "min": 0.0003637924993796414,
+          "p50": 0.037813112124385664,
+          "p95": 0.11035849251801762,
+          "p99": 0.2167499965515337,
+          "max": 0.507294809469876
+        },
+        "raw_velocity_residual": {
+          "count": 8520,
+          "mean": 0.7388102629798723,
+          "min": 0.004918599468530982,
+          "p50": 0.5097738299496972,
+          "p95": 1.9592731921318423,
+          "p99": 5.227854476079264,
+          "max": 14.827411292617773
+        }
+      },
+      "independent_decoder_max_absolute_error_m": 1.4921397450962104e-13,
+      "scene_quality_cluster_ci": {
+        "point": 0.6666666666666666,
+        "lower": 0.4666666666666666,
+        "upper": 0.7374999999999999,
+        "replicates": 4000,
+        "seed": 20261028,
+        "method": "road-family-stratified episode cluster percentile; conditional on collected geometries"
+      }
+    },
+    "180": {
+      "source_run": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-train\\free_validation_epoch_0180",
+      "source_sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+      "checkpoint": {
+        "id": "sha256:351eb95acc5117135de3777c9815fa6f7bfe8fd8568fa4b8df4ade66327d7bd8",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-train\\checkpoint_step_067500.pt",
+        "sha256": "351eb95acc5117135de3777c9815fa6f7bfe8fd8568fa4b8df4ade66327d7bd8",
+        "size_bytes": 41741162
+      },
+      "overall": {
+        "scenes": 60,
+        "completed": 60,
+        "qualified": 38,
+        "qualified_rate": 0.6333333333333333,
+        "motion_pass": 38,
+        "strict_comfort_agents": 16,
+        "agents": 213,
+        "strict_comfort_scenes": 1,
+        "collisions": 2,
+        "road_scenes": {
+          "road": 1,
+          "route": 1,
+          "map_coverage": 0
+        },
+        "road_frames": {
+          "road": 15,
+          "route": 28,
+          "map_coverage": 0
+        },
+        "motion_violation_scenes": {
+          "speed": 0,
+          "longitudinal_acceleration": 1,
+          "lateral_acceleration": 1,
+          "jerk": 22,
+          "yaw_rate": 0,
+          "heading_velocity": 1,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "motion_violation_frames": {
+          "speed": 0,
+          "longitudinal_acceleration": 2,
+          "lateral_acceleration": 2,
+          "jerk": 348,
+          "yaw_rate": 0,
+          "heading_velocity": 5,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "jerk_exceed_frames": {
+          "all": 348,
+          "first4": 73,
+          "interior36": 275,
+          "middle32": 230,
+          "last4": 45
+        },
+        "jerk_exceed_scenes": {
+          "all": 22,
+          "first4": 16,
+          "interior36": 17,
+          "middle32": 15,
+          "last4": 10
+        }
+      },
+      "physical_quantiles": {
+        "raw.all": {
+          "count": 8520,
+          "mean": 230.69272651051352,
+          "min": 2.8827735696618815,
+          "p50": 157.97927326486874,
+          "p95": 617.2494281586294,
+          "p99": 1416.4496864812695,
+          "max": 4494.420895709525
+        },
+        "raw.first4": {
+          "count": 852,
+          "mean": 267.31903555333986,
+          "min": 5.315374069494809,
+          "p50": 183.32672095987732,
+          "p95": 772.0832052062042,
+          "p99": 1731.458034073757,
+          "max": 3115.124503373858
+        },
+        "raw.interior36": {
+          "count": 7668,
+          "mean": 226.62313661686613,
+          "min": 2.8827735696618815,
+          "p50": 155.95787496159934,
+          "p95": 605.5404908250414,
+          "p99": 1358.5315485722226,
+          "max": 4494.420895709525
+        },
+        "raw.middle32": {
+          "count": 6816,
+          "mean": 218.18879189174223,
+          "min": 2.8827735696618815,
+          "p50": 152.54264404034978,
+          "p95": 579.8022771090035,
+          "p99": 1262.7385320828002,
+          "max": 4494.420895709525
+        },
+        "raw.last4": {
+          "count": 852,
+          "mean": 294.0978944178573,
+          "min": 9.617836156622634,
+          "p50": 196.6071141113336,
+          "p95": 815.5879941970462,
+          "p99": 1846.2451817929766,
+          "max": 3869.7429855752607
+        },
+        "decoded.all": {
+          "count": 8520,
+          "mean": 4.892345120296454,
+          "min": 0.04597492674870755,
+          "p50": 3.307662950834782,
+          "p95": 13.688758495118106,
+          "p99": 30.509739995473314,
+          "max": 95.48070493957186
+        },
+        "decoded.first4": {
+          "count": 852,
+          "mean": 7.515930735448366,
+          "min": 0.25792465611012505,
+          "p50": 5.023739316962438,
+          "p95": 19.3267778636502,
+          "p99": 50.54241604297847,
+          "max": 95.48070493957186
+        },
+        "decoded.interior36": {
+          "count": 7668,
+          "mean": 4.600835607501799,
+          "min": 0.04597492674870755,
+          "p50": 3.1626355847229295,
+          "p95": 12.675238783821737,
+          "p99": 27.42329543838703,
+          "max": 81.54602769142082
+        },
+        "decoded.middle32": {
+          "count": 6816,
+          "mean": 4.422189755686044,
+          "min": 0.0467897121093126,
+          "p50": 3.0809272421134506,
+          "p95": 12.262726523306403,
+          "p99": 26.52236371761052,
+          "max": 81.54602769142082
+        },
+        "decoded.last4": {
+          "count": 852,
+          "mean": 6.030002422027828,
+          "min": 0.04597492674870755,
+          "p50": 4.137249202665762,
+          "p95": 15.451147707927888,
+          "p99": 39.05914566855846,
+          "max": 65.53728197472388
+        },
+        "position_correction": {
+          "count": 8520,
+          "mean": 0.06315498072175274,
+          "min": 0.0003185140865321169,
+          "p50": 0.041479183266843606,
+          "p95": 0.18537815798681667,
+          "p99": 0.44983300321324193,
+          "max": 1.153182426735624
+        },
+        "velocity_correction": {
+          "count": 8520,
+          "mean": 0.037799982167497075,
+          "min": 0.0002599473489287543,
+          "p50": 0.02503473454722068,
+          "p95": 0.11278482563255385,
+          "p99": 0.2710551734203224,
+          "max": 0.4821187860177307
+        },
+        "raw_velocity_residual": {
+          "count": 8520,
+          "mean": 0.7593983883645481,
+          "min": 0.002877508944574203,
+          "p50": 0.5203270458835342,
+          "p95": 2.0620627496631374,
+          "p99": 4.926833562374092,
+          "max": 15.822365017287161
+        }
+      },
+      "independent_decoder_max_absolute_error_m": 1.5631940186722204e-13,
+      "scene_quality_cluster_ci": {
+        "point": 0.6333333333333333,
+        "lower": 0.36666666666666664,
+        "upper": 0.7208333333333333,
+        "replicates": 4000,
+        "seed": 20261028,
+        "method": "road-family-stratified episode cluster percentile; conditional on collected geometries"
+      }
+    },
+    "190": {
+      "source_run": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-recovery1-resume\\free_validation_epoch_0190",
+      "source_sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+      "checkpoint": {
+        "id": "sha256:a98bed679c23329554bb8a3f34245fbbbe827c94cfb939ff3919f0e0f55de286",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-recovery1-resume\\checkpoint_step_071250.pt",
+        "sha256": "a98bed679c23329554bb8a3f34245fbbbe827c94cfb939ff3919f0e0f55de286",
+        "size_bytes": 41742058
+      },
+      "overall": {
+        "scenes": 60,
+        "completed": 60,
+        "qualified": 39,
+        "qualified_rate": 0.65,
+        "motion_pass": 39,
+        "strict_comfort_agents": 17,
+        "agents": 213,
+        "strict_comfort_scenes": 2,
+        "collisions": 2,
+        "road_scenes": {
+          "road": 1,
+          "route": 1,
+          "map_coverage": 0
+        },
+        "road_frames": {
+          "road": 30,
+          "route": 41,
+          "map_coverage": 0
+        },
+        "motion_violation_scenes": {
+          "speed": 0,
+          "longitudinal_acceleration": 0,
+          "lateral_acceleration": 1,
+          "jerk": 21,
+          "yaw_rate": 0,
+          "heading_velocity": 1,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "motion_violation_frames": {
+          "speed": 0,
+          "longitudinal_acceleration": 0,
+          "lateral_acceleration": 2,
+          "jerk": 383,
+          "yaw_rate": 0,
+          "heading_velocity": 4,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "jerk_exceed_frames": {
+          "all": 383,
+          "first4": 82,
+          "interior36": 301,
+          "middle32": 249,
+          "last4": 52
+        },
+        "jerk_exceed_scenes": {
+          "all": 21,
+          "first4": 14,
+          "interior36": 18,
+          "middle32": 15,
+          "last4": 11
+        }
+      },
+      "physical_quantiles": {
+        "raw.all": {
+          "count": 8520,
+          "mean": 231.30553086459233,
+          "min": 2.553216007498409,
+          "p50": 156.31439967919894,
+          "p95": 640.8940215516961,
+          "p99": 1423.8112221164877,
+          "max": 4306.376437918393
+        },
+        "raw.first4": {
+          "count": 852,
+          "mean": 267.358313680991,
+          "min": 4.367046500627371,
+          "p50": 181.60066226597428,
+          "p95": 795.4304228755382,
+          "p99": 1872.3154195266961,
+          "max": 3097.995482975559
+        },
+        "raw.interior36": {
+          "count": 7668,
+          "mean": 227.2996661072147,
+          "min": 2.553216007498409,
+          "p50": 154.56648138883486,
+          "p95": 631.7836213616007,
+          "p99": 1356.2655492943222,
+          "max": 4306.376437918393
+        },
+        "raw.middle32": {
+          "count": 6816,
+          "mean": 219.07235877521708,
+          "min": 2.553216007498409,
+          "p50": 150.95292264196735,
+          "p95": 601.540871868647,
+          "p99": 1285.2429380091032,
+          "max": 4306.376437918393
+        },
+        "raw.last4": {
+          "count": 852,
+          "mean": 293.1181247631959,
+          "min": 4.291945935103943,
+          "p50": 192.03894916143744,
+          "p95": 839.6774325387278,
+          "p99": 1825.5921995620358,
+          "max": 3540.1400106098013
+        },
+        "decoded.all": {
+          "count": 8520,
+          "mean": 4.889422520459466,
+          "min": 0.027369231408016285,
+          "p50": 3.2036425523962624,
+          "p95": 14.184886996369388,
+          "p99": 31.441346020186252,
+          "max": 101.41356814619317
+        },
+        "decoded.first4": {
+          "count": 852,
+          "mean": 7.218104400389776,
+          "min": 0.07762883267006339,
+          "p50": 4.647927323706519,
+          "p95": 21.105472613870543,
+          "p99": 46.41779833895257,
+          "max": 101.41356814619317
+        },
+        "decoded.interior36": {
+          "count": 7668,
+          "mean": 4.6306800893560975,
+          "min": 0.027369231408016285,
+          "p50": 3.0861494695219474,
+          "p95": 13.207265030460055,
+          "p99": 29.404001081936148,
+          "max": 94.36919024755416
+        },
+        "decoded.middle32": {
+          "count": 6816,
+          "mean": 4.452533297126018,
+          "min": 0.027369231408016285,
+          "p50": 3.0040769175882964,
+          "p95": 12.529458051500765,
+          "p99": 27.710258600185288,
+          "max": 94.36919024755416
+        },
+        "decoded.last4": {
+          "count": 852,
+          "mean": 6.055854427196743,
+          "min": 0.19274039558813358,
+          "p50": 4.087799835129818,
+          "p95": 16.36066716677988,
+          "p99": 38.86977636289896,
+          "max": 63.957958051088816
+        },
+        "position_correction": {
+          "count": 8520,
+          "mean": 0.05961834251007797,
+          "min": 0.0005804289632939782,
+          "p50": 0.037810897476304034,
+          "p95": 0.1806326251382284,
+          "p99": 0.4087989857803901,
+          "max": 1.113108624735657
+        },
+        "velocity_correction": {
+          "count": 8520,
+          "mean": 0.02973024119155732,
+          "min": 0.0002242257788987213,
+          "p50": 0.018734801496993234,
+          "p95": 0.09479143750089433,
+          "p99": 0.22239688422489762,
+          "max": 0.5010416023966722
+        },
+        "raw_velocity_residual": {
+          "count": 8520,
+          "mean": 0.7534462446476925,
+          "min": 0.0037312308729758334,
+          "p50": 0.5075775683010861,
+          "p95": 2.109684206192613,
+          "p99": 4.940442324628298,
+          "max": 12.970380686388372
+        }
+      },
+      "independent_decoder_max_absolute_error_m": 1.5631940186722204e-13,
+      "scene_quality_cluster_ci": {
+        "point": 0.65,
+        "lower": 0.36666666666666664,
+        "upper": 0.7374999999999999,
+        "replicates": 4000,
+        "seed": 20261028,
+        "method": "road-family-stratified episode cluster percentile; conditional on collected geometries"
+      }
+    },
+    "200": {
+      "source_run": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-recovery1-resume\\free_validation_epoch_0200",
+      "source_sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+      "checkpoint": {
+        "id": "sha256:e6f20667eb3cd943cd02aadb38d9342f500afac98469e988f0e59135ffb1daaf",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-recovery1-resume\\checkpoint_step_075000.pt",
+        "sha256": "e6f20667eb3cd943cd02aadb38d9342f500afac98469e988f0e59135ffb1daaf",
+        "size_bytes": 41742058
+      },
+      "overall": {
+        "scenes": 60,
+        "completed": 60,
+        "qualified": 39,
+        "qualified_rate": 0.65,
+        "motion_pass": 39,
+        "strict_comfort_agents": 18,
+        "agents": 213,
+        "strict_comfort_scenes": 0,
+        "collisions": 2,
+        "road_scenes": {
+          "road": 1,
+          "route": 1,
+          "map_coverage": 0
+        },
+        "road_frames": {
+          "road": 23,
+          "route": 33,
+          "map_coverage": 0
+        },
+        "motion_violation_scenes": {
+          "speed": 0,
+          "longitudinal_acceleration": 0,
+          "lateral_acceleration": 0,
+          "jerk": 21,
+          "yaw_rate": 0,
+          "heading_velocity": 1,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "motion_violation_frames": {
+          "speed": 0,
+          "longitudinal_acceleration": 0,
+          "lateral_acceleration": 0,
+          "jerk": 306,
+          "yaw_rate": 0,
+          "heading_velocity": 4,
+          "heading_norm": 0,
+          "velocity_consistency": 0
+        },
+        "jerk_exceed_frames": {
+          "all": 306,
+          "first4": 54,
+          "interior36": 252,
+          "middle32": 211,
+          "last4": 41
+        },
+        "jerk_exceed_scenes": {
+          "all": 21,
+          "first4": 13,
+          "interior36": 15,
+          "middle32": 12,
+          "last4": 8
+        }
+      },
+      "physical_quantiles": {
+        "raw.all": {
+          "count": 8520,
+          "mean": 212.91830369216848,
+          "min": 1.0939447459701803,
+          "p50": 144.41743629256058,
+          "p95": 567.9025184218334,
+          "p99": 1348.5001994008776,
+          "max": 3922.6425672481896
+        },
+        "raw.first4": {
+          "count": 852,
+          "mean": 245.11382143327444,
+          "min": 4.201990900527162,
+          "p50": 158.84790901223712,
+          "p95": 677.2997779655793,
+          "p99": 1815.6549751096395,
+          "max": 2766.8447111049327
+        },
+        "raw.interior36": {
+          "count": 7668,
+          "mean": 209.3410239431567,
+          "min": 1.0939447459701803,
+          "p50": 142.6955684422996,
+          "p95": 556.861858753765,
+          "p99": 1302.9618069827131,
+          "max": 3922.6425672481896
+        },
+        "raw.middle32": {
+          "count": 6816,
+          "mean": 200.58596273271522,
+          "min": 1.0939447459701803,
+          "p50": 138.92885646795565,
+          "p95": 519.3818624252369,
+          "p99": 1228.8785479915005,
+          "max": 3922.6425672481896
+        },
+        "raw.last4": {
+          "count": 852,
+          "mean": 279.3815136266882,
+          "min": 3.4191280304619536,
+          "p50": 182.08458813774547,
+          "p95": 774.935809768797,
+          "p99": 1855.3308293049631,
+          "max": 3532.2286902800533
+        },
+        "decoded.all": {
+          "count": 8520,
+          "mean": 4.449314308306556,
+          "min": 0.026307920625485384,
+          "p50": 2.9677122221397276,
+          "p95": 12.313399764728002,
+          "p99": 30.31138419780811,
+          "max": 87.98689312468964
+        },
+        "decoded.first4": {
+          "count": 852,
+          "mean": 6.576324880274745,
+          "min": 0.10557260012575712,
+          "p50": 4.453556984979617,
+          "p95": 16.734129601141312,
+          "p99": 43.7017068886857,
+          "max": 81.29652555010658
+        },
+        "decoded.interior36": {
+          "count": 7668,
+          "mean": 4.212979800310091,
+          "min": 0.026307920625485384,
+          "p50": 2.8378659007702254,
+          "p95": 11.610746740527624,
+          "p99": 28.384659506248564,
+          "max": 87.98689312468964
+        },
+        "decoded.middle32": {
+          "count": 6816,
+          "mean": 4.030097389575788,
+          "min": 0.026307920625485384,
+          "p50": 2.727353061093236,
+          "p95": 10.845751176442525,
+          "p99": 26.69109007066329,
+          "max": 87.98689312468964
+        },
+        "decoded.last4": {
+          "count": 852,
+          "mean": 5.676039086184516,
+          "min": 0.14772681035659485,
+          "p50": 3.8943084542636415,
+          "p95": 14.449485917324575,
+          "p99": 38.72081399760707,
+          "max": 59.43959659979322
+        },
+        "position_correction": {
+          "count": 8520,
+          "mean": 0.05488830712195936,
+          "min": 0.0003263436163395138,
+          "p50": 0.03587109656937695,
+          "p95": 0.16273351312993287,
+          "p99": 0.37547980713758666,
+          "max": 0.9833718245714324
+        },
+        "velocity_correction": {
+          "count": 8520,
+          "mean": 0.030995297088219003,
+          "min": 0.00016502005133759367,
+          "p50": 0.021371243084916197,
+          "p95": 0.08999812312225221,
+          "p99": 0.19181262101557905,
+          "max": 0.4632169517400736
+        },
+        "raw_velocity_residual": {
+          "count": 8520,
+          "mean": 0.6945660106503815,
+          "min": 0.0025129922020630966,
+          "p50": 0.4747841023858156,
+          "p95": 1.890576544440247,
+          "p99": 4.8470703724140165,
+          "max": 12.802619536552314
+        }
+      },
+      "independent_decoder_max_absolute_error_m": 1.4210854715202004e-13,
+      "scene_quality_cluster_ci": {
+        "point": 0.65,
+        "lower": 0.36666666666666664,
+        "upper": 0.7416666666666667,
+        "replicates": 4000,
+        "seed": 20261028,
+        "method": "road-family-stratified episode cluster percentile; conditional on collected geometries"
+      }
+    }
+  },
+  "provenance": {
+    "audit": {
+      "id": "sha256:25c310655929edff07753bd85fc408857a91255f929e5530a0588ba807524807",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-analysis-20261012-r2\\analysis.json",
+      "sha256": "25c310655929edff07753bd85fc408857a91255f929e5530a0588ba807524807",
+      "size_bytes": 2488703
+    },
+    "labels": {
+      "id": "sha256:5d4e02c0a6973190e54b6033c8bfe0adab37d51aa20b7b2ede1556aa4415dd39",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-controls-20261012-r2\\label_controls.json",
+      "sha256": "5d4e02c0a6973190e54b6033c8bfe0adab37d51aa20b7b2ede1556aa4415dd39",
+      "size_bytes": 309977
+    },
+    "figures": {
+      "training_progress.png": {
+        "id": "sha256:c5fbc6fd082347ed39f57e773ac3c091614433789f4b530a93efb3a68115dd28",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-figures-20261012-r1\\training_progress.png",
+        "sha256": "c5fbc6fd082347ed39f57e773ac3c091614433789f4b530a93efb3a68115dd28",
+        "size_bytes": 166852
+      },
+      "validation_quality.png": {
+        "id": "sha256:c606d20c2f71ec592eb5d3ef803b8093c5342b6bafb4b2126375b2eb8ac70049",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-figures-20261012-r1\\validation_quality.png",
+        "sha256": "c606d20c2f71ec592eb5d3ef803b8093c5342b6bafb4b2126375b2eb8ac70049",
+        "size_bytes": 148233
+      }
+    },
+    "scripts": {
+      "audit_r2.py": {
+        "id": "sha256:19f05c36799e3f5705d4e3b92eef682c467b5d5249d466926dd51f1b7e4f804e",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-analysis-code-20261012\\audit_r2.py",
+        "sha256": "19f05c36799e3f5705d4e3b92eef682c467b5d5249d466926dd51f1b7e4f804e",
+        "size_bytes": 25721
+      },
+      "controls_and_figures_r2.py": {
+        "id": "sha256:da3c7f9b8aa0e9085b776b2fffbd336163caf3145d8bff588929f2cc674fe9fe",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-analysis-code-20261012\\controls_and_figures_r2.py",
+        "sha256": "da3c7f9b8aa0e9085b776b2fffbd336163caf3145d8bff588929f2cc674fe9fe",
+        "size_bytes": 7906
+      },
+      "figures_final.py": {
+        "id": "sha256:d8646987cbdea417a0c4ba45b8b75a6f46c27ec94528bb3dae456d607776c1a5",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-analysis-code-20261012\\figures_final.py",
+        "sha256": "d8646987cbdea417a0c4ba45b8b75a6f46c27ec94528bb3dae456d607776c1a5",
+        "size_bytes": 4800
+      }
+    },
+    "source_runs": [
+      {
+        "run": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-collect",
+        "sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+        "branch": "main",
+        "formal": true,
+        "dirty": false,
+        "state": "completed",
+        "input_files": 2
+      },
+      {
+        "run": "E:\\diffusion_new\\artifacts\\processed\\stage5a-fresh",
+        "sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+        "branch": "main",
+        "formal": true,
+        "dirty": false,
+        "state": "completed",
+        "input_files": 3242
+      },
+      {
+        "run": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-scales",
+        "sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+        "branch": "main",
+        "formal": true,
+        "dirty": false,
+        "state": "completed",
+        "input_files": 33003
+      },
+      {
+        "run": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-calibration",
+        "sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+        "branch": "main",
+        "formal": true,
+        "dirty": false,
+        "state": "completed",
+        "input_files": 164
+      },
+      {
+        "run": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-preflight",
+        "sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+        "branch": "main",
+        "formal": true,
+        "dirty": false,
+        "state": "completed",
+        "input_files": 33007
+      },
+      {
+        "run": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-train",
+        "sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+        "branch": "main",
+        "formal": true,
+        "dirty": false,
+        "state": "running",
+        "input_files": 33007
+      },
+      {
+        "run": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-recovery1-resume",
+        "sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+        "branch": "main",
+        "formal": true,
+        "dirty": false,
+        "state": "completed",
+        "input_files": 33007
+      },
+      {
+        "run": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-train\\free_validation_epoch_0170",
+        "sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+        "branch": "main",
+        "formal": true,
+        "dirty": false,
+        "state": "completed",
+        "input_files": 183
+      },
+      {
+        "run": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-train\\free_validation_epoch_0180",
+        "sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+        "branch": "main",
+        "formal": true,
+        "dirty": false,
+        "state": "completed",
+        "input_files": 183
+      },
+      {
+        "run": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-recovery1-resume\\free_validation_epoch_0190",
+        "sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+        "branch": "main",
+        "formal": true,
+        "dirty": false,
+        "state": "completed",
+        "input_files": 183
+      },
+      {
+        "run": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-recovery1-resume\\free_validation_epoch_0200",
+        "sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+        "branch": "main",
+        "formal": true,
+        "dirty": false,
+        "state": "completed",
+        "input_files": 183
+      },
+      {
+        "run": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-validate",
+        "sha": "dd7591418773e1576dbbe7f715f069dd504ebf3d",
+        "branch": "feat/fresh-training-results",
+        "formal": true,
+        "dirty": false,
+        "state": "completed",
+        "input_files": 1803
+      }
+    ],
+    "unique_inputs_verified": 36259
+  },
+  "limitations": [
+    "joint protocol differs from old 1200/200 experiments: no individual-loss causal claim",
+    "cluster intervals conditional on collected geometries; one generation seed",
+    "all quality thresholds are engineering candidates, not realism proof",
+    "raw and unified-decoded output must both be disclosed"
+  ],
+  "test_evaluated": false,
+  "checkpoint_choice": "retain epoch200 as candidate; complex quality remains limited"
+}
