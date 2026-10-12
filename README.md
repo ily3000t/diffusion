@@ -1,6 +1,6 @@
 # SUMODiff
 
-独立的 SUMO 多车轨迹扩散生成工程。当前已完成固定从头训练方案的工程验收：6000/600/600三划分、batch16、200轮、统一预热与余弦、全时域物理jerk尾部。现有stage5a入口已就地修改，代表性短回合与B16资源校准通过；正式数据扩充、新数据权重校准和长训练由用户在终端启动，收敛及生成质量仍待验证。当前命令见[阶段5A协议](docs/stage5a.md)，实测与来源见[轻量验收摘要](docs/fresh_training_implementation_summary.json)。阶段6尚未启动；实施合同见[设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
+独立的 SUMO 多车轨迹扩散生成工程。已完成6000/600/600三划分数据、batch16从头200轮训练及完整600验证，场景通过423/600（70.5%）；密集路口0/46、转弯窗口0/21，严格舒适性190/2287，生成质量仍有明显局限。现有stage5a入口已就地修改，固定目标与统一预热/余弦未在本轮改动。结果与来源见[从头训练报告](docs/fresh_training_results.md)，复现见[阶段5A协议](docs/stage5a.md)。阶段6尚未启动，600测试尚未评价；实施合同见[设计](docs/design.md)、[数据合同](docs/data_schema.md)、[进度](docs/progress.md)。
 
 ## 目录
 `configs/` 分类保存候选配置，`src/sumodiff/` 为新代码，`scripts/` 为入口辅助，`tests/` 为短验证，`docs/` 为合同和协议。`artifacts/{raw,processed,cache,checkpoints,runs}` 全部忽略，不提交数据或权重。保留模块目录标明后续阶段，不包含假实现。
@@ -144,4 +144,4 @@ Set-Location E:\diffusion_new
 
 ## 当前从头训练方案
 
-现有入口已更新为6000/600/600窗口、batch16、200轮的固定方案；随机模型与新AdamW、统一10轮辅助预热、单段warmup/余弦，以及全时域物理jerk Huber尾部项。没有新增重复训练入口。代表性SUMO短回合和B16资源校准通过，357项全集及新增CUDA恢复检查通过；正式扩充数据和新模型结果仍待本地运行。新默认运行名stage5a-fresh；完整命令、恢复和测试冻结协议见[当前阶段5A协议](docs/stage5a.md)，来源和实测见[轻量验收摘要](docs/fresh_training_implementation_summary.json)。上文100至225轮内容是历史记录。
+现有入口已完成6000/600/600窗口、batch16、200轮固定方案的正式运行，累计75000更新；随机模型、新AdamW、统一10轮辅助预热、单段warmup/余弦及全时域物理jerk Huber尾部保持。完整600验证通过70.5%，复杂路口与舒适性不足；保留新200轮候选，不宣称收敛。结果、标签CPU对照、科学图与来源见[从头训练结果](docs/fresh_training_results.md)和[轻量结果](docs/fresh_training_results.json)。命令、恢复及测试冻结协议见[当前阶段5A协议](docs/stage5a.md)，工程验收见[实施摘要](docs/fresh_training_implementation_summary.json)。上文100至225轮内容是旧数据与旧协议的历史记录；阶段6及测试未启动。
