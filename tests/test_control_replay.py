@@ -17,6 +17,65 @@ from sumodiff.evaluation.collisions import CollisionConfig
 from sumodiff.experiments.recorder import file_identity
 
 
+
+@pytest.mark.parametrize('bad',[float('nan'),float('inf'),-1.])
+def test_gate_rejects_invalid_recovery_error(bad):
+    original=dict(quality_pass=True,motion=dict(violation_counts={'jerk':0}),
+                  roads={n:dict(violation_body_frames=0) for n in ('road','route','map_coverage')},
+                  collisions=dict(pairs=[]))
+    error=dict(max_position_error_m=bad,max_velocity_error_mps=0.,max_heading_error_rad=0.)
+    with pytest.raises(ValueError,match='finite and nonnegative'):
+        compatibility_gate(original,original,{}, {},error,protocol('a','b')['gate'])
+
+
+def test_reserved_label_name_is_rejected():
+    config=protocol('a','b')
+    config['methods']={'label':config['methods']['two']}
+    with pytest.raises(ValueError,match='reserved label'):
+        validate_protocol(config)
+
+
+def test_nan_padding_is_isolated_in_physical_jerk():
+    c=dict(history=np.zeros((2,21,6)),history_mask=np.ones((2,21),bool),
+           initial_positions=np.zeros((2,2)),agent_mask=np.array([True,False]))
+    states=np.zeros((2,40,6))
+    c['history'][1]=np.nan;c['initial_positions'][1]=np.nan;states[1]=np.nan
+    j=physical_jerk(c,states)
+    assert np.isfinite(j).all() and not j.any()
+    states[0,3,0]=np.nan
+    with pytest.raises(ValueError,match='Non-finite active'):
+        physical_jerk(c,states)
+
+
+def test_comparison_cannot_drop_vehicle_pairs_or_slots():
+    original=dict(quality_pass=True,motion=dict(violation_counts={'jerk':0}),
+                  roads={n:dict(violation_body_frames=0) for n in ('road','route','map_coverage')},
+                  collisions=dict(pairs=[dict(slots=[0,1],collision=False)]))
+    error=dict(max_position_error_m=0.,max_velocity_error_mps=0.,max_heading_error_rad=0.)
+    replay=deepcopy(original);replay['collisions']['pairs']=[]
+    with pytest.raises(ValueError,match='identical vehicle pairs'):
+        compatibility_gate(original,replay,{'0':True},{'0':True},error,protocol('a','b')['gate'])
+    replay=deepcopy(original);replay['collisions']['pairs'][0]['slots']=[1,0]
+    assert compatibility_gate(original,replay,{'0':True},{'0':True},error,protocol('a','b')['gate'])['passed']
+    with pytest.raises(ValueError,match='identical vehicle slots'):
+        compatibility_gate(original,replay,{'0':True},{},error,protocol('a','b')['gate'])
+    replay['quality_pass']=None
+    assert 'unknown_scene_quality' in compatibility_gate(original,replay,{'0':True},{'0':True},error,protocol('a','b')['gate'])['reasons']
+
+
+def test_declared_geometry_is_bound_to_indexed_window(tmp_path,monkeypatch):
+    monkeypatch.setattr('sumodiff.experiments.recorder.collect_environment',lambda:dict(test_fixture=True))
+    cfg,_,_=fixture(tmp_path)
+    config=yaml.safe_load(cfg.read_text())
+    plan=Path(config['task_plan'])
+    tasks=json.loads(plan.read_text())
+    tasks['tasks'][0]['geometry_id']='wrong-geometry'
+    write_json(plan,tasks)
+    with pytest.raises(ValueError,match='metadata mismatch'):
+        run(cfg,tmp_path/'out')
+    assert not (tmp_path/'out').exists()
+
+
 def protocol(dataset, plan):
     return dict(schema_version='sumodiff.control_replay.protocol.v1',
                 dataset=str(dataset), task_plan=str(plan), seed=44,
@@ -70,6 +129,11 @@ def test_recorded_real_entry_preserves_failure_denominator(tmp_path,monkeypatch,
     assert json.loads((output/'status.json').read_text())['state']=='completed'
     assert result['summary']['train/ordinary']['two']['failed']==int(incomplete)
     assert result['summary']['train/ordinary']['two']['planned']==1
+    row=result['summary']['train/ordinary']['two']
+    assert row['planned_active_agents']==2
+    assert row['strict_comfort_confirmed_pass_agents']==(0 if incomplete else 2)
+    assert row['strict_comfort_confirmed_pass_fraction_all_planned']==(0. if incomplete else 1.)
+    assert result['summary']['train/ordinary']['label']['strict_comfort_confirmed_pass_agents']==(1 if incomplete else 2)
     assert result['summary']['train/ordinary']['label']['gate_pass'] is None
     manifest=json.loads((output/'manifest.json').read_text())
     assert manifest['checkpoint'] is None and manifest['formal'] is False

@@ -5,6 +5,38 @@ from sumodiff.decoding.controls import (
     ControlConfig, initial_control_state, inverse_label_controls, rollout_controls)
 
 
+
+def test_batched_history_and_control_gradients_ignore_padding():
+    h,hm,p0,length,mask=observed()
+    h=h.unsqueeze(0).repeat(3,1,1,1);hm=hm.unsqueeze(0).repeat(3,1,1)
+    p0=p0.unsqueeze(0).repeat(3,1,1);length=length.unsqueeze(0).repeat(3,1)
+    mask=mask.unsqueeze(0).repeat(3,1);mask[:,1]=False
+    h[:,1]=float('nan');p0[:,1]=float('nan');length[:,1]=float('nan')
+    h.requires_grad_(True);p0.requires_grad_(True);length.requires_grad_(True)
+    config=ControlConfig(reference_point='front',lateral_velocity=True)
+    init=initial_control_state(h,hm,p0,length,mask,config)
+    ctrl=torch.full((3,2,40,3),.02,dtype=torch.float64)
+    ctrl[:,1]=float('nan');ctrl.requires_grad_(True)
+    out=rollout_controls(ctrl,init)
+    out.states.square().mean().backward()
+    for tensor in (h,p0,length,ctrl):
+        assert torch.isfinite(tensor.grad).all()
+        assert not tensor.grad[:,1].any()
+    assert not out.states[:,1].any()
+    fm=mask[...,None].expand(3,2,40)
+    inverse=inverse_label_controls(out.states.detach(),fm,init)
+    torch.testing.assert_close(inverse.controls[mask],ctrl.detach()[mask],atol=1e-10,rtol=0)
+
+
+def test_initial_history_yaw_alias_is_rejected():
+    h,hm,p0,length,mask=observed()
+    h[:,-2,4:6]=torch.tensor([0.,-1.],dtype=h.dtype)
+    with pytest.raises(ValueError,match='Ambiguous observed'):
+        initial_control_state(h,hm,p0,length,mask)
+    with pytest.raises(ValueError,match='heading_epsilon'):
+        ControlConfig(heading_epsilon=True)
+
+
 def observed(config=None, *, yaw=0., speed=8., length=4.):
     h = torch.zeros(2, 21, 6, dtype=torch.float64)
     t = torch.arange(-20, 1, dtype=h.dtype) * .1
