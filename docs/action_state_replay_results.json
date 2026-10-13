@@ -1,0 +1,1025 @@
+{
+  "schema_version": "sumodiff.control_replay.delivery.v1",
+  "source_run_sha": "30975255601bfbb047b4faa609b7533004cf2007",
+  "audit_run_sha": "404d1bfe2de543be7b672d06dc3ad41d9b14039a",
+  "sources": {
+    "replay_results": {
+      "id": "sha256:5e25f6d9ffe608bae8eed4f4894509361dd5fd83284b07bb9775686d60b091b0",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\action-state-replay-20261013-r1\\results.json",
+      "sha256": "5e25f6d9ffe608bae8eed4f4894509361dd5fd83284b07bb9775686d60b091b0",
+      "size_bytes": 9112796
+    },
+    "replay_manifest": {
+      "id": "sha256:425a69b55d1f38a066b4170c8163f8edff3f97094af9710ade48485b0ff626f4",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\action-state-replay-20261013-r1\\manifest.json",
+      "sha256": "425a69b55d1f38a066b4170c8163f8edff3f97094af9710ade48485b0ff626f4",
+      "size_bytes": 114885
+    },
+    "replay_status": {
+      "id": "sha256:4f05725f9c15f16c952e11eca0dd3577ed3652b6102045e30e183e5f2b4e700c",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\action-state-replay-20261013-r1\\status.json",
+      "sha256": "4f05725f9c15f16c952e11eca0dd3577ed3652b6102045e30e183e5f2b4e700c",
+      "size_bytes": 181
+    },
+    "audit_results": {
+      "id": "sha256:501c028820bc42ca57288f4a843ed5653594b6bdbe8434496cd39156fc521f5a",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\action-state-replay-audit-20261013-r1\\audit.json",
+      "sha256": "501c028820bc42ca57288f4a843ed5653594b6bdbe8434496cd39156fc521f5a",
+      "size_bytes": 3036
+    },
+    "audit_manifest": {
+      "id": "sha256:8c47e2a298642915f0af08f39e242b96b8be9fcef2b8135966feb4ff06502cca",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\action-state-replay-audit-20261013-r1\\manifest.json",
+      "sha256": "8c47e2a298642915f0af08f39e242b96b8be9fcef2b8135966feb4ff06502cca",
+      "size_bytes": 153741
+    },
+    "audit_status": {
+      "id": "sha256:501d1ef552018b8d0b699710e8619ca3e0caa3c47f8b5ff2de3a692dc055b2da",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\action-state-replay-audit-20261013-r1\\status.json",
+      "sha256": "501d1ef552018b8d0b699710e8619ca3e0caa3c47f8b5ff2de3a692dc055b2da",
+      "size_bytes": 181
+    },
+    "protocol": {
+      "id": "sha256:112f1152cff0d9556fd02d3853c0bae51eb6f71b7b0de0f390d34ffbb1267ba6",
+      "location": "E:\\diffusion_new\\configs\\experiments\\action_state_replay.yaml",
+      "sha256": "112f1152cff0d9556fd02d3853c0bae51eb6f71b7b0de0f390d34ffbb1267ba6",
+      "size_bytes": 2008
+    },
+    "tasks": {
+      "id": "sha256:b52b7697df39dfe4fb1fb88f62b30ee52bf4fa159b3483da118d16bdcfcde6e2",
+      "location": "E:\\diffusion_new\\configs\\experiments\\action_state_replay_tasks.json",
+      "sha256": "b52b7697df39dfe4fb1fb88f62b30ee52bf4fa159b3483da118d16bdcfcde6e2",
+      "size_bytes": 23105
+    }
+  },
+  "planned": 56,
+  "groups": {
+    "train/dense_no_turn": {
+      "label": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 75,
+        "comfort_assessed_agents": 75,
+        "gate_pass": null,
+        "maximum_position_error_m": null,
+        "maximum_velocity_error_mps": null,
+        "maximum_abs_lateral_interval_velocity_mps": null
+      },
+      "center_midpoint": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 75,
+        "comfort_assessed_agents": 75,
+        "gate_pass": 8,
+        "maximum_position_error_m": 2.112843233703643e-10,
+        "maximum_velocity_error_mps": 3.5881996154785156e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 5.3270813395198784e-11
+      },
+      "center_endpoint": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 75,
+        "comfort_assessed_agents": 75,
+        "gate_pass": 8,
+        "maximum_position_error_m": 2.112843233703643e-10,
+        "maximum_velocity_error_mps": 3.5881996154785156e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 5.327342288348071e-11
+      },
+      "front_midpoint": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 75,
+        "comfort_assessed_agents": 75,
+        "gate_pass": 8,
+        "maximum_position_error_m": 2.1128210292431504e-10,
+        "maximum_velocity_error_mps": 3.5881996154785156e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 5.333884435398215e-11
+      },
+      "front_endpoint": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 75,
+        "comfort_assessed_agents": 75,
+        "gate_pass": 8,
+        "maximum_position_error_m": 2.1128210292431504e-10,
+        "maximum_velocity_error_mps": 3.5881996154785156e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 5.33180092408335e-11
+      },
+      "center_midpoint_lateral": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 75,
+        "comfort_assessed_agents": 75,
+        "gate_pass": 8,
+        "maximum_position_error_m": 0.0,
+        "maximum_velocity_error_mps": 3.5881996154785265e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 5.3270813395198784e-11
+      }
+    },
+    "train/ordinary_intersection": {
+      "label": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": null,
+        "maximum_position_error_m": null,
+        "maximum_velocity_error_mps": null,
+        "maximum_abs_lateral_interval_velocity_mps": null
+      },
+      "center_midpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 2.717674973951034e-10,
+        "maximum_velocity_error_mps": 4.9591064453125e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 6.796799447017713e-11
+      },
+      "center_endpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 2.717674973951034e-10,
+        "maximum_velocity_error_mps": 4.9591064453125e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 6.796868630215044e-11
+      },
+      "front_midpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 2.717674973951034e-10,
+        "maximum_velocity_error_mps": 4.9591064453125e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 6.80602642314157e-11
+      },
+      "front_endpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 2.717674973951034e-10,
+        "maximum_velocity_error_mps": 4.9591064453125e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 6.804029607342922e-11
+      },
+      "center_midpoint_lateral": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 0.0,
+        "maximum_velocity_error_mps": 4.9591064453171546e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 6.796799447017713e-11
+      }
+    },
+    "train/ordinary_merge": {
+      "label": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": null,
+        "maximum_position_error_m": null,
+        "maximum_velocity_error_mps": null,
+        "maximum_abs_lateral_interval_velocity_mps": null
+      },
+      "center_midpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 3.2670102943455675e-06,
+        "maximum_velocity_error_mps": 6.922578790648756e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 3.626306865767148e-05
+      },
+      "center_endpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 3.2670102943455675e-06,
+        "maximum_velocity_error_mps": 6.922578790648756e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 3.626306865767148e-05
+      },
+      "front_midpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 3.2670102938860627e-06,
+        "maximum_velocity_error_mps": 6.922578790648756e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 3.626306865767148e-05
+      },
+      "front_endpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 3.2670102938860627e-06,
+        "maximum_velocity_error_mps": 6.922578790648756e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 3.626306865767148e-05
+      },
+      "center_midpoint_lateral": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 0.0,
+        "maximum_velocity_error_mps": 6.971942330756253e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 3.626306865767148e-05
+      }
+    },
+    "train/ordinary_straight": {
+      "label": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": null,
+        "maximum_position_error_m": null,
+        "maximum_velocity_error_mps": null,
+        "maximum_abs_lateral_interval_velocity_mps": null
+      },
+      "center_midpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 5.928590951498336e-13,
+        "maximum_velocity_error_mps": 5.7220458984375e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 1.4237823587792047e-12
+      },
+      "center_endpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 5.928590951498336e-13,
+        "maximum_velocity_error_mps": 5.7220458984375e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 1.2393332773367376e-12
+      },
+      "front_midpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 6.492584248007915e-13,
+        "maximum_velocity_error_mps": 5.7220458984375e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 2.0916925032886445e-12
+      },
+      "front_endpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 6.261657858885883e-13,
+        "maximum_velocity_error_mps": 5.7220458984375e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 1.9072434218461774e-12
+      },
+      "center_midpoint_lateral": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 0.0,
+        "maximum_velocity_error_mps": 5.7220458984375e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 1.4237823587792047e-12
+      }
+    },
+    "train/turning": {
+      "label": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 31,
+        "comfort_assessed_agents": 35,
+        "gate_pass": null,
+        "maximum_position_error_m": null,
+        "maximum_velocity_error_mps": null,
+        "maximum_abs_lateral_interval_velocity_mps": null
+      },
+      "center_midpoint": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 31,
+        "comfort_assessed_agents": 35,
+        "gate_pass": 1,
+        "maximum_position_error_m": 0.12194995688058367,
+        "maximum_velocity_error_mps": 0.1002751544789622,
+        "maximum_abs_lateral_interval_velocity_mps": 0.10027514703024507
+      },
+      "center_endpoint": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 30,
+        "comfort_assessed_agents": 35,
+        "gate_pass": 1,
+        "maximum_position_error_m": 0.4463766288722605,
+        "maximum_velocity_error_mps": 0.17644552593721893,
+        "maximum_abs_lateral_interval_velocity_mps": 0.1764399283810758
+      },
+      "front_midpoint": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 2,
+        "motion_pass": 5,
+        "comfort_pass_agents": 29,
+        "comfort_assessed_agents": 35,
+        "gate_pass": 1,
+        "maximum_position_error_m": 2.9047384721064686,
+        "maximum_velocity_error_mps": 1.1469343970013108,
+        "maximum_abs_lateral_interval_velocity_mps": 1.1469377586124558
+      },
+      "front_endpoint": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 2,
+        "motion_pass": 5,
+        "comfort_pass_agents": 29,
+        "comfort_assessed_agents": 35,
+        "gate_pass": 1,
+        "maximum_position_error_m": 2.542204758478792,
+        "maximum_velocity_error_mps": 0.9797743908179662,
+        "maximum_abs_lateral_interval_velocity_mps": 0.9797777341151801
+      },
+      "center_midpoint_lateral": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 31,
+        "comfort_assessed_agents": 35,
+        "gate_pass": 8,
+        "maximum_position_error_m": 4.440892098500626e-16,
+        "maximum_velocity_error_mps": 7.390975952148438e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 0.10027514703024507
+      }
+    },
+    "validation/dense_no_turn": {
+      "label": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 87,
+        "comfort_assessed_agents": 88,
+        "gate_pass": null,
+        "maximum_position_error_m": null,
+        "maximum_velocity_error_mps": null,
+        "maximum_abs_lateral_interval_velocity_mps": null
+      },
+      "center_midpoint": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 87,
+        "comfort_assessed_agents": 88,
+        "gate_pass": 8,
+        "maximum_position_error_m": 3.2664978999931335e-06,
+        "maximum_velocity_error_mps": 6.151199340820312e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 3.673874583240422e-05
+      },
+      "center_endpoint": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 87,
+        "comfort_assessed_agents": 88,
+        "gate_pass": 8,
+        "maximum_position_error_m": 3.2664978999931335e-06,
+        "maximum_velocity_error_mps": 6.151199340820312e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 3.673874583240422e-05
+      },
+      "front_midpoint": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 87,
+        "comfort_assessed_agents": 88,
+        "gate_pass": 8,
+        "maximum_position_error_m": 3.2664978999931335e-06,
+        "maximum_velocity_error_mps": 6.151199340820312e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 3.673874583240422e-05
+      },
+      "front_endpoint": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 87,
+        "comfort_assessed_agents": 88,
+        "gate_pass": 8,
+        "maximum_position_error_m": 3.2664978999931335e-06,
+        "maximum_velocity_error_mps": 6.151199340820312e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 3.673874583240422e-05
+      },
+      "center_midpoint_lateral": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 87,
+        "comfort_assessed_agents": 88,
+        "gate_pass": 8,
+        "maximum_position_error_m": 0.0,
+        "maximum_velocity_error_mps": 6.151199340820312e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 3.673874583240422e-05
+      }
+    },
+    "validation/ordinary_intersection": {
+      "label": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 12,
+        "comfort_assessed_agents": 12,
+        "gate_pass": null,
+        "maximum_position_error_m": null,
+        "maximum_velocity_error_mps": null,
+        "maximum_abs_lateral_interval_velocity_mps": null
+      },
+      "center_midpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 12,
+        "comfort_assessed_agents": 12,
+        "gate_pass": 4,
+        "maximum_position_error_m": 4.7259898360192676e-14,
+        "maximum_velocity_error_mps": 4.57763671875e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 4.1931738402410223e-13
+      },
+      "center_endpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 12,
+        "comfort_assessed_agents": 12,
+        "gate_pass": 4,
+        "maximum_position_error_m": 4.7927582827596396e-14,
+        "maximum_velocity_error_mps": 4.57763671875e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 3.9835929016183644e-13
+      },
+      "front_midpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 12,
+        "comfort_assessed_agents": 12,
+        "gate_pass": 4,
+        "maximum_position_error_m": 7.439374798088867e-14,
+        "maximum_velocity_error_mps": 4.57763671875e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 5.758588241435022e-13
+      },
+      "front_endpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 12,
+        "comfort_assessed_agents": 12,
+        "gate_pass": 4,
+        "maximum_position_error_m": 7.12345725856461e-14,
+        "maximum_velocity_error_mps": 4.57763671875e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 5.549007302812364e-13
+      },
+      "center_midpoint_lateral": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 12,
+        "comfort_assessed_agents": 12,
+        "gate_pass": 4,
+        "maximum_position_error_m": 0.0,
+        "maximum_velocity_error_mps": 4.57763671875e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 4.1931738402410223e-13
+      }
+    },
+    "validation/ordinary_merge": {
+      "label": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": null,
+        "maximum_position_error_m": null,
+        "maximum_velocity_error_mps": null,
+        "maximum_abs_lateral_interval_velocity_mps": null
+      },
+      "center_midpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 7.938927109671311e-07,
+        "maximum_velocity_error_mps": 7.152557373046875e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 8.340774828141662e-06
+      },
+      "center_endpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 7.938927109671311e-07,
+        "maximum_velocity_error_mps": 7.152557373046875e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 8.340774828141662e-06
+      },
+      "front_midpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 7.938927109671311e-07,
+        "maximum_velocity_error_mps": 7.152557373046875e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 8.340774828141662e-06
+      },
+      "front_endpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 7.938927109671311e-07,
+        "maximum_velocity_error_mps": 7.152557373046875e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 8.340774828141662e-06
+      },
+      "center_midpoint_lateral": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 11,
+        "comfort_assessed_agents": 11,
+        "gate_pass": 4,
+        "maximum_position_error_m": 0.0,
+        "maximum_velocity_error_mps": 7.152557373046875e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 8.340774828141662e-06
+      }
+    },
+    "validation/ordinary_straight": {
+      "label": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 9,
+        "comfort_assessed_agents": 9,
+        "gate_pass": null,
+        "maximum_position_error_m": null,
+        "maximum_velocity_error_mps": null,
+        "maximum_abs_lateral_interval_velocity_mps": null
+      },
+      "center_midpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 9,
+        "comfort_assessed_agents": 9,
+        "gate_pass": 4,
+        "maximum_position_error_m": 4.9649173661237e-13,
+        "maximum_velocity_error_mps": 7.152557373046875e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 3.877240016508354e-13
+      },
+      "center_endpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 9,
+        "comfort_assessed_agents": 9,
+        "gate_pass": 4,
+        "maximum_position_error_m": 4.951594689828198e-13,
+        "maximum_velocity_error_mps": 7.152557373046875e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 4.595678221655519e-13
+      },
+      "front_midpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 9,
+        "comfort_assessed_agents": 9,
+        "gate_pass": 4,
+        "maximum_position_error_m": 5.164757510556228e-13,
+        "maximum_velocity_error_mps": 7.152557373046875e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 8.129362382824133e-13
+      },
+      "front_endpoint": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 9,
+        "comfort_assessed_agents": 9,
+        "gate_pass": 4,
+        "maximum_position_error_m": 5.075939668586216e-13,
+        "maximum_velocity_error_mps": 7.152557373046875e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 6.570026170945622e-13
+      },
+      "center_midpoint_lateral": {
+        "planned": 4,
+        "completed": 4,
+        "failed": 0,
+        "scene_quality_pass": 4,
+        "motion_pass": 4,
+        "comfort_pass_agents": 9,
+        "comfort_assessed_agents": 9,
+        "gate_pass": 4,
+        "maximum_position_error_m": 0.0,
+        "maximum_velocity_error_mps": 7.152557373046875e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 3.877240016508354e-13
+      }
+    },
+    "validation/turning": {
+      "label": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 71,
+        "comfort_assessed_agents": 79,
+        "gate_pass": null,
+        "maximum_position_error_m": null,
+        "maximum_velocity_error_mps": null,
+        "maximum_abs_lateral_interval_velocity_mps": null
+      },
+      "center_midpoint": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 70,
+        "comfort_assessed_agents": 79,
+        "gate_pass": 1,
+        "maximum_position_error_m": 0.137779488173706,
+        "maximum_velocity_error_mps": 0.11943971563578534,
+        "maximum_abs_lateral_interval_velocity_mps": 0.11943961727093177
+      },
+      "center_endpoint": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 70,
+        "comfort_assessed_agents": 79,
+        "gate_pass": 0,
+        "maximum_position_error_m": 0.40702631137270834,
+        "maximum_velocity_error_mps": 0.1947410009186892,
+        "maximum_abs_lateral_interval_velocity_mps": 0.19473912591557552
+      },
+      "front_midpoint": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 1,
+        "motion_pass": 3,
+        "comfort_pass_agents": 66,
+        "comfort_assessed_agents": 79,
+        "gate_pass": 0,
+        "maximum_position_error_m": 2.861066613220711,
+        "maximum_velocity_error_mps": 1.1927049624872985,
+        "maximum_abs_lateral_interval_velocity_mps": 1.192708333985899
+      },
+      "front_endpoint": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 1,
+        "motion_pass": 3,
+        "comfort_pass_agents": 66,
+        "comfort_assessed_agents": 79,
+        "gate_pass": 0,
+        "maximum_position_error_m": 2.571609861487645,
+        "maximum_velocity_error_mps": 1.0378454686495433,
+        "maximum_abs_lateral_interval_velocity_mps": 1.037848840108241
+      },
+      "center_midpoint_lateral": {
+        "planned": 8,
+        "completed": 8,
+        "failed": 0,
+        "scene_quality_pass": 8,
+        "motion_pass": 8,
+        "comfort_pass_agents": 71,
+        "comfort_assessed_agents": 79,
+        "gate_pass": 8,
+        "maximum_position_error_m": 1.7763568394002505e-15,
+        "maximum_velocity_error_mps": 7.27312980980994e-05,
+        "maximum_abs_lateral_interval_velocity_mps": 0.11943961727093177
+      }
+    }
+  },
+  "global_counts": {
+    "label": {
+      "planned": 56,
+      "scene_pass": 56,
+      "motion_pass": 56,
+      "comfort_pass": 329,
+      "comfort_agents": 342,
+      "gate_pass": null,
+      "reasons": {}
+    },
+    "center_midpoint": {
+      "planned": 56,
+      "scene_pass": 56,
+      "motion_pass": 56,
+      "comfort_pass": 328,
+      "comfort_agents": 342,
+      "gate_pass": 42,
+      "reasons": {
+        "max_position_error_m": 12,
+        "max_velocity_error_mps": 14,
+        "new_strict_comfort_failure": 2
+      }
+    },
+    "center_endpoint": {
+      "planned": 56,
+      "scene_pass": 56,
+      "motion_pass": 56,
+      "comfort_pass": 327,
+      "comfort_agents": 342,
+      "gate_pass": 41,
+      "reasons": {
+        "max_position_error_m": 11,
+        "max_velocity_error_mps": 15,
+        "new_strict_comfort_failure": 3
+      }
+    },
+    "front_midpoint": {
+      "planned": 56,
+      "scene_pass": 43,
+      "motion_pass": 48,
+      "comfort_pass": 322,
+      "comfort_agents": 342,
+      "gate_pass": 41,
+      "reasons": {
+        "max_position_error_m": 15,
+        "max_velocity_error_mps": 15,
+        "lost_scene_quality": 13,
+        "increased_motion_jerk": 8,
+        "increased_route": 11,
+        "new_strict_comfort_failure": 7,
+        "increased_motion_lateral_acceleration": 1,
+        "increased_road": 1
+      }
+    },
+    "front_endpoint": {
+      "planned": 56,
+      "scene_pass": 43,
+      "motion_pass": 48,
+      "comfort_pass": 322,
+      "comfort_agents": 342,
+      "gate_pass": 41,
+      "reasons": {
+        "max_position_error_m": 14,
+        "max_velocity_error_mps": 15,
+        "lost_scene_quality": 13,
+        "increased_motion_jerk": 8,
+        "increased_route": 11,
+        "new_strict_comfort_failure": 7,
+        "increased_road": 1
+      }
+    },
+    "center_midpoint_lateral": {
+      "planned": 56,
+      "scene_pass": 56,
+      "motion_pass": 56,
+      "comfort_pass": 329,
+      "comfort_agents": 342,
+      "gate_pass": 56,
+      "reasons": {}
+    }
+  },
+  "methods": {
+    "center_midpoint": {
+      "max_position_error_m": 0.137779488173706,
+      "max_velocity_error_mps": 0.11943971563578534,
+      "max_heading_error_rad": 6.314393452555578e-16,
+      "new_strict_comfort_failures": 2,
+      "turning_gate_pass": 2,
+      "jerk_p99_mps3": {
+        "boundary_first4": 1.7109106720201646,
+        "interior36": 1.3397049081107224,
+        "terminal4": 1.6716172988489453
+      }
+    },
+    "center_endpoint": {
+      "max_position_error_m": 0.4463766288722605,
+      "max_velocity_error_mps": 0.1947410009186892,
+      "max_heading_error_rad": 6.314393452555578e-16,
+      "new_strict_comfort_failures": 3,
+      "turning_gate_pass": 1,
+      "jerk_p99_mps3": {
+        "boundary_first4": 2.2149133161532233,
+        "interior36": 1.3557057311143959,
+        "terminal4": 1.6761766890632859
+      }
+    },
+    "front_midpoint": {
+      "max_position_error_m": 2.9047384721064686,
+      "max_velocity_error_mps": 1.1927049624872985,
+      "max_heading_error_rad": 6.314393452555578e-16,
+      "new_strict_comfort_failures": 7,
+      "turning_gate_pass": 1,
+      "jerk_p99_mps3": {
+        "boundary_first4": 31.485921362138605,
+        "interior36": 1.5683951247339738,
+        "terminal4": 1.9810036292832867
+      }
+    },
+    "front_endpoint": {
+      "max_position_error_m": 2.571609861487645,
+      "max_velocity_error_mps": 1.0378454686495433,
+      "max_heading_error_rad": 6.314393452555578e-16,
+      "new_strict_comfort_failures": 7,
+      "turning_gate_pass": 1,
+      "jerk_p99_mps3": {
+        "boundary_first4": 27.867974327898633,
+        "interior36": 1.523377860925307,
+        "terminal4": 1.9029085186870511
+      }
+    },
+    "center_midpoint_lateral": {
+      "max_position_error_m": 1.7763568394002505e-15,
+      "max_velocity_error_mps": 7.390975952148438e-05,
+      "max_heading_error_rad": 6.314393452555578e-16,
+      "new_strict_comfort_failures": 0,
+      "turning_gate_pass": 16,
+      "jerk_p99_mps3": {
+        "boundary_first4": 1.2116796630531534,
+        "interior36": 1.4440997596373113,
+        "terminal4": 1.5076302998813627
+      }
+    }
+  },
+  "resources": {
+    "elapsed_replay_and_evaluation_s": 35.09919430001173,
+    "control_rollout_calls": 280,
+    "denoiser_calls": 0,
+    "optimizer_updates": 0,
+    "free_samples": 0,
+    "test_arrays_loaded": 0,
+    "cuda_peak_allocated_bytes": null,
+    "cuda_peak_reserved_bytes": null
+  },
+  "audit": {
+    "verified_input_and_output_identities": 396,
+    "independent_control_rollouts": 280,
+    "independent_scene_metric_replays": 336,
+    "maximum_state_disagreement": 1.4210854715202004e-13,
+    "maximum_original_label_velocity_roundoff_mps": 7.390975952148438e-05,
+    "elapsed_audit_body_s": 30.700799599988386
+  },
+  "interpretation": "Label compatibility only; two-control candidates failed the frozen engineering tolerances; lateral reference is not a learned or no-slip model.",
+  "label_jerk_p99_mps3": {
+    "boundary_first4": 1.2116796630531534,
+    "interior36": 1.4440997596373113,
+    "terminal4": 1.5076302998813627
+  }
+}

@@ -1,0 +1,459 @@
+{
+  "schema_version": "sumodiff.control_replay.tasks.v1",
+  "selection_source": {
+    "id": "sha256:6e1b71caa19b581eb58d63617e9976d83022153ad2a7286d6bf4104db33a4c0e",
+    "location": "E:\\diffusion_new\\artifacts\\runs\\fresh-model-diagnosis-20261013-r1\\diagnosis.json",
+    "sha256": "6e1b71caa19b581eb58d63617e9976d83022153ad2a7286d6bf4104db33a4c0e",
+    "size_bytes": 63719
+  },
+  "tasks": [
+    {
+      "window_id": "038af7a5ca6f8294d3af9d62040e8bf63660c6e971c2d9867bd4ddc75402c99d-t150",
+      "split": "train",
+      "family": "three_lane_straight",
+      "geometry_id": "sha256:888a12dc6d0040ef1eee6f18d63b1e144c02455ae620d2956c14061e0a8a9381",
+      "episode_key": "sha256:038af7a5ca6f8294d3af9d62040e8bf63660c6e971c2d9867bd4ddc75402c99d",
+      "group": "ordinary_straight"
+    },
+    {
+      "window_id": "08cc5095612610d55609ccc9024c309f6873a391620ee2dfaa092ef308768e72-t1530",
+      "split": "train",
+      "family": "three_lane_straight",
+      "geometry_id": "sha256:b212e39efb1af77d1389b4f3cbf25f0534d526ac1866ecf8459a58ddbfff911a",
+      "episode_key": "sha256:08cc5095612610d55609ccc9024c309f6873a391620ee2dfaa092ef308768e72",
+      "group": "ordinary_straight"
+    },
+    {
+      "window_id": "09592db7572f693d6141a07a4888a3d7b8f958198b77c42d9febcc5ff0c3101e-t120",
+      "split": "train",
+      "family": "three_lane_straight",
+      "geometry_id": "sha256:888a12dc6d0040ef1eee6f18d63b1e144c02455ae620d2956c14061e0a8a9381",
+      "episode_key": "sha256:09592db7572f693d6141a07a4888a3d7b8f958198b77c42d9febcc5ff0c3101e",
+      "group": "ordinary_straight"
+    },
+    {
+      "window_id": "19c57aa0aab1d48476bc627a1aa58ea86a79799c102a708f6009605d0f37e995-t1970",
+      "split": "train",
+      "family": "three_lane_straight",
+      "geometry_id": "sha256:888a12dc6d0040ef1eee6f18d63b1e144c02455ae620d2956c14061e0a8a9381",
+      "episode_key": "sha256:19c57aa0aab1d48476bc627a1aa58ea86a79799c102a708f6009605d0f37e995",
+      "group": "ordinary_straight"
+    },
+    {
+      "window_id": "02b892a33f46f6547d2b103c5b67764e6d08eb71d9b0d9520f3752f63ec70c7b-t1880",
+      "split": "train",
+      "family": "ramp_merge",
+      "geometry_id": "sha256:ae885181438b0c3cfd36daf4f63f067110b7c411431a5db9d4eed5ff19727d1d",
+      "episode_key": "sha256:02b892a33f46f6547d2b103c5b67764e6d08eb71d9b0d9520f3752f63ec70c7b",
+      "group": "ordinary_merge"
+    },
+    {
+      "window_id": "03a4c3824cd5742a9a2f36272ec8a7aaab99c5740d6e87435f396f602e6aa336-t180",
+      "split": "train",
+      "family": "ramp_merge",
+      "geometry_id": "sha256:9a9d17efff846c1c6e25c73499c32f578f3e285cc1000624763601fbaf478a7b",
+      "episode_key": "sha256:03a4c3824cd5742a9a2f36272ec8a7aaab99c5740d6e87435f396f602e6aa336",
+      "group": "ordinary_merge"
+    },
+    {
+      "window_id": "04ad4916e2548b38553e2e1f552200944c3897c07d5e607c425fd629fe2fb30c-t150",
+      "split": "train",
+      "family": "ramp_merge",
+      "geometry_id": "sha256:41bc4507e65bbf0aae3955d4137754d8ebf9fea526dd17aa2ddf55cddb6e4ef0",
+      "episode_key": "sha256:04ad4916e2548b38553e2e1f552200944c3897c07d5e607c425fd629fe2fb30c",
+      "group": "ordinary_merge"
+    },
+    {
+      "window_id": "0ac2ecdb38d4911e08e2622aac508b66a12b1005e0b34a269b25b6ee23790f42-t1350",
+      "split": "train",
+      "family": "ramp_merge",
+      "geometry_id": "sha256:60f6a15d446f39f70bf5398f33170f1f11b66b38eb3cc0a24cf9464caac2ac6a",
+      "episode_key": "sha256:0ac2ecdb38d4911e08e2622aac508b66a12b1005e0b34a269b25b6ee23790f42",
+      "group": "ordinary_merge"
+    },
+    {
+      "window_id": "00c5c92337fbbb876e25c38edbfe981d7b84835dc4615e96d0b0f58d198b874a-t100",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:6abee2578f4a1c07d08e8fb1c4dc4e985ca8a8e9a26ada9ebc2cb4fe5e07ba0e",
+      "episode_key": "sha256:00c5c92337fbbb876e25c38edbfe981d7b84835dc4615e96d0b0f58d198b874a",
+      "group": "ordinary_intersection"
+    },
+    {
+      "window_id": "0988c0aee21f801cc8749d1e4f77e141075c8921abcbbcfb3d2c4e678d61368c-t1000",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:34bc6aa213656477d9307e84570a239e8733641cd83bafe8e5d1d3120f660eea",
+      "episode_key": "sha256:0988c0aee21f801cc8749d1e4f77e141075c8921abcbbcfb3d2c4e678d61368c",
+      "group": "ordinary_intersection"
+    },
+    {
+      "window_id": "0be364b69d8f591a500ab9060be479447faa00ededc1c15fb0b4aa645f94ed40-t100",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:4a8f30e16039d34015521f70a1ea50639c0d973f0527a9c7099e255874c62a2d",
+      "episode_key": "sha256:0be364b69d8f591a500ab9060be479447faa00ededc1c15fb0b4aa645f94ed40",
+      "group": "ordinary_intersection"
+    },
+    {
+      "window_id": "0c138687990e8452d11f93355209e188f5dfb69b7829b4cb22a5779c1bb017dd-t110",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:6796052dd75321eb1754ec63efa628ddb72b2791712ebb320b55d02cea4fa01a",
+      "episode_key": "sha256:0c138687990e8452d11f93355209e188f5dfb69b7829b4cb22a5779c1bb017dd",
+      "group": "ordinary_intersection"
+    },
+    {
+      "window_id": "00c5c92337fbbb876e25c38edbfe981d7b84835dc4615e96d0b0f58d198b874a-t1210",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:6abee2578f4a1c07d08e8fb1c4dc4e985ca8a8e9a26ada9ebc2cb4fe5e07ba0e",
+      "episode_key": "sha256:00c5c92337fbbb876e25c38edbfe981d7b84835dc4615e96d0b0f58d198b874a",
+      "group": "dense_no_turn"
+    },
+    {
+      "window_id": "0988c0aee21f801cc8749d1e4f77e141075c8921abcbbcfb3d2c4e678d61368c-t1290",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:34bc6aa213656477d9307e84570a239e8733641cd83bafe8e5d1d3120f660eea",
+      "episode_key": "sha256:0988c0aee21f801cc8749d1e4f77e141075c8921abcbbcfb3d2c4e678d61368c",
+      "group": "dense_no_turn"
+    },
+    {
+      "window_id": "0be364b69d8f591a500ab9060be479447faa00ededc1c15fb0b4aa645f94ed40-t1140",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:4a8f30e16039d34015521f70a1ea50639c0d973f0527a9c7099e255874c62a2d",
+      "episode_key": "sha256:0be364b69d8f591a500ab9060be479447faa00ededc1c15fb0b4aa645f94ed40",
+      "group": "dense_no_turn"
+    },
+    {
+      "window_id": "0c138687990e8452d11f93355209e188f5dfb69b7829b4cb22a5779c1bb017dd-t1110",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:6796052dd75321eb1754ec63efa628ddb72b2791712ebb320b55d02cea4fa01a",
+      "episode_key": "sha256:0c138687990e8452d11f93355209e188f5dfb69b7829b4cb22a5779c1bb017dd",
+      "group": "dense_no_turn"
+    },
+    {
+      "window_id": "0e7a7f0146da51eb65bf44e86f8d4835626aca6c4e5968e123068e95186215d0-t2030",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:3e6e018019843f3d7940f70cba3f0cafa8105c0c46f6533a15e431751285cf1f",
+      "episode_key": "sha256:0e7a7f0146da51eb65bf44e86f8d4835626aca6c4e5968e123068e95186215d0",
+      "group": "dense_no_turn"
+    },
+    {
+      "window_id": "0f7eb3aa93049b4c3ee4aaa512521af8cf3ecf2aca2fa162e7a0991e1fef4e9a-t1300",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:34bc6aa213656477d9307e84570a239e8733641cd83bafe8e5d1d3120f660eea",
+      "episode_key": "sha256:0f7eb3aa93049b4c3ee4aaa512521af8cf3ecf2aca2fa162e7a0991e1fef4e9a",
+      "group": "dense_no_turn"
+    },
+    {
+      "window_id": "1c7c04cb83ab237a4b76e36a7bd3806d6ed3d5388fe5b735ce900c1570f1dcad-t2080",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:3e6e018019843f3d7940f70cba3f0cafa8105c0c46f6533a15e431751285cf1f",
+      "episode_key": "sha256:1c7c04cb83ab237a4b76e36a7bd3806d6ed3d5388fe5b735ce900c1570f1dcad",
+      "group": "dense_no_turn"
+    },
+    {
+      "window_id": "2f3013e0d72b92bc470e53d30b56acfbf426ae8f89e8b2aeb14003ba6506e89e-t1220",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:34bc6aa213656477d9307e84570a239e8733641cd83bafe8e5d1d3120f660eea",
+      "episode_key": "sha256:2f3013e0d72b92bc470e53d30b56acfbf426ae8f89e8b2aeb14003ba6506e89e",
+      "group": "dense_no_turn"
+    },
+    {
+      "window_id": "00c5c92337fbbb876e25c38edbfe981d7b84835dc4615e96d0b0f58d198b874a-t490",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:6abee2578f4a1c07d08e8fb1c4dc4e985ca8a8e9a26ada9ebc2cb4fe5e07ba0e",
+      "episode_key": "sha256:00c5c92337fbbb876e25c38edbfe981d7b84835dc4615e96d0b0f58d198b874a",
+      "group": "turning"
+    },
+    {
+      "window_id": "0be364b69d8f591a500ab9060be479447faa00ededc1c15fb0b4aa645f94ed40-t2770",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:4a8f30e16039d34015521f70a1ea50639c0d973f0527a9c7099e255874c62a2d",
+      "episode_key": "sha256:0be364b69d8f591a500ab9060be479447faa00ededc1c15fb0b4aa645f94ed40",
+      "group": "turning"
+    },
+    {
+      "window_id": "2f3013e0d72b92bc470e53d30b56acfbf426ae8f89e8b2aeb14003ba6506e89e-t520",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:34bc6aa213656477d9307e84570a239e8733641cd83bafe8e5d1d3120f660eea",
+      "episode_key": "sha256:2f3013e0d72b92bc470e53d30b56acfbf426ae8f89e8b2aeb14003ba6506e89e",
+      "group": "turning"
+    },
+    {
+      "window_id": "30a51be0af31654f7bdfed8e41f4286841981fdb1af6cb09e7cd4eb3c2911c87-t880",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:3e6e018019843f3d7940f70cba3f0cafa8105c0c46f6533a15e431751285cf1f",
+      "episode_key": "sha256:30a51be0af31654f7bdfed8e41f4286841981fdb1af6cb09e7cd4eb3c2911c87",
+      "group": "turning"
+    },
+    {
+      "window_id": "3520a1811674195c83fcb1620d5509bbc53db46881caf8df0352b50575f93011-t590",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:c9415149767620ab17fedabb47d714038961552dc91d8acf6f0c56e5ddc1b3f7",
+      "episode_key": "sha256:3520a1811674195c83fcb1620d5509bbc53db46881caf8df0352b50575f93011",
+      "group": "turning"
+    },
+    {
+      "window_id": "4956a845d91c88588cf1d5b00a740e64dbe0c276f564f8c2391f76bca44f168b-t410",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:e5b8ce971f8a4eb736a293a99ff7b6322e2697c37111b91ab51591d72868b7c0",
+      "episode_key": "sha256:4956a845d91c88588cf1d5b00a740e64dbe0c276f564f8c2391f76bca44f168b",
+      "group": "turning"
+    },
+    {
+      "window_id": "4bbe3172de09bf789e0b7f4ad30034782ea22e6218db6463f3d1f6330cc85283-t650",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:c9415149767620ab17fedabb47d714038961552dc91d8acf6f0c56e5ddc1b3f7",
+      "episode_key": "sha256:4bbe3172de09bf789e0b7f4ad30034782ea22e6218db6463f3d1f6330cc85283",
+      "group": "turning"
+    },
+    {
+      "window_id": "502b4e4c5a13c4f3e0b93341096c5ca040bc3011f2524857e1636c29d7e248e5-t600",
+      "split": "train",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:a7ac654058486c0ce52c9c9830e941be7ab55c165975322f93d5d5ea0ea95955",
+      "episode_key": "sha256:502b4e4c5a13c4f3e0b93341096c5ca040bc3011f2524857e1636c29d7e248e5",
+      "group": "turning"
+    },
+    {
+      "window_id": "0eb02052937009ee67a51fbede2d6346dc0fc2db0f50f7a4c45c56d42afcfec3-t120",
+      "split": "validation",
+      "family": "three_lane_straight",
+      "geometry_id": "sha256:d24af00d0d19b0c9aae8becd1a9abadf34b53017969bba3f4634e1bbf1a25698",
+      "episode_key": "sha256:0eb02052937009ee67a51fbede2d6346dc0fc2db0f50f7a4c45c56d42afcfec3",
+      "group": "ordinary_straight"
+    },
+    {
+      "window_id": "158068aadb1b540c49f2602c5b0d584787cb104708d8fa8be9983740b02db743-t1820",
+      "split": "validation",
+      "family": "three_lane_straight",
+      "geometry_id": "sha256:a258062d116ccdf7902750f85d0badf9f773673003e93c7cdb11a60d8a5c495c",
+      "episode_key": "sha256:158068aadb1b540c49f2602c5b0d584787cb104708d8fa8be9983740b02db743",
+      "group": "ordinary_straight"
+    },
+    {
+      "window_id": "1f36a7b1f25ed9a37e8a64777adc6438052defc6d0ae1570c2ffd27efa46ef80-t1120",
+      "split": "validation",
+      "family": "three_lane_straight",
+      "geometry_id": "sha256:7ca7d67f922b8505c9a13de2c870cafeaa38bfa98ace633387550af91b841162",
+      "episode_key": "sha256:1f36a7b1f25ed9a37e8a64777adc6438052defc6d0ae1570c2ffd27efa46ef80",
+      "group": "ordinary_straight"
+    },
+    {
+      "window_id": "35602d798e85782949cac81024e61d91c3c0c99374019906efb33f2e436b016d-t1100",
+      "split": "validation",
+      "family": "three_lane_straight",
+      "geometry_id": "sha256:7ca7d67f922b8505c9a13de2c870cafeaa38bfa98ace633387550af91b841162",
+      "episode_key": "sha256:35602d798e85782949cac81024e61d91c3c0c99374019906efb33f2e436b016d",
+      "group": "ordinary_straight"
+    },
+    {
+      "window_id": "17ab2686170a7b7dd95283912633506fa0d6cb93654a1a61588dd7c1c3062e93-t1730",
+      "split": "validation",
+      "family": "ramp_merge",
+      "geometry_id": "sha256:15ee4440fb6f5d95bb9203bdcbdb7c8bef4f7996b8e079a9899332472ec2bbde",
+      "episode_key": "sha256:17ab2686170a7b7dd95283912633506fa0d6cb93654a1a61588dd7c1c3062e93",
+      "group": "ordinary_merge"
+    },
+    {
+      "window_id": "1d29b9d768f0cdef9a24246feee70c6146a3338900731a106549fe69f9515e07-t200",
+      "split": "validation",
+      "family": "ramp_merge",
+      "geometry_id": "sha256:1c02c113d20159f4302752710caaf45b5b6ef5197b92cd971d8b16a4ed9367d5",
+      "episode_key": "sha256:1d29b9d768f0cdef9a24246feee70c6146a3338900731a106549fe69f9515e07",
+      "group": "ordinary_merge"
+    },
+    {
+      "window_id": "349a090b2080a105b2c284f634f3766cb5669802b6f26f103a9b127033ec14bd-t180",
+      "split": "validation",
+      "family": "ramp_merge",
+      "geometry_id": "sha256:1c02c113d20159f4302752710caaf45b5b6ef5197b92cd971d8b16a4ed9367d5",
+      "episode_key": "sha256:349a090b2080a105b2c284f634f3766cb5669802b6f26f103a9b127033ec14bd",
+      "group": "ordinary_merge"
+    },
+    {
+      "window_id": "4275f3929f71dc5aea4afb4ac8ec08d79c27b3ecf2e02ebf0c8cd044ce14bc98-t1790",
+      "split": "validation",
+      "family": "ramp_merge",
+      "geometry_id": "sha256:855f95d2cf2f0d85fb5d3448e6e423e74780634bda8bf508f1d7f046bbd13a42",
+      "episode_key": "sha256:4275f3929f71dc5aea4afb4ac8ec08d79c27b3ecf2e02ebf0c8cd044ce14bc98",
+      "group": "ordinary_merge"
+    },
+    {
+      "window_id": "01fd6290a540ff08858764521a8e21322316711a99f2269edc2b9617739052b2-t130",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:1d112ad4b4af352cda5d2562a65258f0b525b212b6dcdd1f8f459746a128f162",
+      "episode_key": "sha256:01fd6290a540ff08858764521a8e21322316711a99f2269edc2b9617739052b2",
+      "group": "ordinary_intersection"
+    },
+    {
+      "window_id": "0ec802da8f75220ce5d7a0d0e3a180036c5b0162890caca3d22904f277dd3a61-t100",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:a95ed3a064a13e1dcf177abc12b7c1c17135506058ff3d004f586245d0bf32e2",
+      "episode_key": "sha256:0ec802da8f75220ce5d7a0d0e3a180036c5b0162890caca3d22904f277dd3a61",
+      "group": "ordinary_intersection"
+    },
+    {
+      "window_id": "2a23dff9260d0bf070708691287af3f736d89fdb79d7c98433e9c586feca67a9-t2200",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:66675d8cc7ff3bdbccd1c8e0563374d0ad335b47e8800761ab3878518acfc9a8",
+      "episode_key": "sha256:2a23dff9260d0bf070708691287af3f736d89fdb79d7c98433e9c586feca67a9",
+      "group": "ordinary_intersection"
+    },
+    {
+      "window_id": "5b9947801b8cc16fb877f8aa67d0b3b2bde5a9ff792938c7f66aadc48b6244c1-t100",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:66675d8cc7ff3bdbccd1c8e0563374d0ad335b47e8800761ab3878518acfc9a8",
+      "episode_key": "sha256:5b9947801b8cc16fb877f8aa67d0b3b2bde5a9ff792938c7f66aadc48b6244c1",
+      "group": "ordinary_intersection"
+    },
+    {
+      "window_id": "01fd6290a540ff08858764521a8e21322316711a99f2269edc2b9617739052b2-t1660",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:1d112ad4b4af352cda5d2562a65258f0b525b212b6dcdd1f8f459746a128f162",
+      "episode_key": "sha256:01fd6290a540ff08858764521a8e21322316711a99f2269edc2b9617739052b2",
+      "group": "dense_no_turn"
+    },
+    {
+      "window_id": "0ec802da8f75220ce5d7a0d0e3a180036c5b0162890caca3d22904f277dd3a61-t1690",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:a95ed3a064a13e1dcf177abc12b7c1c17135506058ff3d004f586245d0bf32e2",
+      "episode_key": "sha256:0ec802da8f75220ce5d7a0d0e3a180036c5b0162890caca3d22904f277dd3a61",
+      "group": "dense_no_turn"
+    },
+    {
+      "window_id": "2a23dff9260d0bf070708691287af3f736d89fdb79d7c98433e9c586feca67a9-t1170",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:66675d8cc7ff3bdbccd1c8e0563374d0ad335b47e8800761ab3878518acfc9a8",
+      "episode_key": "sha256:2a23dff9260d0bf070708691287af3f736d89fdb79d7c98433e9c586feca67a9",
+      "group": "dense_no_turn"
+    },
+    {
+      "window_id": "81ae1d3f0be57296e491bc64280499dce14bea28ba7467c8ba7400d87b209907-t1620",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:1d112ad4b4af352cda5d2562a65258f0b525b212b6dcdd1f8f459746a128f162",
+      "episode_key": "sha256:81ae1d3f0be57296e491bc64280499dce14bea28ba7467c8ba7400d87b209907",
+      "group": "dense_no_turn"
+    },
+    {
+      "window_id": "8bf9e38d2ac6f4531868df807f9481d53fc5e7b4751dd738b4de70b3abb61432-t1580",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:a95ed3a064a13e1dcf177abc12b7c1c17135506058ff3d004f586245d0bf32e2",
+      "episode_key": "sha256:8bf9e38d2ac6f4531868df807f9481d53fc5e7b4751dd738b4de70b3abb61432",
+      "group": "dense_no_turn"
+    },
+    {
+      "window_id": "9bb4f3b6561bb3ad319b2cc7e14c64b9df729e9e6d2fe0f9939c9f509687c9ea-t1740",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:a95ed3a064a13e1dcf177abc12b7c1c17135506058ff3d004f586245d0bf32e2",
+      "episode_key": "sha256:9bb4f3b6561bb3ad319b2cc7e14c64b9df729e9e6d2fe0f9939c9f509687c9ea",
+      "group": "dense_no_turn"
+    },
+    {
+      "window_id": "b923d121dabfd48f203f0d3bba740f5eb43f9e65efcd5aa63ecacb24d2bed514-t1130",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:1d112ad4b4af352cda5d2562a65258f0b525b212b6dcdd1f8f459746a128f162",
+      "episode_key": "sha256:b923d121dabfd48f203f0d3bba740f5eb43f9e65efcd5aa63ecacb24d2bed514",
+      "group": "dense_no_turn"
+    },
+    {
+      "window_id": "bb1b0fb041c2d0ede0852c307a22bb9ef37968701fc29a425d67f5aa02f56b32-t1180",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:66675d8cc7ff3bdbccd1c8e0563374d0ad335b47e8800761ab3878518acfc9a8",
+      "episode_key": "sha256:bb1b0fb041c2d0ede0852c307a22bb9ef37968701fc29a425d67f5aa02f56b32",
+      "group": "dense_no_turn"
+    },
+    {
+      "window_id": "b923d121dabfd48f203f0d3bba740f5eb43f9e65efcd5aa63ecacb24d2bed514-t430",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:1d112ad4b4af352cda5d2562a65258f0b525b212b6dcdd1f8f459746a128f162",
+      "episode_key": "sha256:b923d121dabfd48f203f0d3bba740f5eb43f9e65efcd5aa63ecacb24d2bed514",
+      "group": "turning"
+    },
+    {
+      "window_id": "eddf08065469c96561baa097ca8b988d23c06701cb426cd081bce1adf4876902-t410",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:1d112ad4b4af352cda5d2562a65258f0b525b212b6dcdd1f8f459746a128f162",
+      "episode_key": "sha256:eddf08065469c96561baa097ca8b988d23c06701cb426cd081bce1adf4876902",
+      "group": "turning"
+    },
+    {
+      "window_id": "01fd6290a540ff08858764521a8e21322316711a99f2269edc2b9617739052b2-t2140",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:1d112ad4b4af352cda5d2562a65258f0b525b212b6dcdd1f8f459746a128f162",
+      "episode_key": "sha256:01fd6290a540ff08858764521a8e21322316711a99f2269edc2b9617739052b2",
+      "group": "turning"
+    },
+    {
+      "window_id": "0ec802da8f75220ce5d7a0d0e3a180036c5b0162890caca3d22904f277dd3a61-t430",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:a95ed3a064a13e1dcf177abc12b7c1c17135506058ff3d004f586245d0bf32e2",
+      "episode_key": "sha256:0ec802da8f75220ce5d7a0d0e3a180036c5b0162890caca3d22904f277dd3a61",
+      "group": "turning"
+    },
+    {
+      "window_id": "5b9947801b8cc16fb877f8aa67d0b3b2bde5a9ff792938c7f66aadc48b6244c1-t1170",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:66675d8cc7ff3bdbccd1c8e0563374d0ad335b47e8800761ab3878518acfc9a8",
+      "episode_key": "sha256:5b9947801b8cc16fb877f8aa67d0b3b2bde5a9ff792938c7f66aadc48b6244c1",
+      "group": "turning"
+    },
+    {
+      "window_id": "81ae1d3f0be57296e491bc64280499dce14bea28ba7467c8ba7400d87b209907-t1780",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:1d112ad4b4af352cda5d2562a65258f0b525b212b6dcdd1f8f459746a128f162",
+      "episode_key": "sha256:81ae1d3f0be57296e491bc64280499dce14bea28ba7467c8ba7400d87b209907",
+      "group": "turning"
+    },
+    {
+      "window_id": "8bf9e38d2ac6f4531868df807f9481d53fc5e7b4751dd738b4de70b3abb61432-t2470",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:a95ed3a064a13e1dcf177abc12b7c1c17135506058ff3d004f586245d0bf32e2",
+      "episode_key": "sha256:8bf9e38d2ac6f4531868df807f9481d53fc5e7b4751dd738b4de70b3abb61432",
+      "group": "turning"
+    },
+    {
+      "window_id": "9bb4f3b6561bb3ad319b2cc7e14c64b9df729e9e6d2fe0f9939c9f509687c9ea-t1000",
+      "split": "validation",
+      "family": "unsignalized_intersection",
+      "geometry_id": "sha256:a95ed3a064a13e1dcf177abc12b7c1c17135506058ff3d004f586245d0bf32e2",
+      "episode_key": "sha256:9bb4f3b6561bb3ad319b2cc7e14c64b9df729e9e6d2fe0f9939c9f509687c9ea",
+      "group": "turning"
+    }
+  ]
+}

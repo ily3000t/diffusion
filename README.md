@@ -148,3 +148,8 @@ Set-Location E:\diffusion_new
 
 
 最新冻结诊断已完成：训练复杂窗口也失败，50/100步没有解决验证复杂组；末段验证MSE接近平台。建议保留200模型作基线，先验证位置、速度、朝向的一致表示，再确定固定修改后的训练方案。实测、loss曲线和原论文目标见[下一步决策与冻结归因](docs/fresh_model_diagnosis_results.md)，数值来源见[诊断摘要](docs/fresh_model_diagnosis_results.json)。本轮未修改训练目标、网络或启动长训练。
+
+
+## 控制反解与状态回放诊断
+
+已完成固定56个训练/验证标签的回放和独立审计，见[结果](docs/action_state_replay_results.md)及[复现协议](docs/action_state_replay.md)。中心点两维回放保留硬场景资格，但转弯恢复误差及逐车严格舒适性未满足兼容门槛；显式横向参照只证明标签可恢复，不是新生成模型。原训练入口、200轮基线及数据保持原版本，阶段6/测试/新训练未开始。
