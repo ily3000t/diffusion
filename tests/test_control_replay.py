@@ -123,3 +123,32 @@ def test_gate_compares_agent_identity_and_new_collision_pairs():
     replay['collisions']['pairs'][0]['collision']=None
     gate=compatibility_gate(original,replay,{'0':True},{'0':True},error,limits)
     assert 'new_collision_or_unknown' in gate['reasons']
+
+@pytest.mark.parametrize('reference',['center','front'])
+@pytest.mark.parametrize('basis',['midpoint','endpoint'])
+def test_independent_numpy_rollout_known_curve(reference,basis):
+    from sumodiff.decoding.replay_audit import numpy_rollout
+    h=np.zeros((1,21,6))
+    h[0,:,0]=np.arange(-20,1)*.8
+    h[...,2],h[...,5]=8.,1.
+    control=np.zeros((1,5,2))
+    control[...,1]=1.
+    config=asdict(ControlConfig(reference_point=reference,integration_heading=basis))
+    actual=numpy_rollout(h,np.zeros((1,2)),np.array([4.]),np.array([True]),control,config)
+    angles=np.arange(1,6)*.1
+    bases=angles-.05 if basis=='midpoint' else angles
+    offset=2. if reference=='front' else 0.
+    expected=np.array([offset,0])+np.cumsum(.8*np.stack((np.cos(bases),np.sin(bases)),-1),axis=0)-offset*np.stack((np.cos(angles),np.sin(angles)),-1)
+    np.testing.assert_allclose(actual[0,:,:2],expected,atol=1e-13)
+
+
+def test_independent_audit_refuses_development_source(tmp_path):
+    from sumodiff.decoding.replay_audit import run as audit
+    source=tmp_path/'source'
+    source.mkdir()
+    write_json(source/'manifest.json',dict(formal=False,git=dict(dirty=False)))
+    write_json(source/'status.json',dict(state='completed'))
+    write_json(source/'results.json',{})
+    (source/'resolved_config.yaml').write_text('purpose: fixture\n',encoding='utf-8')
+    with pytest.raises(ValueError,match='completed clean formal'):
+        audit(source,tmp_path/'out')
