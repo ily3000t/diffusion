@@ -57,3 +57,14 @@ $env:PYTHONPATH = (Join-Path $PWD 'src')
 输出包含manifest、完整生效配置、命令、环境、数据与任务文件身份、状态、metrics及results.json。逐窗NPZ分别保存原标签、控制量、横向残差、回放轨迹和物理jerk；逐窗JSON保存独立指标和兼容性原因。无checkpoint，没有模型前向或优化更新。
 
 当前方法受交通扩散论文控制—状态rollout设计启发，公式按本项目区间速度和SUMO参考点独立实现，不称CTG/CTG++复现。若两维回放不兼容，先记录失配原因与范围；三维参照通过也不足以直接决定训练目标。新的表示、归一化、预测目标与训练预算需作为下一步单独固定。
+
+
+## 已完成的短回放
+
+实际结果及资源见[action_state_replay_results.md](action_state_replay_results.md)。独立审计复现命令：
+
+```powershell
+& '.\.venv-model\Scripts\python.exe' -m sumodiff.decoding.replay_audit --source artifacts/runs/action-state-replay-r1 --output artifacts/runs/action-state-replay-audit-r1 --formal
+```
+
+审计逐项核对输入/输出身份、源标签、NumPy逐时刻积分及原场景指标，不调用Torch控制回放；原结果不覆写。

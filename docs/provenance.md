@@ -160,3 +160,6 @@ CPU audit_temporal_diagnosis.py核对1602唯一输入、112组均值/计数并�
 controls.py按本项目SUMO几何中心/前保险杠关系和后向区间速度独立实现，未复制CTG/CTG++源码。控制加状态rollout的思路参考原始论文 https://arxiv.org/html/2210.17366 和 https://arxiv.org/html/2306.06344 ，这里不是论文动力学或训练方法复现。显式横向速度仅作失配诊断，不称无侧滑车辆动力学。
 
 control_replay复用本仓库WindowDataset、RunRecorder和既有独立运动/道路/插值碰撞指标。任务ID来自已保存的56窗冻结归因，来源文件SHA写入轻量任务清单；运行只依赖本工程的现有窗口数据，不依赖旧工程目录或原诊断脚本。核心状态、速度监督及评估阈值不改变。未涉及模型训练、旧checkpoint转换、未来推理条件或测试集调参。
+
+
+控制回放源SHA30975255601bfbb047b4faa609b7533004cf2007；独立NumPy审计源SHA404d1bfe2de543be7b672d06dc3ad41d9b14039a。两者formal/clean/completed，数据身份与56固定任务保留。汇总只聚合原NPZ和JSON，物理jerk P99按有效点np.quantile(.99)，末4帧明确属于内部36帧；label未执行回放门槛记N/A，源文件的计数0保留不覆写。没有重新生成轨迹、训练或修改原数据。
