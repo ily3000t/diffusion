@@ -236,3 +236,10 @@ sumodiff.base.epoch.config.v2记录随机初始化、200轮/75000更新的完整
 sumodiff.fresh.calibration.v1保留普通/密集训练窗口ID、自然/固定低t、初始及32更新状态、分项和实际组合梯度、范数比/夹角/裁剪、候选筛选、4个全强度B16压力更新与资源。development_only禁止生成正式训练配置；生产报告、实际配置、数据/model/recipe哈希锁定。校准checkpoint不继承给Train。
 
 sumodiff.fresh.test.seal.v1绑定选定checkpoint、数据哈希、采样配置及已完成完整验证来源。测试先验证冻结证书，再读取任务输入；模型、数据、随机种子或采样设置漂移会拒绝。现有manifest/config/command/environment/status格式保持，完整训练日志新增实际LR、统一辅助ramp、loss分项与裁剪。短prefix不缩短总日程，并明确complete_budget=false。
+
+
+## 控制回放诊断合同 v1（2026-10-13）
+
+控制模块读取absolute local六维标签（future前两维先加回各车initial_positions），不修改现有targets.npz。ControlConfig明确dt=0.1、center/front参考点、midpoint/endpoint积分航向、是否包含lateral_velocity、float64计算。InitialControlState只读最后两个有效历史姿态和t0已知length，不接收future_mask；rollout_controls也不接收未来标签掩码。inverse_label_controls是离线标签变换，要求完整active未来，输出a/omega及显式可选r、舍弃横向残差、原速度/位置差分误差。未支持的离散间隔及角度别名报错，不裁剪标签。
+
+诊断任务schema为sumodiff.control_replay.tasks.v1；结果为sumodiff.control_replay.results.v1。逐窗NPZ保存label_states、agent/history/future masks、initial_positions、lengths、各方法states/controls/lateral_velocity/jerk；JSON独立保存质量、逐车舒适性、恢复误差、门槛和失败。future_mask仅用于标签审计，不能进入生产采样条件。新控制checkpoint、训练归一化和噪声目标尚未定义；不得把现有六维checkpoint用于两/三维控制推理。
