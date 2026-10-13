@@ -145,3 +145,6 @@ Set-Location E:\diffusion_new
 ## 当前从头训练方案
 
 现有入口已完成6000/600/600窗口、batch16、200轮固定方案的正式运行，累计75000更新；随机模型、新AdamW、统一10轮辅助预热、单段warmup/余弦及全时域物理jerk Huber尾部保持。完整600验证通过70.5%，复杂路口与舒适性不足；保留新200轮候选，不宣称收敛。结果、标签CPU对照、科学图与来源见[从头训练结果](docs/fresh_training_results.md)和[轻量结果](docs/fresh_training_results.json)。命令、恢复及测试冻结协议见[当前阶段5A协议](docs/stage5a.md)，工程验收见[实施摘要](docs/fresh_training_implementation_summary.json)。上文100至225轮内容是旧数据与旧协议的历史记录；阶段6及测试未启动。
+
+
+最新冻结诊断已完成：训练复杂窗口也失败，50/100步没有解决验证复杂组；末段验证MSE接近平台。建议保留200模型作基线，先验证位置、速度、朝向的一致表示，再确定固定修改后的训练方案。实测、loss曲线和原论文目标见[下一步决策与冻结归因](docs/fresh_model_diagnosis_results.md)，数值来源见[诊断摘要](docs/fresh_model_diagnosis_results.json)。本轮未修改训练目标、网络或启动长训练。
