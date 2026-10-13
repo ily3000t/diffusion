@@ -223,7 +223,7 @@ def close_json(actual, expected, path='root'):
         raise AssertionError('Value mismatch at '+path)
 
 
-def run(source, output, formal=False):
+def run(source, output, formal=False, input_snapshots=None):
     source=Path(source).resolve(strict=True)
     manifest=json.loads((source/'manifest.json').read_text(encoding='utf-8'))
     status=json.loads((source/'status.json').read_text(encoding='utf-8'))
@@ -232,15 +232,20 @@ def run(source, output, formal=False):
     if not manifest['formal'] or manifest['git']['dirty'] or status['state']!='completed':
         raise ValueError('Audit requires a completed clean formal source run')
     inputs=[source/name for name in ('manifest.json','status.json','results.json','resolved_config.yaml','metrics.json','environment.json')]
+    from .input_snapshots import load_snapshot_map
+    aliases=load_snapshot_map(source,input_snapshots)
+    if input_snapshots is not None:
+        inputs.append(Path(input_snapshots))
     identities=manifest['data']['files']+results['saved_outputs']
     for identity in identities:
-        found=file_identity(identity['location'])
+        actual_path=aliases.get(str(Path(identity['location']).resolve()),Path(identity['location']))
+        found=file_identity(actual_path)
         if found['sha256']!=identity['sha256'] or found['size_bytes']!=identity['size_bytes']:
             raise ValueError('Source integrity failure: '+identity['location'])
-        inputs.append(Path(identity['location']))
+        inputs.append(actual_path)
     if file_identity(source/'resolved_config.yaml')['sha256']!=manifest['resolved_config_sha256'] or file_identity(source/'environment.json')['sha256']!=manifest['environment_sha256']:
         raise ValueError('Config/environment hash mismatch')
-    plan_path=Path(config['task_plan'])
+    plan_path=aliases.get(str(Path(config['task_plan']).resolve()),Path(config['task_plan']))
     plan=json.loads(plan_path.read_text(encoding='utf-8'))
     source_metrics=json.loads((source/'metrics.json').read_text(encoding='utf-8'))
     verify_source_report(results,plan,config,source_metrics)
@@ -266,7 +271,8 @@ def run(source, output, formal=False):
     effective=dict(schema_version='sumodiff.control_replay.audit.v2',source=file_identity(source/'results.json'),
                    independent_evaluation={k:asdict(v) for k,v in kwargs.items()},
                    allowed_splits=['train','validation'],state_tolerance=1e-8,control_tolerance=1e-8,
-                   verify_inverse=True,verify_errors_and_gates=True,verify_task_and_summary=True)
+                   verify_inverse=True,verify_errors_and_gates=True,verify_task_and_summary=True,
+                   historical_input_bundle=file_identity(input_snapshots) if input_snapshots is not None else None)
     with RunRecorder(output,Path.cwd(),effective,[sys.executable,*sys.orig_argv[1:]],{'audit':config['seed']},
                      purpose='independent_numpy_control_replay_audit',data_files=sorted(set(inputs+[plan_path])),
                      data_id=manifest['data']['id'],formal=formal) as recorder:
@@ -374,8 +380,9 @@ def main():
     parser.add_argument('--source',required=True)
     parser.add_argument('--output',required=True)
     parser.add_argument('--formal',action='store_true')
+    parser.add_argument('--input-snapshots',help='Explicit byte-identical historical input bundle')
     args=parser.parse_args()
-    run(args.source,args.output,args.formal)
+    run(args.source,args.output,args.formal,args.input_snapshots)
 
 
 if __name__=='__main__':

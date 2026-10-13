@@ -9,6 +9,38 @@ from sumodiff.decoding.replay_audit import (
 from sumodiff.decoding.control_replay import compatibility_gate
 
 
+
+def test_historical_recovery_never_relaxes_byte_hash():
+    import hashlib
+    from sumodiff.decoding.input_snapshots import matching_git_bytes
+    blob=b'first: 1\nsecond: 2\n'
+    historical=blob.replace(b'\n',b'\r\n')
+    identity=dict(sha256=hashlib.sha256(historical).hexdigest(),size_bytes=len(historical))
+    assert matching_git_bytes(blob,identity)==historical
+    identity['sha256']='0'*64
+    with pytest.raises(ValueError,match='recorded source hash'):
+        matching_git_bytes(blob,identity)
+
+
+def test_snapshot_alias_is_bound_to_source_and_exact_content(tmp_path):
+    from sumodiff.data.dataset import write_json
+    from sumodiff.experiments.recorder import file_identity
+    from sumodiff.decoding.input_snapshots import load_snapshot_map
+    source=tmp_path/'source';source.mkdir()
+    original=tmp_path/'config.yaml';original.write_bytes(b'key: 1\r\n')
+    identity=file_identity(original)
+    write_json(source/'manifest.json',dict(data=dict(files=[identity])))
+    snap=tmp_path/'frozen.yaml';snap.write_bytes(original.read_bytes())
+    bundle=tmp_path/'snapshots.json'
+    write_json(bundle,dict(schema_version='sumodiff.historical_git_inputs.v1',
+        source_manifest=file_identity(source/'manifest.json'),snapshots=[dict(original=identity,snapshot=file_identity(snap))]))
+    original.write_bytes(b'key: 1\n')
+    assert load_snapshot_map(source,bundle)=={str(original.resolve()):snap.resolve()}
+    snap.write_bytes(b'key: 2\r\n')
+    with pytest.raises(ValueError,match='exact bytes'):
+        load_snapshot_map(source,bundle)
+
+
 @pytest.mark.parametrize('point',['center','front'])
 @pytest.mark.parametrize('basis',['midpoint','endpoint'])
 @pytest.mark.parametrize('lateral',[False,True])
