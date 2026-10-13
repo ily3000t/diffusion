@@ -131,7 +131,7 @@ def run(source, output, formal=False):
                     metric=evaluate_trajectory(c,sample['input_metadata'],sample['exact_map'],state,future_mask=sample['targets']['future_mask'],**kwargs)
                     close_json(metric,value['metrics'])
                     metrics_checked+=1
-                    counts=global_counts.setdefault(name,dict(planned=0,scene_pass=0,motion_pass=0,comfort_pass=0,comfort_agents=0,gate_pass=0,reasons=Counter()))
+                    counts=global_counts.setdefault(name,dict(planned=0,scene_pass=0,motion_pass=0,comfort_pass=0,comfort_agents=0,gate_pass=None if name=='label' else 0,reasons=Counter()))
                     counts['planned']+=1
                     counts['scene_pass']+=int(metric['quality_pass'] is True)
                     counts['motion_pass']+=int(metric['motion']['hard_quality_pass'] is True)

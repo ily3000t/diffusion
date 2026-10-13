@@ -123,7 +123,7 @@ def task_summary(records, methods):
                                motion_pass=sum(r['metrics']['motion']['hard_quality_pass'] is True for r in good),
                                comfort_pass_agents=sum(r['metrics']['motion']['comfort_pass_agents'] for r in good),
                                comfort_assessed_agents=sum(r['metrics']['motion']['comfort_assessed_agents'] for r in good),
-                               gate_pass=sum(r.get('gate', {}).get('passed') is True for r in good),
+                               gate_pass=None if name == 'label' else sum(r.get('gate', {}).get('passed') is True for r in good),
                                maximum_position_error_m=max((r['errors']['max_position_error_m'] for r in good if 'errors' in r), default=None),
                                maximum_velocity_error_mps=max((r['errors']['max_velocity_error_mps'] for r in good if 'errors' in r), default=None),
                                maximum_abs_lateral_interval_velocity_mps=max((r['lateral_velocity_mps']['max'] for r in good if 'lateral_velocity_mps' in r), default=None))

@@ -70,6 +70,7 @@ def test_recorded_real_entry_preserves_failure_denominator(tmp_path,monkeypatch,
     assert json.loads((output/'status.json').read_text())['state']=='completed'
     assert result['summary']['train/ordinary']['two']['failed']==int(incomplete)
     assert result['summary']['train/ordinary']['two']['planned']==1
+    assert result['summary']['train/ordinary']['label']['gate_pass'] is None
     manifest=json.loads((output/'manifest.json').read_text())
     assert manifest['checkpoint'] is None and manifest['formal'] is False
     resolved=yaml.safe_load((output/'resolved_config.yaml').read_text())
