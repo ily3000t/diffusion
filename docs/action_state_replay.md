@@ -68,3 +68,8 @@ $env:PYTHONPATH = (Join-Path $PWD 'src')
 ```
 
 审计逐项核对输入/输出身份、源标签、NumPy逐时刻积分及原场景指标，不调用Torch控制回放；原结果不覆写。
+
+
+## 继续检查与审计v2
+
+完整检查见[control_replay_review.md](control_replay_review.md)。审计v2新增独立控制反解、误差/门槛、逐车舒适性、jerk及任务/分组核验，目前只支持float64控制计算。遇到tracked历史输入字节变化时，可用input_snapshots从原Git提交恢复精确匹配SHA和大小的独立快照，并显式传入--input-snapshots；没有快照时继续拒绝漂移，原输入不改。

@@ -243,3 +243,12 @@ sumodiff.fresh.test.seal.v1绑定选定checkpoint、数据哈希、采样配置�
 控制模块读取absolute local六维标签（future前两维先加回各车initial_positions），不修改现有targets.npz。ControlConfig明确dt=0.1、center/front参考点、midpoint/endpoint积分航向、是否包含lateral_velocity、float64计算。InitialControlState只读最后两个有效历史姿态和t0已知length，不接收future_mask；rollout_controls也不接收未来标签掩码。inverse_label_controls是离线标签变换，要求完整active未来，输出a/omega及显式可选r、舍弃横向残差、原速度/位置差分误差。未支持的离散间隔及角度别名报错，不裁剪标签。
 
 诊断任务schema为sumodiff.control_replay.tasks.v1；结果为sumodiff.control_replay.results.v1。逐窗NPZ保存label_states、agent/history/future masks、initial_positions、lengths、各方法states/controls/lateral_velocity/jerk；JSON独立保存质量、逐车舒适性、恢复误差、门槛和失败。future_mask仅用于标签审计，不能进入生产采样条件。新控制checkpoint、训练归一化和噪声目标尚未定义；不得把现有六维checkpoint用于两/三维控制推理。
+
+
+## 控制回放继续检查合同（2026-10-13）
+
+回放results.v1兼容新增planned_active_agents、unknown_planned_agent_tasks、strict_comfort_confirmed_pass_agents、strict_comfort_assessed_agents、strict_comfort_confirmed_pass_fraction_all_planned。完整严格舒适性不使用缺失时域推断通过；失败车辆保留计划分母，无法知道的数量N/A。
+
+sumodiff.control_replay.audit.v2增加independent_control_inversions、independent_error_and_gate_checks、verified_group_summaries、maximum_control_disagreement及实际复算的gate_pass_all_tasks。原始身份和字节哈希不放宽；旧label门槛计数0按未执行明确归为N/A。
+
+sumodiff.historical_git_inputs.v1保存原manifest身份、原Git状态、original/current/snapshot文件身份。snapshot必须同时匹配original的SHA-256和字节大小，并属于同一source manifest。只恢复Git可追溯的小型文本输入，不能掩盖数据或模型漂移；通过显式CLI参数使用，不静默回退。

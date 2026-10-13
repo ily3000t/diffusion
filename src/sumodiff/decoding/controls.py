@@ -31,7 +31,7 @@ class ControlConfig:
             raise TypeError('lateral_velocity must be boolean')
         if self.compute_dtype not in ('float32', 'float64'):
             raise ValueError('Rollout requires float32 or float64 computation')
-        if not math.isfinite(self.heading_epsilon) or self.heading_epsilon <= 0:
+        if type(self.heading_epsilon) not in (int, float) or not math.isfinite(self.heading_epsilon) or self.heading_epsilon <= 0:
             raise ValueError('heading_epsilon must be finite and positive')
 
     @property
@@ -135,6 +135,8 @@ def initial_control_state(history, history_mask, initial_positions, lengths, age
         valid = agent_mask[..., None].expand(*leading, 2)
         yaw, _ = _safe_yaw(h[..., 4:6], valid, config.heading_epsilon)
         turn = _wrapped(yaw[..., 1] - yaw[..., 0])
+        if (turn[agent_mask].abs() >= math.pi - 1e-8).any():
+            raise ValueError('Ambiguous observed yaw increment near pi')
         offset = length / 2 if config.reference_point == 'front' else torch.zeros_like(length)
         previous = h[..., 0, :2] + offset[..., None] * _direction(yaw[..., 0])
         current = p0 + offset[..., None] * _direction(yaw[..., 1])
