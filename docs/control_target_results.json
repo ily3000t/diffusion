@@ -1,0 +1,394 @@
+{
+  "schema_version": "sumodiff.control.integration.summary.v1",
+  "delivery_date": "2026-10-14",
+  "review_source": {
+    "manifest.json": {
+      "id": "sha256:1bc88ce2793f9cc65be5b2a507c401c18c108cfbaba1d567fe9bd9efd93e1bf6",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\control-target-review-20261014-r1\\manifest.json",
+      "sha256": "1bc88ce2793f9cc65be5b2a507c401c18c108cfbaba1d567fe9bd9efd93e1bf6",
+      "size_bytes": 141984
+    },
+    "resolved_config.yaml": {
+      "id": "sha256:b07539028de595e16745a35e7a3c733dbe597244fa801db324195eb5684a929d",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\control-target-review-20261014-r1\\resolved_config.yaml",
+      "sha256": "b07539028de595e16745a35e7a3c733dbe597244fa801db324195eb5684a929d",
+      "size_bytes": 506
+    },
+    "command.txt": {
+      "id": "sha256:456707c8ed89f110dd6200c84073321d5123cab09515d8fecdf7fd7cd47ec8aa",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\control-target-review-20261014-r1\\command.txt",
+      "sha256": "456707c8ed89f110dd6200c84073321d5123cab09515d8fecdf7fd7cd47ec8aa",
+      "size_bytes": 104
+    },
+    "environment.json": {
+      "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\control-target-review-20261014-r1\\environment.json",
+      "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+      "size_bytes": 15406
+    },
+    "status.json": {
+      "id": "sha256:17ebcd683b9af73990238af7e1eea1c83a9231e4b0899bc9830a76f8b5065708",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\control-target-review-20261014-r1\\status.json",
+      "sha256": "17ebcd683b9af73990238af7e1eea1c83a9231e4b0899bc9830a76f8b5065708",
+      "size_bytes": 181
+    },
+    "review.json": {
+      "id": "sha256:5ad1ebbd27732581040ec6953a4840be98e39511fa700d28be5dee2e84dae3b4",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\control-target-review-20261014-r1\\review.json",
+      "sha256": "5ad1ebbd27732581040ec6953a4840be98e39511fa700d28be5dee2e84dae3b4",
+      "size_bytes": 13772
+    }
+  },
+  "review_script": {
+    "id": "sha256:42f2080e13461fc40bb1c481afbec1fd49193592f4050fe6bfb5918632f53bc2",
+    "location": "E:\\diffusion_new\\artifacts\\cache\\control_target_review_20261014.py",
+    "sha256": "42f2080e13461fc40bb1c481afbec1fd49193592f4050fe6bfb5918632f53bc2",
+    "size_bytes": 10447
+  },
+  "tests": {
+    "final_full_suite_passes": 440,
+    "seconds": 50.19,
+    "new_cases": 12,
+    "cuda_deterministic_backward_executed": true
+  },
+  "results": {
+    "schema_version": "sumodiff.control.integration.review.results.v1",
+    "run_sha": "72a7ff32ed6b9a7d0edc62db9d71120d81cc2a36",
+    "sources": {
+      "control-gradient-initial-20261014-r1": {
+        "run_directory": "E:\\diffusion_new\\artifacts\\runs\\control-gradient-initial-20261014-r1",
+        "git": {
+          "root": "E:\\diffusion_new",
+          "commit_sha": "82a5d199d3ab6e1001cdbe10f819c6b17649210f",
+          "branch": "feat/control-target-integration",
+          "dirty": false,
+          "status_porcelain": []
+        },
+        "state": "failed",
+        "error": {
+          "type": "RuntimeError",
+          "message": "cumsum_cuda_kernel does not have a deterministic implementation, but you set 'torch.use_deterministic_algorithms(True)'. You can turn off determinism just for this operation, or you can use the 'warn_only=True' option, if that's acceptable for your application. You can also file an issue at https://github.com/pytorch/pytorch/issues to help us prioritize adding deterministic support for this operation."
+        },
+        "manifest": {
+          "id": "sha256:98bf560373781c5c99801dc6ce8366cda59f04456e5cdef3d4b0685a1f87f7fd",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\control-gradient-initial-20261014-r1\\manifest.json",
+          "sha256": "98bf560373781c5c99801dc6ce8366cda59f04456e5cdef3d4b0685a1f87f7fd",
+          "size_bytes": 60957
+        }
+      },
+      "control-gradient-initial-20261014-r2": {
+        "run_directory": "E:\\diffusion_new\\artifacts\\runs\\control-gradient-initial-20261014-r2",
+        "git": {
+          "root": "E:\\diffusion_new",
+          "commit_sha": "35dade30f087c8234cdc7da3fc792dc5c48d25d7",
+          "branch": "feat/control-target-integration",
+          "dirty": false,
+          "status_porcelain": []
+        },
+        "state": "completed",
+        "error": null,
+        "manifest": {
+          "id": "sha256:51f92ee622308d816440e4159820ced889de90c4654e12a4eeff736aa1d23ee9",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\control-gradient-initial-20261014-r2\\manifest.json",
+          "sha256": "51f92ee622308d816440e4159820ced889de90c4654e12a4eeff736aa1d23ee9",
+          "size_bytes": 60957
+        }
+      },
+      "control-short-full-20261014-r1": {
+        "run_directory": "E:\\diffusion_new\\artifacts\\runs\\control-short-full-20261014-r1",
+        "git": {
+          "root": "E:\\diffusion_new",
+          "commit_sha": "35dade30f087c8234cdc7da3fc792dc5c48d25d7",
+          "branch": "feat/control-target-integration",
+          "dirty": false,
+          "status_porcelain": []
+        },
+        "state": "completed",
+        "error": null,
+        "manifest": {
+          "id": "sha256:34c0af915cb8b957be76ee93b6402cd31b3c175a4f1e5c1a607c3d72d4a3c3cc",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\control-short-full-20261014-r1\\manifest.json",
+          "sha256": "34c0af915cb8b957be76ee93b6402cd31b3c175a4f1e5c1a607c3d72d4a3c3cc",
+          "size_bytes": 116979
+        }
+      },
+      "control-short-prefix-20261014-r1": {
+        "run_directory": "E:\\diffusion_new\\artifacts\\runs\\control-short-prefix-20261014-r1",
+        "git": {
+          "root": "E:\\diffusion_new",
+          "commit_sha": "35dade30f087c8234cdc7da3fc792dc5c48d25d7",
+          "branch": "feat/control-target-integration",
+          "dirty": false,
+          "status_porcelain": []
+        },
+        "state": "completed",
+        "error": null,
+        "manifest": {
+          "id": "sha256:8b52f108c10860bc18bbcb76b6827261432199b81b79a667c3daa1b461fe1152",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\control-short-prefix-20261014-r1\\manifest.json",
+          "sha256": "8b52f108c10860bc18bbcb76b6827261432199b81b79a667c3daa1b461fe1152",
+          "size_bytes": 117045
+        }
+      },
+      "control-short-resume-20261014-r1": {
+        "run_directory": "E:\\diffusion_new\\artifacts\\runs\\control-short-resume-20261014-r1",
+        "git": {
+          "root": "E:\\diffusion_new",
+          "commit_sha": "35dade30f087c8234cdc7da3fc792dc5c48d25d7",
+          "branch": "feat/control-target-integration",
+          "dirty": false,
+          "status_porcelain": []
+        },
+        "state": "completed",
+        "error": null,
+        "manifest": {
+          "id": "sha256:7a037a4137125a98296e5c7256820ad3a163cf1d3b23c7466e825dbb83a5ca30",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\control-short-resume-20261014-r1\\manifest.json",
+          "sha256": "7a037a4137125a98296e5c7256820ad3a163cf1d3b23c7466e825dbb83a5ca30",
+          "size_bytes": 117483
+        }
+      },
+      "control-short-recovery-audit-20261014-r1": {
+        "run_directory": "E:\\diffusion_new\\artifacts\\runs\\control-short-recovery-audit-20261014-r1",
+        "git": {
+          "root": "E:\\diffusion_new",
+          "commit_sha": "29e066a5bec427eb3b42941a1a4b2838747981e8",
+          "branch": "feat/control-target-integration",
+          "dirty": false,
+          "status_porcelain": []
+        },
+        "state": "completed",
+        "error": null,
+        "manifest": {
+          "id": "sha256:d011945888e431350b58a02507742d8ae2317a5fd133bf55d7221537fb4aa971",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\control-short-recovery-audit-20261014-r1\\manifest.json",
+          "sha256": "d011945888e431350b58a02507742d8ae2317a5fd133bf55d7221537fb4aa971",
+          "size_bytes": 5101
+        }
+      },
+      "control-gradient-after-20261014-r1": {
+        "run_directory": "E:\\diffusion_new\\artifacts\\runs\\control-gradient-after-20261014-r1",
+        "git": {
+          "root": "E:\\diffusion_new",
+          "commit_sha": "29e066a5bec427eb3b42941a1a4b2838747981e8",
+          "branch": "feat/control-target-integration",
+          "dirty": false,
+          "status_porcelain": []
+        },
+        "state": "completed",
+        "error": null,
+        "manifest": {
+          "id": "sha256:5e0d077f1ab423349a904d9a3a00ed9282e3f778755c6480e9bcdc67a7e8c7bc",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\control-gradient-after-20261014-r1\\manifest.json",
+          "sha256": "5e0d077f1ab423349a904d9a3a00ed9282e3f778755c6480e9bcdc67a7e8c7bc",
+          "size_bytes": 61451
+        }
+      },
+      "control-sample-20261014-r1": {
+        "run_directory": "E:\\diffusion_new\\artifacts\\runs\\control-sample-20261014-r1",
+        "git": {
+          "root": "E:\\diffusion_new",
+          "commit_sha": "29e066a5bec427eb3b42941a1a4b2838747981e8",
+          "branch": "feat/control-target-integration",
+          "dirty": false,
+          "status_porcelain": []
+        },
+        "state": "failed",
+        "error": {
+          "type": "RuntimeError",
+          "message": "Base sampling/evaluation failures retained in metrics"
+        },
+        "manifest": {
+          "id": "sha256:0305d967c2644592f75fdb81d250948c1accb86eb6bea61a225ae439bd0ffa20",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\control-sample-20261014-r1\\manifest.json",
+          "sha256": "0305d967c2644592f75fdb81d250948c1accb86eb6bea61a225ae439bd0ffa20",
+          "size_bytes": 6777
+        }
+      },
+      "control-sample-20261014-r2": {
+        "run_directory": "E:\\diffusion_new\\artifacts\\runs\\control-sample-20261014-r2",
+        "git": {
+          "root": "E:\\diffusion_new",
+          "commit_sha": "72a7ff32ed6b9a7d0edc62db9d71120d81cc2a36",
+          "branch": "feat/control-target-integration",
+          "dirty": false,
+          "status_porcelain": []
+        },
+        "state": "failed",
+        "error": {
+          "type": "RuntimeError",
+          "message": "Base sampling/evaluation failures retained in metrics"
+        },
+        "manifest": {
+          "id": "sha256:163234d68ee678cd11eea29aa685bf23ab9b07a26b480583114e94b8cb368ff2",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\control-sample-20261014-r2\\manifest.json",
+          "sha256": "163234d68ee678cd11eea29aa685bf23ab9b07a26b480583114e94b8cb368ff2",
+          "size_bytes": 6777
+        }
+      }
+    },
+    "label_roundtrip": {
+      "cohorts": [
+        {
+          "split": "train",
+          "windows": 28,
+          "vehicle_windows": 143
+        },
+        {
+          "split": "validation",
+          "windows": 28,
+          "vehicle_windows": 199
+        }
+      ],
+      "vehicle_windows": 342,
+      "position_error_m": 1.231927058142901e-07,
+      "velocity_error_mps": 7.390975952148438e-05,
+      "heading_component_error": 3.1528002542025035e-08,
+      "independent_numpy_state_difference": 1.4210854715202004e-13
+    },
+    "gradients": {
+      "initial": {
+        "rows": 11,
+        "gradient_calls": 67,
+        "max_combined_auxiliary_to_noise_ratio": 0.14619532227516174,
+        "min_total_noise_cosine": 0.9922050833702087,
+        "max_combination_relative_residual": 6.596424100280274e-07,
+        "would_clip_count": 11,
+        "peak_allocated_bytes": 700700160,
+        "body_seconds": 8.37797779997345,
+        "parameter_unchanged": true
+      },
+      "after_16_updates": {
+        "rows": 11,
+        "gradient_calls": 67,
+        "max_combined_auxiliary_to_noise_ratio": 0.10193610936403275,
+        "min_total_noise_cosine": 0.9957491755485535,
+        "max_combination_relative_residual": 6.928162292751949e-07,
+        "would_clip_count": 11,
+        "peak_allocated_bytes": 700700160,
+        "body_seconds": 6.768006100028288,
+        "parameter_unchanged": true
+      }
+    },
+    "recovery": {
+      "schema_version": "sumodiff.continuation.audit.metrics.v1",
+      "run_sha": "29e066a5bec427eb3b42941a1a4b2838747981e8",
+      "final_step": 16,
+      "resume_step": 8,
+      "training_signature_equal": true,
+      "final_step_equal": true,
+      "model_equal": true,
+      "optimizer_equal": true,
+      "noise_generator_equal": true,
+      "cpu_rng_equal": true,
+      "cuda_rng_equal": true,
+      "update_schedule_equal": true,
+      "continuation_trace_equal": true,
+      "compared_updates": 8,
+      "source_uninterrupted_sha": "35dade30f087c8234cdc7da3fc792dc5c48d25d7",
+      "source_resumed_sha": "35dade30f087c8234cdc7da3fc792dc5c48d25d7",
+      "parent_checkpoint": {
+        "id": "sha256:11f81f2d1bf1a9e972b940657474fedfda9802008ed013fb6f83f3cdbfaa8764",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\control-short-prefix-20261014-r1\\checkpoint_step_000008.pt",
+        "sha256": "11f81f2d1bf1a9e972b940657474fedfda9802008ed013fb6f83f3cdbfaa8764",
+        "size_bytes": 41204906
+      },
+      "scope": "identical local runtime/device/precision and data; cross-version bitwise equality not promised"
+    },
+    "training": {
+      "updates": 16,
+      "validation": [
+        {
+          "step": 0,
+          "train_probe_mse": 1.0589251518249512,
+          "validation_probe_mse": 1.059090154511588
+        },
+        {
+          "step": 8,
+          "train_probe_mse": 0.72820497410638,
+          "validation_probe_mse": 0.7309595176151821
+        },
+        {
+          "step": 16,
+          "train_probe_mse": 0.6670979601996285,
+          "validation_probe_mse": 0.6701967631067548
+        }
+      ],
+      "actual_clipped_updates": 16,
+      "optimizer_step_timing": {
+        "warmup_updates_excluded": 1,
+        "mean_seconds": 0.3229470000020228,
+        "median_seconds": 0.3285058999899775,
+        "windows_per_second": 12.385933295478656,
+        "includes": "CPU batch indexing, device transfer, forward/backward, gradient clipping and AdamW; excludes cache construction/validation/checkpoint IO"
+      },
+      "peak_allocated_bytes": 268956160,
+      "peak_reserved_bytes": 316669952,
+      "cached_tensor_bytes": 47900272,
+      "wall_seconds": 11.47758690000046,
+      "checkpoint": {
+        "id": "sha256:96f0ade8d020b1a168acb4778c7efa9e31d0dc4cb82cc430fd28c236fca4770c",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\control-short-full-20261014-r1\\checkpoint_step_000016.pt",
+        "sha256": "96f0ade8d020b1a168acb4778c7efa9e31d0dc4cb82cc430fd28c236fca4770c",
+        "size_bytes": 41204906
+      }
+    },
+    "sampling": {
+      "planned_tasks": 3,
+      "generation_failures": 3,
+      "actual_denoiser_calls": 60,
+      "actual_gradient_calls": 0,
+      "raw_checks": [
+        {
+          "window_id": "f6616fec788aa539e2552849c064f0ee04bdef9b1b1d36c6f58c0c13261fa549-t180",
+          "family": "ramp_merge",
+          "calls": 20,
+          "error": {
+            "type": "ValueError",
+            "message": "Yaw increment must be strictly below pi per interval"
+          },
+          "absolute_control_maxima": [
+            714.0139770507812,
+            192.77969360351562,
+            36.3624153137207
+          ],
+          "raw_bitwise_equal_after_accounting_fix": true
+        },
+        {
+          "window_id": "b972bddc01af28a419625913d9aa69f95fb3cb82f3bbff574616d0eefafb47fa-t70",
+          "family": "three_lane_straight",
+          "calls": 20,
+          "error": {
+            "type": "ValueError",
+            "message": "Yaw increment must be strictly below pi per interval"
+          },
+          "absolute_control_maxima": [
+            822.2576904296875,
+            139.05950927734375,
+            32.5546989440918
+          ],
+          "raw_bitwise_equal_after_accounting_fix": true
+        },
+        {
+          "window_id": "9bb4f3b6561bb3ad319b2cc7e14c64b9df729e9e6d2fe0f9939c9f509687c9ea-t190",
+          "family": "unsignalized_intersection",
+          "calls": 20,
+          "error": {
+            "type": "ValueError",
+            "message": "Yaw increment must be strictly below pi per interval"
+          },
+          "absolute_control_maxima": [
+            841.6980590820312,
+            158.38836669921875,
+            31.289127349853516
+          ],
+          "raw_bitwise_equal_after_accounting_fix": true
+        }
+      ],
+      "generated_quality_not_established": true
+    },
+    "optimizer_updates_in_review": 0,
+    "test_arrays_loaded": 0,
+    "caveat": "engineering and bounded learning diagnostics; no convergence, new-model quality or formal long-training certification"
+  }
+}
