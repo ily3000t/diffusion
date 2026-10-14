@@ -296,3 +296,14 @@ window.config.v1支持interaction_current与旧first_current_id。选择函数�
 source.motion.pilot.config.v1限制2种子、14预声明训练专用短回合、需求<=30s及上限<=240s。collection.run.v1记录全部case配置和子运行结果；audit.run.v1记录原质量配置与两策略的共同时间清单。results.v1区分全部候选的轻量覆盖、最多32时刻的assessed_quality及未评估unknown；后者不能写成合格0或用于全回合通过率。事件上下文缺失通过状态null，窗口／事件重复明确保留。
 
 independent.review.results.v1记录272来源身份认证、原始中心／差分／事件／选车及内部via链检查；quality.review.results.v1记录14完整引擎重放和8道路窗口世界车身核验，26唯一违规车辆帧与重叠窗口分开。summary.v1只保存小型聚合及关键源身份，运行SHA与交付SHA区分；不是新dataset或checkpoint格式。
+
+
+## 汇入方向权限与固定时刻质量合同（2026-10-14）
+
+scenario.v2仅用于ramp_merge，新增geometry.alignment_length（默认0）及network.protect_acceleration_lane（默认false）。v1不增加这两个默认键，显式使用会报未知项。非零对齐或启用规则需80m等正过渡与SL2015兼容设置，错误组合不降级。
+
+编译scene.lane_change_restrictions逐项保存lane_id、direction（+1左/-1右）和allowed_classes。process.json的lane_change_rule_checks另有actual_allowed_classes、verified，必须由TraCI实际getChangePermissions核对。精确地图lane的change_left_classes/change_right_classes只在原XML显式定义时存在。现有模型lane_rules遇到不允许passenger/all的方向限制报NotImplementedError，不能将缺失编码当作已支持。
+
+ramp.alignment.pilot.config.v1固定12训练专用回合、两训练几何、两种子及32个tick=30..960每30一次；复用source_motion_pilot collect/audit入口。quality_planned_windows为12×32×2=768，即使子回合失败也逐时刻保留unavailable记录；无当前车辆、超出回合不重新选时刻，motion_flags=null，不能当作静止或质量通过。assessed表示可构造窗口，core_complete及实际raw64评估另计；其他全部候选详细质量保持unknown。
+
+ramp.alignment.review.results.v1保存全部原始世界车身/差分复算、旧对照逐字节复现、768记录聚合和12完整引擎代表重放。summary.v1保存小型聚合及实际运行SHA/关键身份，figures.v1只记录图输入及输出。原window/dataset/checkpoint与质量阈值均未切换。
