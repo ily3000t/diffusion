@@ -32,16 +32,20 @@ def audit_continuation(uninterrupted,resumed,output,repository,command,formal=Fa
         first=[json.loads(line) for line in (left_run/'steps.jsonl').read_text().splitlines()]
         second=[json.loads(line) for line in (right_run/'steps.jsonl').read_text().splitlines()]
         fields=('step','noise_mse','gradient_norm_before_clip','window_ids','timesteps')
+        if a['metadata']['training_config'].get('schema_version')=='sumodiff.control.train.config.v1':
+            fields+=('learning_rate','auxiliary_ramp','total_loss','clipping_applied','loss_components')
         first=[{k:r[k] for k in fields} for r in first if r['step']>mid['step']]
         second=[{k:r[k] for k in fields} for r in second]
         result=dict(schema_version='sumodiff.continuation.audit.metrics.v1',run_sha=run.manifest['git']['commit_sha'],
             final_step=a['step'],resume_step=mid['step'],training_signature_equal=exact_tree(a['metadata']['training_signature'],b['metadata']['training_signature']),
             final_step_equal=a['step']==b['step'],model_equal=exact_tree(a['model'],b['model']),optimizer_equal=exact_tree(a['optimizer'],b['optimizer']),
             noise_generator_equal=exact_tree(a['generator_state'],b['generator_state']),cpu_rng_equal=exact_tree(a['cpu_rng'],b['cpu_rng']),
-            cuda_rng_equal=exact_tree(a['cuda_rng'],b['cuda_rng']),continuation_trace_equal=first==second,compared_updates=len(second),
+            cuda_rng_equal=exact_tree(a['cuda_rng'],b['cuda_rng']),
+            update_schedule_equal=exact_tree(a['metadata']['runtime'].get('update_schedule'),b['metadata']['runtime'].get('update_schedule')),
+            continuation_trace_equal=first==second,compared_updates=len(second),
             source_uninterrupted_sha=a['metadata']['run_sha'],source_resumed_sha=b['metadata']['run_sha'],parent_checkpoint=sources_parent,
             scope='identical local runtime/device/precision and data; cross-version bitwise equality not promised')
         write_json(run.output/'continuation_audit.json',result);run.write_metrics(result)
-        if not all(result[k] for k in ('training_signature_equal','final_step_equal','model_equal','optimizer_equal','noise_generator_equal','cpu_rng_equal','cuda_rng_equal','continuation_trace_equal')):
+        if not all(result[k] for k in ('training_signature_equal','final_step_equal','model_equal','optimizer_equal','noise_generator_equal','cpu_rng_equal','cuda_rng_equal','update_schedule_equal','continuation_trace_equal')):
             raise RuntimeError('Actual continuation audit failed; differences retained')
     return result
