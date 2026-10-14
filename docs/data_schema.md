@@ -276,3 +276,12 @@ sumodiff.control.train.config.v1记录完整有界训练、统一状态loss、je
 共享representation.training_target只在标签路径中将未来位移加回initial_positions、反解控制并归一化；decode_prediction不接收future_mask或标签。控制回放raw_future是六维回放状态的位移／速度／朝向；DecodedTrajectory.raw_states与states相同，各correction为0，明确没有协调阶段。未来三维网络输出由raw_normalized_controls及raw_controls保存。成功时另有raw_future_delta六维、raw_absolute_states与decoded_absolute_states；失败保留已经完成的原始预测，不能假定存在六维状态。sampling_summary与逐场景metrics记录实际去噪调用，失败仍在分母中。
 
 sumodiff.control.gradient.config.v1与results.v1记录训练专用自然t／固定200、分组和B16压力探针、分项与真实组合梯度范数／夹角、总范数、组合残差、裁剪条件、参数哈希及资源；探针不进行优化。sumodiff.control.integration.review.config.v1／results.v1记录独立NumPy真实标签回放、恢复、来源和失败核对；summary.v1为轻量交付。测试封存尚不支持控制模型，sample split=test在读取数据之前明确拒绝。
+
+
+## 训练运动覆盖来源合同（2026-10-14）
+
+sumodiff.training.motion.coverage.config.v1固定144训练回合、44071候选与6000选集，拒绝split切换与无界案例。读取全局registry/index/quality日志仅筛选train，原始episode及候选元数据以原准备清单和文件SHA／大小认证；不加载验证／测试轨迹数组。sumodiff.training.motion.coverage.results.v1记录各道路candidate/core_complete/core_multiagent/eligible/selected分母、已知／未知未来、运动范围、事件次数及唯一事件数、重叠拒绝理由和资源。
+
+window_lineage.jsonl逐窗保留阶段、车辆数、完整／未知未来、heading5/lateral_half/logged_lane_change/ramp_exit标记及原拒绝理由。未知未来不能编码为真实静止；运动flag仅对完整未来车辆计算。换道仅change，时间(t0,t0+40ticks]；匝道退出只识别ramp路线的acceleration→main_out转换，内部连接跳过。event_opportunities按唯一事件分别记录raw、actor_present、inside_radius及selected；不将它们解释为碰撞概率或独立样本。
+
+source_cases.json按每类运动及合格性确定性保留最多2例，保存t0-23至t0+40共64原始位置／航向及61个物理jerk，重复案例明确去重。sumodiff.training.motion.review.results.v1记录165阶段值核验、17案例独立原始复算及范围限制；sumodiff.training.motion.figure.results.v1仅记录图表输入身份与布局输出。sumodiff.training.motion.summary.v1为轻量交付，保留各运行实际SHA、状态、输入数量及关键身份，不替换原manifest或回填交付SHA。dataset/window/checkpoint及原资格阈值保持。

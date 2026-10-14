@@ -188,3 +188,12 @@ control_scale_audit与control_scale_review由本项目当前控制反解／回�
 初始化校准r2、完整16与8+8训练实际源35dade30f087c8234cdc7da3fc792dc5c48d25d7；后校准和恢复审计实际源29e066a5bec427eb3b42941a1a4b2838747981e8；采样r2与独立CPU复核实际源72a7ff32ed6b9a7d0edc62db9d71120d81cc2a36。全部从formal／clean代码启动，状态如实保存：初始化r1因CUDA失败，两次采样均3/3失败，未删除或改写。
 
 独立CPU复核脚本保存在artifacts/cache/control_target_review_20261014.py，并以哈希进入365输入身份清单；NumPy独立积分、56窗恢复及采样重复逐元素核对通过。3个任务重新运行仅验证调用记录修复，没有产生额外独立任务或改善输出。未修改原始数据、选集、阈值或旧200模型；测试轨迹、长训练、阶段6、push／tag未启动。运行SHA不回填为交付SHA。
+
+
+## 2026-10-14 训练运动覆盖来源追踪
+
+eef1e77新增data.motion_coverage与experiments.motion_coverage，8f554b4冻结训练专用配置、来源认证和有界测试。原始位置从SUMO前保险杠／导航角独立计算，案例三阶差分与本仓库原raw64质量记录交叉核对；未复制旧工程或外部模型代码，未修改原采集、窗口、筛选或训练算法。
+
+主扫描、独立复核与最终图表的实际源均为8f554b4bcee60f9f6332396edae2cf5236942535，formal/clean/completed。主扫描44804输入，独立复核44227输入、165汇总值及4回合17案例；最终图表7输入，仅修正注释遮挡，初版图和复核仍保留。独立复核及渲染脚本位于artifacts/cache，其字节哈希进入各运行manifest，不依赖旧工程目录。复核没有再次扫描所有原始回合。
+
+解释换道端点机制参考SUMO官方SublaneModel文档，事件时间语义参考官方Lanechange输出文档；在线文档不冒称1.22.0固定源码。SL2015／横向加速度约束仅为待本机小试验的候选，尚未实施或证明有效。交付training_motion_results.md/json，来源SHA不回填为结果或合并提交；数据、checkpoint及原始结果仍排除Git。

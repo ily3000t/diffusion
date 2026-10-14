@@ -1,0 +1,10 @@
+schema_version: sumodiff.training.motion.coverage.config.v1
+preparation: artifacts/processed/stage5a-fresh
+expected_data_id: sha256:fec50065485979fd8c35c48c1bb7017a7a14d342bd5b7c275b6d26183ebb7046
+reference_scales: artifacts/runs/training-control-scales-20261013-r1
+reference_motion: artifacts/runs/training-control-scale-review-20261013-r1
+expected_train_episodes: 144
+expected_train_candidates: 44071
+expected_selected_windows: 6000
+seed: 20261104
+case_limit_per_bucket: 2
