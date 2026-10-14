@@ -1,0 +1,38 @@
+schema_version: sumodiff.control_scale_audit.protocol.v1
+dataset: artifacts/processed/stage5a-fresh/dataset
+data_id: sha256:fec50065485979fd8c35c48c1bb7017a7a14d342bd5b7c275b6d26183ebb7046
+expected_windows: 6000
+expected_families:
+  three_lane_straight: 2000
+  ramp_merge: 2000
+  unsignalized_intersection: 2000
+seed: 20261029
+control:
+  dt: 0.1
+  reference_point: center
+  integration_heading: midpoint
+  lateral_velocity: true
+  compute_dtype: float64
+  heading_epsilon: 1.0e-6
+scale_policy:
+  quantile: 0.999
+  minimum_group_windows: 8
+  groups:
+    - all
+    - family:three_lane_straight
+    - family:ramp_merge
+    - family:unsignalized_intersection
+    - turning_windows
+    - dense_intersection_windows
+  candidate_scales:
+    acceleration: [1, 2, 3, 5, 8, 10]
+    yaw_rate: [0.05, 0.1, 0.2, 0.3, 0.5, 1.0]
+    lateral_velocity: [0.02, 0.05, 0.1, 0.2, 0.3, 0.5, 1.0]
+checks:
+  max_position_roundtrip_m: 1.0e-8
+  max_heading_roundtrip_rad: 1.0e-8
+  max_numpy_state_difference: 1.0e-8
+  max_numpy_control_difference: 1.0e-8
+  max_label_velocity_roundoff_mps: 0.001
+  two_control_position_tolerance_m: 0.05
+  two_control_velocity_tolerance_mps: 0.05
