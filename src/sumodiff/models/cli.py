@@ -108,7 +108,7 @@ def audit(source,output,formal=False):
         [sys.executable,*sys.orig_argv[1:]],{'initialization':config['probe']['seed']},purpose='stage4_cpu_replay',data_files=files,formal=formal) as run:
         configure(config['probe']['seed'],1);model=ConditionalDenoiser(resolve_model_config(config['model']))
         if parameter_hash(model)!=report['parameter_sha256']:raise ValueError('Initialization replay differs')
-        c=prepare_conditioning(collate_numpy(inputs));errors={}
+        c=prepare_conditioning(collate_numpy(inputs),config=model.config);errors={}
         with np.load(source/'untrained_outputs.npz',allow_pickle=False) as saved:
             noise=torch.from_numpy(saved['noisy_future']);timestep=torch.from_numpy(saved['timestep'])
             np.testing.assert_array_equal(c['agent_mask'].numpy(),saved['agent_mask'])
@@ -131,9 +131,15 @@ def main(argv=None):
     check.add_argument('--model-config',type=Path,required=True);check.add_argument('--probe-config',type=Path,required=True)
     check.add_argument('--output',type=Path,required=True);check.add_argument('--formal',action='store_true')
     replay=sub.add_parser('audit');replay.add_argument('--run',type=Path,required=True);replay.add_argument('--output',type=Path,required=True);replay.add_argument('--formal',action='store_true')
+    directional=sub.add_parser('rules-smoke');directional.add_argument('--config',type=Path,required=True)
+    directional.add_argument('--output',type=Path,required=True);directional.add_argument('--formal',action='store_true')
     args=p.parse_args(argv)
     try:
-        result=smoke(args.dataset,args.model_config,args.probe_config,args.output,args.formal) if args.action=='smoke' else audit(args.run,args.output,args.formal)
+        if args.action=='rules-smoke':
+            from .directional_probe import probe
+            result=probe(args.config,args.output,args.formal)
+        else:
+            result=smoke(args.dataset,args.model_config,args.probe_config,args.output,args.formal) if args.action=='smoke' else audit(args.run,args.output,args.formal)
     except Exception as exc:
         print(f'{type(exc).__name__}: {exc}',file=sys.stderr);return 2
     print({key:value for key,value in result.items() if key not in ('resource_cases','structural','outputs','limitations')});return 0

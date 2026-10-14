@@ -1,0 +1,13 @@
+schema_version: sumodiff.directional.conditioning.probe.v1
+collection: artifacts/runs/ramp-alignment-collect-20261014-r1
+model_config: configs/model/control_directional.yaml
+reference_tick: 300
+seed: 20261014
+noise_seed: 20261015
+device: cuda:0
+iterations: 2
+warmups: 1
+synthetic_batch_size: 4
+legacy_checkpoints:
+- artifacts/runs/stage5a-fresh-recovery1-resume/checkpoint_step_075000.pt
+- artifacts/runs/control-short-full-20261014-r1/checkpoint_step_000016.pt
