@@ -63,6 +63,8 @@ class LaneEncoder(nn.Module):
     def __init__(self,config):
         super().__init__();d=config.condition_dimension;self.config=config
         self.points=nn.Sequential(nn.Linear(9,d),nn.SiLU(),nn.Linear(d,d))
+        if config.directional_lane_permissions:
+            self.permissions=nn.Sequential(nn.Linear(2,d),nn.SiLU(),nn.Linear(d,d))
         self.graph=nn.Sequential(nn.Linear(d*5,d*2),nn.SiLU(),nn.Linear(d*2,d))
         self.norm=nn.LayerNorm(d)
         self.route_order=nn.Sequential(nn.Linear(2,d),nn.SiLU(),nn.Linear(d,d))
@@ -75,6 +77,9 @@ class LaneEncoder(nn.Module):
         order=torch.linspace(0.,1.,64,device=clean.device,dtype=clean.dtype).expand(pm.shape)
         points=self.points(torch.cat((clean,torch.where(pm,order,0.)[...,None]),dim=-1))
         lane=masked_mean(points,pm,dim=2)
+        if config.directional_lane_permissions:
+            permissions=torch.where(lm[...,None],c['lane_change_permissions'],False).to(lane.dtype)
+            lane=lane+self.permissions(permissions)
         pair_mask=lm[:,:,None]&lm[:,None,:]
         outgoing=c['lane_adjacency']&pair_mask
         incoming=outgoing.transpose(1,2)

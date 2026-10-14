@@ -7,12 +7,23 @@ BASE_FIELDS={'history','agent_mask','history_mask','attributes','initial_positio
 MODEL_FIELDS=BASE_FIELDS|{'map_extent_m','lane_rule_relations','route_lane_features'}
 
 
-def lane_rules(exact):
+def lane_change_permissions(exact):
+    """Passenger class permission [left,right]; not neighbor existence or dynamic safety."""
+    result=np.ones((len(exact['lanes']),2),bool)
+    for i,lane in enumerate(exact['lanes']):
+        for j,field in enumerate(('change_left_classes','change_right_classes')):
+            if field not in lane:continue
+            classes=lane[field]
+            if not isinstance(classes,list) or any(not isinstance(v,str) or not v for v in classes):
+                raise ValueError('Directional permission classes must be a list of nonempty strings')
+            result[i,j]=bool({'passenger','all'}.intersection(classes))
+    return result
+
+
+def lane_rules(exact,*,directional_permissions=False):
     """Movement anchors: first via lane, or source when SUMO has no via."""
-    for lane in exact['lanes']:
-        for field in ('change_left_classes','change_right_classes'):
-            if field in lane and not {'passenger','all'}.intersection(lane[field]):
-                raise NotImplementedError('Directional lane-change restrictions require an explicit model rule encoding')
+    if not directional_permissions and not lane_change_permissions(exact).all():
+        raise NotImplementedError('Directional lane-change restrictions require an explicit model rule encoding')
     ids={lane['id']:i for i,lane in enumerate(exact['lanes'])}
     if len(ids)!=len(exact['lanes']):raise ValueError('Duplicate lane IDs')
     links={}
@@ -68,40 +79,47 @@ def route_features(exact,meta,route_mask,agents):
     return result
 
 
-def prepare_conditioning(batch,device='cpu'):
+def prepare_conditioning(batch,device='cpu',*,config=None):
     """Read collated conditioning and current metadata; targets are untouched."""
     source=batch['conditioning']
     if set(source)!=BASE_FIELDS:raise ValueError('Unexpected/missing conditioning fields; labels are forbidden')
     agents=np.asarray(source['agent_mask'],bool)
     b,n=agents.shape;l=source['lane_mask'].shape[1]
     if len(batch['exact_map'])!=b or len(batch['input_metadata'])!=b:raise ValueError('Invalid metadata batch size')
+    directional=config is not None and config.directional_lane_permissions
     relations=np.zeros((b,l,l,2),bool);features=np.zeros((b,n,l,2),np.float32);extents=[]
+    permissions=np.zeros((b,l,2),bool) if directional else None
     for i,(exact,meta) in enumerate(zip(batch['exact_map'],batch['input_metadata'])):
         count=len(exact['lanes'])
         if count>l or not np.asarray(source['lane_mask'][i,:count],bool).all() or np.asarray(source['lane_mask'][i,count:],bool).any():
             raise ValueError('Map lane order/count differs from collated tensors')
         if meta['raster_row_direction']!='positive_y_to_negative_y':raise ValueError('Unsupported raster orientation')
-        relations[i,:count,:count]=lane_rules(exact)
+        relations[i,:count,:count]=lane_rules(exact,directional_permissions=directional)
+        if directional:permissions[i,:count]=lane_change_permissions(exact)
         features[i,:,:count]=route_features(exact,meta,np.asarray(source['route_lane_mask'][i,:,:count],bool),agents[i])
         extents.append(meta['map_extent_m'])
     values={**source,'lane_rule_relations':relations,'route_lane_features':features,'map_extent_m':np.asarray(extents,np.float32)}
+    if directional:values['lane_change_permissions']=permissions
     # stage2 raster is binary uint8 0/1, not 0/255. No guessed rescaling.
     return {key:torch.as_tensor(np.array(value,copy=True),device=device,
         dtype=torch.bool if np.asarray(value).dtype==bool else torch.float32) for key,value in values.items()}
 
 
 def validate_conditioning(c,config):
-    if set(c)!=MODEL_FIELDS:raise ValueError('Unexpected/missing model fields; future masks and labels are forbidden')
+    fields=MODEL_FIELDS|{'lane_change_permissions'} if config.directional_lane_permissions else MODEL_FIELDS
+    if set(c)!=fields:raise ValueError('Unexpected/missing model fields for this architecture; future masks and labels are forbidden')
     h=c['history'];b,n=h.shape[:2]
     if n<1 or n>config.max_agents or h.shape!=(b,n,21,6):raise ValueError('Invalid history/agent count')
     l=c['lane_mask'].shape[1]
     expected=dict(agent_mask=(b,n),history_mask=(b,n,21),attributes=(b,n,4),initial_positions=(b,n,2),
         map_raster=(b,3,256,256),lane_polylines=(b,l,64,8),lane_mask=(b,l),lane_point_mask=(b,l,64),
         lane_adjacency=(b,l,l),route_lane_mask=(b,n,l),lane_rule_relations=(b,l,l,2),route_lane_features=(b,n,l,2),map_extent_m=(b,4))
+    if config.directional_lane_permissions:expected['lane_change_permissions']=(b,l,2)
     if l<1 or b<1:raise ValueError('Empty batch/map')
     for name,shape in expected.items():
         if c[name].shape!=shape or c[name].device!=h.device:raise ValueError(f'Invalid {name} shape/device')
     bool_fields={'agent_mask','history_mask','lane_mask','lane_point_mask','lane_adjacency','route_lane_mask','lane_rule_relations'}
+    if config.directional_lane_permissions:bool_fields.add('lane_change_permissions')
     for name in bool_fields:
         if c[name].dtype!=torch.bool:raise ValueError(f'{name} must be boolean')
     a=c['agent_mask'];hm=c['history_mask']&a[...,None]

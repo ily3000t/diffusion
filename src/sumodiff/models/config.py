@@ -31,7 +31,7 @@ class ModelConfig:
     rolling_generation: bool = False
 
     def __post_init__(self):
-        if self.schema_version not in ('sumodiff.model.config.v1','sumodiff.model.control.config.v1'):raise ValueError('Unsupported model schema')
+        if self.schema_version not in ('sumodiff.model.config.v1','sumodiff.model.control.config.v1','sumodiff.model.control.config.v2'):raise ValueError('Unsupported model schema')
         for key in ('condition_dimension','attention_heads','max_agents','diffusion_embedding_steps'):
             if type(getattr(self,key)) is not int or getattr(self,key)<1:raise ValueError(f'Invalid {key}')
         if self.condition_dimension%self.attention_heads or self.condition_dimension%2:
@@ -39,7 +39,7 @@ class ModelConfig:
         if type(self.fusion_layers_per_stage) is not int or self.fusion_layers_per_stage!=1:raise NotImplementedError('Stage4 implements one attention layer per fusion stage')
         if self.fusion not in ('hierarchical','parallel'):raise ValueError('Unsupported fusion')
         if self.temporal_upsampling!='nearest_repeat':raise NotImplementedError('Only deterministic nearest-repeat upsampling is implemented')
-        expected_dimension = 3 if self.schema_version=='sumodiff.model.control.config.v1' else 6
+        expected_dimension = 3 if self.schema_version in ('sumodiff.model.control.config.v1','sumodiff.model.control.config.v2') else 6
         if (self.history_points,self.future_points,self.state_dimension,self.raster_size,self.polyline_points)!=(21,40,expected_dimension,256,64):
             raise NotImplementedError('Model schema requires 21/40, explicit state/control dimension, 256 raster and 64-point interface')
         for name,count in (('unet_channels',3),('raster_channels',5)):
@@ -53,6 +53,10 @@ class ModelConfig:
         for name in ('attack_role_embedding','cfg','partial_diffusion','rolling_generation'):
             if type(getattr(self,name)) is not bool:raise ValueError(f'{name} must be boolean')
             if getattr(self,name):raise NotImplementedError(f'{name} is not implemented/supported')
+
+    @property
+    def directional_lane_permissions(self):
+        return self.schema_version=='sumodiff.model.control.config.v2'
 
     def to_dict(self):
         result=asdict(self)
