@@ -24,7 +24,7 @@ def collect_inputs(dataset_path,config):
     for index,entry in enumerate(dataset.entries):
         if entry['split']=='test':continue
         sample=dataset.inference(index)
-        c=prepare_conditioning(collate_numpy([sample]));a,hm,_,_,_=validate_conditioning(c,config)
+        c=prepare_conditioning(collate_numpy([sample]),config=config);a,hm,_,_,_=validate_conditioning(c,config)
         counts[entry['split']]+=1;max_lanes=max(max_lanes,c['lane_mask'].shape[1]);max_agents=max(max_agents,int(a.sum()))
         missing_history+=int((a&~hm.all(dim=-1)).sum())
         sources.extend(str(dataset.directory/entry['files'][name]['relative_path']) for name in ('conditioning.npz','input.json','map.json'))
@@ -34,7 +34,7 @@ def collect_inputs(dataset_path,config):
         if family not in selected or rank>selected[family][0]:selected[family]=(rank,sample)
     if len(selected)!=3 or not all(counts.values()):raise ValueError('Need train/validation inputs covering three scene families')
     samples=[selected[key][1] for key in sorted(selected)]
-    c=prepare_conditioning(collate_numpy(samples))
+    c=prepare_conditioning(collate_numpy(samples),config=config)
     ids=[sample['input_metadata']['window_id'] for sample in samples]
     report=dict(inference_windows=sum(counts.values()),split_counts=counts,max_map_lanes=max_lanes,
         max_observed_selected_agents=max_agents,agents_with_incomplete_history=missing_history,
@@ -58,16 +58,16 @@ def full_capacity_conditioning(source,batch_size):
     return c
 
 
-def seeded_noise(c,seed,embedding_steps):
+def seeded_noise(c,seed,embedding_steps,state_dimension=6):
     device=c['history'].device;generator=torch.Generator(device=device).manual_seed(seed)
     b,n=c['agent_mask'].shape
-    noise=torch.randn(b,n,40,6,device=device,generator=generator)
+    noise=torch.randn(b,n,40,state_dimension,device=device,generator=generator)
     timestep=(torch.arange(b,device=device,dtype=torch.long)*197+100)%embedding_steps
     return noise,timestep
 
 
 def invariance_probe(model,c,seed):
-    noise,timestep=seeded_noise(c,seed,model.config.diffusion_embedding_steps);a=c['agent_mask'];order=torch.arange(a.shape[1]-1,-1,-1,device=a.device)
+    noise,timestep=seeded_noise(c,seed,model.config.diffusion_embedding_steps,model.config.state_dimension);a=c['agent_mask'];order=torch.arange(a.shape[1]-1,-1,-1,device=a.device)
     changed={key:value[:,order] if key in VEHICLE_FIELDS else value for key,value in c.items()}
     records={};saved=dict(noisy_future=noise.cpu().numpy(),timestep=timestep.cpu().numpy(),agent_mask=a.cpu().numpy())
     for mode in ('hierarchical','parallel'):
@@ -100,7 +100,7 @@ def invariance_probe(model,c,seed):
 
 
 def profile(model,source,device,mode,seed,iterations,warmups):
-    c={key:value.to(device) for key,value in source.items()};noise,timestep=seeded_noise(c,seed,model.config.diffusion_embedding_steps)
+    c={key:value.to(device) for key,value in source.items()};noise,timestep=seeded_noise(c,seed,model.config.diffusion_embedding_steps,model.config.state_dimension)
     cuda=device.type=='cuda'
     def synchronize():
         if cuda:torch.cuda.synchronize(device)

@@ -86,7 +86,7 @@ def verified_control_scales(path,directory,config):
     return identity
 
 
-def control_cache(directory,split,c):
+def control_cache(directory,split,c,*,model_config=None):
     if split not in ('train','validation'):
         raise ValueError('Control diagnostics cannot access test labels')
     tasks=validate_plan(json.loads(Path(c['task_plan']).read_text(encoding='utf-8')))
@@ -103,7 +103,7 @@ def control_cache(directory,split,c):
         verify_task_metadata(task,ds.entries[i],meta)
         samples.append(ds[i]);indices.append(i)
     batch=collate_numpy(samples)
-    conditions=prepare_conditioning(batch,'cpu')
+    conditions=prepare_conditioning(batch,'cpu',config=model_config)
     targets={k:torch.as_tensor(v) for k,v in batch['targets'].items()}
     if not targets['future_mask'][conditions['agent_mask']].all():
         raise ValueError('Control targets require complete active labels')

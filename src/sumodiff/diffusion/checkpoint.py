@@ -30,6 +30,16 @@ def save_checkpoint(path,model,optimizer,generator,step,metadata):
     torch.save(payload,temporary);os.replace(temporary,path)
 
 
+def validate_directional_state(state,config):
+    prefix='condition_encoder.encoders.lanes.permissions.'
+    present={key for key in state if key.startswith(prefix)}
+    d=config.condition_dimension
+    shapes={prefix+'0.weight':(d,2),prefix+'0.bias':(d,),prefix+'2.weight':(d,d),prefix+'2.bias':(d,)}
+    expected=set(shapes) if config.directional_lane_permissions else set()
+    if present!=expected or any(not isinstance(state[key],torch.Tensor) or tuple(state[key].shape)!=shapes[key] for key in present):
+        raise ValueError('Directional conditioning checkpoint/config mismatch')
+
+
 def load_checkpoint(path,*,signature=None,requested=None):
     value=torch.load(path,map_location='cpu',weights_only=True)
     fields={'schema_version','capabilities','step','model','optimizer','generator_state','cpu_rng','cuda_rng','metadata'}
@@ -45,6 +55,7 @@ def load_checkpoint(path,*,signature=None,requested=None):
     if set(m)!=required: raise ValueError('Incomplete checkpoint metadata')
     model=resolve_model_config(m['model_config']);diffusion=resolve_diffusion_config(m['diffusion_config'])
     validate_architecture(model,diffusion)
+    validate_directional_state(value['model'],model)
     if signature is not None and signature!=m['training_signature']: raise ValueError('Resume training signature mismatch')
     if m['training_signature']['model']!=m['model_config'] or m['training_signature']['training']['diffusion']!=m['diffusion_config']: raise ValueError('Inconsistent checkpoint normalization/model metadata')
     if m['training_config'].get('schema_version')=='sumodiff.control.train.config.v1':
@@ -73,6 +84,8 @@ def load_checkpoint(path,*,signature=None,requested=None):
 
 
 def restore_training(value,model,optimizer,generator,device):
+    if hasattr(model,'config') and model.config.to_dict()!=value['metadata']['model_config']:
+        raise ValueError('Resume model architecture differs from checkpoint configuration')
     if value['metadata']['runtime']['torch']!=str(torch.__version__): raise ValueError('Resume requires the recorded torch version')
     model.load_state_dict(value['model'],strict=True);optimizer.load_state_dict(value['optimizer'])
     generator.set_state(value['generator_state']);torch.set_rng_state(value['cpu_rng'])

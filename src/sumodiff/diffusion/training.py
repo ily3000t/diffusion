@@ -116,7 +116,7 @@ def train(dataset_path,model_config_path,config_path,scale_audit_path,output,rep
     cache_started=time.perf_counter()
     if control:
         from .control_training import control_cache
-        train_cache=control_cache(dataset_path,'train',c);val_cache=control_cache(dataset_path,'validation',c)
+        train_cache=control_cache(dataset_path,'train',c,model_config=architecture);val_cache=control_cache(dataset_path,'validation',c,model_config=architecture)
     else:
         train_cache=labeled_cache(dataset_path,'train',c['train_limit']);val_cache=labeled_cache(dataset_path,'validation',c['validation_limit'])
     cache_seconds=time.perf_counter()-cache_started

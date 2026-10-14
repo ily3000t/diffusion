@@ -215,3 +215,12 @@ fd66ec2扩展本仓库仿真配置与编译、5ddb1a1加入当前路线／地图
 采集、详细审计、独立原始复核和图表实际源均f44da9ca0dd3427423ac3a8860c80791e681d27c，formal/clean/completed。独立复核脚本artifacts/cache/review_ramp_alignment_20261014.py的字节身份进入247输入清单，认证234个主审计输入；复算99380原始车身帧、626窗口世界几何与12完整质量重放，两份旧control认证历史哈希并逐字节一致。几何0/1组合分别仍有全回合最大jerk55.118/41.324m/s³，负结果保留。图脚本figure_ramp_alignment_20261014.py及4输入进入图清单，PNG/PDF目视通过；对数图0值在绘图下界标为0，不代表正越界面积。
 
 结果ramp_alignment_results.md/json仅轻量交付，运行SHA不回填交付SHA。开发预检formal=false，旧14配置快照保持；487全量测试通过。未写旧目录、放宽质量阈值、替换正式数据、训练、读取验证/测试轨迹、进入阶段6、push或tag。
+
+
+## 2026-10-14 方向换道权限条件编码
+
+063d405在本仓库模型适配器与共享车道编码器中加入类别权限MLP，97323d7在原控制训练/校准/采样及checkpoint中绑定架构，bf74057增加现有模型CLI rules-smoke及固定协议/19专项测试。未复制旧目录或外部模型代码，不把共享MLP或版本接口作为创新证据。类别语义依据前轮已验证的SUMO XML和TraCI权限；独立复核从原编译XML直接读取，不借用同一适配函数生成期望值。
+
+主探针与独立复核实际源均bf74057839d7891986cf52bfb371ea5ee302b8b1，formal/clean/completed；原始训练回合来源f44da9ca0dd3427423ac3a8860c80791e681d27c。主探针106输入，复核115输入含artifacts/cache/review_directional_conditioning_20261014.py字节身份；认证旧200轮及控制16步checkpoint与历史摘要哈希，5输入XML左右方向完全匹配，CPU/GPU重放最大差2.50e-6。参数哈希不变、正式优化0，生成质量未评估。
+
+506全量测试通过。合成checkpoint测试只在临时fixture做少量CPU更新，核对真实AdamW/噪声Generator/日程续接；未执行新架构CUDA优化恢复或正式训练。方向条件不是动态可行性/规则遵从保证；5原始前缀、合成B4负载不代表新数据分布覆盖。结果与轻量来源见directional_conditioning_results.md/json，源SHA不回填为交付SHA；无数据替换、采集、验证/测试标签读取、阶段6、push/tag。

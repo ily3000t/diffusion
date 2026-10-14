@@ -36,7 +36,7 @@ def calibrate(dataset,model_path,config_path,scale_path,output,repository,comman
     diffusion=resolve_diffusion_config(c['diffusion']);validate_architecture(architecture,diffusion)
     scale=verified_control_scales(scale_path,dataset,diffusion)
     data=dataset_identity(dataset)
-    cache=control_cache(dataset,'train',c)
+    cache=control_cache(dataset,'train',c,model_config=architecture)
     plan=json.loads(Path(c['task_plan']).read_text(encoding='utf-8'))['tasks']
     by_id={task['window_id']:task['group'] for task in plan if task['split']=='train'}
     groups={}

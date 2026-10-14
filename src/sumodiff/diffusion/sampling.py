@@ -101,7 +101,7 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
             calls_before=denoiser_counter['calls']
             try:
                 source=ds.inference(i);conditions=source['conditioning'];heading=_heading(conditions)
-                tensors=prepare_conditioning(collate_numpy([source]),device)
+                tensors=prepare_conditioning(collate_numpy([source]),device,config=architecture)
                 generator=torch.Generator().manual_seed(task_seed(c['seed'],meta['window_id']))
                 initial=torch.randn((1,len(conditions['agent_mask']),40,target_dimension(diffusion)),generator=generator).to(device)
                 arrays['initial_noise']=initial.cpu().numpy()[0]
