@@ -85,6 +85,10 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
         if device.type=='cuda' and not torch.cuda.is_available(): raise RuntimeError('CUDA requested but unavailable')
         model=ConditionalDenoiser(architecture).to(device);model.load_state_dict(payload['model'],strict=True);model.eval();model.requires_grad_(False)
         del payload
+        denoiser_counter={'calls':0}
+        def count_denoiser(module,inputs,result):
+            denoiser_counter['calls']+=1
+        counter_hook=model.unet.register_forward_hook(count_denoiser)
         schedule=NoiseSchedule(diffusion,device);schedule.timesteps(c['steps'])
         write_json(run.output/'tasks.json',[dict(window_id=t['window_id'],agent_ids=t['agent_ids'],target_pair=None,noise_seed=task_seed(c['seed'],t['window_id'])) for t in tasks])
         if device.type=='cuda': torch.cuda.reset_peak_memory_stats(device)
@@ -94,6 +98,7 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
             row_dir=run.output/'trajectories'/meta['window_id'];row_dir.mkdir(parents=True,exist_ok=False)
             row=dict(window_id=meta['window_id'],family=meta['family'],generation_status='failed',guided_stage=dict(status='not_applicable',reason='base mode has no guidance'))
             arrays={}
+            calls_before=denoiser_counter['calls']
             try:
                 source=ds.inference(i);conditions=source['conditioning'];heading=_heading(conditions)
                 tensors=prepare_conditioning(collate_numpy([source]),device)
@@ -129,6 +134,7 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
             except Exception as exc:
                 generation_failures+=1;row['raw']=failed_report(meta,exc);row['decoded']=failed_report(meta,exc)
                 row['generation_error']=dict(type=type(exc).__name__,message=str(exc))
+            row.update(denoiser_calls=denoiser_counter['calls']-calls_before,actual_gradient_calls=0)
             raw_records.append(row['raw']);decoded_records.append(row['decoded'])
             if arrays: np.savez_compressed(row_dir/'stages.npz',**arrays)
             write_json(row_dir/'metrics.json',row)
@@ -148,6 +154,8 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
             max_velocity_correction_mps=max((r['velocity_correction_mps']['max'] for r in corrections),default=None),
             heading_fallback_count=sum(r['heading_fallback_count'] for r in corrections),
             limitations=['offline selected vehicles only','checkpoint training budget does not establish convergence or quality','no attack roles, target event N/A','failed and unqualified scenes retained'])
+        counter_hook.remove()
+        result['actual_total_denoiser_calls']=denoiser_counter['calls']
         result['representation']='control_a_omega_r' if is_control(diffusion) else 'six_state'
         result['decoder']='center_midpoint_control_rollout_no_correction' if is_control(diffusion) else 'position_velocity_least_squares'
         write_json(run.output/'trajectory_index.json',rows);write_json(run.output/'sampling_summary.json',result);run.write_metrics(result)
