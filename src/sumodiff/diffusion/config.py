@@ -35,6 +35,42 @@ class DiffusionConfig:
     def to_dict(self): return asdict(self)
 
 
+@dataclass(frozen=True)
+class ControlDiffusionConfig(DiffusionConfig):
+    schema_version: str = 'sumodiff.control.diffusion.config.v1'
+    acceleration_scale_mps2: float = 2.
+    yaw_rate_scale_radps: float = .5
+    lateral_velocity_scale_mps: float = .1
+
+    def __post_init__(self):
+        base = {key:getattr(self,key) for key in DiffusionConfig.__dataclass_fields__}
+        base['schema_version'] = 'sumodiff.diffusion.config.v1'
+        DiffusionConfig(**base)
+        if self.schema_version != 'sumodiff.control.diffusion.config.v1':
+            raise ValueError('Unsupported control diffusion schema')
+        for key in ('acceleration_scale_mps2','yaw_rate_scale_radps','lateral_velocity_scale_mps'):
+            v = getattr(self,key)
+            if type(v) not in (int,float) or not math.isfinite(v) or v <= 0:
+                raise ValueError(f'Invalid {key}')
+
+
+def is_control(config):
+    return isinstance(config,ControlDiffusionConfig)
+
+
+def target_dimension(config):
+    return 3 if is_control(config) else 6
+
+
+def validate_architecture(model,config):
+    if model.state_dimension != target_dimension(config):
+        raise ValueError('Model output dimension and diffusion representation mismatch')
+    if model.diffusion_embedding_steps != config.training_steps:
+        raise ValueError('Model embedding/schedule mismatch')
+
+
 def resolve_diffusion_config(value):
-    if not isinstance(value,dict) or set(value)-set(DiffusionConfig.__dataclass_fields__): raise ValueError('Unknown diffusion options')
-    return DiffusionConfig(**value)
+    if not isinstance(value,dict):raise ValueError('Unknown diffusion options')
+    cls = ControlDiffusionConfig if value.get('schema_version')=='sumodiff.control.diffusion.config.v1' else DiffusionConfig
+    if set(value)-set(cls.__dataclass_fields__):raise ValueError('Unknown diffusion options')
+    return cls(**value)
