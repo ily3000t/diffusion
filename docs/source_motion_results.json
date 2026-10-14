@@ -263,6 +263,64 @@
           "size_bytes": 17484
         }
       ]
+    },
+    "quality_review": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\source-motion-quality-review-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "38fb1332c8554b635d33945188a9704353bdc281",
+        "branch": "feat/source-motion-pilot",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "state": "completed",
+      "formal": true,
+      "input_identities": 277,
+      "recorded_execution_seconds": 10.734761,
+      "critical_files": [
+        {
+          "id": "sha256:bb20dd5bdab4ed2a55344e3c1832424fedd1a9dcca52f575d4abd4e468ea19f9",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-quality-review-20261014-r1\\manifest.json",
+          "sha256": "bb20dd5bdab4ed2a55344e3c1832424fedd1a9dcca52f575d4abd4e468ea19f9",
+          "size_bytes": 105569
+        },
+        {
+          "id": "sha256:8323f6d13937fd8bf811824ec6a27554bf69606cd97adcdc2b32d6bddf3aaf94",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-quality-review-20261014-r1\\status.json",
+          "sha256": "8323f6d13937fd8bf811824ec6a27554bf69606cd97adcdc2b32d6bddf3aaf94",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:0fcb36c7a3e9df0448ce99286c26bafe8d4b5cf65a20de649a6015582e8e838e",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-quality-review-20261014-r1\\metrics.json",
+          "sha256": "0fcb36c7a3e9df0448ce99286c26bafe8d4b5cf65a20de649a6015582e8e838e",
+          "size_bytes": 517
+        },
+        {
+          "id": "sha256:d898f1f0f2a678e2293f9507011b4b7dddd47e158851e22731f59ff069b686f9",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-quality-review-20261014-r1\\resolved_config.yaml",
+          "sha256": "d898f1f0f2a678e2293f9507011b4b7dddd47e158851e22731f59ff069b686f9",
+          "size_bytes": 448
+        },
+        {
+          "id": "sha256:80a0bf8d0abe76b50a938f2e9866f4d1978d1d1319508272bc9de48b02bb4f5a",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-quality-review-20261014-r1\\command.txt",
+          "sha256": "80a0bf8d0abe76b50a938f2e9866f4d1978d1d1319508272bc9de48b02bb4f5a",
+          "size_bytes": 121
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-quality-review-20261014-r1\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:43fc399416fc03a16ba4e5f51d140780861fe251498613eb1936d0b18678e46f",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-quality-review-20261014-r1\\review.json",
+          "sha256": "43fc399416fc03a16ba4e5f51d140780861fe251498613eb1936d0b18678e46f",
+          "size_bytes": 19926
+        }
+      ]
     }
   },
   "planned_cases": 14,
@@ -2277,5 +2335,199 @@
     "EIDM candidate has worse junction jerk tails and is not selected as a new default",
     "interaction reference improves some categories and reduces some main-road lane-change coverage; use separate quotas",
     "unassessed quality stays unknown; smooth geometry and SL2015 do not guarantee global motion quality"
+  ],
+  "supplemental_quality_review": {
+    "schema_version": "sumodiff.source.motion.quality.review.results.v1",
+    "run_sha": "38fb1332c8554b635d33945188a9704353bdc281",
+    "primary_source_sha": "277d8b9583f02c33adfdac1e8d2e1ce5030d0677",
+    "full_quality_windows_replayed": 14,
+    "road_rejected_windows_verified": 8,
+    "unique_road_violation_body_frames": 26,
+    "max_world_local_outside_area_error_m2": 2.395257112652871e-07,
+    "optimizer_updates": 0,
+    "new_collection_runs": 0,
+    "validation_episode_arrays_loaded": 0,
+    "test_episode_arrays_loaded": 0,
+    "road_windows": [
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261105",
+        "window_id": "e7cd85f490d9cd605aab0411cb746e554d704d0ec4a3688ddca3cacee66453df-t240-interaction",
+        "violating_body_frames": 3,
+        "max_outside_area_m2": 2.0521327471068737e-05
+      },
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261105",
+        "window_id": "e7cd85f490d9cd605aab0411cb746e554d704d0ec4a3688ddca3cacee66453df-t270-interaction",
+        "violating_body_frames": 3,
+        "max_outside_area_m2": 2.0521327471068737e-05
+      },
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261106",
+        "window_id": "2b7f3dc40e17bf49919a604f9b213f19dbecebab7b63d9608b55c4e0ca2b13af-t240-interaction",
+        "violating_body_frames": 1,
+        "max_outside_area_m2": 2.0520486473444888e-05
+      },
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261106",
+        "window_id": "2b7f3dc40e17bf49919a604f9b213f19dbecebab7b63d9608b55c4e0ca2b13af-t270-interaction",
+        "violating_body_frames": 4,
+        "max_outside_area_m2": 2.0522576749631287e-05
+      },
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261106",
+        "window_id": "2b7f3dc40e17bf49919a604f9b213f19dbecebab7b63d9608b55c4e0ca2b13af-t300-interaction",
+        "violating_body_frames": 4,
+        "max_outside_area_m2": 2.0522576749631287e-05
+      },
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261106",
+        "window_id": "2b7f3dc40e17bf49919a604f9b213f19dbecebab7b63d9608b55c4e0ca2b13af-t570-interaction",
+        "violating_body_frames": 1,
+        "max_outside_area_m2": 0.39627072825399595
+      },
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261106",
+        "window_id": "2b7f3dc40e17bf49919a604f9b213f19dbecebab7b63d9608b55c4e0ca2b13af-t600-interaction",
+        "violating_body_frames": 19,
+        "max_outside_area_m2": 3.141031069791136
+      },
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261106",
+        "window_id": "2b7f3dc40e17bf49919a604f9b213f19dbecebab7b63d9608b55c4e0ca2b13af-t630-interaction",
+        "violating_body_frames": 19,
+        "max_outside_area_m2": 3.141031069791136
+      }
+    ],
+    "worst_road_examples": [
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261105",
+        "vehicle_id": "flow_ramp.0",
+        "tick": 267,
+        "road": "acceleration",
+        "lane": "acceleration_0",
+        "raw_lateral_position_m": 0.0,
+        "center_position_m": [
+          -0.16868174119014157,
+          -12.250063543109544
+        ],
+        "speed_mps": 13.150199998720868,
+        "heading_degrees": 0.0015492561678627226,
+        "outside_area_m2": 2.0521327471068737e-05
+      },
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261106",
+        "vehicle_id": "flow_main.2",
+        "tick": 614,
+        "road": "main_out",
+        "lane": "main_out_0",
+        "raw_lateral_position_m": -1.4549999999999987,
+        "center_position_m": [
+          222.43788285377482,
+          -10.268389791086953
+        ],
+        "speed_mps": 10.67037167163534,
+        "heading_degrees": 1.5457055679734992,
+        "outside_area_m2": 3.141031069791136
+      }
+    ],
+    "note": "14 full engine replays plus independent whole-body world geometry for all 8 rejected smooth merge interaction windows"
+  },
+  "development_preflights": [
+    {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\source-motion-preflight-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "9ceb2eac5f3e9c0a30e455c17b4f166507ddda51",
+        "branch": "feat/source-motion-pilot",
+        "dirty": true,
+        "status_porcelain": [
+          " M src/sumodiff/data/config.py",
+          " M src/sumodiff/data/windows.py",
+          " M src/sumodiff/simulation/collection.py",
+          " M src/sumodiff/simulation/config.py",
+          " M src/sumodiff/simulation/scenes.py",
+          "?? configs/experiments/source_motion_pilot.yaml",
+          "?? src/sumodiff/data/selection.py",
+          "?? src/sumodiff/experiments/source_motion_pilot.py",
+          "?? tests/test_source_motion_pilot.py"
+        ]
+      },
+      "formal": false,
+      "state": "completed",
+      "critical_files": [
+        {
+          "id": "sha256:248d80169cc0269f7f4c0cd12262189d0a9eff4a2d1f03075887b1ea0a27702a",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-preflight-20261014-r1\\manifest.json",
+          "sha256": "248d80169cc0269f7f4c0cd12262189d0a9eff4a2d1f03075887b1ea0a27702a",
+          "size_bytes": 6020
+        },
+        {
+          "id": "sha256:26e5bafe60dabe3badc29f4c77cd384b919f5abaae13462676caf840159c4c87",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-preflight-20261014-r1\\resolved_config.yaml",
+          "sha256": "26e5bafe60dabe3badc29f4c77cd384b919f5abaae13462676caf840159c4c87",
+          "size_bytes": 13760
+        },
+        {
+          "id": "sha256:9005fb67829a21e410e771efcad18365f5200d51407695cadf138366c6fc84d1",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-preflight-20261014-r1\\status.json",
+          "sha256": "9005fb67829a21e410e771efcad18365f5200d51407695cadf138366c6fc84d1",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:99162871db80be1e80e81dee63bd9d931410bcba3fdb203f5c62bc3a05199f8b",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-preflight-20261014-r1\\results.json",
+          "sha256": "99162871db80be1e80e81dee63bd9d931410bcba3fdb203f5c62bc3a05199f8b",
+          "size_bytes": 1693
+        }
+      ]
+    },
+    {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\source-motion-runtime-preflight-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "9ceb2eac5f3e9c0a30e455c17b4f166507ddda51",
+        "branch": "feat/source-motion-pilot",
+        "dirty": true,
+        "status_porcelain": [
+          " M src/sumodiff/data/config.py",
+          " M src/sumodiff/data/windows.py",
+          " M src/sumodiff/simulation/collection.py",
+          " M src/sumodiff/simulation/config.py",
+          " M src/sumodiff/simulation/scenes.py",
+          "?? configs/experiments/source_motion_pilot.yaml",
+          "?? src/sumodiff/data/selection.py",
+          "?? src/sumodiff/experiments/source_motion_pilot.py",
+          "?? tests/test_source_motion_pilot.py"
+        ]
+      },
+      "formal": false,
+      "state": "completed",
+      "critical_files": [
+        {
+          "id": "sha256:6e55b9b48673894ce9bfc56513087a168d8fa8f1da0793736c7f043138060ca2",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-runtime-preflight-20261014-r1\\manifest.json",
+          "sha256": "6e55b9b48673894ce9bfc56513087a168d8fa8f1da0793736c7f043138060ca2",
+          "size_bytes": 14757
+        },
+        {
+          "id": "sha256:0b31dcc8d62731c8bb5f36673a10ec368eb97f0d539f03593a36b1ae93291eb8",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-runtime-preflight-20261014-r1\\resolved_config.yaml",
+          "sha256": "0b31dcc8d62731c8bb5f36673a10ec368eb97f0d539f03593a36b1ae93291eb8",
+          "size_bytes": 13444
+        },
+        {
+          "id": "sha256:8e7c74882a580125328ed1d9abbb122c71451e8e6141f153aac764acc67847f3",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-runtime-preflight-20261014-r1\\status.json",
+          "sha256": "8e7c74882a580125328ed1d9abbb122c71451e8e6141f153aac764acc67847f3",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:f594e5875967900fbbc6af7064029f42dd044c268774be73b9228c21ebedde1e",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-runtime-preflight-20261014-r1\\results.json",
+          "sha256": "f594e5875967900fbbc6af7064029f42dd044c268774be73b9228c21ebedde1e",
+          "size_bytes": 2973
+        }
+      ]
+    }
   ]
 }

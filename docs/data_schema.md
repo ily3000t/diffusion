@@ -285,3 +285,14 @@ sumodiff.training.motion.coverage.config.v1固定144训练回合、44071候选�
 window_lineage.jsonl逐窗保留阶段、车辆数、完整／未知未来、heading5/lateral_half/logged_lane_change/ramp_exit标记及原拒绝理由。未知未来不能编码为真实静止；运动flag仅对完整未来车辆计算。换道仅change，时间(t0,t0+40ticks]；匝道退出只识别ramp路线的acceleration→main_out转换，内部连接跳过。event_opportunities按唯一事件分别记录raw、actor_present、inside_radius及selected；不将它们解释为碰撞概率或独立样本。
 
 source_cases.json按每类运动及合格性确定性保留最多2例，保存t0-23至t0+40共64原始位置／航向及61个物理jerk，重复案例明确去重。sumodiff.training.motion.review.results.v1记录165阶段值核验、17案例独立原始复算及范围限制；sumodiff.training.motion.figure.results.v1仅记录图表输入身份与布局输出。sumodiff.training.motion.summary.v1为轻量交付，保留各运行实际SHA、状态、输入数量及关键身份，不替换原manifest或回填交付SHA。dataset/window/checkpoint及原资格阈值保持。
+
+
+## 源头运动候选与参考策略合同（2026-10-14）
+
+scenario.v1新增driver.lane_change_model（默认LC2013）、可选lcAccelLat/maxSpeedLat/jerkmax、simulation.lateral_resolution（默认0）及ramp geometry.transition_length（默认0）。SL2015须显式正分辨率、横向限制且旧duration为0；非EIDM使用jerkmax、LC2013使用lcAccelLat等无效组合拒绝。新几何要求输出精度至少6位且过渡不越出相邻边。五次曲线以0.25m采样给netconvert，执行后物理质量仍需独立评价。
+
+window.config.v1支持interaction_current与旧first_current_id。选择函数只接收当前观测、已知路线和地图；新策略window_id增加-interaction，避免与同回合／t0的旧样本混名。future_mask仍仅为标签信息，不进入参考选择或推理条件。旧默认内容及正式选集不改。
+
+source.motion.pilot.config.v1限制2种子、14预声明训练专用短回合、需求<=30s及上限<=240s。collection.run.v1记录全部case配置和子运行结果；audit.run.v1记录原质量配置与两策略的共同时间清单。results.v1区分全部候选的轻量覆盖、最多32时刻的assessed_quality及未评估unknown；后者不能写成合格0或用于全回合通过率。事件上下文缺失通过状态null，窗口／事件重复明确保留。
+
+independent.review.results.v1记录272来源身份认证、原始中心／差分／事件／选车及内部via链检查；quality.review.results.v1记录14完整引擎重放和8道路窗口世界车身核验，26唯一违规车辆帧与重叠窗口分开。summary.v1只保存小型聚合及关键源身份，运行SHA与交付SHA区分；不是新dataset或checkpoint格式。
