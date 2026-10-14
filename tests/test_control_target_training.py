@@ -176,3 +176,28 @@ def test_control_test_sampling_rejects_before_opening_dataset(tmp_path,monkeypat
     monkeypatch.setattr(sampling,'WindowDataset',lambda *args,**kwargs:(_ for _ in ()).throw(AssertionError('test read')))
     with pytest.raises(NotImplementedError,match='frozen'):
         sampling.sample('unopened-dataset','fixture-checkpoint',cfg,tmp_path/'unused',Path.cwd(),['fixture'])
+
+
+@pytest.mark.skipif(not torch.cuda.is_available(),reason='CUDA unavailable')
+def test_control_rollout_and_objective_backward_under_strict_cuda_determinism(monkeypatch):
+    monkeypatch.setenv('CUBLAS_WORKSPACE_CONFIG',':4096:8')
+    enabled=torch.are_deterministic_algorithms_enabled()
+    warn=torch.is_deterministic_algorithms_warn_only_enabled()
+    try:
+        torch.use_deterministic_algorithms(True)
+        c,d,controls,t=setup()
+        expected=decode_prediction(controls,c,d).states
+        gc={k:v.cuda() for k,v in c.items()};gt={k:v.cuda() for k,v in t.items()}
+        values=controls.cuda().requires_grad_()
+        actual=decode_prediction(values,gc,d).states
+        torch.testing.assert_close(actual.cpu(),expected,atol=1e-11,rtol=1e-11)
+        actual.square().mean().backward()
+        assert torch.isfinite(values.grad).all() and not values.grad[:,2:].any()
+        schedule=NoiseSchedule(d,'cuda')
+        clean=training_target(gt,gc,d);noise=torch.randn_like(clean);time=torch.tensor([200],device='cuda')
+        noisy=schedule.add_noise(clean,noise,time);epsilon=(noise+.1).requires_grad_()
+        out=control_objective(epsilon,noisy,noise,time,gc,gt,schedule,recipe())
+        out['total_loss'].backward()
+        assert torch.isfinite(epsilon.grad).all()
+    finally:
+        torch.use_deterministic_algorithms(enabled,warn_only=warn)
