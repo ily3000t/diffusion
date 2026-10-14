@@ -1,0 +1,2819 @@
+{
+  "schema_version": "sumodiff.ramp.alignment.summary.v1",
+  "scope": "bounded training source pilot; no formal dataset/model replacement",
+  "runs": {
+    "collection": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-collect-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "f44da9ca0dd3427423ac3a8860c80791e681d27c",
+        "branch": "fix/ramp-exit-alignment",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "state": "completed",
+      "formal": true,
+      "input_identities": 2,
+      "elapsed_recorded_seconds": 90.123685,
+      "critical_files": [
+        {
+          "id": "sha256:cb2cc86654b038e07cc3c57a5b6d473fa5c859cdc75876abbe738e514fde3731",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-collect-20261014-r1\\manifest.json",
+          "sha256": "cb2cc86654b038e07cc3c57a5b6d473fa5c859cdc75876abbe738e514fde3731",
+          "size_bytes": 2163
+        },
+        {
+          "id": "sha256:d656bb054628ba10aabdc0f2b5c2126c216b2cbf24cdb16b8e896f11f6824dcc",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-collect-20261014-r1\\status.json",
+          "sha256": "d656bb054628ba10aabdc0f2b5c2126c216b2cbf24cdb16b8e896f11f6824dcc",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:84d5bb54be6f9f289b59c6c5155308512039e6b93e29d989602915e671fe70a6",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-collect-20261014-r1\\metrics.json",
+          "sha256": "84d5bb54be6f9f289b59c6c5155308512039e6b93e29d989602915e671fe70a6",
+          "size_bytes": 108
+        },
+        {
+          "id": "sha256:cb1379e1fdbadde0ab63a69984e267231159fd9d79422a1ab34e18a8fb9c4e99",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-collect-20261014-r1\\resolved_config.yaml",
+          "sha256": "cb1379e1fdbadde0ab63a69984e267231159fd9d79422a1ab34e18a8fb9c4e99",
+          "size_bytes": 10924
+        },
+        {
+          "id": "sha256:8b8782eab9437dae766d6a5b58306d7663009c1aa885d14e0ba1749fd8db2857",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-collect-20261014-r1\\command.txt",
+          "sha256": "8b8782eab9437dae766d6a5b58306d7663009c1aa885d14e0ba1749fd8db2857",
+          "size_bytes": 243
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-collect-20261014-r1\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:18745fbf719d99a2c8216b81408e9a4009d60ae4fdb66ed66b2c01c6382e6bb5",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-collect-20261014-r1\\collection_results.json",
+          "sha256": "18745fbf719d99a2c8216b81408e9a4009d60ae4fdb66ed66b2c01c6382e6bb5",
+          "size_bytes": 10757
+        }
+      ]
+    },
+    "audit": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-audit-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "f44da9ca0dd3427423ac3a8860c80791e681d27c",
+        "branch": "fix/ramp-exit-alignment",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "state": "completed",
+      "formal": true,
+      "input_identities": 234,
+      "elapsed_recorded_seconds": 460.875505,
+      "critical_files": [
+        {
+          "id": "sha256:f557db154804cc20974ade18c7f15f666607d58e66160ff3f52a5a6e268edef7",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-audit-20261014-r1\\manifest.json",
+          "sha256": "f557db154804cc20974ade18c7f15f666607d58e66160ff3f52a5a6e268edef7",
+          "size_bytes": 89541
+        },
+        {
+          "id": "sha256:7d290e214a9aa31e076ff7db2e39d5a3e76b90ac2da74cf538984d6582872277",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-audit-20261014-r1\\status.json",
+          "sha256": "7d290e214a9aa31e076ff7db2e39d5a3e76b90ac2da74cf538984d6582872277",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:1d958735e07749f1a4a9610d0428134cc85d388c3b899ddbdfa081b5c92a5c23",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-audit-20261014-r1\\metrics.json",
+          "sha256": "1d958735e07749f1a4a9610d0428134cc85d388c3b899ddbdfa081b5c92a5c23",
+          "size_bytes": 95885
+        },
+        {
+          "id": "sha256:1bdbb10ff81c92021a95f1bd7dc747c87a0d2553d30aa524ed4fbb0fd2b2b526",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-audit-20261014-r1\\resolved_config.yaml",
+          "sha256": "1bdbb10ff81c92021a95f1bd7dc747c87a0d2553d30aa524ed4fbb0fd2b2b526",
+          "size_bytes": 2203
+        },
+        {
+          "id": "sha256:1c7b5a60470236e54f78ab629d4dddfdf0e971ec31f4f74fef69b36fa399b8f6",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-audit-20261014-r1\\command.txt",
+          "sha256": "1c7b5a60470236e54f78ab629d4dddfdf0e971ec31f4f74fef69b36fa399b8f6",
+          "size_bytes": 306
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-audit-20261014-r1\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:e206c6ccbc565dc116dee2c26daa5ddbc7c637222421bbf4b6382141cdfa9ead",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-audit-20261014-r1\\results.json",
+          "sha256": "e206c6ccbc565dc116dee2c26daa5ddbc7c637222421bbf4b6382141cdfa9ead",
+          "size_bytes": 99056
+        },
+        {
+          "id": "sha256:ad147c1d48ac47d1eb57600488a853eaff944c81895f89bd99cf4725c2d435ac",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-audit-20261014-r1\\window_quality.jsonl",
+          "sha256": "ad147c1d48ac47d1eb57600488a853eaff944c81895f89bd99cf4725c2d435ac",
+          "size_bytes": 4639228
+        }
+      ]
+    },
+    "review": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-review-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "f44da9ca0dd3427423ac3a8860c80791e681d27c",
+        "branch": "fix/ramp-exit-alignment",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "state": "completed",
+      "formal": true,
+      "input_identities": 247,
+      "elapsed_recorded_seconds": 23.430044,
+      "critical_files": [
+        {
+          "id": "sha256:6ffbd2a6b9d5e64f8a05dec386b9fbd7e95ad6e038e5b57c66c277a27c75962c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-review-20261014-r1\\manifest.json",
+          "sha256": "6ffbd2a6b9d5e64f8a05dec386b9fbd7e95ad6e038e5b57c66c277a27c75962c",
+          "size_bytes": 93794
+        },
+        {
+          "id": "sha256:78b924afc64486bc7dedd982371e34d88f6a4a25368cc9dd511f53694cd2bb62",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-review-20261014-r1\\status.json",
+          "sha256": "78b924afc64486bc7dedd982371e34d88f6a4a25368cc9dd511f53694cd2bb62",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:bf13c39e7dcb411e1c85a9475a059317de471b5588ea8054d9b8a4dae3a9381a",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-review-20261014-r1\\metrics.json",
+          "sha256": "bf13c39e7dcb411e1c85a9475a059317de471b5588ea8054d9b8a4dae3a9381a",
+          "size_bytes": 689
+        },
+        {
+          "id": "sha256:cc236607f47787f72b6c17802ed2029fd3160e084bbc12d29d0f70f860f534f4",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-review-20261014-r1\\resolved_config.yaml",
+          "sha256": "cc236607f47787f72b6c17802ed2029fd3160e084bbc12d29d0f70f860f534f4",
+          "size_bytes": 558
+        },
+        {
+          "id": "sha256:8cd312e3f1bcf887bde08a16314890ded213e609d70d06b06101f646d65ad07a",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-review-20261014-r1\\command.txt",
+          "sha256": "8cd312e3f1bcf887bde08a16314890ded213e609d70d06b06101f646d65ad07a",
+          "size_bytes": 121
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-review-20261014-r1\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:5c3eb7dee610eff52af0097f633d97d5931b0131e067fe90a96bfd07183fbba5",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-review-20261014-r1\\review.json",
+          "sha256": "5c3eb7dee610eff52af0097f633d97d5931b0131e067fe90a96bfd07183fbba5",
+          "size_bytes": 76911
+        }
+      ]
+    },
+    "figures": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-figures-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "f44da9ca0dd3427423ac3a8860c80791e681d27c",
+        "branch": "fix/ramp-exit-alignment",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "state": "completed",
+      "formal": true,
+      "input_identities": 4,
+      "elapsed_recorded_seconds": 1.496144,
+      "critical_files": [
+        {
+          "id": "sha256:950b1f3c45742efd75f98beb38ac6f97cf09a4a29653bf3e23ffe1ab4a0003ad",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-figures-20261014-r1\\manifest.json",
+          "sha256": "950b1f3c45742efd75f98beb38ac6f97cf09a4a29653bf3e23ffe1ab4a0003ad",
+          "size_bytes": 2553
+        },
+        {
+          "id": "sha256:ec4d213b76cd7c1534053833e5614228b00b439ff9370f0a11f55daf5362bb6b",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-figures-20261014-r1\\status.json",
+          "sha256": "ec4d213b76cd7c1534053833e5614228b00b439ff9370f0a11f55daf5362bb6b",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:121a5d22a482c8639e339aae3f087eaae6eb9ce02742c21c3a97465fb80d5c83",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-figures-20261014-r1\\metrics.json",
+          "sha256": "121a5d22a482c8639e339aae3f087eaae6eb9ce02742c21c3a97465fb80d5c83",
+          "size_bytes": 64
+        },
+        {
+          "id": "sha256:9b5d82d22f100e6a48dcdf9023b847ba8100828ca5125e5c9cc730776d631102",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-figures-20261014-r1\\resolved_config.yaml",
+          "sha256": "9b5d82d22f100e6a48dcdf9023b847ba8100828ca5125e5c9cc730776d631102",
+          "size_bytes": 412
+        },
+        {
+          "id": "sha256:f801372820f181ac92584626f6cbd689f03e8cb24d1e0c378573957c3a850d22",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-figures-20261014-r1\\command.txt",
+          "sha256": "f801372820f181ac92584626f6cbd689f03e8cb24d1e0c378573957c3a850d22",
+          "size_bytes": 121
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-figures-20261014-r1\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:557f6a9c5c9830135d63fdfc505f890d16e42f33cf99b7e7b1a2f2a5af4b29e8",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-figures-20261014-r1\\figure.json",
+          "sha256": "557f6a9c5c9830135d63fdfc505f890d16e42f33cf99b7e7b1a2f2a5af4b29e8",
+          "size_bytes": 369
+        },
+        {
+          "id": "sha256:d2dc3938d71669fcde773afede843a2e868a585164d3cc4be75cb5d8b021dd03",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-figures-20261014-r1\\ramp_alignment_comparison.png",
+          "sha256": "d2dc3938d71669fcde773afede843a2e868a585164d3cc4be75cb5d8b021dd03",
+          "size_bytes": 161379
+        },
+        {
+          "id": "sha256:1d40bf164440d3128f50b8423a08af1e7aef168a62194aa7de39ad02b2159c34",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-figures-20261014-r1\\ramp_alignment_comparison.pdf",
+          "sha256": "1d40bf164440d3128f50b8423a08af1e7aef168a62194aa7de39ad02b2159c34",
+          "size_bytes": 21357
+        }
+      ]
+    }
+  },
+  "aggregates": [
+    {
+      "geometry_index": 0,
+      "variant": "control",
+      "policies": {
+        "first_current_id": {
+          "planned": 64,
+          "assessed": 64,
+          "unavailable": 0,
+          "core_complete": 49,
+          "eligible": 33,
+          "eligible_lane_change_windows": 3,
+          "eligible_ramp_exit_windows": 2,
+          "eligible_unique_lane_changes": 3,
+          "eligible_unique_ramp_exits": 2,
+          "raw64_road_rejected_windows": 9,
+          "raw64_route_rejected_windows": 9,
+          "raw64_motion_rejected_windows": 7,
+          "assessed_raw64_max_outside_area_m2": 0.007257523233632731
+        },
+        "interaction_current": {
+          "planned": 64,
+          "assessed": 64,
+          "unavailable": 0,
+          "core_complete": 52,
+          "eligible": 39,
+          "eligible_lane_change_windows": 2,
+          "eligible_ramp_exit_windows": 5,
+          "eligible_unique_lane_changes": 2,
+          "eligible_unique_ramp_exits": 5,
+          "raw64_road_rejected_windows": 8,
+          "raw64_route_rejected_windows": 8,
+          "raw64_motion_rejected_windows": 6,
+          "assessed_raw64_max_outside_area_m2": 3.141031069791136
+        }
+      },
+      "raw_lane_change_events": 13,
+      "raw_ramp_exit_events": 6,
+      "raw_road_violation_body_frames": 56,
+      "raw_max_outside_area_m2": 3.141031069791136,
+      "raw_all_jerk_max_mps3": 358.74559877525115,
+      "ramp_exit_context_jerk_max_mps3": 1.1515916939635946
+    },
+    {
+      "geometry_index": 0,
+      "variant": "permissions",
+      "policies": {
+        "first_current_id": {
+          "planned": 64,
+          "assessed": 64,
+          "unavailable": 0,
+          "core_complete": 49,
+          "eligible": 35,
+          "eligible_lane_change_windows": 3,
+          "eligible_ramp_exit_windows": 2,
+          "eligible_unique_lane_changes": 3,
+          "eligible_unique_ramp_exits": 2,
+          "raw64_road_rejected_windows": 7,
+          "raw64_route_rejected_windows": 7,
+          "raw64_motion_rejected_windows": 5,
+          "assessed_raw64_max_outside_area_m2": 2.0522576749631287e-05
+        },
+        "interaction_current": {
+          "planned": 64,
+          "assessed": 64,
+          "unavailable": 0,
+          "core_complete": 52,
+          "eligible": 43,
+          "eligible_lane_change_windows": 2,
+          "eligible_ramp_exit_windows": 8,
+          "eligible_unique_lane_changes": 2,
+          "eligible_unique_ramp_exits": 6,
+          "raw64_road_rejected_windows": 5,
+          "raw64_route_rejected_windows": 5,
+          "raw64_motion_rejected_windows": 5,
+          "assessed_raw64_max_outside_area_m2": 2.0522576749631287e-05
+        }
+      },
+      "raw_lane_change_events": 11,
+      "raw_ramp_exit_events": 6,
+      "raw_road_violation_body_frames": 20,
+      "raw_max_outside_area_m2": 2.052357005368807e-05,
+      "raw_all_jerk_max_mps3": 55.11445634242356,
+      "ramp_exit_context_jerk_max_mps3": 1.1515916939635946
+    },
+    {
+      "geometry_index": 0,
+      "variant": "alignment",
+      "policies": {
+        "first_current_id": {
+          "planned": 64,
+          "assessed": 64,
+          "unavailable": 0,
+          "core_complete": 49,
+          "eligible": 38,
+          "eligible_lane_change_windows": 4,
+          "eligible_ramp_exit_windows": 2,
+          "eligible_unique_lane_changes": 4,
+          "eligible_unique_ramp_exits": 2,
+          "raw64_road_rejected_windows": 2,
+          "raw64_route_rejected_windows": 2,
+          "raw64_motion_rejected_windows": 7,
+          "assessed_raw64_max_outside_area_m2": 0.006976292588210871
+        },
+        "interaction_current": {
+          "planned": 64,
+          "assessed": 64,
+          "unavailable": 0,
+          "core_complete": 52,
+          "eligible": 43,
+          "eligible_lane_change_windows": 3,
+          "eligible_ramp_exit_windows": 5,
+          "eligible_unique_lane_changes": 2,
+          "eligible_unique_ramp_exits": 5,
+          "raw64_road_rejected_windows": 3,
+          "raw64_route_rejected_windows": 3,
+          "raw64_motion_rejected_windows": 6,
+          "assessed_raw64_max_outside_area_m2": 3.1410334019231656
+        }
+      },
+      "raw_lane_change_events": 13,
+      "raw_ramp_exit_events": 6,
+      "raw_road_violation_body_frames": 36,
+      "raw_max_outside_area_m2": 3.1410334019231656,
+      "raw_all_jerk_max_mps3": 358.74538325159705,
+      "ramp_exit_context_jerk_max_mps3": 1.21880346326925
+    },
+    {
+      "geometry_index": 0,
+      "variant": "combined",
+      "policies": {
+        "first_current_id": {
+          "planned": 64,
+          "assessed": 64,
+          "unavailable": 0,
+          "core_complete": 49,
+          "eligible": 40,
+          "eligible_lane_change_windows": 4,
+          "eligible_ramp_exit_windows": 2,
+          "eligible_unique_lane_changes": 4,
+          "eligible_unique_ramp_exits": 2,
+          "raw64_road_rejected_windows": 0,
+          "raw64_route_rejected_windows": 0,
+          "raw64_motion_rejected_windows": 5,
+          "assessed_raw64_max_outside_area_m2": 0.0
+        },
+        "interaction_current": {
+          "planned": 64,
+          "assessed": 64,
+          "unavailable": 0,
+          "core_complete": 52,
+          "eligible": 47,
+          "eligible_lane_change_windows": 3,
+          "eligible_ramp_exit_windows": 8,
+          "eligible_unique_lane_changes": 2,
+          "eligible_unique_ramp_exits": 6,
+          "raw64_road_rejected_windows": 0,
+          "raw64_route_rejected_windows": 0,
+          "raw64_motion_rejected_windows": 5,
+          "assessed_raw64_max_outside_area_m2": 0.0
+        }
+      },
+      "raw_lane_change_events": 11,
+      "raw_ramp_exit_events": 6,
+      "raw_road_violation_body_frames": 0,
+      "raw_max_outside_area_m2": 0.0,
+      "raw_all_jerk_max_mps3": 55.11842364360609,
+      "ramp_exit_context_jerk_max_mps3": 1.21880346326925
+    },
+    {
+      "geometry_index": 1,
+      "variant": "control",
+      "policies": {
+        "first_current_id": {
+          "planned": 64,
+          "assessed": 64,
+          "unavailable": 0,
+          "core_complete": 54,
+          "eligible": 39,
+          "eligible_lane_change_windows": 5,
+          "eligible_ramp_exit_windows": 2,
+          "eligible_unique_lane_changes": 4,
+          "eligible_unique_ramp_exits": 2,
+          "raw64_road_rejected_windows": 5,
+          "raw64_route_rejected_windows": 5,
+          "raw64_motion_rejected_windows": 4,
+          "assessed_raw64_max_outside_area_m2": 1.561412454869271e-05
+        },
+        "interaction_current": {
+          "planned": 64,
+          "assessed": 64,
+          "unavailable": 0,
+          "core_complete": 57,
+          "eligible": 41,
+          "eligible_lane_change_windows": 3,
+          "eligible_ramp_exit_windows": 7,
+          "eligible_unique_lane_changes": 2,
+          "eligible_unique_ramp_exits": 5,
+          "raw64_road_rejected_windows": 6,
+          "raw64_route_rejected_windows": 7,
+          "raw64_motion_rejected_windows": 9,
+          "assessed_raw64_max_outside_area_m2": 0.002318144233022262
+        }
+      },
+      "raw_lane_change_events": 17,
+      "raw_ramp_exit_events": 6,
+      "raw_road_violation_body_frames": 26,
+      "raw_max_outside_area_m2": 0.002318144233022262,
+      "raw_all_jerk_max_mps3": 40.68503157051928,
+      "ramp_exit_context_jerk_max_mps3": 1.2308345314462679
+    },
+    {
+      "geometry_index": 1,
+      "variant": "combined",
+      "policies": {
+        "first_current_id": {
+          "planned": 64,
+          "assessed": 64,
+          "unavailable": 0,
+          "core_complete": 54,
+          "eligible": 46,
+          "eligible_lane_change_windows": 6,
+          "eligible_ramp_exit_windows": 2,
+          "eligible_unique_lane_changes": 5,
+          "eligible_unique_ramp_exits": 2,
+          "raw64_road_rejected_windows": 0,
+          "raw64_route_rejected_windows": 0,
+          "raw64_motion_rejected_windows": 2,
+          "assessed_raw64_max_outside_area_m2": 0.0
+        },
+        "interaction_current": {
+          "planned": 64,
+          "assessed": 64,
+          "unavailable": 0,
+          "core_complete": 57,
+          "eligible": 53,
+          "eligible_lane_change_windows": 5,
+          "eligible_ramp_exit_windows": 8,
+          "eligible_unique_lane_changes": 3,
+          "eligible_unique_ramp_exits": 6,
+          "raw64_road_rejected_windows": 0,
+          "raw64_route_rejected_windows": 0,
+          "raw64_motion_rejected_windows": 4,
+          "assessed_raw64_max_outside_area_m2": 0.0
+        }
+      },
+      "raw_lane_change_events": 12,
+      "raw_ramp_exit_events": 6,
+      "raw_road_violation_body_frames": 0,
+      "raw_max_outside_area_m2": 0.0,
+      "raw_all_jerk_max_mps3": 41.32444743409337,
+      "ramp_exit_context_jerk_max_mps3": 1.2391418759327322
+    }
+  ],
+  "independent_review": {
+    "schema_version": "sumodiff.ramp.alignment.review.results.v1",
+    "run_sha": "f44da9ca0dd3427423ac3a8860c80791e681d27c",
+    "source_sha": "f44da9ca0dd3427423ac3a8860c80791e681d27c",
+    "authenticated_primary_input_files": 234,
+    "old_control_replays": [
+      {
+        "case_id": "ramp_merge-g00-control-s20261105",
+        "raw_frames_bit_identical": true
+      },
+      {
+        "case_id": "ramp_merge-g00-control-s20261106",
+        "raw_frames_bit_identical": true
+      }
+    ],
+    "planned_quality_rows": 768,
+    "assessed_quality_rows": 768,
+    "unavailable_quality_rows": 0,
+    "world_body_windows_rechecked": 626,
+    "full_engine_replays": [
+      {
+        "case_id": "ramp_merge-g00-control-s20261105",
+        "window_id": "e7cd85f490d9cd605aab0411cb746e554d704d0ec4a3688ddca3cacee66453df-t420-interaction",
+        "eligible": true
+      },
+      {
+        "case_id": "ramp_merge-g00-control-s20261106",
+        "window_id": "2b7f3dc40e17bf49919a604f9b213f19dbecebab7b63d9608b55c4e0ca2b13af-t450-interaction",
+        "eligible": true
+      },
+      {
+        "case_id": "ramp_merge-g00-permissions-s20261105",
+        "window_id": "dc8f7ffb400189504c441a4ad359728ed926e03da76e84d86a9eb4e9a3fb08cd-t420-interaction",
+        "eligible": true
+      },
+      {
+        "case_id": "ramp_merge-g00-permissions-s20261106",
+        "window_id": "f8e08b68d724093d60cfbf8927f72aaf1c25d1162fb006384fa539cfabecb52b-t450-interaction",
+        "eligible": true
+      },
+      {
+        "case_id": "ramp_merge-g00-alignment-s20261105",
+        "window_id": "aa2d4517cde1787b64d0418e5d44c2af8754c9e980d95768a3df48f8ede24a5e-t420-interaction",
+        "eligible": true
+      },
+      {
+        "case_id": "ramp_merge-g00-alignment-s20261106",
+        "window_id": "81643983f48c061edba7e98b009ceb89075174c12cb1990b5b5817351437d185-t450-interaction",
+        "eligible": true
+      },
+      {
+        "case_id": "ramp_merge-g00-combined-s20261105",
+        "window_id": "694618edcc6fea3a6225d75afe93cf8494b3508dd65dd0f29225e08250e3074b-t420-interaction",
+        "eligible": true
+      },
+      {
+        "case_id": "ramp_merge-g00-combined-s20261106",
+        "window_id": "94a2b66f850067565738ea1d9e140d2ea1bd23bd47dbec5de36914cc761b23b8-t450-interaction",
+        "eligible": true
+      },
+      {
+        "case_id": "ramp_merge-g01-control-s20261105",
+        "window_id": "39dce990fb6a0f01e95f7e5cccf94531bc6d5e8be63d945b4938a4496d75e4d7-t480-interaction",
+        "eligible": true
+      },
+      {
+        "case_id": "ramp_merge-g01-control-s20261106",
+        "window_id": "7857099efb9b538c73e52fac5722039983ffdbf53bba79d88dee13b5915fc5f2-t510-interaction",
+        "eligible": true
+      },
+      {
+        "case_id": "ramp_merge-g01-combined-s20261105",
+        "window_id": "2c6c9607fb9339f304bb205397912220ed47236ee89a4f115dc45bb0d681ef51-t480-interaction",
+        "eligible": true
+      },
+      {
+        "case_id": "ramp_merge-g01-combined-s20261106",
+        "window_id": "49c5c90149876d6f40a64499a49d55468b3beb204bcfc2487c9ca6a54e70b691-t510-interaction",
+        "eligible": true
+      }
+    ],
+    "max_world_local_area_error_m2": 2.395258098530917e-07,
+    "frames": 12719,
+    "vehicle_instances": 132,
+    "raw_body_frames": 99380,
+    "cases": [
+      {
+        "case_id": "ramp_merge-g00-control-s20261105",
+        "variant": "control",
+        "geometry_index": 0,
+        "seed": 20261105,
+        "geometry_id": "sha256:de9b94a2d68afb19ca2a3e9d30fbd16b27b4c2dd5c884c6cbdf547488fc9531f",
+        "frames": 1061,
+        "vehicles": 11,
+        "records": 8398,
+        "simulated_seconds": 106.0,
+        "collector_seconds": 3.9221480000414886,
+        "verified_permission_directions": 0,
+        "policies": {
+          "first_current_id": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 26,
+            "eligible": 18,
+            "eligible_lane_change_windows": 2,
+            "eligible_ramp_exit_windows": 1,
+            "eligible_unique_lane_changes": 2,
+            "eligible_unique_ramp_exits": 1,
+            "raw64_road_rejected_windows": 6,
+            "raw64_route_rejected_windows": 6,
+            "raw64_motion_rejected_windows": 5,
+            "assessed_raw64_max_outside_area_m2": 0.007257523233632731,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 6,
+              "raw64:road": 6,
+              "raw64:route": 6,
+              "stored32:road": 6,
+              "stored32:route": 6,
+              "raw64:motion": 5,
+              "stored32:motion": 5
+            }
+          },
+          "interaction_current": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 26,
+            "eligible": 21,
+            "eligible_lane_change_windows": 1,
+            "eligible_ramp_exit_windows": 3,
+            "eligible_unique_lane_changes": 1,
+            "eligible_unique_ramp_exits": 3,
+            "raw64_road_rejected_windows": 2,
+            "raw64_route_rejected_windows": 2,
+            "raw64_motion_rejected_windows": 3,
+            "assessed_raw64_max_outside_area_m2": 2.0521327471068737e-05,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 6,
+              "raw64:road": 2,
+              "raw64:route": 2,
+              "stored32:road": 2,
+              "stored32:route": 2,
+              "raw64:motion": 3,
+              "stored32:motion": 3
+            }
+          }
+        },
+        "raw_jerk_distributions": {
+          "all": {
+            "count": 8365,
+            "mean": 0.2667652159792669,
+            "min": 0.0,
+            "p50": 0.0009454685425680509,
+            "p95": 0.33692127105950875,
+            "p99": 1.5401533677475043,
+            "max": 358.74559877525115
+          },
+          "lane_change_context": {
+            "count": 366,
+            "mean": 0.5600830578549476,
+            "min": 0.0004592477702585921,
+            "p50": 0.07618999064748144,
+            "p95": 1.587223377045941,
+            "p99": 9.93483155096232,
+            "max": 25.199908278583024
+          },
+          "ramp_exit_context": {
+            "count": 273,
+            "mean": 0.20150178949566977,
+            "min": 0.0,
+            "p50": 0.1676657787626108,
+            "p95": 0.6085685800404208,
+            "p99": 0.9177699403051506,
+            "max": 1.1515916939635946
+          }
+        },
+        "raw_lane_change_events": 6,
+        "raw_ramp_exit_events": 3,
+        "raw_road_violation_body_frames": 11,
+        "raw_route_violation_body_frames": 24,
+        "raw_max_outside_area_m2": 0.007257523233632731,
+        "merge_and_downstream_violation_body_frames": 11,
+        "merge_and_downstream_max_outside_area_m2": 0.007257523233632731,
+        "worst_road_records": [
+          {
+            "vehicle_id": "flow_main.1",
+            "tick": 488,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "raw_lateral_position_m": -0.8495,
+            "outside_area_m2": 0.007257523233632731,
+            "center_m": [
+              217.96459778265427,
+              -9.87991175516709
+            ]
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 475,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 2.052357005368807e-05,
+            "center_m": [
+              0.42705248502356064,
+              -12.250028766892155
+            ]
+          },
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 267,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 2.0521327471068737e-05,
+            "center_m": [
+              -0.16868174119014157,
+              -12.250063543109544
+            ]
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 361,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 2.0520391132819614e-05,
+            "center_m": [
+              -0.3780368011050843,
+              -12.25008070988257
+            ]
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 472,
+            "road": ":merge_start_3",
+            "lane": ":merge_start_3_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 2.0518637751922228e-05,
+            "center_m": [
+              -3.4321711651419067,
+              -12.250770903614539
+            ]
+          }
+        ],
+        "top_jerk_records": [
+          {
+            "vehicle_id": "flow_main.1",
+            "tick": 491,
+            "jerk_mps3": 358.74559877525115,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "reported_accel_mps2": 0.005335106532893263,
+            "previous_reported_accel_mps2": 0.005347830718687163,
+            "reported_longitudinal_jerk_mps3": 0.00012724185793899778
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 391,
+            "jerk_mps3": 49.8395527858122,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "reported_accel_mps2": -4.984999999999999,
+            "previous_reported_accel_mps2": -0.0010447214171627195,
+            "reported_longitudinal_jerk_mps3": 49.83955278582837
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 505,
+            "jerk_mps3": 47.534154057991884,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "reported_accel_mps2": -4.764999999999997,
+            "previous_reported_accel_mps2": -0.011584594203934984,
+            "reported_longitudinal_jerk_mps3": 47.53415405796062
+          }
+        ],
+        "ramp_exit_lateral_positions": [
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 433,
+            "position_m": 0.0
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 592,
+            "position_m": 0.0
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 699,
+            "position_m": 0.0
+          }
+        ]
+      },
+      {
+        "case_id": "ramp_merge-g00-control-s20261106",
+        "variant": "control",
+        "geometry_index": 0,
+        "seed": 20261106,
+        "geometry_id": "sha256:de9b94a2d68afb19ca2a3e9d30fbd16b27b4c2dd5c884c6cbdf547488fc9531f",
+        "frames": 1015,
+        "vehicles": 11,
+        "records": 7751,
+        "simulated_seconds": 101.4,
+        "collector_seconds": 3.7219766000052914,
+        "verified_permission_directions": 0,
+        "policies": {
+          "first_current_id": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 23,
+            "eligible": 15,
+            "eligible_lane_change_windows": 1,
+            "eligible_ramp_exit_windows": 1,
+            "eligible_unique_lane_changes": 1,
+            "eligible_unique_ramp_exits": 1,
+            "raw64_road_rejected_windows": 3,
+            "raw64_route_rejected_windows": 3,
+            "raw64_motion_rejected_windows": 2,
+            "assessed_raw64_max_outside_area_m2": 2.0522576749631287e-05,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 9,
+              "raw64:road": 3,
+              "raw64:route": 3,
+              "stored32:road": 3,
+              "stored32:route": 3,
+              "raw64:motion": 2,
+              "stored32:motion": 2,
+              "too_few_agents": 4,
+              "raw64:no_applicable_pairs": 4,
+              "stored32:no_applicable_pairs": 4
+            }
+          },
+          "interaction_current": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 26,
+            "eligible": 18,
+            "eligible_lane_change_windows": 1,
+            "eligible_ramp_exit_windows": 2,
+            "eligible_unique_lane_changes": 1,
+            "eligible_unique_ramp_exits": 2,
+            "raw64_road_rejected_windows": 6,
+            "raw64_route_rejected_windows": 6,
+            "raw64_motion_rejected_windows": 3,
+            "assessed_raw64_max_outside_area_m2": 3.141031069791136,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 6,
+              "raw64:road": 6,
+              "raw64:route": 6,
+              "stored32:road": 6,
+              "stored32:route": 6,
+              "raw64:motion": 3,
+              "stored32:motion": 3
+            }
+          }
+        },
+        "raw_jerk_distributions": {
+          "all": {
+            "count": 7718,
+            "mean": 0.11859032681612011,
+            "min": 0.0,
+            "p50": 0.0035002267848582846,
+            "p95": 0.3378748331499536,
+            "p99": 1.5000565763283327,
+            "max": 55.11445634242356
+          },
+          "lane_change_context": {
+            "count": 427,
+            "mean": 0.6110462104386197,
+            "min": 0.00026199498510464454,
+            "p50": 0.08019227087128014,
+            "p95": 1.586075637806385,
+            "p99": 6.780518370326161,
+            "max": 55.11445634242356
+          },
+          "ramp_exit_context": {
+            "count": 273,
+            "mean": 0.22057590675322475,
+            "min": 0.0006103674934365699,
+            "p50": 0.21805559936629246,
+            "p95": 0.5281259319742798,
+            "p99": 0.7772307229677212,
+            "max": 1.14602782282351
+          }
+        },
+        "raw_lane_change_events": 7,
+        "raw_ramp_exit_events": 3,
+        "raw_road_violation_body_frames": 45,
+        "raw_route_violation_body_frames": 90,
+        "raw_max_outside_area_m2": 3.141031069791136,
+        "merge_and_downstream_violation_body_frames": 45,
+        "merge_and_downstream_max_outside_area_m2": 3.141031069791136,
+        "worst_road_records": [
+          {
+            "vehicle_id": "flow_main.2",
+            "tick": 614,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "raw_lateral_position_m": -1.4549999999999987,
+            "outside_area_m2": 3.141031069791136,
+            "center_m": [
+              222.43788285377482,
+              -10.268389791086953
+            ]
+          },
+          {
+            "vehicle_id": "flow_main.2",
+            "tick": 615,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "raw_lateral_position_m": -1.4129999999999987,
+            "outside_area_m2": 2.974449873670348,
+            "center_m": [
+              223.50562743485807,
+              -10.232981150859109
+            ]
+          },
+          {
+            "vehicle_id": "flow_main.2",
+            "tick": 616,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "raw_lateral_position_m": -1.3679999999999986,
+            "outside_area_m2": 2.7936873995721356,
+            "center_m": [
+              224.57390409252483,
+              -10.194564814834784
+            ]
+          },
+          {
+            "vehicle_id": "flow_main.2",
+            "tick": 617,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "raw_lateral_position_m": -1.3199999999999985,
+            "outside_area_m2": 2.598735457244927,
+            "center_m": [
+              225.64270640074068,
+              -10.153140720008581
+            ]
+          },
+          {
+            "vehicle_id": "flow_main.2",
+            "tick": 613,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "raw_lateral_position_m": -1.4939999999999989,
+            "outside_area_m2": 2.5729051069437867,
+            "center_m": [
+              221.37067689303407,
+              -10.300790808962196
+            ]
+          }
+        ],
+        "top_jerk_records": [
+          {
+            "vehicle_id": "flow_main.2",
+            "tick": 458,
+            "jerk_mps3": 55.11445634242356,
+            "road": "acceleration",
+            "lane": "acceleration_1",
+            "reported_accel_mps2": -5.864999999999991,
+            "previous_reported_accel_mps2": -0.3164907899452807,
+            "reported_longitudinal_jerk_mps3": 55.48509210054711
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 417,
+            "jerk_mps3": 45.996347792922165,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "reported_accel_mps2": -4.6000000000000085,
+            "previous_reported_accel_mps2": -0.00036522070727684763,
+            "reported_longitudinal_jerk_mps3": 45.99634779292732
+          },
+          {
+            "vehicle_id": "flow_main.5",
+            "tick": 517,
+            "jerk_mps3": 39.140457920422826,
+            "road": "acceleration",
+            "lane": "acceleration_1",
+            "reported_accel_mps2": -0.010842935430623868,
+            "previous_reported_accel_mps2": -0.009036039442573696,
+            "reported_longitudinal_jerk_mps3": 0.018068959880501723
+          }
+        ],
+        "ramp_exit_lateral_positions": [
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 461,
+            "position_m": 0.0
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 576,
+            "position_m": 0.0
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 638,
+            "position_m": 0.0
+          }
+        ]
+      },
+      {
+        "case_id": "ramp_merge-g00-permissions-s20261105",
+        "variant": "permissions",
+        "geometry_index": 0,
+        "seed": 20261105,
+        "geometry_id": "sha256:5f13be666caea64af0ad44b68bf6ef6c1ffe09a635666c8c0b60119ba87047a6",
+        "frames": 1061,
+        "vehicles": 11,
+        "records": 8398,
+        "simulated_seconds": 106.0,
+        "collector_seconds": 3.844000400044024,
+        "verified_permission_directions": 3,
+        "policies": {
+          "first_current_id": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 26,
+            "eligible": 20,
+            "eligible_lane_change_windows": 2,
+            "eligible_ramp_exit_windows": 1,
+            "eligible_unique_lane_changes": 2,
+            "eligible_unique_ramp_exits": 1,
+            "raw64_road_rejected_windows": 4,
+            "raw64_route_rejected_windows": 4,
+            "raw64_motion_rejected_windows": 3,
+            "assessed_raw64_max_outside_area_m2": 2.0521327471068737e-05,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 6,
+              "raw64:road": 4,
+              "raw64:route": 4,
+              "stored32:road": 4,
+              "stored32:route": 4,
+              "raw64:motion": 3,
+              "stored32:motion": 3
+            }
+          },
+          "interaction_current": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 26,
+            "eligible": 22,
+            "eligible_lane_change_windows": 1,
+            "eligible_ramp_exit_windows": 3,
+            "eligible_unique_lane_changes": 1,
+            "eligible_unique_ramp_exits": 3,
+            "raw64_road_rejected_windows": 2,
+            "raw64_route_rejected_windows": 2,
+            "raw64_motion_rejected_windows": 2,
+            "assessed_raw64_max_outside_area_m2": 2.0521327471068737e-05,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 6,
+              "raw64:road": 2,
+              "raw64:route": 2,
+              "stored32:road": 2,
+              "stored32:route": 2,
+              "raw64:motion": 2,
+              "stored32:motion": 2
+            }
+          }
+        },
+        "raw_jerk_distributions": {
+          "all": {
+            "count": 8365,
+            "mean": 0.0797600450124928,
+            "min": 0.0,
+            "p50": 0.00036763117350346874,
+            "p95": 0.2482094841133788,
+            "p99": 1.1224959542689144,
+            "max": 49.8395527858122
+          },
+          "lane_change_context": {
+            "count": 244,
+            "mean": 0.29848846914198884,
+            "min": 0.0004592477702585921,
+            "p50": 0.06870471286355018,
+            "p95": 1.5309883257513992,
+            "p99": 2.7129602184023485,
+            "max": 3.7026293588873505
+          },
+          "ramp_exit_context": {
+            "count": 273,
+            "mean": 0.20158558395598491,
+            "min": 0.0,
+            "p50": 0.1676657787626108,
+            "p95": 0.6085685800404208,
+            "p99": 0.9185939424781769,
+            "max": 1.1515916939635946
+          }
+        },
+        "raw_lane_change_events": 4,
+        "raw_ramp_exit_events": 3,
+        "raw_road_violation_body_frames": 10,
+        "raw_route_violation_body_frames": 10,
+        "raw_max_outside_area_m2": 2.052357005368807e-05,
+        "merge_and_downstream_violation_body_frames": 10,
+        "merge_and_downstream_max_outside_area_m2": 2.052357005368807e-05,
+        "worst_road_records": [
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 475,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 2.052357005368807e-05,
+            "center_m": [
+              0.42705248502356064,
+              -12.250028766892155
+            ]
+          },
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 267,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 2.0521327471068737e-05,
+            "center_m": [
+              -0.16868174119014157,
+              -12.250063543109544
+            ]
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 361,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 2.0520391132819614e-05,
+            "center_m": [
+              -0.3780368011050843,
+              -12.25008070988257
+            ]
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 472,
+            "road": ":merge_start_3",
+            "lane": ":merge_start_3_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 2.0518637751922228e-05,
+            "center_m": [
+              -3.4321711651419067,
+              -12.250770903614539
+            ]
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 474,
+            "road": ":merge_start_3",
+            "lane": ":merge_start_3_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 2.0518115033110498e-05,
+            "center_m": [
+              -0.8593993166478722,
+              -12.250131354139551
+            ]
+          }
+        ],
+        "top_jerk_records": [
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 391,
+            "jerk_mps3": 49.8395527858122,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "reported_accel_mps2": -4.984999999999999,
+            "previous_reported_accel_mps2": -0.0010447214171627195,
+            "reported_longitudinal_jerk_mps3": 49.83955278582837
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 505,
+            "jerk_mps3": 47.534154057991884,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "reported_accel_mps2": -4.764999999999997,
+            "previous_reported_accel_mps2": -0.011584594203934984,
+            "reported_longitudinal_jerk_mps3": 47.53415405796062
+          },
+          {
+            "vehicle_id": "flow_main.5",
+            "tick": 710,
+            "jerk_mps3": 24.023790222958397,
+            "road": "main_out",
+            "lane": "main_out_1",
+            "reported_accel_mps2": -0.0002557580859097186,
+            "previous_reported_accel_mps2": -0.00025912147259887774,
+            "reported_longitudinal_jerk_mps3": 3.3633866891591424e-05
+          }
+        ],
+        "ramp_exit_lateral_positions": [
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 433,
+            "position_m": 0.0
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 592,
+            "position_m": 0.0
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 699,
+            "position_m": 0.0
+          }
+        ]
+      },
+      {
+        "case_id": "ramp_merge-g00-permissions-s20261106",
+        "variant": "permissions",
+        "geometry_index": 0,
+        "seed": 20261106,
+        "geometry_id": "sha256:5f13be666caea64af0ad44b68bf6ef6c1ffe09a635666c8c0b60119ba87047a6",
+        "frames": 1015,
+        "vehicles": 11,
+        "records": 7751,
+        "simulated_seconds": 101.4,
+        "collector_seconds": 3.7556049000122584,
+        "verified_permission_directions": 3,
+        "policies": {
+          "first_current_id": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 23,
+            "eligible": 15,
+            "eligible_lane_change_windows": 1,
+            "eligible_ramp_exit_windows": 1,
+            "eligible_unique_lane_changes": 1,
+            "eligible_unique_ramp_exits": 1,
+            "raw64_road_rejected_windows": 3,
+            "raw64_route_rejected_windows": 3,
+            "raw64_motion_rejected_windows": 2,
+            "assessed_raw64_max_outside_area_m2": 2.0522576749631287e-05,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 9,
+              "raw64:road": 3,
+              "raw64:route": 3,
+              "stored32:road": 3,
+              "stored32:route": 3,
+              "raw64:motion": 2,
+              "stored32:motion": 2,
+              "too_few_agents": 4,
+              "raw64:no_applicable_pairs": 4,
+              "stored32:no_applicable_pairs": 4
+            }
+          },
+          "interaction_current": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 26,
+            "eligible": 21,
+            "eligible_lane_change_windows": 1,
+            "eligible_ramp_exit_windows": 5,
+            "eligible_unique_lane_changes": 1,
+            "eligible_unique_ramp_exits": 3,
+            "raw64_road_rejected_windows": 3,
+            "raw64_route_rejected_windows": 3,
+            "raw64_motion_rejected_windows": 3,
+            "assessed_raw64_max_outside_area_m2": 2.0522576749631287e-05,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 6,
+              "raw64:road": 3,
+              "raw64:route": 3,
+              "stored32:road": 3,
+              "stored32:route": 3,
+              "raw64:motion": 3,
+              "stored32:motion": 3
+            }
+          }
+        },
+        "raw_jerk_distributions": {
+          "all": {
+            "count": 7718,
+            "mean": 0.10866803480212188,
+            "min": 0.0,
+            "p50": 0.0029304866008376513,
+            "p95": 0.31888863216718655,
+            "p99": 1.488896263305704,
+            "max": 55.11445634242356
+          },
+          "lane_change_context": {
+            "count": 427,
+            "mean": 0.6110462104386197,
+            "min": 0.00026199498510464454,
+            "p50": 0.08019227087128014,
+            "p95": 1.586075637806385,
+            "p99": 6.780518370326161,
+            "max": 55.11445634242356
+          },
+          "ramp_exit_context": {
+            "count": 273,
+            "mean": 0.22057590675322475,
+            "min": 0.0006103674934365699,
+            "p50": 0.21805559936629246,
+            "p95": 0.5281259319742798,
+            "p99": 0.7772307229677212,
+            "max": 1.14602782282351
+          }
+        },
+        "raw_lane_change_events": 7,
+        "raw_ramp_exit_events": 3,
+        "raw_road_violation_body_frames": 10,
+        "raw_route_violation_body_frames": 10,
+        "raw_max_outside_area_m2": 2.0522576749631287e-05,
+        "merge_and_downstream_violation_body_frames": 10,
+        "merge_and_downstream_max_outside_area_m2": 2.0522576749631287e-05,
+        "worst_road_records": [
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 283,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 2.0522576749631287e-05,
+            "center_m": [
+              0.1446382616039239,
+              -12.25004309547065
+            ]
+          },
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 280,
+            "road": ":merge_start_3",
+            "lane": ":merge_start_3_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 2.0520486473444888e-05,
+            "center_m": [
+              -3.579921600011673,
+              -12.250831257685064
+            ]
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 385,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 2.052044019672786e-05,
+            "center_m": [
+              -0.3661996045417162,
+              -12.250079739251781
+            ]
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 461,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 2.0520211853690474e-05,
+            "center_m": [
+              -0.4173575087362864,
+              -12.250084216964007
+            ]
+          },
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 282,
+            "road": ":merge_start_3",
+            "lane": ":merge_start_3_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 2.0516949800237454e-05,
+            "center_m": [
+              -1.096881733120524,
+              -12.250163920425729
+            ]
+          }
+        ],
+        "top_jerk_records": [
+          {
+            "vehicle_id": "flow_main.2",
+            "tick": 458,
+            "jerk_mps3": 55.11445634242356,
+            "road": "acceleration",
+            "lane": "acceleration_1",
+            "reported_accel_mps2": -5.864999999999991,
+            "previous_reported_accel_mps2": -0.3164907899452807,
+            "reported_longitudinal_jerk_mps3": 55.48509210054711
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 417,
+            "jerk_mps3": 45.996347792922165,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "reported_accel_mps2": -4.6000000000000085,
+            "previous_reported_accel_mps2": -0.00036522070727684763,
+            "reported_longitudinal_jerk_mps3": 45.99634779292732
+          },
+          {
+            "vehicle_id": "flow_main.5",
+            "tick": 517,
+            "jerk_mps3": 25.530279159986325,
+            "road": "acceleration",
+            "lane": "acceleration_1",
+            "reported_accel_mps2": -0.010842935430623868,
+            "previous_reported_accel_mps2": -0.009036039442573696,
+            "reported_longitudinal_jerk_mps3": 0.018068959880501723
+          }
+        ],
+        "ramp_exit_lateral_positions": [
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 461,
+            "position_m": 0.0
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 576,
+            "position_m": 0.0
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 638,
+            "position_m": 0.0
+          }
+        ]
+      },
+      {
+        "case_id": "ramp_merge-g00-alignment-s20261105",
+        "variant": "alignment",
+        "geometry_index": 0,
+        "seed": 20261105,
+        "geometry_id": "sha256:9bf1b46d8e0edd8c4eca6e2cb9043fcc904bc920630a5f708cc9126dbe520a7c",
+        "frames": 1061,
+        "vehicles": 11,
+        "records": 8398,
+        "simulated_seconds": 106.0,
+        "collector_seconds": 3.94746470003156,
+        "verified_permission_directions": 0,
+        "policies": {
+          "first_current_id": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 26,
+            "eligible": 21,
+            "eligible_lane_change_windows": 3,
+            "eligible_ramp_exit_windows": 1,
+            "eligible_unique_lane_changes": 3,
+            "eligible_unique_ramp_exits": 1,
+            "raw64_road_rejected_windows": 2,
+            "raw64_route_rejected_windows": 2,
+            "raw64_motion_rejected_windows": 5,
+            "assessed_raw64_max_outside_area_m2": 0.006976292588210871,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 6,
+              "raw64:motion": 5,
+              "stored32:motion": 5,
+              "raw64:road": 2,
+              "raw64:route": 2,
+              "stored32:road": 2,
+              "stored32:route": 2
+            }
+          },
+          "interaction_current": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 26,
+            "eligible": 23,
+            "eligible_lane_change_windows": 2,
+            "eligible_ramp_exit_windows": 3,
+            "eligible_unique_lane_changes": 1,
+            "eligible_unique_ramp_exits": 3,
+            "raw64_road_rejected_windows": 0,
+            "raw64_route_rejected_windows": 0,
+            "raw64_motion_rejected_windows": 3,
+            "assessed_raw64_max_outside_area_m2": 0.0,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 6,
+              "raw64:motion": 3,
+              "stored32:motion": 3
+            }
+          }
+        },
+        "raw_jerk_distributions": {
+          "all": {
+            "count": 8365,
+            "mean": 0.26741699008720077,
+            "min": 0.0,
+            "p50": 0.0009120242339122342,
+            "p95": 0.33591936414723017,
+            "p99": 1.5387461619582108,
+            "max": 358.74538325159705
+          },
+          "lane_change_context": {
+            "count": 366,
+            "mean": 0.56009851077428,
+            "min": 0.0004592477702585921,
+            "p50": 0.07618999064748144,
+            "p95": 1.587223377045941,
+            "p99": 9.934820218906161,
+            "max": 25.199909692281288
+          },
+          "ramp_exit_context": {
+            "count": 273,
+            "mean": 0.20209818169732233,
+            "min": 0.0,
+            "p50": 0.1689640539308589,
+            "p95": 0.5936840458388685,
+            "p99": 0.9757931803175639,
+            "max": 1.21880346326925
+          }
+        },
+        "raw_lane_change_events": 6,
+        "raw_ramp_exit_events": 3,
+        "raw_road_violation_body_frames": 1,
+        "raw_route_violation_body_frames": 14,
+        "raw_max_outside_area_m2": 0.006976292588210871,
+        "merge_and_downstream_violation_body_frames": 1,
+        "merge_and_downstream_max_outside_area_m2": 0.006976292588210871,
+        "worst_road_records": [
+          {
+            "vehicle_id": "flow_main.1",
+            "tick": 488,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "raw_lateral_position_m": -0.8495,
+            "outside_area_m2": 0.006976292588210871,
+            "center_m": [
+              217.9578008319043,
+              -9.879907582667792
+            ]
+          }
+        ],
+        "top_jerk_records": [
+          {
+            "vehicle_id": "flow_main.1",
+            "tick": 491,
+            "jerk_mps3": 358.74538325159705,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "reported_accel_mps2": 0.005353940911998478,
+            "previous_reported_accel_mps2": 0.005366756812534845,
+            "reported_longitudinal_jerk_mps3": 0.00012815900536367053
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 391,
+            "jerk_mps3": 49.8395527858122,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "reported_accel_mps2": -4.984999999999999,
+            "previous_reported_accel_mps2": -0.0010447214171627195,
+            "reported_longitudinal_jerk_mps3": 49.83955278582837
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 505,
+            "jerk_mps3": 47.53368506160882,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "reported_accel_mps2": -4.764999999999997,
+            "previous_reported_accel_mps2": -0.01163149383801354,
+            "reported_longitudinal_jerk_mps3": 47.533685061619835
+          }
+        ],
+        "ramp_exit_lateral_positions": [
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 433,
+            "position_m": 0.0
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 592,
+            "position_m": 2.6020852139652106e-18
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 699,
+            "position_m": 0.0
+          }
+        ]
+      },
+      {
+        "case_id": "ramp_merge-g00-alignment-s20261106",
+        "variant": "alignment",
+        "geometry_index": 0,
+        "seed": 20261106,
+        "geometry_id": "sha256:9bf1b46d8e0edd8c4eca6e2cb9043fcc904bc920630a5f708cc9126dbe520a7c",
+        "frames": 1015,
+        "vehicles": 11,
+        "records": 7751,
+        "simulated_seconds": 101.4,
+        "collector_seconds": 3.7820729999803007,
+        "verified_permission_directions": 0,
+        "policies": {
+          "first_current_id": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 23,
+            "eligible": 17,
+            "eligible_lane_change_windows": 1,
+            "eligible_ramp_exit_windows": 1,
+            "eligible_unique_lane_changes": 1,
+            "eligible_unique_ramp_exits": 1,
+            "raw64_road_rejected_windows": 0,
+            "raw64_route_rejected_windows": 0,
+            "raw64_motion_rejected_windows": 2,
+            "assessed_raw64_max_outside_area_m2": 0.0,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 9,
+              "raw64:motion": 2,
+              "stored32:motion": 2,
+              "too_few_agents": 4,
+              "raw64:no_applicable_pairs": 4,
+              "stored32:no_applicable_pairs": 4
+            }
+          },
+          "interaction_current": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 26,
+            "eligible": 20,
+            "eligible_lane_change_windows": 1,
+            "eligible_ramp_exit_windows": 2,
+            "eligible_unique_lane_changes": 1,
+            "eligible_unique_ramp_exits": 2,
+            "raw64_road_rejected_windows": 3,
+            "raw64_route_rejected_windows": 3,
+            "raw64_motion_rejected_windows": 3,
+            "assessed_raw64_max_outside_area_m2": 3.1410334019231656,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 6,
+              "raw64:motion": 3,
+              "stored32:motion": 3,
+              "raw64:road": 3,
+              "raw64:route": 3,
+              "stored32:road": 3,
+              "stored32:route": 3
+            }
+          }
+        },
+        "raw_jerk_distributions": {
+          "all": {
+            "count": 7718,
+            "mean": 0.11893065982830686,
+            "min": 0.0,
+            "p50": 0.0034234059853588406,
+            "p95": 0.3378739818060693,
+            "p99": 1.5000565944361437,
+            "max": 55.11842364360609
+          },
+          "lane_change_context": {
+            "count": 427,
+            "mean": 0.6111091749650636,
+            "min": 0.00026199498510464454,
+            "p50": 0.08019227087128014,
+            "p95": 1.5860785304313316,
+            "p99": 6.795231870491687,
+            "max": 55.11842364360609
+          },
+          "ramp_exit_context": {
+            "count": 273,
+            "mean": 0.22121722390921844,
+            "min": 0.0006079512218093441,
+            "p50": 0.22293547380200943,
+            "p95": 0.5034933727951558,
+            "p99": 0.7479876990432206,
+            "max": 1.0899521948789532
+          }
+        },
+        "raw_lane_change_events": 7,
+        "raw_ramp_exit_events": 3,
+        "raw_road_violation_body_frames": 35,
+        "raw_route_violation_body_frames": 80,
+        "raw_max_outside_area_m2": 3.1410334019231656,
+        "merge_and_downstream_violation_body_frames": 35,
+        "merge_and_downstream_max_outside_area_m2": 3.1410334019231656,
+        "worst_road_records": [
+          {
+            "vehicle_id": "flow_main.2",
+            "tick": 614,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "raw_lateral_position_m": -1.4549999999999987,
+            "outside_area_m2": 3.1410334019231656,
+            "center_m": [
+              222.43017127940922,
+              -10.268390288427868
+            ]
+          },
+          {
+            "vehicle_id": "flow_main.2",
+            "tick": 615,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "raw_lateral_position_m": -1.4129999999999987,
+            "outside_area_m2": 2.974452651424375,
+            "center_m": [
+              223.4979003995535,
+              -10.232981743615975
+            ]
+          },
+          {
+            "vehicle_id": "flow_main.2",
+            "tick": 616,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "raw_lateral_position_m": -1.3679999999999986,
+            "outside_area_m2": 2.793690618555825,
+            "center_m": [
+              224.5661616380385,
+              -10.194565502275475
+            ]
+          },
+          {
+            "vehicle_id": "flow_main.2",
+            "tick": 617,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "raw_lateral_position_m": -1.3199999999999985,
+            "outside_area_m2": 2.5987391128567117,
+            "center_m": [
+              225.63494856864492,
+              -10.15314150139689
+            ]
+          },
+          {
+            "vehicle_id": "flow_main.2",
+            "tick": 613,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "raw_lateral_position_m": -1.4939999999999989,
+            "outside_area_m2": 2.567256718176673,
+            "center_m": [
+              221.36298082154934,
+              -10.300791210160911
+            ]
+          }
+        ],
+        "top_jerk_records": [
+          {
+            "vehicle_id": "flow_main.2",
+            "tick": 458,
+            "jerk_mps3": 55.11842364360609,
+            "road": "acceleration",
+            "lane": "acceleration_1",
+            "reported_accel_mps2": -5.864999999999991,
+            "previous_reported_accel_mps2": -0.3160904462646563,
+            "reported_longitudinal_jerk_mps3": 55.48909553735335
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 417,
+            "jerk_mps3": 45.99635179363304,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "reported_accel_mps2": -4.6000000000000085,
+            "previous_reported_accel_mps2": -0.0003648206379303076,
+            "reported_longitudinal_jerk_mps3": 45.99635179362078
+          },
+          {
+            "vehicle_id": "flow_main.5",
+            "tick": 517,
+            "jerk_mps3": 39.14046059956489,
+            "road": "acceleration",
+            "lane": "acceleration_1",
+            "reported_accel_mps2": -0.01083699525121773,
+            "previous_reported_accel_mps2": -0.009029502476511908,
+            "reported_longitudinal_jerk_mps3": 0.01807492774705821
+          }
+        ],
+        "ramp_exit_lateral_positions": [
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 461,
+            "position_m": 0.0
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 576,
+            "position_m": 0.0
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 638,
+            "position_m": 0.0
+          }
+        ]
+      },
+      {
+        "case_id": "ramp_merge-g00-combined-s20261105",
+        "variant": "combined",
+        "geometry_index": 0,
+        "seed": 20261105,
+        "geometry_id": "sha256:5389f337061d896b635db6774ac085ee9913fb129b1fbeed3c7034ab1d52e17e",
+        "frames": 1061,
+        "vehicles": 11,
+        "records": 8398,
+        "simulated_seconds": 106.0,
+        "collector_seconds": 3.949322399974335,
+        "verified_permission_directions": 3,
+        "policies": {
+          "first_current_id": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 26,
+            "eligible": 23,
+            "eligible_lane_change_windows": 3,
+            "eligible_ramp_exit_windows": 1,
+            "eligible_unique_lane_changes": 3,
+            "eligible_unique_ramp_exits": 1,
+            "raw64_road_rejected_windows": 0,
+            "raw64_route_rejected_windows": 0,
+            "raw64_motion_rejected_windows": 3,
+            "assessed_raw64_max_outside_area_m2": 0.0,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 6,
+              "raw64:motion": 3,
+              "stored32:motion": 3
+            }
+          },
+          "interaction_current": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 26,
+            "eligible": 24,
+            "eligible_lane_change_windows": 2,
+            "eligible_ramp_exit_windows": 3,
+            "eligible_unique_lane_changes": 1,
+            "eligible_unique_ramp_exits": 3,
+            "raw64_road_rejected_windows": 0,
+            "raw64_route_rejected_windows": 0,
+            "raw64_motion_rejected_windows": 2,
+            "assessed_raw64_max_outside_area_m2": 0.0,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 6,
+              "raw64:motion": 2,
+              "stored32:motion": 2
+            }
+          }
+        },
+        "raw_jerk_distributions": {
+          "all": {
+            "count": 8365,
+            "mean": 0.07997412689712867,
+            "min": 0.0,
+            "p50": 0.00035764090711154495,
+            "p95": 0.2490856298706146,
+            "p99": 1.1224959542689144,
+            "max": 49.8395527858122
+          },
+          "lane_change_context": {
+            "count": 244,
+            "mean": 0.29848846914198884,
+            "min": 0.0004592477702585921,
+            "p50": 0.06870471286355018,
+            "p95": 1.5309883257513992,
+            "p99": 2.7129602184023485,
+            "max": 3.7026293588873505
+          },
+          "ramp_exit_context": {
+            "count": 273,
+            "mean": 0.20230873650235037,
+            "min": 0.0,
+            "p50": 0.17056171117729502,
+            "p95": 0.5936840458388685,
+            "p99": 0.9757931803175639,
+            "max": 1.21880346326925
+          }
+        },
+        "raw_lane_change_events": 4,
+        "raw_ramp_exit_events": 3,
+        "raw_road_violation_body_frames": 0,
+        "raw_route_violation_body_frames": 0,
+        "raw_max_outside_area_m2": 0.0,
+        "merge_and_downstream_violation_body_frames": 0,
+        "merge_and_downstream_max_outside_area_m2": 0.0,
+        "worst_road_records": [],
+        "top_jerk_records": [
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 391,
+            "jerk_mps3": 49.8395527858122,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "reported_accel_mps2": -4.984999999999999,
+            "previous_reported_accel_mps2": -0.0010447214171627195,
+            "reported_longitudinal_jerk_mps3": 49.83955278582837
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 505,
+            "jerk_mps3": 47.53368506160882,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "reported_accel_mps2": -4.764999999999997,
+            "previous_reported_accel_mps2": -0.01163149383801354,
+            "reported_longitudinal_jerk_mps3": 47.533685061619835
+          },
+          {
+            "vehicle_id": "flow_main.5",
+            "tick": 710,
+            "jerk_mps3": 24.023790222958397,
+            "road": "main_out",
+            "lane": "main_out_1",
+            "reported_accel_mps2": -0.0002557580859097186,
+            "previous_reported_accel_mps2": -0.00025912147259887774,
+            "reported_longitudinal_jerk_mps3": 3.3633866891591424e-05
+          }
+        ],
+        "ramp_exit_lateral_positions": [
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 433,
+            "position_m": 0.0
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 592,
+            "position_m": 0.0
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 699,
+            "position_m": 0.0
+          }
+        ]
+      },
+      {
+        "case_id": "ramp_merge-g00-combined-s20261106",
+        "variant": "combined",
+        "geometry_index": 0,
+        "seed": 20261106,
+        "geometry_id": "sha256:5389f337061d896b635db6774ac085ee9913fb129b1fbeed3c7034ab1d52e17e",
+        "frames": 1015,
+        "vehicles": 11,
+        "records": 7751,
+        "simulated_seconds": 101.4,
+        "collector_seconds": 3.7460676000337116,
+        "verified_permission_directions": 3,
+        "policies": {
+          "first_current_id": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 23,
+            "eligible": 17,
+            "eligible_lane_change_windows": 1,
+            "eligible_ramp_exit_windows": 1,
+            "eligible_unique_lane_changes": 1,
+            "eligible_unique_ramp_exits": 1,
+            "raw64_road_rejected_windows": 0,
+            "raw64_route_rejected_windows": 0,
+            "raw64_motion_rejected_windows": 2,
+            "assessed_raw64_max_outside_area_m2": 0.0,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 9,
+              "raw64:motion": 2,
+              "stored32:motion": 2,
+              "too_few_agents": 4,
+              "raw64:no_applicable_pairs": 4,
+              "stored32:no_applicable_pairs": 4
+            }
+          },
+          "interaction_current": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 26,
+            "eligible": 23,
+            "eligible_lane_change_windows": 1,
+            "eligible_ramp_exit_windows": 5,
+            "eligible_unique_lane_changes": 1,
+            "eligible_unique_ramp_exits": 3,
+            "raw64_road_rejected_windows": 0,
+            "raw64_route_rejected_windows": 0,
+            "raw64_motion_rejected_windows": 3,
+            "assessed_raw64_max_outside_area_m2": 0.0,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 6,
+              "raw64:motion": 3,
+              "stored32:motion": 3
+            }
+          }
+        },
+        "raw_jerk_distributions": {
+          "all": {
+            "count": 7718,
+            "mean": 0.1090083929500513,
+            "min": 0.0,
+            "p50": 0.002872188389346775,
+            "p95": 0.3190978812779052,
+            "p99": 1.488896217404187,
+            "max": 55.11842364360609
+          },
+          "lane_change_context": {
+            "count": 427,
+            "mean": 0.6111091749650636,
+            "min": 0.00026199498510464454,
+            "p50": 0.08019227087128014,
+            "p95": 1.5860785304313316,
+            "p99": 6.795231870491687,
+            "max": 55.11842364360609
+          },
+          "ramp_exit_context": {
+            "count": 273,
+            "mean": 0.22121722390921844,
+            "min": 0.0006079512218093441,
+            "p50": 0.22293547380200943,
+            "p95": 0.5034933727951558,
+            "p99": 0.7479876990432206,
+            "max": 1.0899521948789532
+          }
+        },
+        "raw_lane_change_events": 7,
+        "raw_ramp_exit_events": 3,
+        "raw_road_violation_body_frames": 0,
+        "raw_route_violation_body_frames": 0,
+        "raw_max_outside_area_m2": 0.0,
+        "merge_and_downstream_violation_body_frames": 0,
+        "merge_and_downstream_max_outside_area_m2": 0.0,
+        "worst_road_records": [],
+        "top_jerk_records": [
+          {
+            "vehicle_id": "flow_main.2",
+            "tick": 458,
+            "jerk_mps3": 55.11842364360609,
+            "road": "acceleration",
+            "lane": "acceleration_1",
+            "reported_accel_mps2": -5.864999999999991,
+            "previous_reported_accel_mps2": -0.3160904462646563,
+            "reported_longitudinal_jerk_mps3": 55.48909553735335
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 417,
+            "jerk_mps3": 45.99635179363304,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "reported_accel_mps2": -4.6000000000000085,
+            "previous_reported_accel_mps2": -0.0003648206379303076,
+            "reported_longitudinal_jerk_mps3": 45.99635179362078
+          },
+          {
+            "vehicle_id": "flow_main.5",
+            "tick": 517,
+            "jerk_mps3": 25.53027973883858,
+            "road": "acceleration",
+            "lane": "acceleration_1",
+            "reported_accel_mps2": -0.01083699525121773,
+            "previous_reported_accel_mps2": -0.009029502476511908,
+            "reported_longitudinal_jerk_mps3": 0.01807492774705821
+          }
+        ],
+        "ramp_exit_lateral_positions": [
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 461,
+            "position_m": 0.0
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 576,
+            "position_m": 0.0
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 638,
+            "position_m": 0.0
+          }
+        ]
+      },
+      {
+        "case_id": "ramp_merge-g01-control-s20261105",
+        "variant": "control",
+        "geometry_index": 1,
+        "seed": 20261105,
+        "geometry_id": "sha256:172eda4cddfebd3ba80ec6b18c5e66ab7c99f4d0506712958ed256475bd8331d",
+        "frames": 1129,
+        "vehicles": 11,
+        "records": 8968,
+        "simulated_seconds": 112.80000000000001,
+        "collector_seconds": 4.181587800034322,
+        "verified_permission_directions": 0,
+        "policies": {
+          "first_current_id": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 29,
+            "eligible": 24,
+            "eligible_lane_change_windows": 3,
+            "eligible_ramp_exit_windows": 2,
+            "eligible_unique_lane_changes": 3,
+            "eligible_unique_ramp_exits": 2,
+            "raw64_road_rejected_windows": 3,
+            "raw64_route_rejected_windows": 3,
+            "raw64_motion_rejected_windows": 2,
+            "assessed_raw64_max_outside_area_m2": 1.5613827278234755e-05,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 3,
+              "raw64:road": 3,
+              "raw64:route": 3,
+              "stored32:road": 3,
+              "stored32:route": 3,
+              "raw64:motion": 2,
+              "stored32:motion": 2
+            }
+          },
+          "interaction_current": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 29,
+            "eligible": 19,
+            "eligible_lane_change_windows": 1,
+            "eligible_ramp_exit_windows": 2,
+            "eligible_unique_lane_changes": 1,
+            "eligible_unique_ramp_exits": 2,
+            "raw64_road_rejected_windows": 4,
+            "raw64_route_rejected_windows": 5,
+            "raw64_motion_rejected_windows": 5,
+            "assessed_raw64_max_outside_area_m2": 0.002318144233022262,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 3,
+              "raw64:road": 4,
+              "raw64:route": 5,
+              "stored32:road": 4,
+              "stored32:route": 5,
+              "raw64:motion": 5,
+              "stored32:motion": 5
+            }
+          }
+        },
+        "raw_jerk_distributions": {
+          "all": {
+            "count": 8935,
+            "mean": 0.09919388011215297,
+            "min": 0.0,
+            "p50": 0.0010646657519888096,
+            "p95": 0.33179766151609014,
+            "p99": 1.422680753626139,
+            "max": 40.68503157051928
+          },
+          "lane_change_context": {
+            "count": 487,
+            "mean": 0.6918493098205106,
+            "min": 0.00017571760981829283,
+            "p50": 0.09537237572131346,
+            "p95": 1.5974963343172706,
+            "p99": 22.14768242548631,
+            "max": 34.480347576227885
+          },
+          "ramp_exit_context": {
+            "count": 273,
+            "mean": 0.24636271058566186,
+            "min": 5.329070518200751e-12,
+            "p50": 0.23045643437969554,
+            "p95": 0.616547628139028,
+            "p99": 0.9591353880777671,
+            "max": 1.1651955922634623
+          }
+        },
+        "raw_lane_change_events": 8,
+        "raw_ramp_exit_events": 3,
+        "raw_road_violation_body_frames": 15,
+        "raw_route_violation_body_frames": 22,
+        "raw_max_outside_area_m2": 0.002318144233022262,
+        "merge_and_downstream_violation_body_frames": 15,
+        "merge_and_downstream_max_outside_area_m2": 0.002318144233022262,
+        "worst_road_records": [
+          {
+            "vehicle_id": "flow_main.1",
+            "tick": 552,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "raw_lateral_position_m": -0.8790000889617592,
+            "outside_area_m2": 0.002318144233022262,
+            "center_m": [
+              253.663155010957,
+              30.26861761912204
+            ]
+          },
+          {
+            "vehicle_id": "flow_main.1",
+            "tick": 553,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "raw_lateral_position_m": -0.8730000889617592,
+            "outside_area_m2": 0.0010783958322116089,
+            "center_m": [
+              254.89978183170166,
+              30.469325571356375
+            ]
+          },
+          {
+            "vehicle_id": "flow_main.1",
+            "tick": 551,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "raw_lateral_position_m": -0.8820000889617592,
+            "outside_area_m2": 0.0009606653181704343,
+            "center_m": [
+              252.42636385085922,
+              30.06929784112767
+            ]
+          },
+          {
+            "vehicle_id": "flow_main.1",
+            "tick": 554,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "raw_lateral_position_m": -0.8640000889617592,
+            "outside_area_m2": 0.000512290758722555,
+            "center_m": [
+              256.13617803192363,
+              30.67184313477625
+            ]
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 392,
+            "road": ":merge_start_0",
+            "lane": ":merge_start_0_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 1.5613827278234755e-05,
+            "center_m": [
+              -1.786676216404023,
+              -12.899055241783778
+            ]
+          }
+        ],
+        "top_jerk_records": [
+          {
+            "vehicle_id": "flow_main.5",
+            "tick": 786,
+            "jerk_mps3": 40.68503157051928,
+            "road": "main_out",
+            "lane": "main_out_1",
+            "reported_accel_mps2": -9.843814193999378e-05,
+            "previous_reported_accel_mps2": -9.973504992544235e-05,
+            "reported_longitudinal_jerk_mps3": 1.2969079854485699e-05
+          },
+          {
+            "vehicle_id": "flow_main.0",
+            "tick": 484,
+            "jerk_mps3": 34.480347576227885,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "reported_accel_mps2": -0.05452809339274722,
+            "previous_reported_accel_mps2": -0.07203263316233333,
+            "reported_longitudinal_jerk_mps3": 0.17504539769586103
+          },
+          {
+            "vehicle_id": "flow_main.3",
+            "tick": 640,
+            "jerk_mps3": 25.190624353565852,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "reported_accel_mps2": -0.16408226979772067,
+            "previous_reported_accel_mps2": -0.1965616763424194,
+            "reported_longitudinal_jerk_mps3": 0.3247940654469872
+          }
+        ],
+        "ramp_exit_lateral_positions": [
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 495,
+            "position_m": -7.06222514216269e-08
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 588,
+            "position_m": -7.06222514216269e-08
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 716,
+            "position_m": -7.06222514216269e-08
+          }
+        ]
+      },
+      {
+        "case_id": "ramp_merge-g01-control-s20261106",
+        "variant": "control",
+        "geometry_index": 1,
+        "seed": 20261106,
+        "geometry_id": "sha256:172eda4cddfebd3ba80ec6b18c5e66ab7c99f4d0506712958ed256475bd8331d",
+        "frames": 1079,
+        "vehicles": 11,
+        "records": 8427,
+        "simulated_seconds": 107.80000000000001,
+        "collector_seconds": 3.9541689999750815,
+        "verified_permission_directions": 0,
+        "policies": {
+          "first_current_id": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 25,
+            "eligible": 15,
+            "eligible_lane_change_windows": 2,
+            "eligible_ramp_exit_windows": 0,
+            "eligible_unique_lane_changes": 1,
+            "eligible_unique_ramp_exits": 0,
+            "raw64_road_rejected_windows": 2,
+            "raw64_route_rejected_windows": 2,
+            "raw64_motion_rejected_windows": 2,
+            "assessed_raw64_max_outside_area_m2": 1.561412454869271e-05,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 7,
+              "raw64:road": 2,
+              "raw64:route": 2,
+              "stored32:road": 2,
+              "stored32:route": 2,
+              "raw64:motion": 2,
+              "stored32:motion": 2,
+              "too_few_agents": 6,
+              "raw64:no_applicable_pairs": 6,
+              "stored32:no_applicable_pairs": 6
+            }
+          },
+          "interaction_current": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 28,
+            "eligible": 22,
+            "eligible_lane_change_windows": 2,
+            "eligible_ramp_exit_windows": 5,
+            "eligible_unique_lane_changes": 1,
+            "eligible_unique_ramp_exits": 3,
+            "raw64_road_rejected_windows": 2,
+            "raw64_route_rejected_windows": 2,
+            "raw64_motion_rejected_windows": 4,
+            "assessed_raw64_max_outside_area_m2": 1.561412454869271e-05,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 4,
+              "raw64:road": 2,
+              "raw64:route": 2,
+              "stored32:road": 2,
+              "stored32:route": 2,
+              "raw64:motion": 4,
+              "stored32:motion": 4
+            }
+          }
+        },
+        "raw_jerk_distributions": {
+          "all": {
+            "count": 8394,
+            "mean": 0.09970826723206862,
+            "min": 0.0,
+            "p50": 0.0029611185988631166,
+            "p95": 0.32004387328142686,
+            "p99": 1.4996912141622478,
+            "max": 38.818187663297785
+          },
+          "lane_change_context": {
+            "count": 549,
+            "mean": 0.6035829675342225,
+            "min": 0.0002550829421124438,
+            "p50": 0.11358655017622779,
+            "p95": 1.5842061093224924,
+            "p99": 10.452436220441802,
+            "max": 32.86491548470706
+          },
+          "ramp_exit_context": {
+            "count": 273,
+            "mean": 0.22888212279307696,
+            "min": 0.00034920935210652976,
+            "p50": 0.23041468087619793,
+            "p95": 0.5236310716482966,
+            "p99": 0.9722140991784708,
+            "max": 1.2308345314462679
+          }
+        },
+        "raw_lane_change_events": 9,
+        "raw_ramp_exit_events": 3,
+        "raw_road_violation_body_frames": 11,
+        "raw_route_violation_body_frames": 11,
+        "raw_max_outside_area_m2": 1.561412454869271e-05,
+        "merge_and_downstream_violation_body_frames": 11,
+        "merge_and_downstream_max_outside_area_m2": 1.561412454869271e-05,
+        "worst_road_records": [
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 320,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 1.561412454869271e-05,
+            "center_m": [
+              2.5167479159133763,
+              -12.216720209194621
+            ]
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 422,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 1.561321056253354e-05,
+            "center_m": [
+              2.0963470653507374,
+              -12.283321985709257
+            ]
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 494,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 1.5611929139249433e-05,
+            "center_m": [
+              1.6159085982854111,
+              -12.359444567567476
+            ]
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 419,
+            "road": ":merge_start_0",
+            "lane": ":merge_start_0_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 1.561189285358367e-05,
+            "center_m": [
+              -1.5879818649970314,
+              -12.86751356856401
+            ]
+          },
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 319,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "raw_lateral_position_m": 0.0,
+            "outside_area_m2": 1.5610981044771144e-05,
+            "center_m": [
+              1.2905241210918201,
+              -12.411006383746125
+            ]
+          }
+        ],
+        "top_jerk_records": [
+          {
+            "vehicle_id": "flow_main.1",
+            "tick": 392,
+            "jerk_mps3": 38.818187663297785,
+            "road": "acceleration",
+            "lane": "acceleration_1",
+            "reported_accel_mps2": -3.8771298920338104,
+            "previous_reported_accel_mps2": 0.004688873738061261,
+            "reported_longitudinal_jerk_mps3": 38.81818765771872
+          },
+          {
+            "vehicle_id": "flow_main.7",
+            "tick": 764,
+            "jerk_mps3": 32.86491548470706,
+            "road": ":merge_end_0",
+            "lane": ":merge_end_0_0",
+            "reported_accel_mps2": -0.009506392113571849,
+            "previous_reported_accel_mps2": -0.009459353876781762,
+            "reported_longitudinal_jerk_mps3": 0.00047038236790086785
+          },
+          {
+            "vehicle_id": "flow_main.2",
+            "tick": 569,
+            "jerk_mps3": 22.1208790179728,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "reported_accel_mps2": -0.2219588329200839,
+            "previous_reported_accel_mps2": -0.25509561191453756,
+            "reported_longitudinal_jerk_mps3": 0.33136778994453664
+          }
+        ],
+        "ramp_exit_lateral_positions": [
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 526,
+            "position_m": -7.06222514216269e-08
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 636,
+            "position_m": -7.06222514216269e-08
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 699,
+            "position_m": -7.06222514216269e-08
+          }
+        ]
+      },
+      {
+        "case_id": "ramp_merge-g01-combined-s20261105",
+        "variant": "combined",
+        "geometry_index": 1,
+        "seed": 20261105,
+        "geometry_id": "sha256:8df92720a76814634167ecc533b5c57956473f504ffd7b5f06d476d4d4ca2889",
+        "frames": 1129,
+        "vehicles": 11,
+        "records": 8965,
+        "simulated_seconds": 112.80000000000001,
+        "collector_seconds": 4.139316699991468,
+        "verified_permission_directions": 3,
+        "policies": {
+          "first_current_id": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 29,
+            "eligible": 29,
+            "eligible_lane_change_windows": 4,
+            "eligible_ramp_exit_windows": 2,
+            "eligible_unique_lane_changes": 4,
+            "eligible_unique_ramp_exits": 2,
+            "raw64_road_rejected_windows": 0,
+            "raw64_route_rejected_windows": 0,
+            "raw64_motion_rejected_windows": 0,
+            "assessed_raw64_max_outside_area_m2": 0.0,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 3
+            }
+          },
+          "interaction_current": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 29,
+            "eligible": 27,
+            "eligible_lane_change_windows": 3,
+            "eligible_ramp_exit_windows": 3,
+            "eligible_unique_lane_changes": 2,
+            "eligible_unique_ramp_exits": 3,
+            "raw64_road_rejected_windows": 0,
+            "raw64_route_rejected_windows": 0,
+            "raw64_motion_rejected_windows": 2,
+            "assessed_raw64_max_outside_area_m2": 0.0,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 3,
+              "raw64:motion": 2,
+              "stored32:motion": 2
+            }
+          }
+        },
+        "raw_jerk_distributions": {
+          "all": {
+            "count": 8932,
+            "mean": 0.05838095165595702,
+            "min": 0.0,
+            "p50": 0.0004747981869870139,
+            "p95": 0.22504677482421567,
+            "p99": 1.0145539203605403,
+            "max": 41.32444743409337
+          },
+          "lane_change_context": {
+            "count": 304,
+            "mean": 0.30101074402741756,
+            "min": 0.00017571760981829283,
+            "p50": 0.0841915367464164,
+            "p95": 1.5432391889290713,
+            "p99": 2.7846458993311645,
+            "max": 3.0239962134920115
+          },
+          "ramp_exit_context": {
+            "count": 273,
+            "mean": 0.24715886903032747,
+            "min": 0.0,
+            "p50": 0.22082395285527767,
+            "p95": 0.6123921136085604,
+            "p99": 1.066155726478748,
+            "max": 1.2391418759327322
+          }
+        },
+        "raw_lane_change_events": 5,
+        "raw_ramp_exit_events": 3,
+        "raw_road_violation_body_frames": 0,
+        "raw_route_violation_body_frames": 0,
+        "raw_max_outside_area_m2": 0.0,
+        "merge_and_downstream_violation_body_frames": 0,
+        "merge_and_downstream_max_outside_area_m2": 0.0,
+        "worst_road_records": [],
+        "top_jerk_records": [
+          {
+            "vehicle_id": "flow_main.5",
+            "tick": 787,
+            "jerk_mps3": 41.32444743409337,
+            "road": "main_out",
+            "lane": "main_out_1",
+            "reported_accel_mps2": -9.715807946619748e-05,
+            "previous_reported_accel_mps2": -9.843814193999378e-05,
+            "reported_longitudinal_jerk_mps3": 1.2800624737963062e-05
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 989,
+            "jerk_mps3": 10.52739901240817,
+            "road": "main_out",
+            "lane": "main_out_0",
+            "reported_accel_mps2": 1.1865623369958023,
+            "previous_reported_accel_mps2": 0.13382243560377205,
+            "reported_longitudinal_jerk_mps3": 10.527399013920302
+          },
+          {
+            "vehicle_id": "flow_main.3",
+            "tick": 646,
+            "jerk_mps3": 9.252570853196154,
+            "road": "acceleration",
+            "lane": "acceleration_1",
+            "reported_accel_mps2": -0.926677657617585,
+            "previous_reported_accel_mps2": -0.0014205724229832128,
+            "reported_longitudinal_jerk_mps3": 9.252570851946018
+          }
+        ],
+        "ramp_exit_lateral_positions": [
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 495,
+            "position_m": -7.06222514216269e-08
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 588,
+            "position_m": -7.06222514216269e-08
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 716,
+            "position_m": -7.06222514216269e-08
+          }
+        ]
+      },
+      {
+        "case_id": "ramp_merge-g01-combined-s20261106",
+        "variant": "combined",
+        "geometry_index": 1,
+        "seed": 20261106,
+        "geometry_id": "sha256:8df92720a76814634167ecc533b5c57956473f504ffd7b5f06d476d4d4ca2889",
+        "frames": 1078,
+        "vehicles": 11,
+        "records": 8424,
+        "simulated_seconds": 107.7,
+        "collector_seconds": 4.052283699973486,
+        "verified_permission_directions": 3,
+        "policies": {
+          "first_current_id": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 25,
+            "eligible": 17,
+            "eligible_lane_change_windows": 2,
+            "eligible_ramp_exit_windows": 0,
+            "eligible_unique_lane_changes": 1,
+            "eligible_unique_ramp_exits": 0,
+            "raw64_road_rejected_windows": 0,
+            "raw64_route_rejected_windows": 0,
+            "raw64_motion_rejected_windows": 2,
+            "assessed_raw64_max_outside_area_m2": 0.0,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 7,
+              "raw64:motion": 2,
+              "stored32:motion": 2,
+              "too_few_agents": 6,
+              "raw64:no_applicable_pairs": 6,
+              "stored32:no_applicable_pairs": 6
+            }
+          },
+          "interaction_current": {
+            "planned": 32,
+            "assessed": 32,
+            "unavailable": 0,
+            "core_complete": 28,
+            "eligible": 26,
+            "eligible_lane_change_windows": 2,
+            "eligible_ramp_exit_windows": 5,
+            "eligible_unique_lane_changes": 1,
+            "eligible_unique_ramp_exits": 3,
+            "raw64_road_rejected_windows": 0,
+            "raw64_route_rejected_windows": 0,
+            "raw64_motion_rejected_windows": 2,
+            "assessed_raw64_max_outside_area_m2": 0.0,
+            "rejection_reasons": {
+              "incomplete_history_or_future": 4,
+              "raw64:motion": 2,
+              "stored32:motion": 2
+            }
+          }
+        },
+        "raw_jerk_distributions": {
+          "all": {
+            "count": 8391,
+            "mean": 0.07571984742398728,
+            "min": 0.0,
+            "p50": 0.002546065878016252,
+            "p95": 0.28629717344311967,
+            "p99": 1.3490406802664292,
+            "max": 39.30519380991163
+          },
+          "lane_change_context": {
+            "count": 427,
+            "mean": 0.35515240170747453,
+            "min": 0.0002550829421124438,
+            "p50": 0.08870604404733486,
+            "p95": 1.5525143037683289,
+            "p99": 2.7904725063307882,
+            "max": 11.658447266010649
+          },
+          "ramp_exit_context": {
+            "count": 273,
+            "mean": 0.23523377769983178,
+            "min": 0.00034791236049589667,
+            "p50": 0.2248911448869329,
+            "p95": 0.5237682401187411,
+            "p99": 1.103431596278774,
+            "max": 1.2060098597551434
+          }
+        },
+        "raw_lane_change_events": 7,
+        "raw_ramp_exit_events": 3,
+        "raw_road_violation_body_frames": 0,
+        "raw_route_violation_body_frames": 0,
+        "raw_max_outside_area_m2": 0.0,
+        "merge_and_downstream_violation_body_frames": 0,
+        "merge_and_downstream_max_outside_area_m2": 0.0,
+        "worst_road_records": [],
+        "top_jerk_records": [
+          {
+            "vehicle_id": "flow_main.1",
+            "tick": 392,
+            "jerk_mps3": 39.30519380991163,
+            "road": "acceleration",
+            "lane": "acceleration_1",
+            "reported_accel_mps2": -3.9258305066884525,
+            "previous_reported_accel_mps2": 0.004688873738061261,
+            "reported_longitudinal_jerk_mps3": 39.30519380426514
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 544,
+            "jerk_mps3": 12.131995192526588,
+            "road": "acceleration",
+            "lane": "acceleration_0",
+            "reported_accel_mps2": -1.1239650180213623,
+            "previous_reported_accel_mps2": 0.08923450064939331,
+            "reported_longitudinal_jerk_mps3": 12.131995186707556
+          },
+          {
+            "vehicle_id": "flow_main.2",
+            "tick": 442,
+            "jerk_mps3": 11.658447266010649,
+            "road": "acceleration",
+            "lane": "acceleration_2",
+            "reported_accel_mps2": -1.1672456784663154,
+            "previous_reported_accel_mps2": 0.0,
+            "reported_longitudinal_jerk_mps3": 11.672456784663154
+          }
+        ],
+        "ramp_exit_lateral_positions": [
+          {
+            "vehicle_id": "flow_ramp.0",
+            "tick": 526,
+            "position_m": -7.06222514216269e-08
+          },
+          {
+            "vehicle_id": "flow_ramp.1",
+            "tick": 636,
+            "position_m": -7.06222514216269e-08
+          },
+          {
+            "vehicle_id": "flow_ramp.2",
+            "tick": 698,
+            "position_m": -7.06222514216269e-08
+          }
+        ]
+      }
+    ],
+    "execution_seconds": 23.413359300000593,
+    "observed_process_rss_max_bytes": 496447488,
+    "optimizer_updates": 0,
+    "validation_episode_arrays_loaded": 0,
+    "test_episode_arrays_loaded": 0
+  },
+  "tests": {
+    "full_suite_passed": 487,
+    "full_suite_seconds": 60.98,
+    "new_cases": 17
+  },
+  "limitations": [
+    "two training geometries and two seeds only; overlapping windows",
+    "normal SUMO traffic cannot establish real-driver realism",
+    "motion and incomplete-label rejects retained; no threshold relaxation",
+    "directional permissions unsupported by existing neural rule features; model input explicitly rejects restricted maps",
+    "formal control training still bounded to 64 updates; no new formal training/test evaluation"
+  ]
+}

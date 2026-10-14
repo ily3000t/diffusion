@@ -76,6 +76,8 @@ class RoadMap:
                     raise ValueError('Invalid declared lane length')
                 if record['zero_geometry_length'] and not record['internal']:
                     raise ValueError('Degenerate external lane')
+                for attribute,field in (("changeLeft","change_left_classes"),("changeRight","change_right_classes")):
+                    if attribute in element.attrib: record[field]=element.get(attribute).split()
                 lanes.append(record)
                 edge_ids[edge.get('id')].append(record['id'])
                 lane_ids[(record['edge_id'], record['index'])] = record['id']

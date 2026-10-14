@@ -62,6 +62,12 @@ def resolve_config(supplied: dict) -> dict:
                                "time_to_teleport": 300.0, "lateral_resolution": 0.0},
                 "validation": {"lane_change_probe": False, "stop_probe": False, "diagnostic_only": False},
                 "runtime": {"sumo_home": None, "client_source": "sumo_home_tools"}}
+    version = supplied.get("schema_version", "sumodiff.scenario.v1")
+    if version == "sumodiff.scenario.v2":
+        if family != "ramp_merge": raise NotImplementedError("Scenario v2 currently supports ramp alignment only")
+        defaults["schema_version"] = version
+        defaults["geometry"] = {**defaults["geometry"], "alignment_length": 0.0}
+        defaults["network"]["protect_acceleration_lane"] = False
     # Routes are an explicit complete active-demand list, not additions to defaults.
     provided = deepcopy(supplied)
     rates = provided.get("traffic", {}).pop("route_rates_per_hour", None)
@@ -70,13 +76,13 @@ def resolve_config(supplied: dict) -> dict:
         if not isinstance(rates, dict) or set(rates) - set(route_names(family)):
             raise ValueError("Traffic demand contains an unknown route")
         config["traffic"]["route_rates_per_hour"] = rates
-    if config["schema_version"] != "sumodiff.scenario.v1":
+    if config["schema_version"] not in ("sumodiff.scenario.v1", "sumodiff.scenario.v2"):
         raise ValueError("Unsupported scenario schema")
     for name, value in config["geometry"].items():
         if name == "segmented_straight":
             if type(value) is not bool: raise ValueError("segmented_straight must be boolean")
-        elif name == "transition_length":
-            positive(value, "geometry.transition_length", allow_zero=True)
+        elif name in ("transition_length", "alignment_length"):
+            positive(value, f"geometry.{name}", allow_zero=True)
         elif name in ("rotation_degrees", "north_skew_degrees"):
             if type(value) not in (int, float) or not math.isfinite(value):
                 raise ValueError(f"Invalid geometry.{name}")
@@ -133,6 +139,14 @@ def resolve_config(supplied: dict) -> dict:
             raise ValueError("Ramp transition extends beyond adjacent edges")
         if config["network"]["output_precision"] < 6:
             raise ValueError("Smooth ramp transition requires at least six output decimals")
+    if config["schema_version"] == "sumodiff.scenario.v2":
+        flag = config["network"]["protect_acceleration_lane"]
+        if type(flag) is not bool: raise ValueError("protect_acceleration_lane must be boolean")
+        alignment = config["geometry"]["alignment_length"]
+        if alignment >= config["geometry"]["approach_length"]/2:
+            raise ValueError("Ramp alignment must be shorter than half the approach")
+        if (flag or alignment) and (not config["geometry"]["transition_length"] or driver["lane_change_model"] != "SL2015"):
+            raise ValueError("Alignment and permissions require the explicit smooth SL2015 ramp")
     if config["simulation"]["dt"] != 0.1 or config["simulation"]["max_seconds"] <= traffic["end_seconds"]:
         raise ValueError("Stage 1 requires dt=0.1 and a clearance limit after demand end")
     for name, value in config["validation"].items():

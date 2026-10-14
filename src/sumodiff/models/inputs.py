@@ -9,6 +9,10 @@ MODEL_FIELDS=BASE_FIELDS|{'map_extent_m','lane_rule_relations','route_lane_featu
 
 def lane_rules(exact):
     """Movement anchors: first via lane, or source when SUMO has no via."""
+    for lane in exact['lanes']:
+        for field in ('change_left_classes','change_right_classes'):
+            if field in lane and not {'passenger','all'}.intersection(lane[field]):
+                raise NotImplementedError('Directional lane-change restrictions require an explicit model rule encoding')
     ids={lane['id']:i for i,lane in enumerate(exact['lanes'])}
     if len(ids)!=len(exact['lanes']):raise ValueError('Duplicate lane IDs')
     links={}

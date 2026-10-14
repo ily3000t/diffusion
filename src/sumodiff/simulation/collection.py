@@ -87,6 +87,7 @@ def collect_episode(output: Path, config: dict, runtime: dict, traci, scene: dic
     tick = 0
     lane_change_requested = False
     actual_runtime = None
+    lane_rule_checks = []
     with (output/"sumo.log").open("w", encoding="utf-8") as log, \
          (output/"frames.jsonl").open("w", encoding="utf-8") as frames, \
          (output/"events.jsonl").open("w", encoding="utf-8") as events:
@@ -103,6 +104,11 @@ def collect_episode(output: Path, config: dict, runtime: dict, traci, scene: dic
                 raise RuntimeError("SUMO step length differs from the effective configuration")
             if connection.vehicle.getIDList():
                 raise RuntimeError("Collector requires an unstepped initial simulation")
+            for rule in scene.get("lane_change_restrictions",[]):
+                allowed = list(connection.lane.getChangePermissions(rule["lane_id"],rule["direction"]))
+                if sorted(allowed)!=sorted(rule["allowed_classes"]):
+                    raise RuntimeError("Runtime lane-change permission differs from compiled network")
+                lane_rule_checks.append(dict(rule,actual_allowed_classes=allowed,verified=True))
             json_line(frames, {"schema_version": "sumodiff.raw.frame.v1", "tick": 0, "time_seconds": 0.0, "vehicles": []})
             counts["frames"] = 1
             initial_loaded = {"loaded": list(connection.simulation.getLoadedIDList())}
@@ -192,7 +198,7 @@ def collect_episode(output: Path, config: dict, runtime: dict, traci, scene: dic
                        "arrived_ids": sorted(lifecycle.arrived), "vehicles": vehicles})
             write_json(output/"process.json", {"runtime": actual_runtime, "returncode": process.returncode if process else None,
                        "complete_episode": complete, "last_tick": tick, "close_errors": close_errors,
-                       "elapsed_seconds": time.perf_counter()-started})
+                       "elapsed_seconds": time.perf_counter()-started,"lane_change_rule_checks":lane_rule_checks})
     if process.returncode != 0 or close_errors:
         raise RuntimeError(f"SUMO process/close failed; see {output/'process.json'}")
     lane_changes = [item.attrib for item in ET.parse(output/"lanechanges.xml").getroot().findall("change")]

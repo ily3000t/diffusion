@@ -87,9 +87,12 @@ def layout(config: dict):
         node("end", length+after, 0)
         edge("main_in", "main_start", "merge_start", 3)
         transition = geometry["transition_length"]
-        ramp_shape = (quintic_points(-before,0,-offset,-3*geometry["lane_width"])
-                      if transition else [(-before,-offset),(-before/2,-offset/2),
-                                          (-25,-geometry["lane_width"]*4),(0,0)])
+        alignment = geometry.get("alignment_length",0.)
+        if transition:
+            ramp_shape = quintic_points(-before,-alignment,-offset,-3*geometry["lane_width"])
+            if alignment: ramp_shape.append((0.,-3*geometry["lane_width"]))
+        else:
+            ramp_shape = [(-before,-offset),(-before/2,-offset/2),(-25,-geometry["lane_width"]*4),(0,0)]
         edge("ramp_in", "ramp_start", "merge_start", 1, 1, ramp_shape)
         edge("acceleration", "merge_start", "merge_end", 4)
         edge("main_out", "merge_end", "end", 3)
@@ -109,6 +112,14 @@ def layout(config: dict):
                 i,j = int(link["fromLane"]),int(link["toLane"])
                 curve = quintic_points(lo,hi,-(3.5-i)*width,-(2.5-j)*width)
                 link["shape"] = " ".join(f"{x:.8f},{y:.8f}" for x,y in map(lambda p:point(*p),curve))
+        if config["network"].get("protect_acceleration_lane",False):
+            # A physical marking protects the entry lane. Only the converging
+            # internal pair is restricted; all other legal lane changes remain.
+            next(e for e in edges if e["id"]=="acceleration")["lanes"] = [{"index":"1","changeRight":"emergency"}]
+            for link in connections:
+                if link["from"]=="acceleration" and link["to"]=="main_out":
+                    if link["fromLane"]=="0": link["changeLeft"]="emergency"
+                    if link["fromLane"]=="1": link["changeRight"]="emergency"
         routes = {"main": {"edges": ["main_in", "acceleration", "main_out"], "movement": "straight"},
                   "ramp": {"edges": ["ramp_in", "acceleration", "main_out"], "movement": "merge"}}
     else:
@@ -149,7 +160,8 @@ def build_scene(output: Path, config: dict, runtime: dict, seed: int) -> dict:
                                           ("connections.con.xml", "connections", links, "connection")]:
         document = ET.Element(tag)
         for record in records:
-            ET.SubElement(document, child_tag, record)
+            element = ET.SubElement(document, child_tag, {k:v for k,v in record.items() if k!="lanes"})
+            for lane in record.get("lanes",[]): ET.SubElement(element,"lane",lane)
         write_xml(document, output/name)
     command = [runtime["netconvert"]["path"], "--node-files", str(output/"nodes.nod.xml"),
                "--edge-files", str(output/"edges.edg.xml"), "--connection-files", str(output/"connections.con.xml"),
@@ -171,6 +183,19 @@ def build_scene(output: Path, config: dict, runtime: dict, seed: int) -> dict:
     for name, route in routes.items():
         if not all(pair in connected for pair in zip(route["edges"], route["edges"][1:])):
             raise RuntimeError(f"Compiled route is disconnected: {name}")
+    restrictions = []
+    if config["network"].get("protect_acceleration_lane",False):
+        by_id = {lane.get("id"):lane for edge in network.findall("edge") for lane in edge.findall("lane")}
+        expected = [("acceleration_1","changeRight",-1)]
+        for index,attribute,direction in [(0,"changeLeft",1),(1,"changeRight",-1)]:
+            link = next(c for c in network.findall("connection") if c.get("from")=="acceleration"
+                        and c.get("fromLane")==str(index) and c.get("to")=="main_out")
+            expected.append((link.get("via"),attribute,direction))
+        for lid,attribute,direction in expected:
+            classes = by_id[lid].get(attribute)
+            if classes is None or classes.split()!=["emergency"]:
+                raise RuntimeError("Compiled lane-change permission missing or changed: "+str(lid))
+            restrictions.append(dict(lane_id=lid,direction=direction,allowed_classes=classes.split()))
     demand = ET.Element("routes")
     vehicle_type = {"id": "passenger", "vClass": "passenger", "carFollowModel": config["driver"]["car_follow_model"], "laneChangeModel": config["driver"]["lane_change_model"],
                     "maxSpeed": str(config["geometry"]["speed_limit"])}
@@ -208,5 +233,6 @@ def build_scene(output: Path, config: dict, runtime: dict, seed: int) -> dict:
                 "files": [file_identity(output/name) for name in ("nodes.nod.xml", "edges.edg.xml", "connections.con.xml",
                                                                     "network.net.xml", "demand.rou.xml", "episode.sumocfg")],
                 "netconvert_returncode": result.returncode, "netconvert_argv": command, "seed": seed}
+    if restrictions: identity["lane_change_restrictions"] = restrictions
     (output/"scene.json").write_text(json.dumps(identity, indent=2)+"\n", encoding="utf-8")
     return identity

@@ -26,6 +26,8 @@ def read(path):
 
 def protocol(path):
     c=load_config(path)
+    if c.get('schema_version')=='sumodiff.ramp.alignment.pilot.config.v1':
+        return ramp_protocol(c)
     keys={'schema_version','base_plan','seeds','demand_seconds','max_episode_seconds','audit_reference_limit',
           'lateral_accel_mps2','lateral_speed_mps','transition_length_m','eidm_jerkmax_mps3'}
     if set(c)!=keys or c['schema_version']!='sumodiff.source.motion.pilot.config.v1':
@@ -45,7 +47,52 @@ def protocol(path):
     return c,base
 
 
+def ramp_protocol(c):
+    keys={'schema_version','base_plan','seeds','demand_seconds','max_episode_seconds','train_geometry_indices',
+          'lateral_accel_mps2','lateral_speed_mps','transition_length_m','alignment_length_m','reference_ticks'}
+    if set(c)!=keys or c['train_geometry_indices']!=[0,1] or any(type(i) is not int for i in c['train_geometry_indices']):
+        raise ValueError('Ramp pilot requires exactly training geometry indices 0 and 1')
+    expected=[30+30*k for k in range(32)]
+    if c['reference_ticks']!=expected or any(type(t) is not int for t in c['reference_ticks']):
+        raise ValueError('Ramp pilot requires its fixed 32 current reference times')
+    if c['seeds']!=[20261105,20261106] or any(type(s) is not int for s in c['seeds']):
+        raise ValueError('Ramp source comparison seeds are frozen')
+    for key,value in dict(demand_seconds=30.,max_episode_seconds=240.,lateral_accel_mps2=.3,
+                          lateral_speed_mps=.8,transition_length_m=80.,alignment_length_m=10.).items():
+        if type(c[key]) not in (int,float) or c[key]!=value:
+            raise ValueError('Ramp source protocol value changed: '+key)
+    base=resolve_plan(load_config(c['base_plan']))
+    if base['schema_version']!='sumodiff.stage5a.config.v2' or base['train_geometries']<2:
+        raise ValueError('Require two training-owned source geometries')
+    return c,base
+
+
+def ramp_cases(c,base):
+    cases=[]
+    for index in c['train_geometry_indices']:
+        original=scenario(base,'ramp_merge','train',index,0,pilot=True)
+        original['schema_version']='sumodiff.scenario.v2'
+        original['geometry'].update(transition_length=c['transition_length_m'],alignment_length=0.)
+        original['network']['protect_acceleration_lane']=False
+        original['driver'].update(lane_change_model='SL2015',lcAccelLat=c['lateral_accel_mps2'],maxSpeedLat=c['lateral_speed_mps'])
+        original['simulation'].update(lane_change_duration=0.,lateral_resolution=original['geometry']['lane_width']/4,
+                                      max_seconds=c['max_episode_seconds'])
+        original['traffic']['end_seconds']=c['demand_seconds']
+        variants=['control','permissions','alignment','combined'] if index==0 else ['control','combined']
+        for variant in variants:
+            config=deepcopy(original)
+            if variant in ('permissions','combined'):config['network']['protect_acceleration_lane']=True
+            if variant in ('alignment','combined'):config['geometry']['alignment_length']=c['alignment_length_m']
+            config=resolve_config(config)
+            for seed in c['seeds']:
+                cases.append(dict(case_id=f'ramp_merge-g{index:02d}-{variant}-s{seed}',family='ramp_merge',
+                    variant=variant,seed=seed,split='train',training_geometry_index=index,scenario=config))
+    if len(cases)!=12:raise ValueError('Ramp comparison must contain exactly 12 cases')
+    return cases
+
+
 def make_cases(c,base):
+    if c['schema_version']=='sumodiff.ramp.alignment.pilot.config.v1':return ramp_cases(c,base)
     cases=[]
     for family in FAMILIES:
         index=6 if family=='unsignalized_intersection' else 0
@@ -98,10 +145,15 @@ def collect(config_path,output,formal):
                 elapsed_seconds=time.perf_counter()-start,quality=q.get('normal_traffic_quality_pass')))
             write_json(run.output/'collection_results.json',dict(cases=results,planned_cases=len(cases)))
             print(f"Source pilot {i+1}/{len(cases)} {case['case_id']} code={returncode}",flush=True)
-        metrics=dict(planned_cases=14,completed_cases=sum(r['completed'] for r in results),
+        metrics=dict(planned_cases=len(cases),completed_cases=sum(r['completed'] for r in results),
                      normal_eligible_cases=sum(r['eligible_for_normal_training'] for r in results),optimizer_updates=0)
         run.write_metrics(metrics)
     return metrics
+
+
+def build_reference(ep,tick,road,config):
+    if tick>=len(ep.frames):return None,'outside_episode'
+    return build_window(ep,tick,road,config)
 
 
 def selected_ticks(ep,config,limit):
@@ -179,6 +231,10 @@ def audit(config_path,collection,output,formal):
     effective=dict(schema_version='sumodiff.source.motion.audit.run.v1',protocol=c,collection=file_identity(collection/'collection_results.json'),
         policies=['first_current_id','interaction_current'],reference_times='at most 32 evenly spaced active ticks with current >=2 cars',
         quality=base['evaluation'],scope='train pilot only; unassessed quality is unknown',optimizer_updates=0)
+    fixed_ticks=c.get('reference_ticks')
+    if fixed_ticks is not None:
+        effective['reference_times']='fixed ticks 30..960 every 30; unavailable windows retained in planned denominator'
+        effective['planned_reference_ticks']=fixed_ticks
     start=time.perf_counter()
     with RunRecorder(output,Path.cwd(),effective,[sys.executable,*sys.orig_argv[1:]],{'audit':c['seeds'][0]},
         purpose='source_motion_fixed_quality_audit',data_files=sorted(set(map(str,files))),formal=formal) as run:
@@ -187,6 +243,13 @@ def audit(config_path,collection,output,formal):
             if not rec['completed'] or not rec['eligible_for_normal_training']:
                 results.append(dict(case_id=rec['case_id'],status='failed',reason='collection_failed_or_normal_ineligible',
                                     family=rec['family'],variant=rec['variant'],seed=rec['seed']))
+                if fixed_ticks is not None:
+                    for policy in effective['policies']:
+                        for tick in fixed_ticks:
+                            windows.append(dict(case_id=rec['case_id'],policy=policy,reference_tick=tick,
+                                quality_status='unavailable',eligible=False,core_complete=False,
+                                reasons=['collection_failed_or_normal_ineligible'],agent_ids=[],motion_flags=None,
+                                variant=rec['variant'],seed=rec['seed']))
                 continue
             child=Path(rec['episode_manifest']).parent
             cm=read(child/'manifest.json');cc=load_config(child/'resolved_config.yaml')
@@ -206,7 +269,7 @@ def audit(config_path,collection,output,formal):
             tracks,_=raw_tracks(Path(rec['episode_manifest']).parent/'frames.jsonl')
             events=lane_changes(Path(rec['episode_manifest']).parent/'lanechanges.xml')
             merge={v:ramp_exit_events(t) for v,t in tracks.items()}
-            common=selected_ticks(ep,base['window'],c['audit_reference_limit'])
+            common=fixed_ticks if fixed_ticks is not None else selected_ticks(ep,base['window'],c['audit_reference_limit'])
             per_policy={}
             for policy in effective['policies']:
                 wc=dict(base['window'],reference_policy=policy)
@@ -219,8 +282,15 @@ def audit(config_path,collection,output,formal):
                     raw_counts['windows']+=1;raw_counts.update({k+'_windows':int(v) for k,v in flags.items()})
                     covered_lc.update(lc);covered_merge.update(me)
                 for t in common:
-                    window,reason=build_window(ep,t,road,wc)
-                    if reason:raise ValueError('Preplanned current reference disappeared: '+reason)
+                    if fixed_ticks is not None: counts['planned_windows']+=1
+                    window,reason=build_reference(ep,t,road,wc)
+                    if reason:
+                        if fixed_ticks is None:raise ValueError('Preplanned current reference disappeared: '+reason)
+                        counts['unavailable_windows']+=1;reject.update([reason])
+                        windows.append(dict(case_id=rec['case_id'],policy=policy,reference_tick=t,
+                            quality_status='unavailable',eligible=False,core_complete=False,reasons=[reason],
+                            agent_ids=[],motion_flags=None,variant=rec['variant'],seed=rec['seed']))
+                        continue
                     row=audit_window(window,ep,road,base)
                     ids=[v for v in window.input_metadata['agent_ids'] if v is not None]
                     flags,lc,me=flags_for(tracks,events,merge,ids,t)
@@ -243,15 +313,20 @@ def audit(config_path,collection,output,formal):
                 normal_traffic_quality_pass=True,policies=per_policy,raw=raw_motion_summary(tracks,events,merge,road,rec['family']))
             results.append(result)
             write_json(run.output/'results_partial.json',dict(cases=results))
-            print(f"Source audit {i+1}/14 {rec['case_id']} assessed={len(common)*2}",flush=True)
+            print(f"Source audit {i+1}/{len(cases)} {rec['case_id']} planned={len(common)*2}",flush=True)
         with (run.output/'window_quality.jsonl').open('w',encoding='utf-8',newline='\n') as f:
             for row in windows:f.write(json.dumps(row,allow_nan=False)+'\n')
         result=dict(schema_version='sumodiff.source.motion.pilot.results.v1',run_sha=run.manifest['git']['commit_sha'],
-            planned_cases=14,completed_cases=sum(r['status']=='completed' for r in results),
+            planned_cases=len(cases),completed_cases=sum(r['status']=='completed' for r in results),
             failed_cases=sum(r['status']!='completed' for r in results),cases=results,
             quality_assessed_windows=len(windows),elapsed_seconds=time.perf_counter()-start,
             optimizer_updates=0,validation_episode_arrays_loaded=0,test_episode_arrays_loaded=0,
             quality_thresholds_unchanged=True,formal_dataset_modified=False)
+        if fixed_ticks is not None:
+            result['quality_planned_windows']=len(cases)*len(fixed_ticks)*len(effective['policies'])
+            if len(windows)!=result['quality_planned_windows']:raise ValueError('Planned quality denominator mismatch')
+            result['quality_assessed_windows']=sum(p['assessed_quality'].get('assessed_windows',0) for row in results if row['status']=='completed' for p in row['policies'].values())
+            result['quality_unavailable_windows']=len(windows)-result['quality_assessed_windows']
         write_json(run.output/'results.json',result);run.write_metrics(result)
     return result
 

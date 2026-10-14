@@ -1,0 +1,11 @@
+schema_version: sumodiff.ramp.alignment.pilot.config.v1
+base_plan: configs/experiments/stage5a.yaml
+seeds: [20261105, 20261106]
+demand_seconds: 30.0
+max_episode_seconds: 240.0
+train_geometry_indices: [0, 1]
+lateral_accel_mps2: 0.3
+lateral_speed_mps: 0.8
+transition_length_m: 80.0
+alignment_length_m: 10.0
+reference_ticks: [30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360, 390, 420, 450, 480, 510, 540, 570, 600, 630, 660, 690, 720, 750, 780, 810, 840, 870, 900, 930, 960]
