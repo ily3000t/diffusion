@@ -181,3 +181,8 @@ Set-Location E:\diffusion_new
 ## 汇入出口权限与入口对齐
 
 已完成12回合、768固定时刻/策略窗口对照及原始复核。组合方案在两个训练几何中消除了本次道路/路线越界；交互参考合格窗39/64→47/64、41/64→53/64，原始匝道退出保持，运动超限仍保留。487项全量测试通过。见[结果](docs/ramp_alignment_results.md)、[数值与来源](docs/ramp_alignment_results.json)及[协议](docs/ramp_alignment_pilot.md)。精确地图已保留方向权限；当前神经特征尚未编码，受限地图输入明确拒绝。下一步先扩展规则编码，再冻结新数据与正式训练协议。
+
+
+## 方向换道权限模型条件
+
+已补齐左右乘用车权限条件，使用新控制架构model.control.config.v2，原训练/控制校准/基础采样入口已接入。506项测试及真实训练地图GPU检查通过；旧六维200轮和旧三维16步模型仍可严格加载，跨版本恢复明确拒绝。见[验收报告](docs/directional_conditioning_results.md)、[来源摘要](docs/directional_conditioning_results.json)及[接口与命令](docs/directional_conditioning.md)。本轮未训练新模型；下一步冻结参考混合和唯一运动事件配额，准备新数据版本。

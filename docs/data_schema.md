@@ -307,3 +307,12 @@ scenario.v2仅用于ramp_merge，新增geometry.alignment_length（默认0）及
 ramp.alignment.pilot.config.v1固定12训练专用回合、两训练几何、两种子及32个tick=30..960每30一次；复用source_motion_pilot collect/audit入口。quality_planned_windows为12×32×2=768，即使子回合失败也逐时刻保留unavailable记录；无当前车辆、超出回合不重新选时刻，motion_flags=null，不能当作静止或质量通过。assessed表示可构造窗口，core_complete及实际raw64评估另计；其他全部候选详细质量保持unknown。
 
 ramp.alignment.review.results.v1保存全部原始世界车身/差分复算、旧对照逐字节复现、768记录聚合和12完整引擎代表重放。summary.v1保存小型聚合及实际运行SHA/关键身份，figures.v1只记录图输入及输出。原window/dataset/checkpoint与质量阈值均未切换。
+
+
+## 方向换道权限模型条件合同（2026-10-14）
+
+sumodiff.model.control.config.v2新增运行时lane_change_permissions[B,L,2] bool，顺序左/右，方向沿SUMO行驶方向定义。来源为exact_map.lanes的change_left_classes/change_right_classes；缺少类别限制表示乘用车允许，显式passenger/all为true，其他类别及空列表为false。填充或无有效折线点的token无法传播该值。字段表示类别许可，不编码邻车可用性、动态安全或未来换道动作。
+
+prepare_conditioning通过显式config选择合同，输入window及collate原字段不变，新增条件仅在模型适配时构造，不读取targets/labels。控制v2必须含该字段，旧model.config.v1及control.config.v1不得含新增模型字段，遇到受限地图继续拒绝；旧to_dict不增加能力键。新MLP权重命名condition_encoder.encoders.lanes.permissions.{0,2}.{weight,bias}，宽度由condition_dimension决定。base.checkpoint.v1外层保持，model schema进入原训练签名，读取时验证这些权重的存在性/形状，restore在权重/优化器修改前检查目标架构。
+
+directional.conditioning.probe.v1固定5训练回合前缀、t0=300、B5真实输入和B4/12槽位合成负载；正式运行记录source SHA、实际配置/命令/环境/种子及106输入身份，stored_label_arrays_loaded=0。results.v1保存形状、有限梯度、重排、填充、权限敏感性、旧checkpoint加载和计算成本；不保存质量改善结论。review.results.v1直接从编译XML核验并以相同种子CPU重放GPU输出；summary.v1保留小型结果与关键来源身份。原控制扩散/训练目标、64更新限制和test封存合同不变。

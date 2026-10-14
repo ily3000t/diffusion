@@ -1,0 +1,505 @@
+{
+  "schema_version": "sumodiff.directional.conditioning.summary.v1",
+  "runs": {
+    "gpu": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\directional-conditioning-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "bf74057839d7891986cf52bfb371ea5ee302b8b1",
+        "branch": "feat/directional-lane-conditioning",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "formal": true,
+      "state": "completed",
+      "input_identities": 106,
+      "recorded_execution_seconds": 12.889237,
+      "critical_files": [
+        {
+          "id": "sha256:273b20ecc03137d6827f513ad38578b6f6e20186d579e61f90682f2053de3788",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\directional-conditioning-20261014-r1\\manifest.json",
+          "sha256": "273b20ecc03137d6827f513ad38578b6f6e20186d579e61f90682f2053de3788",
+          "size_bytes": 40837
+        },
+        {
+          "id": "sha256:9a86ea7e78885961595cc72d4f7e57579e9cc225fd0917846e700ea9442cceac",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\directional-conditioning-20261014-r1\\status.json",
+          "sha256": "9a86ea7e78885961595cc72d4f7e57579e9cc225fd0917846e700ea9442cceac",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:3c61f87909d27a7a43de0a043e8bac7b6df8ff8ac1c3fd5939004cbfc86e2fe4",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\directional-conditioning-20261014-r1\\resolved_config.yaml",
+          "sha256": "3c61f87909d27a7a43de0a043e8bac7b6df8ff8ac1c3fd5939004cbfc86e2fe4",
+          "size_bytes": 2577
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\directional-conditioning-20261014-r1\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:91c96170f964a3e4250be717a19f0c1e5eefb52f4b124dd056307bec1657ac86",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\directional-conditioning-20261014-r1\\command.txt",
+          "sha256": "91c96170f964a3e4250be717a19f0c1e5eefb52f4b124dd056307bec1657ac86",
+          "size_bytes": 228
+        },
+        {
+          "id": "sha256:ef162e366683a5d20c18366592e370ef2029503651c5f281bccb6e33845d440a",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\directional-conditioning-20261014-r1\\metrics.json",
+          "sha256": "ef162e366683a5d20c18366592e370ef2029503651c5f281bccb6e33845d440a",
+          "size_bytes": 9478
+        },
+        {
+          "id": "sha256:e2282891c97c5e9e4bd60cfa19eac1f562d72c5fe44025f43b0b628542e8eb17",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\directional-conditioning-20261014-r1\\results.json",
+          "sha256": "e2282891c97c5e9e4bd60cfa19eac1f562d72c5fe44025f43b0b628542e8eb17",
+          "size_bytes": 9787
+        },
+        {
+          "id": "sha256:70be4bbc27e3fd3e5d14deba17b35aab58ec86072b3fbba6988e992cfc3d11d5",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\directional-conditioning-20261014-r1\\untrained_outputs.npz",
+          "sha256": "70be4bbc27e3fd3e5d14deba17b35aab58ec86072b3fbba6988e992cfc3d11d5",
+          "size_bytes": 51654
+        }
+      ]
+    },
+    "review": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\directional-conditioning-review-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "bf74057839d7891986cf52bfb371ea5ee302b8b1",
+        "branch": "feat/directional-lane-conditioning",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "formal": true,
+      "state": "completed",
+      "input_identities": 115,
+      "recorded_execution_seconds": 2.951915,
+      "critical_files": [
+        {
+          "id": "sha256:daa9e11e1b1422b2d58b56454318a4958cdd270f2c88b5de572580ea47e7fee9",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\directional-conditioning-review-20261014-r1\\manifest.json",
+          "sha256": "daa9e11e1b1422b2d58b56454318a4958cdd270f2c88b5de572580ea47e7fee9",
+          "size_bytes": 43569
+        },
+        {
+          "id": "sha256:73af0825cf0f27239ddb02ea846e101026a42b6797bc6862a6bd80e87d6f6205",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\directional-conditioning-review-20261014-r1\\status.json",
+          "sha256": "73af0825cf0f27239ddb02ea846e101026a42b6797bc6862a6bd80e87d6f6205",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:0355e43a5ca3c9aa3805e057d73ccf5aa2c184c01dc375879a642d68021b50dd",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\directional-conditioning-review-20261014-r1\\resolved_config.yaml",
+          "sha256": "0355e43a5ca3c9aa3805e057d73ccf5aa2c184c01dc375879a642d68021b50dd",
+          "size_bytes": 431
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\directional-conditioning-review-20261014-r1\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:71e4ed9e184e37d57a44f238144aae3fdb0b215656752904ddc58e7fceba3938",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\directional-conditioning-review-20261014-r1\\command.txt",
+          "sha256": "71e4ed9e184e37d57a44f238144aae3fdb0b215656752904ddc58e7fceba3938",
+          "size_bytes": 131
+        },
+        {
+          "id": "sha256:c4f38a63217720a9e01c8dd5b320657b2e3fd351fcde3575fd17988732e88d80",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\directional-conditioning-review-20261014-r1\\metrics.json",
+          "sha256": "c4f38a63217720a9e01c8dd5b320657b2e3fd351fcde3575fd17988732e88d80",
+          "size_bytes": 1639
+        },
+        {
+          "id": "sha256:bef100ca9926a69c9ef8b0d3f448e828fb0faf2135f7509712ad854eeaf3fa34",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\directional-conditioning-review-20261014-r1\\review.json",
+          "sha256": "bef100ca9926a69c9ef8b0d3f448e828fb0faf2135f7509712ad854eeaf3fa34",
+          "size_bytes": 1696
+        }
+      ]
+    }
+  },
+  "gpu_results": {
+    "schema_version": "sumodiff.directional.conditioning.results.v1",
+    "run_sha": "bf74057839d7891986cf52bfb371ea5ee302b8b1",
+    "model_config": {
+      "schema_version": "sumodiff.model.control.config.v2",
+      "condition_dimension": 128,
+      "attention_heads": 4,
+      "fusion_layers_per_stage": 1,
+      "fusion": "hierarchical",
+      "history_points": 21,
+      "future_points": 40,
+      "state_dimension": 3,
+      "max_agents": 12,
+      "raster_size": 256,
+      "polyline_points": 64,
+      "unet_channels": [
+        64,
+        128,
+        256
+      ],
+      "raster_channels": [
+        16,
+        32,
+        64,
+        128,
+        128
+      ],
+      "temporal_upsampling": "nearest_repeat",
+      "diffusion_embedding_steps": 1000,
+      "condition_position_unit_m": 50.0,
+      "condition_velocity_unit_mps": 20.0,
+      "condition_length_unit_m": 10.0,
+      "condition_width_unit_m": 5.0,
+      "condition_priority_unit": 3.0,
+      "attack_role_embedding": false,
+      "cfg": false,
+      "partial_diffusion": false,
+      "rolling_generation": false
+    },
+    "source_sha": "f44da9ca0dd3427423ac3a8860c80791e681d27c",
+    "input_checks": [
+      {
+        "case_id": "ramp_merge-g00-combined-s20261105",
+        "episode_manifest": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-collect-20261014-r1\\episodes\\ramp_merge-g00-combined-s20261105\\episode_manifest.json",
+        "reference_tick": 300,
+        "split": "train",
+        "active_agents": 2,
+        "lanes": 19,
+        "restricted_directions": 3,
+        "legacy_rejected": true,
+        "future_observations_available": false
+      },
+      {
+        "case_id": "ramp_merge-g00-combined-s20261106",
+        "episode_manifest": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-collect-20261014-r1\\episodes\\ramp_merge-g00-combined-s20261106\\episode_manifest.json",
+        "reference_tick": 300,
+        "split": "train",
+        "active_agents": 3,
+        "lanes": 19,
+        "restricted_directions": 3,
+        "legacy_rejected": true,
+        "future_observations_available": false
+      },
+      {
+        "case_id": "ramp_merge-g01-combined-s20261105",
+        "episode_manifest": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-collect-20261014-r1\\episodes\\ramp_merge-g01-combined-s20261105\\episode_manifest.json",
+        "reference_tick": 300,
+        "split": "train",
+        "active_agents": 2,
+        "lanes": 19,
+        "restricted_directions": 3,
+        "legacy_rejected": true,
+        "future_observations_available": false
+      },
+      {
+        "case_id": "ramp_merge-g01-combined-s20261106",
+        "episode_manifest": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-collect-20261014-r1\\episodes\\ramp_merge-g01-combined-s20261106\\episode_manifest.json",
+        "reference_tick": 300,
+        "split": "train",
+        "active_agents": 3,
+        "lanes": 19,
+        "restricted_directions": 3,
+        "legacy_rejected": true,
+        "future_observations_available": false
+      },
+      {
+        "case_id": "ramp_merge-g00-control-s20261105",
+        "episode_manifest": "E:\\diffusion_new\\artifacts\\runs\\ramp-alignment-collect-20261014-r1\\episodes\\ramp_merge-g00-control-s20261105\\episode_manifest.json",
+        "reference_tick": 300,
+        "split": "train",
+        "active_agents": 2,
+        "lanes": 19,
+        "restricted_directions": 0,
+        "legacy_rejected": false,
+        "future_observations_available": false
+      }
+    ],
+    "legacy_checkpoints": [
+      {
+        "checkpoint": {
+          "id": "sha256:e6f20667eb3cd943cd02aadb38d9342f500afac98469e988f0e59135ffb1daaf",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-fresh-recovery1-resume\\checkpoint_step_075000.pt",
+          "sha256": "e6f20667eb3cd943cd02aadb38d9342f500afac98469e988f0e59135ffb1daaf",
+          "size_bytes": 41742058
+        },
+        "schema": "sumodiff.model.config.v1",
+        "step": 75000,
+        "strict_load": true,
+        "weights_bit_identical": true,
+        "finite_forward": true,
+        "prediction_shape": [
+          1,
+          12,
+          40,
+          6
+        ],
+        "cross_version_resume_rejected": true
+      },
+      {
+        "checkpoint": {
+          "id": "sha256:96f0ade8d020b1a168acb4778c7efa9e31d0dc4cb82cc430fd28c236fca4770c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\control-short-full-20261014-r1\\checkpoint_step_000016.pt",
+          "sha256": "96f0ade8d020b1a168acb4778c7efa9e31d0dc4cb82cc430fd28c236fca4770c",
+          "size_bytes": 41204906
+        },
+        "schema": "sumodiff.model.control.config.v1",
+        "step": 16,
+        "strict_load": true,
+        "weights_bit_identical": true,
+        "finite_forward": true,
+        "prediction_shape": [
+          1,
+          12,
+          40,
+          3
+        ],
+        "cross_version_resume_rejected": true
+      }
+    ],
+    "structural": {
+      "hierarchical": {
+        "vehicle_permutation_max_abs_error": 1.1920928955078125e-06,
+        "condition_permutation_max_abs_error": 9.5367431640625e-07,
+        "masked_payload_max_abs_error": 0.0,
+        "all_parameter_gradients_finite": true,
+        "padding_gradient_zero": true,
+        "pred_noise_shape": [
+          5,
+          12,
+          40,
+          3
+        ],
+        "condition_shape": [
+          5,
+          12,
+          128
+        ]
+      },
+      "parallel": {
+        "vehicle_permutation_max_abs_error": 1.296401023864746e-06,
+        "condition_permutation_max_abs_error": 9.5367431640625e-07,
+        "masked_payload_max_abs_error": 0.0,
+        "all_parameter_gradients_finite": true,
+        "padding_gradient_zero": true,
+        "pred_noise_shape": [
+          5,
+          12,
+          40,
+          3
+        ],
+        "condition_shape": [
+          5,
+          12,
+          128
+        ]
+      },
+      "same_parameter_fusion_output_difference_max": 0.2367504984140396
+    },
+    "permission_flip_prediction_max_abs_difference": 0.06505455076694489,
+    "lane_permutation_max_abs_error": 1.1920928955078125e-06,
+    "parameters_unchanged": true,
+    "parameter_sha256": "a56975bd4c03e668f162ec1f690d3f09c2cc89686bbf6807616f817e57af496d",
+    "parameter_count": 3429974,
+    "resource_cases": [
+      {
+        "status": "completed",
+        "fusion": "hierarchical",
+        "batch_size": 5,
+        "agent_slots": 12,
+        "active_agents_per_scene": [
+          2,
+          3,
+          2,
+          3,
+          2
+        ],
+        "map_lanes": [
+          19,
+          19,
+          19,
+          19,
+          19
+        ],
+        "input_dtype": "torch.float32",
+        "forward_mean_seconds": 0.28402535000350326,
+        "forward_backward_mean_seconds": 0.31092555000213906,
+        "measured_iterations": 2,
+        "warmup_iterations": 1,
+        "peak_allocated_bytes": 188237824,
+        "peak_reserved_bytes": 216006656,
+        "scope": "full network, input and parameter gradients; no optimizer states, data loader, diffusion, decoder or training",
+        "input_kind": "five_observed_train_windows"
+      },
+      {
+        "status": "completed",
+        "fusion": "parallel",
+        "batch_size": 5,
+        "agent_slots": 12,
+        "active_agents_per_scene": [
+          2,
+          3,
+          2,
+          3,
+          2
+        ],
+        "map_lanes": [
+          19,
+          19,
+          19,
+          19,
+          19
+        ],
+        "input_dtype": "torch.float32",
+        "forward_mean_seconds": 0.26049179999972694,
+        "forward_backward_mean_seconds": 0.3036984499776736,
+        "measured_iterations": 2,
+        "warmup_iterations": 1,
+        "peak_allocated_bytes": 188237824,
+        "peak_reserved_bytes": 216006656,
+        "scope": "full network, input and parameter gradients; no optimizer states, data loader, diffusion, decoder or training",
+        "input_kind": "five_observed_train_windows"
+      },
+      {
+        "status": "completed",
+        "fusion": "hierarchical",
+        "batch_size": 4,
+        "agent_slots": 12,
+        "active_agents_per_scene": [
+          12,
+          12,
+          12,
+          12
+        ],
+        "map_lanes": [
+          19,
+          19,
+          19,
+          19
+        ],
+        "input_dtype": "torch.float32",
+        "forward_mean_seconds": 0.1921287500008475,
+        "forward_backward_mean_seconds": 0.2373803500086069,
+        "measured_iterations": 2,
+        "warmup_iterations": 1,
+        "peak_allocated_bytes": 252232704,
+        "peak_reserved_bytes": 329252864,
+        "scope": "full network, input and parameter gradients; no optimizer states, data loader, diffusion, decoder or training",
+        "input_kind": "synthetic_full_capacity_b4"
+      },
+      {
+        "status": "completed",
+        "fusion": "parallel",
+        "batch_size": 4,
+        "agent_slots": 12,
+        "active_agents_per_scene": [
+          12,
+          12,
+          12,
+          12
+        ],
+        "map_lanes": [
+          19,
+          19,
+          19,
+          19
+        ],
+        "input_dtype": "torch.float32",
+        "forward_mean_seconds": 0.1907216499967035,
+        "forward_backward_mean_seconds": 0.22354514998733066,
+        "measured_iterations": 2,
+        "warmup_iterations": 1,
+        "peak_allocated_bytes": 252232704,
+        "peak_reserved_bytes": 329252864,
+        "scope": "full network, input and parameter gradients; no optimizer states, data loader, diffusion, decoder or training",
+        "input_kind": "synthetic_full_capacity_b4"
+      }
+    ],
+    "optimizer_updates": 0,
+    "stored_label_arrays_loaded": 0,
+    "validation_episode_arrays_loaded": 0,
+    "test_episode_arrays_loaded": 0,
+    "elapsed_seconds": 12.879062100022566,
+    "quality_evaluation_performed": false,
+    "limitations": [
+      "random noise predictor; sensitivity is not learned compliance or quality",
+      "synthetic capacity is a resource load, not a 12-car SUMO sample",
+      "forward/backward memory excludes optimizer states; not formal training throughput"
+    ]
+  },
+  "independent_review": {
+    "schema_version": "sumodiff.directional.conditioning.review.results.v1",
+    "run_sha": "bf74057839d7891986cf52bfb371ea5ee302b8b1",
+    "source_sha": "bf74057839d7891986cf52bfb371ea5ee302b8b1",
+    "authenticated_primary_inputs": 106,
+    "xml_checks": [
+      {
+        "case_id": "ramp_merge-g00-combined-s20261105",
+        "lane_count": 19,
+        "restricted_directions": 3,
+        "xml_adapter_exact": true
+      },
+      {
+        "case_id": "ramp_merge-g00-combined-s20261106",
+        "lane_count": 19,
+        "restricted_directions": 3,
+        "xml_adapter_exact": true
+      },
+      {
+        "case_id": "ramp_merge-g01-combined-s20261105",
+        "lane_count": 19,
+        "restricted_directions": 3,
+        "xml_adapter_exact": true
+      },
+      {
+        "case_id": "ramp_merge-g01-combined-s20261106",
+        "lane_count": 19,
+        "restricted_directions": 3,
+        "xml_adapter_exact": true
+      },
+      {
+        "case_id": "ramp_merge-g00-control-s20261105",
+        "lane_count": 19,
+        "restricted_directions": 0,
+        "xml_adapter_exact": true
+      }
+    ],
+    "legacy_checkpoint_identities_verified": 2,
+    "cpu_gpu_replay_max_abs_errors": {
+      "hierarchical": {
+        "pred_noise": 1.9818544387817383e-06,
+        "condition": 2.1457672119140625e-06,
+        "gates": 8.940696716308594e-08
+      },
+      "parallel": {
+        "pred_noise": 1.7881393432617188e-06,
+        "condition": 2.5033950805664062e-06,
+        "gates": 5.960464477539063e-08
+      }
+    },
+    "parameters_unchanged": true,
+    "optimizer_updates": 0,
+    "stored_label_arrays_loaded": 0,
+    "validation_episode_arrays_loaded": 0,
+    "test_episode_arrays_loaded": 0,
+    "elapsed_seconds": 2.9422635000082664
+  },
+  "tests": {
+    "passed": 506,
+    "seconds": 56.31,
+    "new_cases": 19
+  },
+  "baseline_main_sha": "a25e3d0727367a3861544441db6894d1e719ec68",
+  "unchanged": [
+    "formal datasets/checkpoints/thresholds",
+    "control scales and objectives",
+    "max 64-update budget and test seal guard"
+  ],
+  "next_step": "freeze current-reference mixture and unique motion event quotas before collecting a new data version"
+}

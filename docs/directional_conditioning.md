@@ -23,8 +23,8 @@ GPU保持128维/4头原候选，随机初始化、优化0；检查两融合的�
 敏感性只说明条件通路有效，随机模型不证明规则遵从或生成质量；资源不含正式优化器状态，不据此推断长训练吞吐。已有控制训练<=64更新限制及test封存限制保持。
 
 ~~~powershell
-$env:PYTHONPATH='E:\\diffusion_new\\src'
-& '.\\.venv-model\\Scripts\\python.exe' -m sumodiff.models rules-smoke --config configs/experiments/directional_conditioning.yaml --output artifacts/runs/directional-conditioning-20261014-r1 --formal
+$env:PYTHONPATH='E:\diffusion_new\src'
+& '.\.venv-model\Scripts\python.exe' -m sumodiff.models rules-smoke --config configs/experiments/directional_conditioning.yaml --output artifacts/runs/directional-conditioning-20261014-r1 --formal
 ~~~
 
 正式运行先提交并保持干净，完整配置、命令、种子、环境及源身份入清单。验收后再冻结参考混合、运动/唯一事件配额和新数据版本，重新审计尺度与完整组合梯度；不自动启动采集或长训练。
