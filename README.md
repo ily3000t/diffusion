@@ -171,3 +171,8 @@ Set-Location E:\diffusion_new
 ## 训练数据运动覆盖归因
 
 已完成144训练回合→44071候选→6000选集的来源检查。唯一直路换道2442→邻域272→质量合格0，匝道退出976→99→0；路口未来航向范围>=5°仅114个最终窗。原始轨迹jerk尖峰经独立复算确认，不能仅用增加轮数弥补合格运动缺失。见[结果及下一步建议](docs/training_motion_results.md)、[轻量来源](docs/training_motion_results.json)与[训练专用诊断协议](docs/training_motion_coverage.md)。本轮未修改采集／选择／质量阈值或训练，下一步先做源头级小试验。
+
+
+## 正常交通源头小对照
+
+14个短回合及896条详细质量检查已完成：直路SL2015出现合格换道，汇入加入80m连接过渡后出现合格退出；当前EIDM使路口jerk尾部变差，不作为默认。交互参考增加部分覆盖，同时损失部分主路换道。汇入仍有实际车身越界，候选尚未成为正式配方。见[结果与下一步](docs/source_motion_results.md)、[轻量摘要](docs/source_motion_results.json)及[复现协议](docs/source_motion_pilot.md)。470项全量测试通过；未替换旧数据或训练新模型。

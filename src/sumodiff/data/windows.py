@@ -5,6 +5,7 @@ import numpy as np
 from shapely.geometry import Point, box
 from sumodiff.geometry.coordinates import FixedFrame
 from sumodiff.geometry.maps import rasterize
+from .selection import select_current
 
 
 @dataclass
@@ -42,13 +43,9 @@ def build_window(episode, tick, road, config):
     current = episode.frames[tick]
     if not current:
         return None, 'no_current_reference_vehicle'
-    reference = sorted(current)[0]
+    reference, ids, excluded = select_current(current,episode.manifest['family'],road,config)
     reference_observation = current[reference]
     frame = FixedFrame(reference_observation.center, reference_observation.yaw)
-    ranked = sorted((np.linalg.norm(obs.center - frame.origin), vehicle_id)
-                    for vehicle_id, obs in current.items() if vehicle_id != reference)
-    near = [(distance, vid) for distance, vid in ranked if distance <= config['selection_radius_m']]
-    ids = [reference] + [vid for _, vid in near[:config['max_agents'] - 1]]
     n, h, f = config['max_agents'], config['history_points'], config['future_points']
     history, future = np.zeros((n, h, 6), np.float32), np.zeros((n, f, 6), np.float32)
     agent_mask, history_mask, future_mask = np.zeros(n, bool), np.zeros((n, h), bool), np.zeros((n, f), bool)
@@ -99,14 +96,14 @@ def build_window(episode, tick, road, config):
         lane_polylines=polylines, lane_mask=np.ones(len(road.lanes), bool),
         lane_point_mask=np.ones(polylines.shape[:2], bool), lane_adjacency=adjacency, route_lane_mask=route_lane_mask)
     input_metadata = dict(schema_version='sumodiff.window.input.v1',
-        window_id=f"{episode.key.split(':')[1]}-t{tick}", episode_key=episode.key,
+        window_id=f"{episode.key.split(':')[1]}-t{tick}"+("-interaction" if config["reference_policy"]=="interaction_current" else ""), episode_key=episode.key,
         source_episode_id=episode.manifest['episode_id'], geometry_id=episode.manifest['geometry_id'],
         split=episode.split, family=episode.manifest['family'], reference_tick=tick, reference_time_s=tick * episode.dt,
         dt_seconds=episode.dt, fixed_frame=frame.to_dict(), agent_ids=ids + [None] * (n - len(ids)),
         planned_routes=routes + [None] * (n - len(ids)), route_indices_at_t0=route_indices + [None] * (n - len(ids)),
         sumo_type_ids=types + [None] * (n - len(ids)), reference_id=reference,
         current_vehicle_count=len(current), excluded_vehicle_count=len(current) - len(ids),
-        excluded_by_radius=len(ranked) - len(near), excluded_by_capacity=max(0, len(near) - (n - 1)),
+        **excluded,
         map_extent_m=config['map_extent_m'], raster_row_direction='positive_y_to_negative_y')
     label_metadata = dict(schema_version='sumodiff.window.labels.v1',
         history_missing_reasons=dict(history_reasons), future_missing_reasons=dict(future_reasons),

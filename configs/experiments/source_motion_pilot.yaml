@@ -1,0 +1,10 @@
+schema_version: sumodiff.source.motion.pilot.config.v1
+base_plan: configs/experiments/stage5a.yaml
+seeds: [20261105, 20261106]
+demand_seconds: 30.0
+max_episode_seconds: 240.0
+audit_reference_limit: 32
+lateral_accel_mps2: 0.3
+lateral_speed_mps: 0.8
+transition_length_m: 80.0
+eidm_jerkmax_mps3: 3.0

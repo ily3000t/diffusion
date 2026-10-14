@@ -24,6 +24,18 @@ def semantic_geometry_id(path: Path) -> str:
     return "sha256:" + hashlib.sha256(payload.encode()).hexdigest()
 
 
+def quintic_points(x0, x1, y0, y1, spacing=.25):
+    """Sample a C2 lateral transition; SUMO still executes a polyline."""
+    if not all(math.isfinite(v) for v in (x0,x1,y0,y1,spacing)) or x1 <= x0 or spacing <= 0:
+        raise ValueError("Invalid quintic transition")
+    count = math.ceil((x1-x0)/spacing)
+    points = []
+    for k in range(count+1):
+        u = k/count; blend = u*u*u*(10+u*(-15+6*u))
+        points.append((x0+(x1-x0)*u,y0+(y1-y0)*blend))
+    return points
+
+
 def layout(config: dict):
     family, geometry = config["family"], config["geometry"]
     nodes, edges, connections, routes = [], [], [], {}
@@ -74,8 +86,11 @@ def layout(config: dict):
         node("merge_end", length, 0, "zipper")
         node("end", length+after, 0)
         edge("main_in", "main_start", "merge_start", 3)
-        edge("ramp_in", "ramp_start", "merge_start", 1, 1,
-             [(-before, -offset), (-before/2, -offset/2), (-25, -geometry["lane_width"]*4), (0, 0)])
+        transition = geometry["transition_length"]
+        ramp_shape = (quintic_points(-before,0,-offset,-3*geometry["lane_width"])
+                      if transition else [(-before,-offset),(-before/2,-offset/2),
+                                          (-25,-geometry["lane_width"]*4),(0,0)])
+        edge("ramp_in", "ramp_start", "merge_start", 1, 1, ramp_shape)
         edge("acceleration", "merge_start", "merge_end", 4)
         edge("main_out", "merge_end", "end", 3)
         for lane in range(3):
@@ -83,6 +98,17 @@ def layout(config: dict):
             connect("acceleration", "main_out", lane+1, lane)
         connect("ramp_in", "acceleration", 0, 0)
         connect("acceleration", "main_out", 0, 0)
+        if transition:
+            lo,hi = length-transition/2,length+transition/2
+            width = geometry["lane_width"]
+            polygon = [(lo,-4*width-2),(hi,-4*width-2),(hi,2),(lo,2)]
+            merge_node = next(n for n in nodes if n["id"] == "merge_end")
+            merge_node["shape"] = " ".join(f"{x:.8f},{y:.8f}" for x,y in map(lambda p:point(*p),polygon))
+            for link in connections:
+                if link["from"] != "acceleration" or link["to"] != "main_out": continue
+                i,j = int(link["fromLane"]),int(link["toLane"])
+                curve = quintic_points(lo,hi,-(3.5-i)*width,-(2.5-j)*width)
+                link["shape"] = " ".join(f"{x:.8f},{y:.8f}" for x,y in map(lambda p:point(*p),curve))
         routes = {"main": {"edges": ["main_in", "acceleration", "main_out"], "movement": "straight"},
                   "ramp": {"edges": ["ramp_in", "acceleration", "main_out"], "movement": "merge"}}
     else:
@@ -146,9 +172,10 @@ def build_scene(output: Path, config: dict, runtime: dict, seed: int) -> dict:
         if not all(pair in connected for pair in zip(route["edges"], route["edges"][1:])):
             raise RuntimeError(f"Compiled route is disconnected: {name}")
     demand = ET.Element("routes")
-    vehicle_type = {"id": "passenger", "vClass": "passenger", "carFollowModel": config["driver"]["car_follow_model"], "laneChangeModel": "LC2013",
+    vehicle_type = {"id": "passenger", "vClass": "passenger", "carFollowModel": config["driver"]["car_follow_model"], "laneChangeModel": config["driver"]["lane_change_model"],
                     "maxSpeed": str(config["geometry"]["speed_limit"])}
-    vehicle_type.update({key: str(value) for key, value in config["driver"].items() if key != "car_follow_model"})
+    vehicle_type.update({key: str(value) for key, value in config["driver"].items()
+                         if key not in ("car_follow_model","lane_change_model") and value is not None})
     ET.SubElement(demand, "vType", vehicle_type)
     for name, route in routes.items():
         ET.SubElement(demand, "route", {"id": name, "edges": " ".join(route["edges"])})

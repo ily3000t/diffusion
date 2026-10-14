@@ -16,7 +16,7 @@ def resolve_config(supplied):
     config = {**deepcopy(DEFAULTS), **deepcopy(supplied)}
     if config['schema_version'] != DEFAULTS['schema_version'] or config['dt_seconds'] != .1 or config['history_points'] != 21 or config['future_points'] != 40:
         raise NotImplementedError('Only the v1 0.1s / 21-history / 40-future contract is supported')
-    if config['reference_policy'] != 'first_current_id':
+    if config['reference_policy'] not in ('first_current_id','interaction_current'):
         raise NotImplementedError('Unsupported reference selection policy')
     for key in ('history_points', 'future_points', 'reference_stride_ticks', 'max_agents', 'raster_size', 'polyline_points'):
         if type(config[key]) is not int or config[key] < 1:

@@ -1,0 +1,2533 @@
+{
+  "schema_version": "sumodiff.source.motion.summary.v1",
+  "scope": "training source pilot; original dataset/checkpoint unchanged",
+  "runs": {
+    "collection": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\source-motion-collect-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "277d8b9583f02c33adfdac1e8d2e1ce5030d0677",
+        "branch": "feat/source-motion-pilot",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "state": "completed",
+      "formal": true,
+      "input_identities": 2,
+      "recorded_execution_seconds": 110.983701,
+      "critical_files": [
+        {
+          "id": "sha256:907548a6419e9a41ed25c8e104f30e011960d598fadbdd68a6028f66b2f508f8",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-collect-20261014-r1\\manifest.json",
+          "sha256": "907548a6419e9a41ed25c8e104f30e011960d598fadbdd68a6028f66b2f508f8",
+          "size_bytes": 2158
+        },
+        {
+          "id": "sha256:300ac429722bf6ffd948b954c3b4c39e3bab939884aef5509a5b63bf079bcbd1",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-collect-20261014-r1\\status.json",
+          "sha256": "300ac429722bf6ffd948b954c3b4c39e3bab939884aef5509a5b63bf079bcbd1",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:a591efda25a83aa5590c05bafc20520342702e1d8225af0ade143f38c60a8077",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-collect-20261014-r1\\metrics.json",
+          "sha256": "a591efda25a83aa5590c05bafc20520342702e1d8225af0ade143f38c60a8077",
+          "size_bytes": 108
+        },
+        {
+          "id": "sha256:54750d0a20d644a77721d210a60133b4ef3949c8d3ca7494eb0342d268ccef08",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-collect-20261014-r1\\resolved_config.yaml",
+          "sha256": "54750d0a20d644a77721d210a60133b4ef3949c8d3ca7494eb0342d268ccef08",
+          "size_bytes": 12519
+        },
+        {
+          "id": "sha256:2afa4afc9ada8a557ae03e94ec498f248abc83b457e9735d37e2dcd65c26ede7",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-collect-20261014-r1\\command.txt",
+          "sha256": "2afa4afc9ada8a557ae03e94ec498f248abc83b457e9735d37e2dcd65c26ede7",
+          "size_bytes": 241
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-collect-20261014-r1\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:c9420b5824f63296bcfe79cb2c9c77fa12848f8e9b0d7a39b8d5a86cacabc4b9",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-collect-20261014-r1\\collection_results.json",
+          "sha256": "c9420b5824f63296bcfe79cb2c9c77fa12848f8e9b0d7a39b8d5a86cacabc4b9",
+          "size_bytes": 12747
+        }
+      ]
+    },
+    "audit": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\source-motion-audit-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "277d8b9583f02c33adfdac1e8d2e1ce5030d0677",
+        "branch": "feat/source-motion-pilot",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "state": "completed",
+      "formal": true,
+      "input_identities": 272,
+      "recorded_execution_seconds": 148.990429,
+      "critical_files": [
+        {
+          "id": "sha256:8d89c1408c6a90625cac1320e16c77389db4729584ab4b4cb907a3eec44e6c0e",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-audit-20261014-r1\\manifest.json",
+          "sha256": "8d89c1408c6a90625cac1320e16c77389db4729584ab4b4cb907a3eec44e6c0e",
+          "size_bytes": 104351
+        },
+        {
+          "id": "sha256:2cc958eb116a502c07507583092fa93b7e865c68cdd7ffb5ea4603c7c88ede35",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-audit-20261014-r1\\status.json",
+          "sha256": "2cc958eb116a502c07507583092fa93b7e865c68cdd7ffb5ea4603c7c88ede35",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:2f4e87d73b197cee1b2c15bca661d21ea68c5f7832bf68032ab2fdd26660134c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-audit-20261014-r1\\metrics.json",
+          "sha256": "2f4e87d73b197cee1b2c15bca661d21ea68c5f7832bf68032ab2fdd26660134c",
+          "size_bytes": 100309
+        },
+        {
+          "id": "sha256:ec201a273238a47bc957d027c463d89bea791b97336769f4fddbb66e35442dd8",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-audit-20261014-r1\\resolved_config.yaml",
+          "sha256": "ec201a273238a47bc957d027c463d89bea791b97336769f4fddbb66e35442dd8",
+          "size_bytes": 1918
+        },
+        {
+          "id": "sha256:d82c4eff0fcbfd5d43e40574d75f36b181fa75d8bcd77a27036e3cbd57415c3a",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-audit-20261014-r1\\command.txt",
+          "sha256": "d82c4eff0fcbfd5d43e40574d75f36b181fa75d8bcd77a27036e3cbd57415c3a",
+          "size_bytes": 303
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-audit-20261014-r1\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:9a363ef826992338e8c83764ddc27ad790b573c0a5d0593fa1d5df243d59134e",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-audit-20261014-r1\\results.json",
+          "sha256": "9a363ef826992338e8c83764ddc27ad790b573c0a5d0593fa1d5df243d59134e",
+          "size_bytes": 103644
+        },
+        {
+          "id": "sha256:8d22e7d17091de00689060b7883e1ccef1215147da75270116189fd580335207",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-audit-20261014-r1\\window_quality.jsonl",
+          "sha256": "8d22e7d17091de00689060b7883e1ccef1215147da75270116189fd580335207",
+          "size_bytes": 5436158
+        }
+      ]
+    },
+    "review": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\source-motion-review-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "277d8b9583f02c33adfdac1e8d2e1ce5030d0677",
+        "branch": "feat/source-motion-pilot",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "state": "completed",
+      "formal": true,
+      "input_identities": 278,
+      "recorded_execution_seconds": 5.308675,
+      "critical_files": [
+        {
+          "id": "sha256:4f2d3dcbe57aed4c6c5e97e09017afd61abd937bb0ab5c3d86d1b20ca51e27e1",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-review-20261014-r1\\manifest.json",
+          "sha256": "4f2d3dcbe57aed4c6c5e97e09017afd61abd937bb0ab5c3d86d1b20ca51e27e1",
+          "size_bytes": 105886
+        },
+        {
+          "id": "sha256:d6d9fbe21795ab336acb58aaf76cb06442997fe3c7f56be104b56ff8c59501e6",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-review-20261014-r1\\status.json",
+          "sha256": "d6d9fbe21795ab336acb58aaf76cb06442997fe3c7f56be104b56ff8c59501e6",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:7d9a69c321c7bbdc094d9c3bcaa15e43594a5d590873e3af07f54075122c71ec",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-review-20261014-r1\\metrics.json",
+          "sha256": "7d9a69c321c7bbdc094d9c3bcaa15e43594a5d590873e3af07f54075122c71ec",
+          "size_bytes": 656
+        },
+        {
+          "id": "sha256:f0a492fd750916849c819e4a6e0685aa4a325821bb40b1cb756050ae38ce2508",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-review-20261014-r1\\resolved_config.yaml",
+          "sha256": "f0a492fd750916849c819e4a6e0685aa4a325821bb40b1cb756050ae38ce2508",
+          "size_bytes": 440
+        },
+        {
+          "id": "sha256:fde8464f12eed56e92eb1c04cc1409323c397c7db2689ecd61976478fa896645",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-review-20261014-r1\\command.txt",
+          "sha256": "fde8464f12eed56e92eb1c04cc1409323c397c7db2689ecd61976478fa896645",
+          "size_bytes": 120
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-review-20261014-r1\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:f7787a330dacdab695bc4159a877c6b08f668f024d3f0274a33fd2a2241d69ab",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-review-20261014-r1\\review.json",
+          "sha256": "f7787a330dacdab695bc4159a877c6b08f668f024d3f0274a33fd2a2241d69ab",
+          "size_bytes": 145437
+        }
+      ]
+    },
+    "figures": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\source-motion-figures-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "277d8b9583f02c33adfdac1e8d2e1ce5030d0677",
+        "branch": "feat/source-motion-pilot",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "state": "completed",
+      "formal": true,
+      "input_identities": 10,
+      "recorded_execution_seconds": 2.742479,
+      "critical_files": [
+        {
+          "id": "sha256:8b2852bb8e1971938601a3912422666e4c576330a323f52584e25c4a35ff8667",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-figures-20261014-r1\\manifest.json",
+          "sha256": "8b2852bb8e1971938601a3912422666e4c576330a323f52584e25c4a35ff8667",
+          "size_bytes": 4720
+        },
+        {
+          "id": "sha256:3552307932afd79e74b3162ad9adf17fcc616958d02d38426effa93da1cadf5a",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-figures-20261014-r1\\status.json",
+          "sha256": "3552307932afd79e74b3162ad9adf17fcc616958d02d38426effa93da1cadf5a",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:7efed97fe09c0fcceffc96de5b65dea6bc4d7f262e282e72e6b8ed0ee3550349",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-figures-20261014-r1\\metrics.json",
+          "sha256": "7efed97fe09c0fcceffc96de5b65dea6bc4d7f262e282e72e6b8ed0ee3550349",
+          "size_bytes": 1834
+        },
+        {
+          "id": "sha256:30f4fc558004cd7c02e4957c9d30ad27741ad3631f721ea29e4a023a066f3c9d",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-figures-20261014-r1\\resolved_config.yaml",
+          "sha256": "30f4fc558004cd7c02e4957c9d30ad27741ad3631f721ea29e4a023a066f3c9d",
+          "size_bytes": 384
+        },
+        {
+          "id": "sha256:09ee8c68c690f825bedfadedbe352f5fec7e0dbafc0e886ababebfe8c6abd592",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-figures-20261014-r1\\command.txt",
+          "sha256": "09ee8c68c690f825bedfadedbe352f5fec7e0dbafc0e886ababebfe8c6abd592",
+          "size_bytes": 120
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-figures-20261014-r1\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:b4014c23695bee0f4bcf70cafd4ba8ab5d0d406add36a157c7f10922cda296f4",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-figures-20261014-r1\\figures.json",
+          "sha256": "b4014c23695bee0f4bcf70cafd4ba8ab5d0d406add36a157c7f10922cda296f4",
+          "size_bytes": 1872
+        },
+        {
+          "id": "sha256:2a0488430e3e38efe792a4106fd24f72aacf0f31c8ed7c0de4571ce3cf9972bd",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-figures-20261014-r1\\source_motion_comparison.png",
+          "sha256": "2a0488430e3e38efe792a4106fd24f72aacf0f31c8ed7c0de4571ce3cf9972bd",
+          "size_bytes": 129421
+        },
+        {
+          "id": "sha256:f0851b06d90b1e896824a786f967bd4810d5c1bd60565136f3cce58ed3a38ca5",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-figures-20261014-r1\\source_motion_comparison.pdf",
+          "sha256": "f0851b06d90b1e896824a786f967bd4810d5c1bd60565136f3cce58ed3a38ca5",
+          "size_bytes": 25043
+        },
+        {
+          "id": "sha256:a771e71f0c06000011fa63fe227a3eb25255e02100c50aadd79f910253662768",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-figures-20261014-r1\\ramp_source_geometry.png",
+          "sha256": "a771e71f0c06000011fa63fe227a3eb25255e02100c50aadd79f910253662768",
+          "size_bytes": 83055
+        },
+        {
+          "id": "sha256:c2f1a2fb19ba000d18e55d074413f48ee838a60397fb0817ac33ac41baa3f834",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-figures-20261014-r1\\ramp_source_geometry.pdf",
+          "sha256": "c2f1a2fb19ba000d18e55d074413f48ee838a60397fb0817ac33ac41baa3f834",
+          "size_bytes": 17484
+        }
+      ]
+    },
+    "quality_review": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\source-motion-quality-review-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "38fb1332c8554b635d33945188a9704353bdc281",
+        "branch": "feat/source-motion-pilot",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "state": "completed",
+      "formal": true,
+      "input_identities": 277,
+      "recorded_execution_seconds": 10.734761,
+      "critical_files": [
+        {
+          "id": "sha256:bb20dd5bdab4ed2a55344e3c1832424fedd1a9dcca52f575d4abd4e468ea19f9",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-quality-review-20261014-r1\\manifest.json",
+          "sha256": "bb20dd5bdab4ed2a55344e3c1832424fedd1a9dcca52f575d4abd4e468ea19f9",
+          "size_bytes": 105569
+        },
+        {
+          "id": "sha256:8323f6d13937fd8bf811824ec6a27554bf69606cd97adcdc2b32d6bddf3aaf94",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-quality-review-20261014-r1\\status.json",
+          "sha256": "8323f6d13937fd8bf811824ec6a27554bf69606cd97adcdc2b32d6bddf3aaf94",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:0fcb36c7a3e9df0448ce99286c26bafe8d4b5cf65a20de649a6015582e8e838e",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-quality-review-20261014-r1\\metrics.json",
+          "sha256": "0fcb36c7a3e9df0448ce99286c26bafe8d4b5cf65a20de649a6015582e8e838e",
+          "size_bytes": 517
+        },
+        {
+          "id": "sha256:d898f1f0f2a678e2293f9507011b4b7dddd47e158851e22731f59ff069b686f9",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-quality-review-20261014-r1\\resolved_config.yaml",
+          "sha256": "d898f1f0f2a678e2293f9507011b4b7dddd47e158851e22731f59ff069b686f9",
+          "size_bytes": 448
+        },
+        {
+          "id": "sha256:80a0bf8d0abe76b50a938f2e9866f4d1978d1d1319508272bc9de48b02bb4f5a",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-quality-review-20261014-r1\\command.txt",
+          "sha256": "80a0bf8d0abe76b50a938f2e9866f4d1978d1d1319508272bc9de48b02bb4f5a",
+          "size_bytes": 121
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-quality-review-20261014-r1\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:43fc399416fc03a16ba4e5f51d140780861fe251498613eb1936d0b18678e46f",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-quality-review-20261014-r1\\review.json",
+          "sha256": "43fc399416fc03a16ba4e5f51d140780861fe251498613eb1936d0b18678e46f",
+          "size_bytes": 19926
+        }
+      ]
+    }
+  },
+  "planned_cases": 14,
+  "completed_cases": 14,
+  "failed_cases": 0,
+  "quality_assessed_windows": 896,
+  "groups": [
+    {
+      "family": "three_lane_straight",
+      "variant": "baseline",
+      "seeds": [
+        20261105,
+        20261106
+      ],
+      "policies": {
+        "first_current_id": {
+          "assessed_quality": {
+            "assessed_windows": 64,
+            "core_complete": 47,
+            "eligible": 19,
+            "heading5_assessed_windows": 0,
+            "heading5_eligible_windows": 0,
+            "lateral_half_assessed_windows": 10,
+            "lateral_half_eligible_windows": 0,
+            "lane_change_assessed_windows": 4,
+            "lane_change_eligible_windows": 0,
+            "ramp_exit_assessed_windows": 0,
+            "ramp_exit_eligible_windows": 0
+          },
+          "rejection_reasons": {
+            "incomplete_history_or_future": 17,
+            "raw64:motion": 13,
+            "stored32:motion": 13,
+            "too_few_agents": 15,
+            "raw64:no_applicable_pairs": 15,
+            "stored32:no_applicable_pairs": 15
+          },
+          "all_candidate_windows": 191,
+          "unique_lane_changes_covered": 4,
+          "unique_ramp_exits_covered": 0,
+          "unique_lane_changes_in_eligible_assessed": 0,
+          "unique_ramp_exits_in_eligible_assessed": 0
+        },
+        "interaction_current": {
+          "assessed_quality": {
+            "assessed_windows": 64,
+            "core_complete": 48,
+            "eligible": 27,
+            "heading5_assessed_windows": 3,
+            "heading5_eligible_windows": 0,
+            "lateral_half_assessed_windows": 19,
+            "lateral_half_eligible_windows": 0,
+            "lane_change_assessed_windows": 8,
+            "lane_change_eligible_windows": 0,
+            "ramp_exit_assessed_windows": 0,
+            "ramp_exit_eligible_windows": 0
+          },
+          "rejection_reasons": {
+            "incomplete_history_or_future": 16,
+            "raw64:motion": 20,
+            "stored32:motion": 20,
+            "missing_quality_derivative_context": 1
+          },
+          "all_candidate_windows": 191,
+          "unique_lane_changes_covered": 9,
+          "unique_ramp_exits_covered": 0,
+          "unique_lane_changes_in_eligible_assessed": 0,
+          "unique_ramp_exits_in_eligible_assessed": 0
+        }
+      },
+      "raw_distributions_by_seed": {
+        "all": [
+          {
+            "seed": 20261105,
+            "count": 7311,
+            "mean": 0.25220329057088436,
+            "min": 0.0,
+            "p50": 0.0004266099722372019,
+            "p95": 0.13850957770955574,
+            "p99": 2.597256682303448,
+            "max": 59.006663854438614
+          },
+          {
+            "seed": 20261106,
+            "count": 6716,
+            "mean": 0.23895219842187584,
+            "min": 0.0,
+            "p50": 0.000427839154326648,
+            "p95": 0.10733551033081797,
+            "p99": 2.5708177074425906,
+            "max": 58.828098074060456
+          }
+        ],
+        "lane_change_context": [
+          {
+            "seed": 20261105,
+            "count": 427,
+            "mean": 3.8943095814423074,
+            "min": 0.0,
+            "p50": 0.09852393786292449,
+            "p95": 41.279199257312975,
+            "p99": 58.78405263483658,
+            "max": 59.006663854438614
+          },
+          {
+            "seed": 20261106,
+            "count": 366,
+            "mean": 3.857989602183994,
+            "min": 0.0,
+            "p50": 0.07241481465142849,
+            "p95": 39.87604000144659,
+            "p99": 58.71623081687857,
+            "max": 58.828098074060456
+          }
+        ],
+        "ramp_exit_context": [
+          {
+            "seed": 20261105,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          },
+          {
+            "seed": 20261106,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          }
+        ],
+        "junction60m": [
+          {
+            "seed": 20261105,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          },
+          {
+            "seed": 20261106,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          }
+        ],
+        "longitudinal_all": [
+          {
+            "seed": 20261105,
+            "count": 7311,
+            "mean": 0.029892750469919047,
+            "min": 0.0,
+            "p50": 0.00039878270730042686,
+            "p95": 0.07379613451616862,
+            "p99": 0.3228711428117492,
+            "max": 17.556050683320912
+          },
+          {
+            "seed": 20261106,
+            "count": 6716,
+            "mean": 0.030984750824180958,
+            "min": 0.0,
+            "p50": 0.000381184987308103,
+            "p95": 0.053264109626249834,
+            "p99": 0.3248900697674461,
+            "max": 19.764119935440938
+          }
+        ],
+        "longitudinal_junction60m": [
+          {
+            "seed": 20261105,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          },
+          {
+            "seed": 20261106,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          }
+        ]
+      },
+      "raw_lane_change_events": 13,
+      "raw_ramp_exit_events": 0
+    },
+    {
+      "family": "three_lane_straight",
+      "variant": "sublane",
+      "seeds": [
+        20261105,
+        20261106
+      ],
+      "policies": {
+        "first_current_id": {
+          "assessed_quality": {
+            "assessed_windows": 64,
+            "core_complete": 48,
+            "eligible": 33,
+            "heading5_assessed_windows": 0,
+            "heading5_eligible_windows": 0,
+            "lateral_half_assessed_windows": 13,
+            "lateral_half_eligible_windows": 13,
+            "lane_change_assessed_windows": 6,
+            "lane_change_eligible_windows": 6,
+            "ramp_exit_assessed_windows": 0,
+            "ramp_exit_eligible_windows": 0
+          },
+          "rejection_reasons": {
+            "incomplete_history_or_future": 16,
+            "too_few_agents": 15,
+            "raw64:no_applicable_pairs": 15,
+            "stored32:no_applicable_pairs": 15
+          },
+          "all_candidate_windows": 189,
+          "unique_lane_changes_covered": 4,
+          "unique_ramp_exits_covered": 0,
+          "unique_lane_changes_in_eligible_assessed": 4,
+          "unique_ramp_exits_in_eligible_assessed": 0
+        },
+        "interaction_current": {
+          "assessed_quality": {
+            "assessed_windows": 64,
+            "core_complete": 49,
+            "eligible": 45,
+            "heading5_assessed_windows": 0,
+            "heading5_eligible_windows": 0,
+            "lateral_half_assessed_windows": 17,
+            "lateral_half_eligible_windows": 12,
+            "lane_change_assessed_windows": 10,
+            "lane_change_eligible_windows": 7,
+            "ramp_exit_assessed_windows": 0,
+            "ramp_exit_eligible_windows": 0
+          },
+          "rejection_reasons": {
+            "incomplete_history_or_future": 15,
+            "raw64:motion": 3,
+            "stored32:motion": 3,
+            "missing_quality_derivative_context": 1
+          },
+          "all_candidate_windows": 189,
+          "unique_lane_changes_covered": 6,
+          "unique_ramp_exits_covered": 0,
+          "unique_lane_changes_in_eligible_assessed": 4,
+          "unique_ramp_exits_in_eligible_assessed": 0
+        }
+      },
+      "raw_distributions_by_seed": {
+        "all": [
+          {
+            "seed": 20261105,
+            "count": 7318,
+            "mean": 0.03574829465396096,
+            "min": 0.0,
+            "p50": 0.00039311196253777325,
+            "p95": 0.09124229640971478,
+            "p99": 0.603403519431653,
+            "max": 17.990104676263158
+          },
+          {
+            "seed": 20261106,
+            "count": 6707,
+            "mean": 0.044544574092093184,
+            "min": 0.0,
+            "p50": 0.00046923224727990487,
+            "p95": 0.1299126100085467,
+            "p99": 1.030915443498368,
+            "max": 16.099867438242654
+          }
+        ],
+        "lane_change_context": [
+          {
+            "seed": 20261105,
+            "count": 305,
+            "mean": 0.3003613742218904,
+            "min": 0.0001001216845399951,
+            "p50": 0.06582954599735262,
+            "p95": 1.526443153494913,
+            "p99": 2.6858375118631614,
+            "max": 4.873209710622226
+          },
+          {
+            "seed": 20261106,
+            "count": 366,
+            "mean": 0.2893358501593323,
+            "min": 6.96492339186061e-05,
+            "p50": 0.06630866344907276,
+            "p95": 1.5265558989066035,
+            "p99": 2.6618787286660397,
+            "max": 3.364954739601232
+          }
+        ],
+        "ramp_exit_context": [
+          {
+            "seed": 20261105,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          },
+          {
+            "seed": 20261106,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          }
+        ],
+        "junction60m": [
+          {
+            "seed": 20261105,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          },
+          {
+            "seed": 20261106,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          }
+        ],
+        "longitudinal_all": [
+          {
+            "seed": 20261105,
+            "count": 7318,
+            "mean": 0.017078628001239913,
+            "min": 0.0,
+            "p50": 0.00033531496033134545,
+            "p95": 0.041737815386051334,
+            "p99": 0.2441417599509471,
+            "max": 11.43267293922463
+          },
+          {
+            "seed": 20261106,
+            "count": 6707,
+            "mean": 0.026319796037536692,
+            "min": 0.0,
+            "p50": 0.00037198134847926667,
+            "p95": 0.052656732409062094,
+            "p99": 0.3156708897956148,
+            "max": 16.099867438386006
+          }
+        ],
+        "longitudinal_junction60m": [
+          {
+            "seed": 20261105,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          },
+          {
+            "seed": 20261106,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          }
+        ]
+      },
+      "raw_lane_change_events": 11,
+      "raw_ramp_exit_events": 0
+    },
+    {
+      "family": "ramp_merge",
+      "variant": "baseline",
+      "seeds": [
+        20261105,
+        20261106
+      ],
+      "policies": {
+        "first_current_id": {
+          "assessed_quality": {
+            "assessed_windows": 64,
+            "core_complete": 49,
+            "eligible": 15,
+            "heading5_assessed_windows": 20,
+            "heading5_eligible_windows": 0,
+            "lateral_half_assessed_windows": 20,
+            "lateral_half_eligible_windows": 0,
+            "lane_change_assessed_windows": 10,
+            "lane_change_eligible_windows": 0,
+            "ramp_exit_assessed_windows": 3,
+            "ramp_exit_eligible_windows": 0
+          },
+          "rejection_reasons": {
+            "incomplete_history_or_future": 15,
+            "raw64:motion": 26,
+            "stored32:motion": 26,
+            "too_few_agents": 8,
+            "raw64:no_applicable_pairs": 8,
+            "stored32:no_applicable_pairs": 8
+          },
+          "all_candidate_windows": 201,
+          "unique_lane_changes_covered": 8,
+          "unique_ramp_exits_covered": 2,
+          "unique_lane_changes_in_eligible_assessed": 0,
+          "unique_ramp_exits_in_eligible_assessed": 0
+        },
+        "interaction_current": {
+          "assessed_quality": {
+            "assessed_windows": 64,
+            "core_complete": 54,
+            "eligible": 12,
+            "heading5_assessed_windows": 37,
+            "heading5_eligible_windows": 0,
+            "lateral_half_assessed_windows": 37,
+            "lateral_half_eligible_windows": 0,
+            "lane_change_assessed_windows": 14,
+            "lane_change_eligible_windows": 0,
+            "ramp_exit_assessed_windows": 10,
+            "ramp_exit_eligible_windows": 0
+          },
+          "rejection_reasons": {
+            "incomplete_history_or_future": 10,
+            "raw64:motion": 41,
+            "stored32:motion": 41,
+            "too_few_agents": 1,
+            "raw64:no_applicable_pairs": 1,
+            "stored32:no_applicable_pairs": 1
+          },
+          "all_candidate_windows": 201,
+          "unique_lane_changes_covered": 14,
+          "unique_ramp_exits_covered": 6,
+          "unique_lane_changes_in_eligible_assessed": 0,
+          "unique_ramp_exits_in_eligible_assessed": 0
+        }
+      },
+      "raw_distributions_by_seed": {
+        "all": [
+          {
+            "seed": 20261105,
+            "count": 8452,
+            "mean": 1.7863259488203485,
+            "min": 0.0,
+            "p50": 0.001068993569219856,
+            "p95": 1.0530363800199232,
+            "p99": 58.65635610503519,
+            "max": 345.0949967178033
+          },
+          {
+            "seed": 20261106,
+            "count": 7766,
+            "mean": 1.6421488623514278,
+            "min": 0.0,
+            "p50": 0.003170558642295873,
+            "p95": 1.2507470746424254,
+            "p99": 58.337829649212594,
+            "max": 184.26124680452583
+          }
+        ],
+        "lane_change_context": [
+          {
+            "seed": 20261105,
+            "count": 650,
+            "mean": 7.20851222407512,
+            "min": 0.0,
+            "p50": 0.12679993350562152,
+            "p95": 54.003891724903376,
+            "p99": 162.4838143949406,
+            "max": 345.0949967178033
+          },
+          {
+            "seed": 20261106,
+            "count": 732,
+            "mean": 4.925732700359774,
+            "min": 0.0,
+            "p50": 0.14343661030776234,
+            "p95": 45.12585891086301,
+            "p99": 59.14383132762347,
+            "max": 133.10994957366768
+          }
+        ],
+        "ramp_exit_context": [
+          {
+            "seed": 20261105,
+            "count": 273,
+            "mean": 13.226909997343812,
+            "min": 0.0014860787871384673,
+            "p50": 0.0630476881156028,
+            "p95": 95.20379051879489,
+            "p99": 151.89875724239158,
+            "max": 164.78910766255495
+          },
+          {
+            "seed": 20261106,
+            "count": 273,
+            "mean": 14.779918223424684,
+            "min": 0.0012321936253556487,
+            "p50": 0.04259565839959123,
+            "p95": 112.72569067807356,
+            "p99": 166.77237229548115,
+            "max": 180.93473212400437
+          }
+        ],
+        "junction60m": [
+          {
+            "seed": 20261105,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          },
+          {
+            "seed": 20261106,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          }
+        ],
+        "longitudinal_all": [
+          {
+            "seed": 20261105,
+            "count": 8452,
+            "mean": 0.11945552795210426,
+            "min": 0.0,
+            "p50": 0.0007638835570311642,
+            "p95": 0.2654485045891074,
+            "p99": 0.8470562378731286,
+            "max": 49.020913719346915
+          },
+          {
+            "seed": 20261106,
+            "count": 7766,
+            "mean": 0.10311823627372525,
+            "min": 0.0,
+            "p50": 0.0022410865813782266,
+            "p95": 0.29073483203851946,
+            "p99": 0.9171106405667129,
+            "max": 49.17533901373279
+          }
+        ],
+        "longitudinal_junction60m": [
+          {
+            "seed": 20261105,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          },
+          {
+            "seed": 20261106,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          }
+        ]
+      },
+      "raw_lane_change_events": 23,
+      "raw_ramp_exit_events": 6
+    },
+    {
+      "family": "ramp_merge",
+      "variant": "sublane",
+      "seeds": [
+        20261105,
+        20261106
+      ],
+      "policies": {
+        "first_current_id": {
+          "assessed_quality": {
+            "assessed_windows": 64,
+            "core_complete": 46,
+            "eligible": 17,
+            "heading5_assessed_windows": 12,
+            "heading5_eligible_windows": 0,
+            "lateral_half_assessed_windows": 27,
+            "lateral_half_eligible_windows": 3,
+            "lane_change_assessed_windows": 11,
+            "lane_change_eligible_windows": 0,
+            "ramp_exit_assessed_windows": 3,
+            "ramp_exit_eligible_windows": 0
+          },
+          "rejection_reasons": {
+            "incomplete_history_or_future": 18,
+            "raw64:motion": 22,
+            "stored32:motion": 22,
+            "too_few_agents": 7,
+            "raw64:no_applicable_pairs": 7,
+            "stored32:no_applicable_pairs": 7
+          },
+          "all_candidate_windows": 202,
+          "unique_lane_changes_covered": 10,
+          "unique_ramp_exits_covered": 2,
+          "unique_lane_changes_in_eligible_assessed": 0,
+          "unique_ramp_exits_in_eligible_assessed": 0
+        },
+        "interaction_current": {
+          "assessed_quality": {
+            "assessed_windows": 64,
+            "core_complete": 51,
+            "eligible": 16,
+            "heading5_assessed_windows": 21,
+            "heading5_eligible_windows": 0,
+            "lateral_half_assessed_windows": 35,
+            "lateral_half_eligible_windows": 2,
+            "lane_change_assessed_windows": 12,
+            "lane_change_eligible_windows": 0,
+            "ramp_exit_assessed_windows": 9,
+            "ramp_exit_eligible_windows": 0
+          },
+          "rejection_reasons": {
+            "incomplete_history_or_future": 13,
+            "raw64:motion": 35,
+            "stored32:motion": 35,
+            "raw64:road": 2,
+            "raw64:route": 2,
+            "stored32:road": 2,
+            "stored32:route": 2
+          },
+          "all_candidate_windows": 202,
+          "unique_lane_changes_covered": 10,
+          "unique_ramp_exits_covered": 6,
+          "unique_lane_changes_in_eligible_assessed": 0,
+          "unique_ramp_exits_in_eligible_assessed": 0
+        }
+      },
+      "raw_distributions_by_seed": {
+        "all": [
+          {
+            "seed": 20261105,
+            "count": 8409,
+            "mean": 2.3082855764035877,
+            "min": 0.0,
+            "p50": 0.002559316158112779,
+            "p95": 0.7484008331796886,
+            "p99": 48.87271900659086,
+            "max": 3512.7131728265736
+          },
+          {
+            "seed": 20261106,
+            "count": 7837,
+            "mean": 1.321869761018228,
+            "min": 0.0,
+            "p50": 0.0026724387527310273,
+            "p95": 0.7397289844742185,
+            "p99": 33.994293072904455,
+            "max": 358.04713101229504
+          }
+        ],
+        "lane_change_context": [
+          {
+            "seed": 20261105,
+            "count": 721,
+            "mean": 13.741892951525143,
+            "min": 0.00017571762600191636,
+            "p50": 0.09663267992280795,
+            "p95": 3.6551766820463576,
+            "p99": 142.94084734021737,
+            "max": 3512.7131728265736
+          },
+          {
+            "seed": 20261106,
+            "count": 488,
+            "mean": 0.6028014728844676,
+            "min": 0.000255082953955731,
+            "p50": 0.06873753685245385,
+            "p95": 1.5768444037681075,
+            "p99": 4.664334686587079,
+            "max": 84.4180022591358
+          }
+        ],
+        "ramp_exit_context": [
+          {
+            "seed": 20261105,
+            "count": 273,
+            "mean": 14.510379134605852,
+            "min": 0.0002433574195492838,
+            "p50": 0.06975177424806134,
+            "p95": 109.5114248513637,
+            "p99": 164.94954304195554,
+            "max": 205.61368308465381
+          },
+          {
+            "seed": 20261106,
+            "count": 273,
+            "mean": 14.420795173708528,
+            "min": 0.0012005743599274865,
+            "p50": 0.04241214520561698,
+            "p95": 105.73209166602183,
+            "p99": 156.5809055802499,
+            "max": 184.47776303844154
+          }
+        ],
+        "junction60m": [
+          {
+            "seed": 20261105,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          },
+          {
+            "seed": 20261106,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          }
+        ],
+        "longitudinal_all": [
+          {
+            "seed": 20261105,
+            "count": 8409,
+            "mean": 0.1368166805330294,
+            "min": 0.0,
+            "p50": 0.00156889909010971,
+            "p95": 0.3070168825733783,
+            "p99": 0.975895603346061,
+            "max": 49.020913719346915
+          },
+          {
+            "seed": 20261106,
+            "count": 7837,
+            "mean": 0.10576383125010996,
+            "min": 0.0,
+            "p50": 0.0013781741287743898,
+            "p95": 0.2945275246218413,
+            "p99": 0.8254501281452015,
+            "max": 51.76610506269981
+          }
+        ],
+        "longitudinal_junction60m": [
+          {
+            "seed": 20261105,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          },
+          {
+            "seed": 20261106,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          }
+        ]
+      },
+      "raw_lane_change_events": 20,
+      "raw_ramp_exit_events": 6
+    },
+    {
+      "family": "ramp_merge",
+      "variant": "sublane_transition",
+      "seeds": [
+        20261105,
+        20261106
+      ],
+      "policies": {
+        "first_current_id": {
+          "assessed_quality": {
+            "assessed_windows": 64,
+            "core_complete": 49,
+            "eligible": 33,
+            "heading5_assessed_windows": 2,
+            "heading5_eligible_windows": 0,
+            "lateral_half_assessed_windows": 28,
+            "lateral_half_eligible_windows": 18,
+            "lane_change_assessed_windows": 5,
+            "lane_change_eligible_windows": 3,
+            "ramp_exit_assessed_windows": 2,
+            "ramp_exit_eligible_windows": 2
+          },
+          "rejection_reasons": {
+            "incomplete_history_or_future": 15,
+            "raw64:road": 9,
+            "raw64:route": 9,
+            "stored32:road": 9,
+            "stored32:route": 9,
+            "raw64:motion": 7,
+            "stored32:motion": 7,
+            "too_few_agents": 4,
+            "raw64:no_applicable_pairs": 4,
+            "stored32:no_applicable_pairs": 4
+          },
+          "all_candidate_windows": 202,
+          "unique_lane_changes_covered": 5,
+          "unique_ramp_exits_covered": 2,
+          "unique_lane_changes_in_eligible_assessed": 3,
+          "unique_ramp_exits_in_eligible_assessed": 2
+        },
+        "interaction_current": {
+          "assessed_quality": {
+            "assessed_windows": 64,
+            "core_complete": 52,
+            "eligible": 39,
+            "heading5_assessed_windows": 1,
+            "heading5_eligible_windows": 1,
+            "lateral_half_assessed_windows": 38,
+            "lateral_half_eligible_windows": 26,
+            "lane_change_assessed_windows": 3,
+            "lane_change_eligible_windows": 2,
+            "ramp_exit_assessed_windows": 9,
+            "ramp_exit_eligible_windows": 5
+          },
+          "rejection_reasons": {
+            "incomplete_history_or_future": 12,
+            "raw64:road": 8,
+            "raw64:route": 8,
+            "stored32:road": 8,
+            "stored32:route": 8,
+            "raw64:motion": 6,
+            "stored32:motion": 6
+          },
+          "all_candidate_windows": 202,
+          "unique_lane_changes_covered": 3,
+          "unique_ramp_exits_covered": 6,
+          "unique_lane_changes_in_eligible_assessed": 2,
+          "unique_ramp_exits_in_eligible_assessed": 4
+        }
+      },
+      "raw_distributions_by_seed": {
+        "all": [
+          {
+            "seed": 20261105,
+            "count": 8365,
+            "mean": 0.2667652159765307,
+            "min": 0.0,
+            "p50": 0.0009454685709897603,
+            "p95": 0.3369212709685593,
+            "p99": 1.540153367749383,
+            "max": 358.7455987752471
+          },
+          {
+            "seed": 20261106,
+            "count": 7718,
+            "mean": 0.11859032681511643,
+            "min": 0.0,
+            "p50": 0.003500226783081928,
+            "p95": 0.3378748333034308,
+            "p99": 1.5000565763285565,
+            "max": 55.11445634242357
+          }
+        ],
+        "lane_change_context": [
+          {
+            "seed": 20261105,
+            "count": 366,
+            "mean": 0.5600830578545218,
+            "min": 0.00045924776937131376,
+            "p50": 0.07618999064733421,
+            "p95": 1.5872233770462845,
+            "p99": 9.934831550963533,
+            "max": 25.19990827858023
+          },
+          {
+            "seed": 20261106,
+            "count": 427,
+            "mean": 0.6110462104382753,
+            "min": 0.00026199497843276004,
+            "p50": 0.08019227086988956,
+            "p95": 1.5860756377978866,
+            "p99": 6.780518370340364,
+            "max": 55.11445634242357
+          }
+        ],
+        "ramp_exit_context": [
+          {
+            "seed": 20261105,
+            "count": 273,
+            "mean": 0.2015017894928797,
+            "min": 0.0,
+            "p50": 0.16766577876987168,
+            "p95": 0.608568580039559,
+            "p99": 0.9177699402578808,
+            "max": 1.151591693965416
+          },
+          {
+            "seed": 20261106,
+            "count": 273,
+            "mean": 0.22057590675227606,
+            "min": 0.0006103674934365699,
+            "p50": 0.21805559935388913,
+            "p95": 0.5281259319742259,
+            "p99": 0.7772307229411498,
+            "max": 1.1460278227494876
+          }
+        ],
+        "junction60m": [
+          {
+            "seed": 20261105,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          },
+          {
+            "seed": 20261106,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          }
+        ],
+        "longitudinal_all": [
+          {
+            "seed": 20261105,
+            "count": 8365,
+            "mean": 0.05271636545820439,
+            "min": 0.0,
+            "p50": 0.0002011989829853178,
+            "p95": 0.10625702059009247,
+            "p99": 0.6050125940041089,
+            "max": 49.83955278582837
+          },
+          {
+            "seed": 20261106,
+            "count": 7718,
+            "mean": 0.07239592414892979,
+            "min": 0.0,
+            "p50": 0.0008304784420154476,
+            "p95": 0.1750395127778147,
+            "p99": 0.7994417809097982,
+            "max": 55.48509210054711
+          }
+        ],
+        "longitudinal_junction60m": [
+          {
+            "seed": 20261105,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          },
+          {
+            "seed": 20261106,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          }
+        ]
+      },
+      "raw_lane_change_events": 13,
+      "raw_ramp_exit_events": 6
+    },
+    {
+      "family": "unsignalized_intersection",
+      "variant": "baseline",
+      "seeds": [
+        20261105,
+        20261106
+      ],
+      "policies": {
+        "first_current_id": {
+          "assessed_quality": {
+            "assessed_windows": 64,
+            "core_complete": 59,
+            "eligible": 36,
+            "heading5_assessed_windows": 7,
+            "heading5_eligible_windows": 2,
+            "lateral_half_assessed_windows": 7,
+            "lateral_half_eligible_windows": 2,
+            "lane_change_assessed_windows": 0,
+            "lane_change_eligible_windows": 0,
+            "ramp_exit_assessed_windows": 0,
+            "ramp_exit_eligible_windows": 0
+          },
+          "rejection_reasons": {
+            "incomplete_history_or_future": 5,
+            "raw64:motion": 6,
+            "stored32:motion": 6,
+            "too_few_agents": 17,
+            "raw64:no_applicable_pairs": 17,
+            "stored32:no_applicable_pairs": 17
+          },
+          "all_candidate_windows": 388,
+          "unique_lane_changes_covered": 0,
+          "unique_ramp_exits_covered": 0,
+          "unique_lane_changes_in_eligible_assessed": 0,
+          "unique_ramp_exits_in_eligible_assessed": 0
+        },
+        "interaction_current": {
+          "assessed_quality": {
+            "assessed_windows": 64,
+            "core_complete": 59,
+            "eligible": 42,
+            "heading5_assessed_windows": 18,
+            "heading5_eligible_windows": 8,
+            "lateral_half_assessed_windows": 18,
+            "lateral_half_eligible_windows": 8,
+            "lane_change_assessed_windows": 0,
+            "lane_change_eligible_windows": 0,
+            "ramp_exit_assessed_windows": 0,
+            "ramp_exit_eligible_windows": 0
+          },
+          "rejection_reasons": {
+            "incomplete_history_or_future": 5,
+            "raw64:motion": 13,
+            "stored32:motion": 13,
+            "too_few_agents": 4,
+            "raw64:no_applicable_pairs": 4,
+            "stored32:no_applicable_pairs": 4
+          },
+          "all_candidate_windows": 388,
+          "unique_lane_changes_covered": 0,
+          "unique_ramp_exits_covered": 0,
+          "unique_lane_changes_in_eligible_assessed": 0,
+          "unique_ramp_exits_in_eligible_assessed": 0
+        }
+      },
+      "raw_distributions_by_seed": {
+        "all": [
+          {
+            "seed": 20261105,
+            "count": 20716,
+            "mean": 0.1268490119366719,
+            "min": 0.0,
+            "p50": 7.68741111717655e-05,
+            "p95": 0.4313502571154609,
+            "p99": 1.43906255918662,
+            "max": 40.00000000053997
+          },
+          {
+            "seed": 20261106,
+            "count": 18993,
+            "mean": 0.1511097053331425,
+            "min": 0.0,
+            "p50": 0.00017687073924931883,
+            "p95": 0.5120539031559204,
+            "p99": 1.9972231396650146,
+            "max": 40.0211239924971
+          }
+        ],
+        "lane_change_context": [
+          {
+            "seed": 20261105,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          },
+          {
+            "seed": 20261106,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          }
+        ],
+        "ramp_exit_context": [
+          {
+            "seed": 20261105,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          },
+          {
+            "seed": 20261106,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          }
+        ],
+        "junction60m": [
+          {
+            "seed": 20261105,
+            "count": 4076,
+            "mean": 0.5700006529493742,
+            "min": 0.0,
+            "p50": 0.0453221324339348,
+            "p95": 1.3542544713997482,
+            "p99": 9.027474710117055,
+            "max": 40.00000000053997
+          },
+          {
+            "seed": 20261106,
+            "count": 3788,
+            "mean": 0.6149458253271487,
+            "min": 0.0,
+            "p50": 0.09892334023083525,
+            "p95": 1.6217159597362736,
+            "p99": 8.059553777018852,
+            "max": 40.0211239924971
+          }
+        ],
+        "longitudinal_all": [
+          {
+            "seed": 20261105,
+            "count": 20716,
+            "mean": 0.10067023667589309,
+            "min": 0.0,
+            "p50": 6.808916337419646e-05,
+            "p95": 0.3152968998482941,
+            "p99": 0.7417298679812108,
+            "max": 40.0
+          },
+          {
+            "seed": 20261106,
+            "count": 18993,
+            "mean": 0.11820811539008451,
+            "min": 0.0,
+            "p50": 0.00017210231231246098,
+            "p95": 0.34960463495705646,
+            "p99": 0.8221369926452896,
+            "max": 40.02112399202353
+          }
+        ],
+        "longitudinal_junction60m": [
+          {
+            "seed": 20261105,
+            "count": 4076,
+            "mean": 0.4369487618948845,
+            "min": 0.0,
+            "p50": 0.0118189064400742,
+            "p95": 0.6675733026750772,
+            "p99": 8.900078927316013,
+            "max": 40.0
+          },
+          {
+            "seed": 20261106,
+            "count": 3788,
+            "mean": 0.44997753139441893,
+            "min": 0.0,
+            "p50": 0.032801544693664836,
+            "p95": 0.6474948144115219,
+            "p99": 8.07586343578254,
+            "max": 40.02112399202353
+          }
+        ]
+      },
+      "raw_lane_change_events": 0,
+      "raw_ramp_exit_events": 0
+    },
+    {
+      "family": "unsignalized_intersection",
+      "variant": "eidm",
+      "seeds": [
+        20261105,
+        20261106
+      ],
+      "policies": {
+        "first_current_id": {
+          "assessed_quality": {
+            "assessed_windows": 64,
+            "core_complete": 58,
+            "eligible": 38,
+            "heading5_assessed_windows": 5,
+            "heading5_eligible_windows": 4,
+            "lateral_half_assessed_windows": 6,
+            "lateral_half_eligible_windows": 4,
+            "lane_change_assessed_windows": 0,
+            "lane_change_eligible_windows": 0,
+            "ramp_exit_assessed_windows": 0,
+            "ramp_exit_eligible_windows": 0
+          },
+          "rejection_reasons": {
+            "incomplete_history_or_future": 6,
+            "too_few_agents": 17,
+            "raw64:no_applicable_pairs": 17,
+            "stored32:no_applicable_pairs": 17,
+            "raw64:motion": 3,
+            "stored32:motion": 3
+          },
+          "all_candidate_windows": 393,
+          "unique_lane_changes_covered": 0,
+          "unique_ramp_exits_covered": 0,
+          "unique_lane_changes_in_eligible_assessed": 0,
+          "unique_ramp_exits_in_eligible_assessed": 0
+        },
+        "interaction_current": {
+          "assessed_quality": {
+            "assessed_windows": 64,
+            "core_complete": 60,
+            "eligible": 47,
+            "heading5_assessed_windows": 18,
+            "heading5_eligible_windows": 11,
+            "lateral_half_assessed_windows": 20,
+            "lateral_half_eligible_windows": 12,
+            "lane_change_assessed_windows": 0,
+            "lane_change_eligible_windows": 0,
+            "ramp_exit_assessed_windows": 0,
+            "ramp_exit_eligible_windows": 0
+          },
+          "rejection_reasons": {
+            "incomplete_history_or_future": 4,
+            "raw64:motion": 8,
+            "stored32:motion": 8,
+            "too_few_agents": 5,
+            "raw64:no_applicable_pairs": 5,
+            "stored32:no_applicable_pairs": 5
+          },
+          "all_candidate_windows": 393,
+          "unique_lane_changes_covered": 0,
+          "unique_ramp_exits_covered": 0,
+          "unique_lane_changes_in_eligible_assessed": 0,
+          "unique_ramp_exits_in_eligible_assessed": 0
+        }
+      },
+      "raw_distributions_by_seed": {
+        "all": [
+          {
+            "seed": 20261105,
+            "count": 20722,
+            "mean": 0.4596134254846395,
+            "min": 0.0,
+            "p50": 0.2674227750543376,
+            "p95": 1.1882381750942281,
+            "p99": 2.4934296623586505,
+            "max": 55.358983676513844
+          },
+          {
+            "seed": 20261106,
+            "count": 19010,
+            "mean": 0.522241692381439,
+            "min": 0.0,
+            "p50": 0.27062477728692547,
+            "p95": 1.2351612302760695,
+            "p99": 3.0000000002577787,
+            "max": 55.106597072127244
+          }
+        ],
+        "lane_change_context": [
+          {
+            "seed": 20261105,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          },
+          {
+            "seed": 20261106,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          }
+        ],
+        "ramp_exit_context": [
+          {
+            "seed": 20261105,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          },
+          {
+            "seed": 20261106,
+            "count": 0,
+            "mean": null,
+            "min": null,
+            "p50": null,
+            "p95": null,
+            "p99": null,
+            "max": null
+          }
+        ],
+        "junction60m": [
+          {
+            "seed": 20261105,
+            "count": 4294,
+            "mean": 0.833286865820418,
+            "min": 0.0,
+            "p50": 0.20490409303033633,
+            "p95": 2.126722643067605,
+            "p99": 13.617675112484063,
+            "max": 55.358983676513844
+          },
+          {
+            "seed": 20261106,
+            "count": 4012,
+            "mean": 1.1568815216006414,
+            "min": 0.0,
+            "p50": 0.2792007669507187,
+            "p95": 2.9999999998605493,
+            "p99": 20.724802942484843,
+            "max": 55.106597072127244
+          }
+        ],
+        "longitudinal_all": [
+          {
+            "seed": 20261105,
+            "count": 20722,
+            "mean": 0.4414014494994644,
+            "min": 0.0,
+            "p50": 0.25979823825776904,
+            "p95": 1.082481219016538,
+            "p99": 2.4354673966286686,
+            "max": 55.35898367615928
+          },
+          {
+            "seed": 20261106,
+            "count": 19010,
+            "mean": 0.49667905698095227,
+            "min": 0.0,
+            "p50": 0.25981189487613854,
+            "p95": 1.086459575808378,
+            "p99": 3.0000000000000027,
+            "max": 55.10659707178288
+          }
+        ],
+        "longitudinal_junction60m": [
+          {
+            "seed": 20261105,
+            "count": 4294,
+            "mean": 0.7453994493414046,
+            "min": 0.0,
+            "p50": 0.16320769812026015,
+            "p95": 1.9068551467926582,
+            "p99": 13.617675112386966,
+            "max": 55.35898367615928
+          },
+          {
+            "seed": 20261106,
+            "count": 4012,
+            "mean": 1.035758466028543,
+            "min": 0.0,
+            "p50": 0.20166376476643544,
+            "p95": 2.9999999999999805,
+            "p99": 20.72492399906172,
+            "max": 55.10659707178288
+          }
+        ]
+      },
+      "raw_lane_change_events": 0,
+      "raw_ramp_exit_events": 0
+    }
+  ],
+  "independent_review": {
+    "schema_version": "sumodiff.source.motion.independent.review.results.v1",
+    "run_sha": "277d8b9583f02c33adfdac1e8d2e1ce5030d0677",
+    "primary_source_sha": "277d8b9583f02c33adfdac1e8d2e1ce5030d0677",
+    "source_input_identities_verified": 272,
+    "raw_episodes_rebuilt": 14,
+    "independent_candidate_selections": 3532,
+    "raw_distributions_verified": 84,
+    "cached_quality_window_records_verified": 896,
+    "full_quality_engine_rerun": false,
+    "via_chain_endpoint_pairs_checked": 200,
+    "max_via_chain_endpoint_gap_m": 0.0,
+    "optimizer_updates": 0,
+    "new_collection_runs": 0,
+    "validation_episode_arrays_loaded": 0,
+    "test_episode_arrays_loaded": 0
+  },
+  "representative_domain_peaks": [
+    {
+      "case_id": "three_lane_straight-baseline-s20261105",
+      "domain": "all",
+      "vehicle_id": "flow_main.5",
+      "tick": 326,
+      "jerk_mps3": 59.006663854438614,
+      "reported_scalar_jerk_mps3": 0.005029291619607079,
+      "acceleration_before_mps2": -0.005812185174605133,
+      "acceleration_after_mps2": -0.0053092560126444255,
+      "road": "main",
+      "speed_mps": 12.063500987880134,
+      "position_m": [
+        -101.99290312690081,
+        -8.581707389534186
+      ]
+    },
+    {
+      "case_id": "three_lane_straight-baseline-s20261105",
+      "domain": "lane_change_context",
+      "vehicle_id": "flow_main.5",
+      "tick": 326,
+      "jerk_mps3": 59.006663854438614,
+      "reported_scalar_jerk_mps3": 0.005029291619607079,
+      "acceleration_before_mps2": -0.005812185174605133,
+      "acceleration_after_mps2": -0.0053092560126444255,
+      "road": "main",
+      "speed_mps": 12.063500987880134,
+      "position_m": [
+        -101.99290312690081,
+        -8.581707389534186
+      ]
+    },
+    {
+      "case_id": "three_lane_straight-baseline-s20261106",
+      "domain": "all",
+      "vehicle_id": "flow_main.4",
+      "tick": 757,
+      "jerk_mps3": 58.82809807405868,
+      "reported_scalar_jerk_mps3": 0.08192809916387489,
+      "acceleration_before_mps2": 0.1556494856611934,
+      "acceleration_after_mps2": 0.14745667574480592,
+      "road": "main",
+      "speed_mps": 14.069448487030252,
+      "position_m": [
+        581.1038171893622,
+        -8.613318008782159
+      ]
+    },
+    {
+      "case_id": "three_lane_straight-baseline-s20261106",
+      "domain": "lane_change_context",
+      "vehicle_id": "flow_main.4",
+      "tick": 757,
+      "jerk_mps3": 58.82809807405868,
+      "reported_scalar_jerk_mps3": 0.08192809916387489,
+      "acceleration_before_mps2": 0.1556494856611934,
+      "acceleration_after_mps2": 0.14745667574480592,
+      "road": "main",
+      "speed_mps": 14.069448487030252,
+      "position_m": [
+        581.1038171893622,
+        -8.613318008782159
+      ]
+    },
+    {
+      "case_id": "three_lane_straight-sublane-s20261105",
+      "domain": "all",
+      "vehicle_id": "flow_main.5",
+      "tick": 310,
+      "jerk_mps3": 17.990104676265823,
+      "reported_scalar_jerk_mps3": 7.545900171379571e-05,
+      "acceleration_before_mps2": 0.0051392032064434545,
+      "acceleration_after_mps2": 0.005131657306272075,
+      "road": "main",
+      "speed_mps": 12.136888303038221,
+      "position_m": [
+        -121.02295812762873,
+        -5.41251005976894
+      ]
+    },
+    {
+      "case_id": "three_lane_straight-sublane-s20261105",
+      "domain": "lane_change_context",
+      "vehicle_id": "flow_main.2",
+      "tick": 164,
+      "jerk_mps3": 4.873209710622255,
+      "reported_scalar_jerk_mps3": 4.877062984494529,
+      "acceleration_before_mps2": -4.671818487622659e-12,
+      "acceleration_after_mps2": -0.4877062984541247,
+      "road": "main",
+      "speed_mps": 14.605629368392453,
+      "position_m": [
+        -155.4046372626947,
+        -2.615343376533486
+      ]
+    },
+    {
+      "case_id": "three_lane_straight-sublane-s20261106",
+      "domain": "all",
+      "vehicle_id": "flow_main.3",
+      "tick": 722,
+      "jerk_mps3": 16.099867438242654,
+      "reported_scalar_jerk_mps3": 16.099867438386006,
+      "acceleration_before_mps2": 0.002412990720781494,
+      "acceleration_after_mps2": -1.6075737531178191,
+      "road": "main",
+      "speed_mps": 12.8195295618862,
+      "position_m": [
+        508.2357719284612,
+        -8.75
+      ]
+    },
+    {
+      "case_id": "three_lane_straight-sublane-s20261106",
+      "domain": "lane_change_context",
+      "vehicle_id": "flow_main.8",
+      "tick": 366,
+      "jerk_mps3": 3.364954739601232,
+      "reported_scalar_jerk_mps3": 3.3675127611930478,
+      "acceleration_before_mps2": 0.0008390336516050922,
+      "acceleration_after_mps2": -0.3359122424676997,
+      "road": "main",
+      "speed_mps": 14.952179786598569,
+      "position_m": [
+        -143.10747311943106,
+        -2.617463621248871
+      ]
+    },
+    {
+      "case_id": "ramp_merge-baseline-s20261105",
+      "domain": "all",
+      "vehicle_id": "flow_main.1",
+      "tick": 303,
+      "jerk_mps3": 345.09499671780327,
+      "reported_scalar_jerk_mps3": 0.01530752973106786,
+      "acceleration_before_mps2": 0.02475838848294387,
+      "acceleration_after_mps2": 0.023227635509837086,
+      "road": "acceleration",
+      "speed_mps": 12.787529677472344,
+      "position_m": [
+        -15.640056545123196,
+        -8.667362400111255
+      ]
+    },
+    {
+      "case_id": "ramp_merge-baseline-s20261105",
+      "domain": "lane_change_context",
+      "vehicle_id": "flow_main.1",
+      "tick": 303,
+      "jerk_mps3": 345.09499671780327,
+      "reported_scalar_jerk_mps3": 0.01530752973106786,
+      "acceleration_before_mps2": 0.02475838848294387,
+      "acceleration_after_mps2": 0.023227635509837086,
+      "road": "acceleration",
+      "speed_mps": 12.787529677472344,
+      "position_m": [
+        -15.640056545123196,
+        -8.667362400111255
+      ]
+    },
+    {
+      "case_id": "ramp_merge-baseline-s20261105",
+      "domain": "ramp_exit_context",
+      "vehicle_id": "flow_ramp.2",
+      "tick": 678,
+      "jerk_mps3": 164.78910766255495,
+      "reported_scalar_jerk_mps3": 0.002954698361179453,
+      "acceleration_before_mps2": -0.11393704725767506,
+      "acceleration_after_mps2": -0.114232517093793,
+      "road": "main_out",
+      "speed_mps": 11.514468656703208,
+      "position_m": [
+        184.14978117202816,
+        -8.982121804278076
+      ]
+    },
+    {
+      "case_id": "ramp_merge-baseline-s20261106",
+      "domain": "all",
+      "vehicle_id": "flow_main.7",
+      "tick": 726,
+      "jerk_mps3": 184.26124680452583,
+      "reported_scalar_jerk_mps3": 0.1317595549917172,
+      "acceleration_before_mps2": 0.21996800340181366,
+      "acceleration_after_mps2": 0.20679204790264194,
+      "road": ":merge_end_0",
+      "speed_mps": 12.091750694771285,
+      "position_m": [
+        176.3884913653544,
+        -11.896462340484149
+      ]
+    },
+    {
+      "case_id": "ramp_merge-baseline-s20261106",
+      "domain": "ramp_exit_context",
+      "vehicle_id": "flow_ramp.0",
+      "tick": 488,
+      "jerk_mps3": 180.93473212400437,
+      "reported_scalar_jerk_mps3": 0.0030264816738068134,
+      "acceleration_before_mps2": 0.008485161223710236,
+      "acceleration_after_mps2": 0.008787809391090917,
+      "road": "main_out",
+      "speed_mps": 12.09763982948702,
+      "position_m": [
+        183.90250352844927,
+        -9.044911590582407
+      ]
+    },
+    {
+      "case_id": "ramp_merge-baseline-s20261106",
+      "domain": "lane_change_context",
+      "vehicle_id": "flow_main.2",
+      "tick": 555,
+      "jerk_mps3": 133.10994957366668,
+      "reported_scalar_jerk_mps3": 9.197148234107999e-05,
+      "acceleration_before_mps2": 0.01877262938940305,
+      "acceleration_after_mps2": 0.018763432241168942,
+      "road": ":merge_end_0",
+      "speed_mps": 10.967203579634408,
+      "position_m": [
+        178.5483713312971,
+        -11.00489725395331
+      ]
+    },
+    {
+      "case_id": "ramp_merge-sublane-s20261105",
+      "domain": "all",
+      "vehicle_id": "flow_main.1",
+      "tick": 457,
+      "jerk_mps3": 3512.713172826575,
+      "reported_scalar_jerk_mps3": 2.7577485184338e-06,
+      "acceleration_before_mps2": 4.420195285348427e-06,
+      "acceleration_after_mps2": 4.144420433505047e-06,
+      "road": ":merge_end_0",
+      "speed_mps": 12.822593770470284,
+      "position_m": [
+        181.70297529047136,
+        -8.005147566580842
+      ]
+    },
+    {
+      "case_id": "ramp_merge-sublane-s20261105",
+      "domain": "lane_change_context",
+      "vehicle_id": "flow_main.1",
+      "tick": 457,
+      "jerk_mps3": 3512.713172826575,
+      "reported_scalar_jerk_mps3": 2.7577485184338e-06,
+      "acceleration_before_mps2": 4.420195285348427e-06,
+      "acceleration_after_mps2": 4.144420433505047e-06,
+      "road": ":merge_end_0",
+      "speed_mps": 12.822593770470284,
+      "position_m": [
+        181.70297529047136,
+        -8.005147566580842
+      ]
+    },
+    {
+      "case_id": "ramp_merge-sublane-s20261105",
+      "domain": "ramp_exit_context",
+      "vehicle_id": "flow_ramp.1",
+      "tick": 596,
+      "jerk_mps3": 205.61368308465381,
+      "reported_scalar_jerk_mps3": 0.0077342861652951456,
+      "acceleration_before_mps2": 0.0219055106187227,
+      "acceleration_after_mps2": 0.021132082002193187,
+      "road": "main_out",
+      "speed_mps": 9.964252466475857,
+      "position_m": [
+        183.8846666272049,
+        -8.192798061471883
+      ]
+    },
+    {
+      "case_id": "ramp_merge-sublane-s20261106",
+      "domain": "all",
+      "vehicle_id": "flow_main.2",
+      "tick": 559,
+      "jerk_mps3": 358.04713101230016,
+      "reported_scalar_jerk_mps3": 0.0005793955740074352,
+      "acceleration_before_mps2": 0.022389508787057366,
+      "acceleration_after_mps2": 0.022331569229656623,
+      "road": "main_out",
+      "speed_mps": 10.929496040694184,
+      "position_m": [
+        185.2698808265616,
+        -8.773790497119622
+      ]
+    },
+    {
+      "case_id": "ramp_merge-sublane-s20261106",
+      "domain": "ramp_exit_context",
+      "vehicle_id": "flow_ramp.0",
+      "tick": 488,
+      "jerk_mps3": 184.47776303844194,
+      "reported_scalar_jerk_mps3": 0.002920766781500106,
+      "acceleration_before_mps2": 0.008109071137756274,
+      "acceleration_after_mps2": 0.008401147815906285,
+      "road": "main_out",
+      "speed_mps": 12.104975720654844,
+      "position_m": [
+        183.9338791727117,
+        -9.036469417775637
+      ]
+    },
+    {
+      "case_id": "ramp_merge-sublane-s20261106",
+      "domain": "lane_change_context",
+      "vehicle_id": "flow_main.7",
+      "tick": 723,
+      "jerk_mps3": 84.4180022591358,
+      "reported_scalar_jerk_mps3": 0.00041713384284491895,
+      "acceleration_before_mps2": -0.010576882942796573,
+      "acceleration_after_mps2": -0.010618596327081065,
+      "road": ":merge_end_0",
+      "speed_mps": 11.968495549207855,
+      "position_m": [
+        175.09321676110284,
+        -11.46471394057142
+      ]
+    },
+    {
+      "case_id": "ramp_merge-sublane_transition-s20261105",
+      "domain": "all",
+      "vehicle_id": "flow_main.1",
+      "tick": 491,
+      "jerk_mps3": 358.7455987752471,
+      "reported_scalar_jerk_mps3": 0.00012724185793899778,
+      "acceleration_before_mps2": 0.005347830718687163,
+      "acceleration_after_mps2": 0.005335106532893263,
+      "road": "main_out",
+      "speed_mps": 12.51793516291294,
+      "position_m": [
+        221.77312859999827,
+        -8.737199658867688
+      ]
+    },
+    {
+      "case_id": "ramp_merge-sublane_transition-s20261105",
+      "domain": "lane_change_context",
+      "vehicle_id": "flow_main.0",
+      "tick": 452,
+      "jerk_mps3": 25.19990827858023,
+      "reported_scalar_jerk_mps3": 0.0011505826767788108,
+      "acceleration_before_mps2": 0.010145944220170122,
+      "acceleration_after_mps2": 0.010030885952492241,
+      "road": "acceleration",
+      "speed_mps": 9.995630819346822,
+      "position_m": [
+        104.26623609459365,
+        -10.433608329287104
+      ]
+    },
+    {
+      "case_id": "ramp_merge-sublane_transition-s20261105",
+      "domain": "ramp_exit_context",
+      "vehicle_id": "flow_ramp.0",
+      "tick": 374,
+      "jerk_mps3": 1.151591693965416,
+      "reported_scalar_jerk_mps3": 0.0,
+      "acceleration_before_mps2": 0.0,
+      "acceleration_after_mps2": 0.0,
+      "road": ":merge_end_0",
+      "speed_mps": 13.150199998720868,
+      "position_m": [
+        140.54141471099317,
+        -12.249213571219208
+      ]
+    },
+    {
+      "case_id": "ramp_merge-sublane_transition-s20261106",
+      "domain": "all",
+      "vehicle_id": "flow_main.2",
+      "tick": 458,
+      "jerk_mps3": 55.11445634242357,
+      "reported_scalar_jerk_mps3": 55.48509210054711,
+      "acceleration_before_mps2": -0.3164907899452807,
+      "acceleration_after_mps2": -5.864999999999991,
+      "road": "acceleration",
+      "speed_mps": 10.132623880761859,
+      "position_m": [
+        76.42578907951064,
+        -6.922092400877482
+      ]
+    },
+    {
+      "case_id": "ramp_merge-sublane_transition-s20261106",
+      "domain": "ramp_exit_context",
+      "vehicle_id": "flow_ramp.0",
+      "tick": 461,
+      "jerk_mps3": 1.1460278227494876,
+      "reported_scalar_jerk_mps3": 0.0006449889005111231,
+      "acceleration_before_mps2": 0.009252011000704385,
+      "acceleration_after_mps2": 0.009187512110653273,
+      "road": "main_out",
+      "speed_mps": 12.224141595916556,
+      "position_m": [
+        218.62769705140317,
+        -8.751647330014949
+      ]
+    },
+    {
+      "case_id": "ramp_merge-sublane_transition-s20261106",
+      "domain": "lane_change_context",
+      "vehicle_id": "flow_main.2",
+      "tick": 458,
+      "jerk_mps3": 55.11445634242357,
+      "reported_scalar_jerk_mps3": 55.48509210054711,
+      "acceleration_before_mps2": -0.3164907899452807,
+      "acceleration_after_mps2": -5.864999999999991,
+      "road": "acceleration",
+      "speed_mps": 10.132623880761859,
+      "position_m": [
+        76.42578907951064,
+        -6.922092400877482
+      ]
+    },
+    {
+      "case_id": "unsignalized_intersection-baseline-s20261105",
+      "domain": "all",
+      "vehicle_id": "flow_south_north.0",
+      "tick": 832,
+      "jerk_mps3": 40.00000000053997,
+      "reported_scalar_jerk_mps3": 40.0,
+      "acceleration_before_mps2": 2.0,
+      "acceleration_after_mps2": -2.0,
+      "road": "south_in",
+      "speed_mps": 0.0,
+      "position_m": [
+        23.972666582313717,
+        -32.08953688949265
+      ]
+    },
+    {
+      "case_id": "unsignalized_intersection-baseline-s20261105",
+      "domain": "junction60m",
+      "vehicle_id": "flow_south_north.0",
+      "tick": 832,
+      "jerk_mps3": 40.00000000053997,
+      "reported_scalar_jerk_mps3": 40.0,
+      "acceleration_before_mps2": 2.0,
+      "acceleration_after_mps2": -2.0,
+      "road": "south_in",
+      "speed_mps": 0.0,
+      "position_m": [
+        23.972666582313717,
+        -32.08953688949265
+      ]
+    },
+    {
+      "case_id": "unsignalized_intersection-baseline-s20261106",
+      "domain": "all",
+      "vehicle_id": "flow_south_north.0",
+      "tick": 748,
+      "jerk_mps3": 40.0211239924971,
+      "reported_scalar_jerk_mps3": 40.02112399202353,
+      "acceleration_before_mps2": -2.0021123992023537,
+      "acceleration_after_mps2": 2.0,
+      "road": "south_in",
+      "speed_mps": 0.2,
+      "position_m": [
+        23.963016638106055,
+        -32.0752302588668
+      ]
+    },
+    {
+      "case_id": "unsignalized_intersection-baseline-s20261106",
+      "domain": "junction60m",
+      "vehicle_id": "flow_south_north.0",
+      "tick": 748,
+      "jerk_mps3": 40.0211239924971,
+      "reported_scalar_jerk_mps3": 40.02112399202353,
+      "acceleration_before_mps2": -2.0021123992023537,
+      "acceleration_after_mps2": 2.0,
+      "road": "south_in",
+      "speed_mps": 0.2,
+      "position_m": [
+        23.963016638106055,
+        -32.0752302588668
+      ]
+    },
+    {
+      "case_id": "unsignalized_intersection-eidm-s20261105",
+      "domain": "all",
+      "vehicle_id": "flow_south_north.0",
+      "tick": 1014,
+      "jerk_mps3": 55.358983676510896,
+      "reported_scalar_jerk_mps3": 55.35898367615928,
+      "acceleration_before_mps2": -3.5899625687349546,
+      "acceleration_after_mps2": 1.9459357988809733,
+      "road": ":center_4",
+      "speed_mps": 0.2674755707058756,
+      "position_m": [
+        23.759701356968613,
+        -31.773802958850542
+      ]
+    },
+    {
+      "case_id": "unsignalized_intersection-eidm-s20261105",
+      "domain": "junction60m",
+      "vehicle_id": "flow_south_north.0",
+      "tick": 1014,
+      "jerk_mps3": 55.358983676510896,
+      "reported_scalar_jerk_mps3": 55.35898367615928,
+      "acceleration_before_mps2": -3.5899625687349546,
+      "acceleration_after_mps2": 1.9459357988809733,
+      "road": ":center_4",
+      "speed_mps": 0.2674755707058756,
+      "position_m": [
+        23.759701356968613,
+        -31.773802958850542
+      ]
+    },
+    {
+      "case_id": "unsignalized_intersection-eidm-s20261106",
+      "domain": "all",
+      "vehicle_id": "flow_south_north.0",
+      "tick": 929,
+      "jerk_mps3": 55.106597072127244,
+      "reported_scalar_jerk_mps3": 55.10659707178288,
+      "acceleration_before_mps2": -3.572488820196069,
+      "acceleration_after_mps2": 1.938170886982219,
+      "road": ":center_4",
+      "speed_mps": 0.24723648877986037,
+      "position_m": [
+        23.768927866726038,
+        -31.787481822087972
+      ]
+    },
+    {
+      "case_id": "unsignalized_intersection-eidm-s20261106",
+      "domain": "junction60m",
+      "vehicle_id": "flow_south_north.0",
+      "tick": 929,
+      "jerk_mps3": 55.106597072127244,
+      "reported_scalar_jerk_mps3": 55.10659707178288,
+      "acceleration_before_mps2": -3.572488820196069,
+      "acceleration_after_mps2": 1.938170886982219,
+      "road": ":center_4",
+      "speed_mps": 0.24723648877986037,
+      "position_m": [
+        23.768927866726038,
+        -31.787481822087972
+      ]
+    }
+  ],
+  "resources": {
+    "collection_wall_seconds": 110.983701,
+    "audit_including_preflight_seconds": 152.08039409999037,
+    "vehicle_records": 156502,
+    "raw_frames": 18056,
+    "simulated_seconds": 1804.2,
+    "raw_frames_bytes": 90688849,
+    "collection_python_peak_sampled_rss_bytes": 411828224,
+    "collection_sumo_peak_sampled_rss_bytes": 23363584,
+    "audit_peak_rss_measured": false,
+    "gpu_training": false
+  },
+  "tests": {
+    "full_suite_passed": 470,
+    "full_suite_seconds": 57.35,
+    "new_tests": 18
+  },
+  "optimizer_updates": 0,
+  "formal_dataset_modified": false,
+  "quality_thresholds_unchanged": true,
+  "validation_episode_arrays_loaded": 0,
+  "test_episode_arrays_loaded": 0,
+  "caveats": [
+    "quality eligibility is assessed only on the fixed at most 32 times per episode and policy",
+    "seed pairs share requested demand and geometry, not realized trajectories or reference times across different models",
+    "event contexts and windows overlap; no statistical independence or significance is claimed",
+    "EIDM candidate has worse junction jerk tails and is not selected as a new default",
+    "interaction reference improves some categories and reduces some main-road lane-change coverage; use separate quotas",
+    "unassessed quality stays unknown; smooth geometry and SL2015 do not guarantee global motion quality"
+  ],
+  "supplemental_quality_review": {
+    "schema_version": "sumodiff.source.motion.quality.review.results.v1",
+    "run_sha": "38fb1332c8554b635d33945188a9704353bdc281",
+    "primary_source_sha": "277d8b9583f02c33adfdac1e8d2e1ce5030d0677",
+    "full_quality_windows_replayed": 14,
+    "road_rejected_windows_verified": 8,
+    "unique_road_violation_body_frames": 26,
+    "max_world_local_outside_area_error_m2": 2.395257112652871e-07,
+    "optimizer_updates": 0,
+    "new_collection_runs": 0,
+    "validation_episode_arrays_loaded": 0,
+    "test_episode_arrays_loaded": 0,
+    "road_windows": [
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261105",
+        "window_id": "e7cd85f490d9cd605aab0411cb746e554d704d0ec4a3688ddca3cacee66453df-t240-interaction",
+        "violating_body_frames": 3,
+        "max_outside_area_m2": 2.0521327471068737e-05
+      },
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261105",
+        "window_id": "e7cd85f490d9cd605aab0411cb746e554d704d0ec4a3688ddca3cacee66453df-t270-interaction",
+        "violating_body_frames": 3,
+        "max_outside_area_m2": 2.0521327471068737e-05
+      },
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261106",
+        "window_id": "2b7f3dc40e17bf49919a604f9b213f19dbecebab7b63d9608b55c4e0ca2b13af-t240-interaction",
+        "violating_body_frames": 1,
+        "max_outside_area_m2": 2.0520486473444888e-05
+      },
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261106",
+        "window_id": "2b7f3dc40e17bf49919a604f9b213f19dbecebab7b63d9608b55c4e0ca2b13af-t270-interaction",
+        "violating_body_frames": 4,
+        "max_outside_area_m2": 2.0522576749631287e-05
+      },
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261106",
+        "window_id": "2b7f3dc40e17bf49919a604f9b213f19dbecebab7b63d9608b55c4e0ca2b13af-t300-interaction",
+        "violating_body_frames": 4,
+        "max_outside_area_m2": 2.0522576749631287e-05
+      },
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261106",
+        "window_id": "2b7f3dc40e17bf49919a604f9b213f19dbecebab7b63d9608b55c4e0ca2b13af-t570-interaction",
+        "violating_body_frames": 1,
+        "max_outside_area_m2": 0.39627072825399595
+      },
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261106",
+        "window_id": "2b7f3dc40e17bf49919a604f9b213f19dbecebab7b63d9608b55c4e0ca2b13af-t600-interaction",
+        "violating_body_frames": 19,
+        "max_outside_area_m2": 3.141031069791136
+      },
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261106",
+        "window_id": "2b7f3dc40e17bf49919a604f9b213f19dbecebab7b63d9608b55c4e0ca2b13af-t630-interaction",
+        "violating_body_frames": 19,
+        "max_outside_area_m2": 3.141031069791136
+      }
+    ],
+    "worst_road_examples": [
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261105",
+        "vehicle_id": "flow_ramp.0",
+        "tick": 267,
+        "road": "acceleration",
+        "lane": "acceleration_0",
+        "raw_lateral_position_m": 0.0,
+        "center_position_m": [
+          -0.16868174119014157,
+          -12.250063543109544
+        ],
+        "speed_mps": 13.150199998720868,
+        "heading_degrees": 0.0015492561678627226,
+        "outside_area_m2": 2.0521327471068737e-05
+      },
+      {
+        "case_id": "ramp_merge-sublane_transition-s20261106",
+        "vehicle_id": "flow_main.2",
+        "tick": 614,
+        "road": "main_out",
+        "lane": "main_out_0",
+        "raw_lateral_position_m": -1.4549999999999987,
+        "center_position_m": [
+          222.43788285377482,
+          -10.268389791086953
+        ],
+        "speed_mps": 10.67037167163534,
+        "heading_degrees": 1.5457055679734992,
+        "outside_area_m2": 3.141031069791136
+      }
+    ],
+    "note": "14 full engine replays plus independent whole-body world geometry for all 8 rejected smooth merge interaction windows"
+  },
+  "development_preflights": [
+    {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\source-motion-preflight-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "9ceb2eac5f3e9c0a30e455c17b4f166507ddda51",
+        "branch": "feat/source-motion-pilot",
+        "dirty": true,
+        "status_porcelain": [
+          " M src/sumodiff/data/config.py",
+          " M src/sumodiff/data/windows.py",
+          " M src/sumodiff/simulation/collection.py",
+          " M src/sumodiff/simulation/config.py",
+          " M src/sumodiff/simulation/scenes.py",
+          "?? configs/experiments/source_motion_pilot.yaml",
+          "?? src/sumodiff/data/selection.py",
+          "?? src/sumodiff/experiments/source_motion_pilot.py",
+          "?? tests/test_source_motion_pilot.py"
+        ]
+      },
+      "formal": false,
+      "state": "completed",
+      "critical_files": [
+        {
+          "id": "sha256:248d80169cc0269f7f4c0cd12262189d0a9eff4a2d1f03075887b1ea0a27702a",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-preflight-20261014-r1\\manifest.json",
+          "sha256": "248d80169cc0269f7f4c0cd12262189d0a9eff4a2d1f03075887b1ea0a27702a",
+          "size_bytes": 6020
+        },
+        {
+          "id": "sha256:26e5bafe60dabe3badc29f4c77cd384b919f5abaae13462676caf840159c4c87",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-preflight-20261014-r1\\resolved_config.yaml",
+          "sha256": "26e5bafe60dabe3badc29f4c77cd384b919f5abaae13462676caf840159c4c87",
+          "size_bytes": 13760
+        },
+        {
+          "id": "sha256:9005fb67829a21e410e771efcad18365f5200d51407695cadf138366c6fc84d1",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-preflight-20261014-r1\\status.json",
+          "sha256": "9005fb67829a21e410e771efcad18365f5200d51407695cadf138366c6fc84d1",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:99162871db80be1e80e81dee63bd9d931410bcba3fdb203f5c62bc3a05199f8b",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-preflight-20261014-r1\\results.json",
+          "sha256": "99162871db80be1e80e81dee63bd9d931410bcba3fdb203f5c62bc3a05199f8b",
+          "size_bytes": 1693
+        }
+      ]
+    },
+    {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\source-motion-runtime-preflight-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "9ceb2eac5f3e9c0a30e455c17b4f166507ddda51",
+        "branch": "feat/source-motion-pilot",
+        "dirty": true,
+        "status_porcelain": [
+          " M src/sumodiff/data/config.py",
+          " M src/sumodiff/data/windows.py",
+          " M src/sumodiff/simulation/collection.py",
+          " M src/sumodiff/simulation/config.py",
+          " M src/sumodiff/simulation/scenes.py",
+          "?? configs/experiments/source_motion_pilot.yaml",
+          "?? src/sumodiff/data/selection.py",
+          "?? src/sumodiff/experiments/source_motion_pilot.py",
+          "?? tests/test_source_motion_pilot.py"
+        ]
+      },
+      "formal": false,
+      "state": "completed",
+      "critical_files": [
+        {
+          "id": "sha256:6e55b9b48673894ce9bfc56513087a168d8fa8f1da0793736c7f043138060ca2",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-runtime-preflight-20261014-r1\\manifest.json",
+          "sha256": "6e55b9b48673894ce9bfc56513087a168d8fa8f1da0793736c7f043138060ca2",
+          "size_bytes": 14757
+        },
+        {
+          "id": "sha256:0b31dcc8d62731c8bb5f36673a10ec368eb97f0d539f03593a36b1ae93291eb8",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-runtime-preflight-20261014-r1\\resolved_config.yaml",
+          "sha256": "0b31dcc8d62731c8bb5f36673a10ec368eb97f0d539f03593a36b1ae93291eb8",
+          "size_bytes": 13444
+        },
+        {
+          "id": "sha256:8e7c74882a580125328ed1d9abbb122c71451e8e6141f153aac764acc67847f3",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-runtime-preflight-20261014-r1\\status.json",
+          "sha256": "8e7c74882a580125328ed1d9abbb122c71451e8e6141f153aac764acc67847f3",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:f594e5875967900fbbc6af7064029f42dd044c268774be73b9228c21ebedde1e",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\source-motion-runtime-preflight-20261014-r1\\results.json",
+          "sha256": "f594e5875967900fbbc6af7064029f42dd044c268774be73b9228c21ebedde1e",
+          "size_bytes": 2973
+        }
+      ]
+    }
+  ]
+}
