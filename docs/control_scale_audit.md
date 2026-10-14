@@ -42,3 +42,18 @@ $env:PYTHONPATH = (Join-Path $PWD 'src')
 完整配置、命令、代码SHA、种子、环境、选集与所有实际文件身份进入运行清单。tasks.json固定6000计划，window_results.json保留逐窗结果/失败及有效车辆偏移；active_controls.npz保存压缩有效控制/横向分量变化/速度/标签jerk。results.json、metrics.json及candidate_normalization.json保存汇总。候选归一化没有训练消费入口，不能直接启动旧模型训练。
 
 资源只测CPU审计的主体时间与采样观察的进程RSS，未测新网络训练显存或吞吐量。
+
+
+## 已完成结果与缓存复核
+
+正式6000窗口扫描与缓存复核已完成，见[结果](control_scale_results.md)和[轻量摘要](control_scale_results.json)。候选尺度2/0.5/0.1来自训练分组包络；统计认证不等于生成模型验收。未来运动覆盖偏少，正式新训练前需查明来源。
+
+复核必须引用已完成、无失败、formal且clean的扫描；重新执行使用新输出目录：
+
+```powershell
+Set-Location E:\diffusion_new
+$env:PYTHONPATH = (Join-Path $PWD 'src')
+& '.\.venv-model\Scripts\python.exe' -m sumodiff.decoding.control_scale_review --source artifacts/runs/training-control-scales-20261013-r1 --output artifacts/runs/training-control-scale-review-reproduce-r1 --formal
+```
+
+复核检查全部任务顺序与有效车辆数组分区、独立重算分组P99.9与候选网格，并量化每车t0固定车身系中的未来航向／横向范围。5°及0.5m用于覆盖描述，不新增训练资格条件，不检测真实换道事件。来源由8个扫描文件身份绑定；未再次逐个读取全部原始训练输入。保持已提交干净代码，保存实际运行SHA，不改写旧运行目录。

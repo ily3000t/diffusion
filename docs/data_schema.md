@@ -252,3 +252,16 @@ sumodiff.fresh.test.seal.v1绑定选定checkpoint、数据哈希、采样配置�
 sumodiff.control_replay.audit.v2增加independent_control_inversions、independent_error_and_gate_checks、verified_group_summaries、maximum_control_disagreement及实际复算的gate_pass_all_tasks。原始身份和字节哈希不放宽；旧label门槛计数0按未执行明确归为N/A。
 
 sumodiff.historical_git_inputs.v1保存原manifest身份、原Git状态、original/current/snapshot文件身份。snapshot必须同时匹配original的SHA-256和字节大小，并属于同一source manifest。只恢复Git可追溯的小型文本输入，不能掩盖数据或模型漂移；通过显式CLI参数使用，不静默回退。
+
+
+## 完整训练控制尺度审计合同（2026-10-14）
+
+sumodiff.control_scale_audit.protocol.v1锁定dataset/data_id、6000训练窗口、三类各2000、控制定义、网格和数值容差；不接受split切换。窗口preflight核对选集及元数据，仅读取训练condition的history/history_mask/initial_positions/attributes/agent_mask与future标签，future_mask仅作标签审计。
+
+sumodiff.control_scale_audit.tasks.v1保存固定计划。window_results.json的逐任务status、agent_offset、agent_count将成功窗口映射到压缩有效车辆数组；失败保留计划分母，不能从数组长度推断全部计划已完成。active_controls.npz包含controls[M,40,3]、lateral_change[M,40]、forward_speed[M,40]、initial_speed[M]、label_jerk[M,40]，M为成功任务的有效车辆窗口数，不含填充车辆。控制顺序a/omega/r，单位m/s²、rad/s、m/s。initial_speed仅由最后两观测历史姿态得到；首个lateral_change衔接已观测历史r；label_jerk衔接最后3个观测位置。
+
+sumodiff.control_scale_audit.results.v1保存计划／完成／失败、有效元素、分组分布、数值最大误差、两维状态容差计数及资源。candidate_normalization.json记录分组包络、候选尺度、mean_centering=false、clipping=false、数据及运行SHA；certified_training_statistics仅在全部窗口成功且规则可选时为true。training_integration_implemented=false与legacy_checkpoint_compatible=false明确表示尚无新目标训练消费接口，不能将统计文件当作旧checkpoint兼容承诺。
+
+sumodiff.control_scale_review.v1绑定8份正式扫描输出，校验6000任务和压缩车辆分区，独立重算7组分位数及网格。body_motion.npz包含heading_span_rad[M]与lateral_excursion_m[M]，在每车t0观测车身固定坐标系恢复未来，范围包含t0。review.json的5°和0.5m计数使用>=；后者不是道路相对换道／汇入事件检测。sumodiff.control_scale_summary.v1是轻量交付摘要，保留两次运行的实际SHA与关键文件身份，不替换源manifest。
+
+本轮未改变dataset/window/checkpoint外层版本或六维标签文件。训练选集、道路／运动阈值及未来标签完整性合同保持。
