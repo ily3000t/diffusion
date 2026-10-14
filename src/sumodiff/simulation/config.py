@@ -8,7 +8,8 @@ GEOMETRIES = {
     "three_lane_straight": {"core_length": 300.0, "entry_buffer": 180.0, "exit_buffer": 180.0,
                             "lane_width": 3.5, "speed_limit": 18.0, "rotation_degrees": 0.0, "segmented_straight": True},
     "ramp_merge": {"approach_length": 250.0, "merge_length": 120.0, "exit_buffer": 220.0,
-                   "ramp_offset": 50.0, "lane_width": 3.5, "speed_limit": 20.0, "rotation_degrees": 0.0},
+                   "ramp_offset": 50.0, "lane_width": 3.5, "speed_limit": 20.0, "rotation_degrees": 0.0,
+                   "transition_length": 0.0},
     "unsignalized_intersection": {"approach_length": 200.0, "lane_width": 3.5, "speed_limit": 13.9,
                                  "lanes_per_direction": 1, "north_skew_degrees": 0.0,
                                  "rotation_degrees": 0.0, "junction_radius": 10.0, "junction_type": "priority"},
@@ -51,12 +52,14 @@ def resolve_config(supplied: dict) -> dict:
                             "limit_turn_lateral_accel_mps2": 5.5},
                 "traffic": {"begin_seconds": 0.0, "end_seconds": 12.0,
                             "route_rates_per_hour": {name: 900.0 if name == "main" else 120.0 for name in route_names(family)}},
-                "driver": {"car_follow_model": "Krauss", "length": 4.7, "width": 1.8, "accel": 2.6, "decel": 4.5,
+                "driver": {"car_follow_model": "Krauss", "lane_change_model": "LC2013",
+                           "lcAccelLat": None, "maxSpeedLat": None, "jerkmax": None,
+                           "length": 4.7, "width": 1.8, "accel": 2.6, "decel": 4.5,
                            "emergencyDecel": 9.0, "tau": 1.2, "minGap": 2.5, "sigma": 0.3,
                            "speedFactor": 1.0, "speedDev": 0.1, "lcStrategic": 1.0,
                            "lcCooperative": 1.0, "lcSpeedGain": 1.0, "lcKeepRight": 1.0},
                 "simulation": {"dt": 0.1, "max_seconds": 120.0, "lane_change_duration": 3.0,
-                               "time_to_teleport": 300.0},
+                               "time_to_teleport": 300.0, "lateral_resolution": 0.0},
                 "validation": {"lane_change_probe": False, "stop_probe": False, "diagnostic_only": False},
                 "runtime": {"sumo_home": None, "client_source": "sumo_home_tools"}}
     # Routes are an explicit complete active-demand list, not additions to defaults.
@@ -72,6 +75,8 @@ def resolve_config(supplied: dict) -> dict:
     for name, value in config["geometry"].items():
         if name == "segmented_straight":
             if type(value) is not bool: raise ValueError("segmented_straight must be boolean")
+        elif name == "transition_length":
+            positive(value, "geometry.transition_length", allow_zero=True)
         elif name in ("rotation_degrees", "north_skew_degrees"):
             if type(value) not in (int, float) or not math.isfinite(value):
                 raise ValueError(f"Invalid geometry.{name}")
@@ -97,7 +102,13 @@ def resolve_config(supplied: dict) -> dict:
         positive(rate, f"route_rate.{route}", allow_zero=True)
     for name, value in config["driver"].items():
         if name == "car_follow_model":
-            if value not in ("Krauss", "IDM"): raise ValueError("Only Krauss and IDM are supported")
+            if value not in ("Krauss", "IDM", "EIDM"): raise ValueError("Unsupported car-following model")
+            continue
+        if name == "lane_change_model":
+            if value not in ("LC2013", "SL2015"): raise ValueError("Unsupported lane-changing model")
+            continue
+        if name in ("lcAccelLat", "maxSpeedLat", "jerkmax"):
+            if value is not None: positive(value, f"driver.{name}")
             continue
         positive(value, f"driver.{name}", allow_zero=name.startswith("lc") or name in ("sigma", "speedDev"))
     if not 0 <= config["driver"]["sigma"] <= 1 or config["driver"]["tau"] < 0.1:
@@ -105,7 +116,23 @@ def resolve_config(supplied: dict) -> dict:
     if config["driver"]["emergencyDecel"] < config["driver"]["decel"]:
         raise ValueError("Emergency deceleration must be at least regular deceleration")
     for name, value in config["simulation"].items():
-        positive(value, f"simulation.{name}")
+        positive(value, f"simulation.{name}", allow_zero=name in ("lane_change_duration", "lateral_resolution"))
+    driver, sim = config["driver"], config["simulation"]
+    if driver["lane_change_model"] == "SL2015":
+        if sim["lateral_resolution"] <= 0 or sim["lane_change_duration"] != 0:
+            raise ValueError("SL2015 requires explicit positive lateral resolution and zero legacy duration")
+        if driver["lcAccelLat"] is None or driver["maxSpeedLat"] is None:
+            raise ValueError("SL2015 requires explicit lateral acceleration and speed limits")
+    elif sim["lateral_resolution"] != 0 or sim["lane_change_duration"] <= 0 or driver["lcAccelLat"] is not None:
+        raise ValueError("LC2013 requires positive duration, zero sublane resolution and no lcAccelLat")
+    if driver["jerkmax"] is not None and driver["car_follow_model"] != "EIDM":
+        raise ValueError("jerkmax is supported only by EIDM")
+    if family == "ramp_merge" and config["geometry"]["transition_length"]:
+        length = config["geometry"]["transition_length"]
+        if length >= 2*min(config["geometry"]["merge_length"],config["geometry"]["exit_buffer"]):
+            raise ValueError("Ramp transition extends beyond adjacent edges")
+        if config["network"]["output_precision"] < 6:
+            raise ValueError("Smooth ramp transition requires at least six output decimals")
     if config["simulation"]["dt"] != 0.1 or config["simulation"]["max_seconds"] <= traffic["end_seconds"]:
         raise ValueError("Stage 1 requires dt=0.1 and a clearance limit after demand end")
     for name, value in config["validation"].items():

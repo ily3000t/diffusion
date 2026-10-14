@@ -57,13 +57,16 @@ def collect_episode(output: Path, config: dict, runtime: dict, traci, scene: dic
         port = port_socket.getsockname()[1]
     command = [runtime["sumo"]["path"], "-c", str(output/"scene"/"episode.sumocfg"),
                "--remote-port", str(port), "--step-length", str(dt), "--seed", str(seed),
-               "--lanechange.duration", str(simulation["lane_change_duration"]),
                "--time-to-teleport", str(simulation["time_to_teleport"]),
                "--collision.check-junctions", "true", "--collision.action", "teleport",
                "--lanechange-output", str(output/"lanechanges.xml"), "--lanechange-output.xy", "true",
                "--collision-output", str(output/"collisions.xml"),
                "--tripinfo-output", str(output/"tripinfo.xml"), "--tripinfo-output.write-unfinished", "true",
                "--no-step-log", "true", "--duration-log.disable", "true"]
+    if config["driver"]["lane_change_model"] == "SL2015":
+        command += ["--lateral-resolution",str(simulation["lateral_resolution"])]
+    else:
+        command += ["--lanechange.duration",str(simulation["lane_change_duration"])]
     (output/"sumo-command.txt").write_text(render_command(command)+"\n", encoding="utf-8")
     variables = {name: getattr(traci.constants, constant) for name, constant in VARIABLE_NAMES.items()}
     lifecycle = Lifecycle()
