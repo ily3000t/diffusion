@@ -201,3 +201,10 @@ def test_control_rollout_and_objective_backward_under_strict_cuda_determinism(mo
         assert torch.isfinite(epsilon.grad).all()
     finally:
         torch.use_deterministic_algorithms(enabled,warn_only=warn)
+
+
+def test_control_normalization_rejects_unused_legacy_state_scale_options():
+    with pytest.raises(ValueError,match='explicit control scales'):
+        ControlDiffusionConfig(position_scale_m=100)
+    with pytest.raises(ValueError,match='explicit control scales'):
+        ControlDiffusionConfig(velocity_scale_mps=10)

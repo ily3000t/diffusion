@@ -48,6 +48,8 @@ class ControlDiffusionConfig(DiffusionConfig):
         DiffusionConfig(**base)
         if self.schema_version != 'sumodiff.control.diffusion.config.v1':
             raise ValueError('Unsupported control diffusion schema')
+        if self.position_scale_m != 50. or self.velocity_scale_mps != 20.:
+            raise ValueError('Control diffusion uses explicit control scales; legacy state scales must stay at defaults')
         for key in ('acceleration_scale_mps2','yaw_rate_scale_radps','lateral_velocity_scale_mps'):
             v = getattr(self,key)
             if type(v) not in (int,float) or not math.isfinite(v) or v <= 0:
