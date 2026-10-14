@@ -3,7 +3,7 @@ from pathlib import Path
 import os
 import torch
 from sumodiff.models import resolve_model_config
-from .config import resolve_diffusion_config
+from .config import resolve_diffusion_config, validate_architecture
 
 SCHEMA='sumodiff.base.checkpoint.v1'
 CAPABILITIES=dict(base=True,cfg=False,partial_diffusion=False,rolling_generation=False,guidance=False)
@@ -44,10 +44,13 @@ def load_checkpoint(path,*,signature=None,requested=None):
     required={'model_config','diffusion_config','training_config','training_signature','data','scale_audit','run_sha','run_branch','run_dirty','parent_checkpoint','runtime'}
     if set(m)!=required: raise ValueError('Incomplete checkpoint metadata')
     model=resolve_model_config(m['model_config']);diffusion=resolve_diffusion_config(m['diffusion_config'])
-    if model.diffusion_embedding_steps!=diffusion.training_steps: raise ValueError('Checkpoint schedule mismatch')
+    validate_architecture(model,diffusion)
     if signature is not None and signature!=m['training_signature']: raise ValueError('Resume training signature mismatch')
     if m['training_signature']['model']!=m['model_config'] or m['training_signature']['training']['diffusion']!=m['diffusion_config']: raise ValueError('Inconsistent checkpoint normalization/model metadata')
-    if m['training_config'].get('schema_version')=='sumodiff.base.epoch.config.v2':
+    if m['training_config'].get('schema_version')=='sumodiff.control.train.config.v1':
+        from .control_training import validate_runtime
+        validate_runtime(value)
+    elif m['training_config'].get('schema_version')=='sumodiff.base.epoch.config.v2':
         from .fresh_protocol import validate_runtime
         validate_runtime(value)
     elif m['training_config'].get('schema_version')=='sumodiff.decoded.temporal.train.config.v1':

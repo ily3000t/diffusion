@@ -11,7 +11,8 @@ from sumodiff.models.cli import configure
 from sumodiff.models.probes import parameter_hash
 from sumodiff.experiments.recorder import RunRecorder,file_identity,load_config
 from sumodiff.data.dataset import write_json
-from .config import resolve_diffusion_config
+from .config import resolve_diffusion_config, is_control, validate_architecture
+from .representation import training_target
 from .process import NoiseSchedule,normalize,masked_noise_mse
 from .data import dataset_identity,labeled_cache,select_batch,verified_scale_audit
 from .checkpoint import save_checkpoint,load_checkpoint,restore_training
@@ -28,6 +29,8 @@ def train_config(value):
     if not isinstance(value,dict) or set(value)-set(TRAIN_DEFAULTS): raise ValueError('Unknown training options')
     c=deepcopy(TRAIN_DEFAULTS);c.update(value)
     c['diffusion']=resolve_diffusion_config(c['diffusion']).to_dict()
+    if is_control(resolve_diffusion_config(c['diffusion'])):
+        raise ValueError('Control targets require the explicit control training schema')
     if c['diffusion']['additional_losses_enabled']:
         raise ValueError('Physical objectives require the controlled continuation entry; legacy training is epsilon-only')
     if c['schema_version']!=TRAIN_DEFAULTS['schema_version'] or c['device'] not in ('cpu','cuda:0'): raise ValueError('Unsupported train schema/device')
@@ -49,7 +52,7 @@ def synchronize(device):
 
 
 def draw_noise(targets,conditioning,schedule,generator):
-    clean=normalize(targets['future'],schedule.config)
+    clean=training_target(targets,conditioning,schedule.config)
     noise=torch.randn(clean.shape,generator=generator).to(clean.device)
     timestep=torch.randint(schedule.config.training_steps,(len(clean),),generator=generator).to(clean.device)
     noisy=schedule.add_noise(clean,noise,timestep)
@@ -75,32 +78,47 @@ def probe(model,cache,schedule,device,batch_size,seed):
 
 def training_signature(model_config,c,data,scale,train_ids,val_ids):
     mutable={'max_steps','validation_interval','checkpoint_interval','require_probe_improvement','minimum_probe_relative_improvement','formal_estimate_steps','epochs','validation_every_epochs','checkpoint_every_epochs','monitor_every_epochs','train_probe_limit','monitor'}
-    if c['schema_version']=='sumodiff.base.epoch.config.v2':mutable=set()
-    return dict(model=model_config.to_dict(),training={k:v for k,v in c.items() if k not in mutable},
+    if c['schema_version'] in ('sumodiff.base.epoch.config.v2','sumodiff.control.train.config.v1'):mutable=set()
+    result=dict(model=model_config.to_dict(),training={k:v for k,v in c.items() if k not in mutable},
         dataset_hashes={k:v['sha256'] for k,v in data.items()},scale_audit_sha256=scale['sha256'],
         train_window_ids=train_ids,validation_window_ids=val_ids)
+    if c['schema_version']=='sumodiff.control.train.config.v1':result['task_plan_sha256']=file_identity(c['task_plan'])['sha256']
+    return result
 
 
 def train(dataset_path,model_config_path,config_path,scale_audit_path,output,repository,command,formal=False,resume=None,allow_long_run=False,prefix_updates=None):
     source_config=load_config(config_path)
     epoch_mode=source_config.get('schema_version') in ('sumodiff.base.epoch.config.v1','sumodiff.base.epoch.config.v2')
     fresh=source_config.get('schema_version')=='sumodiff.base.epoch.config.v2'
+    control=source_config.get('schema_version')=='sumodiff.control.train.config.v1'
+    objective_mode=fresh or control
     if epoch_mode:
         from .epoch_training import epoch_config,verified_curated_dataset,epoch_batch,probe_subset,periodic_sample
         c=epoch_config(source_config);selection=verified_curated_dataset(dataset_path,c)
         c['formal_estimate_steps']=c['max_steps']
+    elif control:
+        from .control_training import control_config
+        c=control_config(source_config);selection=None
     else: c=train_config(source_config);selection=None
     architecture=resolve_model_config(load_config(model_config_path));diffusion=resolve_diffusion_config(c['diffusion'])
-    if architecture.diffusion_embedding_steps!=diffusion.training_steps: raise ValueError('Model embedding/schedule mismatch')
+    validate_architecture(architecture,diffusion)
     if c['max_steps']>1000 and not allow_long_run: raise ValueError('More than 1000 total steps requires explicit --allow-long-run')
-    data=dataset_identity(dataset_path);scale=verified_scale_audit(scale_audit_path,dataset_path,diffusion)
+    data=dataset_identity(dataset_path)
+    if control:
+        from .control_training import verified_control_scales
+        scale=verified_control_scales(scale_audit_path,dataset_path,diffusion)
+    else:scale=verified_scale_audit(scale_audit_path,dataset_path,diffusion)
     if fresh:
         from .fresh_protocol import verify_calibration
         c['calibration_identity']=verify_calibration(c,architecture,data)
     configure(c['seed'],c['torch_threads']);device=torch.device(c['device'])
     if device.type=='cuda' and not torch.cuda.is_available(): raise RuntimeError('CUDA requested but unavailable')
     cache_started=time.perf_counter()
-    train_cache=labeled_cache(dataset_path,'train',c['train_limit']);val_cache=labeled_cache(dataset_path,'validation',c['validation_limit'])
+    if control:
+        from .control_training import control_cache
+        train_cache=control_cache(dataset_path,'train',c);val_cache=control_cache(dataset_path,'validation',c)
+    else:
+        train_cache=labeled_cache(dataset_path,'train',c['train_limit']);val_cache=labeled_cache(dataset_path,'validation',c['validation_limit'])
     cache_seconds=time.perf_counter()-cache_started
     train_probe_cache=probe_subset(train_cache,c['train_probe_limit']) if epoch_mode else train_cache
     if epoch_mode and (len(train_cache[2])!=c['expected_train_windows'] or len(val_cache[2])!=c['expected_validation_windows']):
@@ -109,14 +127,16 @@ def train(dataset_path,model_config_path,config_path,scale_audit_path,output,rep
     parent=load_checkpoint(resume,signature=signature) if resume else None
     start_step=parent['step'] if parent else 0
     if start_step>=c['max_steps']: raise ValueError('Resume checkpoint already reaches the requested total steps')
-    if prefix_updates is not None and (not fresh or type(prefix_updates) is not int or not 1<=prefix_updates<=64):
-        raise ValueError('Fresh prefix diagnostic supports at most 64 optimizer updates')
+    if prefix_updates is not None and (not objective_mode or type(prefix_updates) is not int or not 1<=prefix_updates<=64):
+        raise ValueError('Prefix diagnostic supports at most 64 optimizer updates')
     stop_step=min(c['max_steps'],start_step+prefix_updates) if prefix_updates else c['max_steps']
     effective=dict(prefix_updates=prefix_updates,schema_version='sumodiff.base.train.run.v1',model=architecture.to_dict(),training=c,data=data,scale_audit=scale,
-        task_selection=dict(train_window_ids=train_cache[2],validation_window_ids=val_cache[2],core_only=True,selection='certified quality cohort; complete H+F; epochs traverse each train window exactly once' if epoch_mode else 'input-family round robin; complete H+F for training/probe only'),
+        task_selection=dict(train_window_ids=train_cache[2],validation_window_ids=val_cache[2],core_only=True,selection='fixed train/validation diagnostic task plan; no test' if control else ('certified quality cohort; complete H+F; epochs traverse each train window exactly once' if epoch_mode else 'input-family round robin; complete H+F for training/probe only')),
         resume=file_identity(resume) if resume else None,allow_long_run=allow_long_run,
         precision='float32 network/optimizer; no AMP or TF32; strict determinism',sampling_not_performed=not epoch_mode or c['monitor_every_epochs']==0,quality_selection=selection)
     files=[model_config_path,config_path,scale_audit_path,*[v['location'] for v in data.values()],*train_cache[3],*val_cache[3]]
+    if control:
+        files.append(c['task_plan']);files.extend(v['location'] for v in scale['source_files'])
     if selection:files.append(selection['location'])
     if fresh:files.append(c['calibration_identity']['location'])
     with RunRecorder(output,repository,effective,command,{'model':c['seed'],'training_noise':c['noise_seed'],'validation_noise':c['validation_seed']},
@@ -137,6 +157,14 @@ def train(dataset_path,model_config_path,config_path,scale_audit_path,output,rep
             from .unified_losses import RoadGeometryCache
             raw_loss=resolve_raw_velocity_loss(c['raw_loss']);tail=JerkTailConfig(**c['jerk_tail'])
             roads=RoadGeometryCache(dataset_path,train_cache[2],raw_loss)
+            update_schedule=UpdateSchedule(ScheduleConfig(**c['schedule']))
+            if parent:update_schedule.load_state_dict(parent['metadata']['runtime']['update_schedule'],optimizer,start_step)
+            metadata['runtime']['update_schedule']=update_schedule.state_dict()
+        if control:
+            from .schedule import UpdateSchedule,ScheduleConfig
+            from .control_training import control_objective
+            from .unified_losses import RoadGeometryCache,resolve_unified_loss
+            roads=RoadGeometryCache(dataset_path,train_cache[2],resolve_unified_loss(c['unified_loss']))
             update_schedule=UpdateSchedule(ScheduleConfig(**c['schedule']))
             if parent:update_schedule.load_state_dict(parent['metadata']['runtime']['update_schedule'],optimizer,start_step)
             metadata['runtime']['update_schedule']=update_schedule.state_dict()
@@ -162,14 +190,19 @@ def train(dataset_path,model_config_path,config_path,scale_audit_path,output,rep
                     components=fresh_objective(epsilon,noisy,noise,timestep,conditions,targets,schedule,
                         raw_loss,tail,c['tail_weight'],roads=roads.batch(ids),ramp=ramp)
                     loss=components['total_loss']
+                elif control:
+                    lr,ramp=update_schedule.apply(optimizer,step)
+                    components=control_objective(epsilon,noisy,noise,timestep,conditions,targets,schedule,c,
+                                                 roads=roads.batch(ids),ramp=ramp)
+                    loss=components['total_loss']
                 else:loss=masked_noise_mse(epsilon,noise,conditions['agent_mask'],targets['future_mask'])
                 loss.backward();norm=torch.nn.utils.clip_grad_norm_(model.parameters(),c['gradient_clip_norm'],error_if_nonfinite=True)
                 if not torch.isfinite(loss): raise FloatingPointError('Nonfinite training loss')
                 optimizer.step();synchronize(device);elapsed=time.perf_counter()-tick;times.append(elapsed)
-                if fresh:
+                if objective_mode:
                     update_schedule.complete(step);metadata['runtime']['update_schedule']=update_schedule.state_dict()
-                row=dict(step=step,noise_mse=float(components['noise_mse']) if fresh else float(loss),gradient_norm_before_clip=float(norm),window_ids=ids,timesteps=timestep.cpu().tolist(),seconds=elapsed)
-                if fresh:
+                row=dict(step=step,noise_mse=float(components['noise_mse']) if objective_mode else float(loss),gradient_norm_before_clip=float(norm),window_ids=ids,timesteps=timestep.cpu().tolist(),seconds=elapsed)
+                if objective_mode:
                     row.update(learning_rate=lr,auxiliary_ramp=ramp,total_loss=float(loss),
                         clipping_applied=float(norm)>c['gradient_clip_norm'],
                         loss_components={k:float(v.detach()) for k,v in components.items() if isinstance(v,torch.Tensor) and v.ndim==0})
@@ -218,6 +251,10 @@ def train(dataset_path,model_config_path,config_path,scale_audit_path,output,rep
                 convergence_status='not_assessed',limitations=[f"{c['epochs']} epochs is an initial budget, not proof of convergence",
                     'curated SUMO labels do not establish real driving realism','held-out geometry/episode validation; overlapping within-episode windows remain',
                     'quality thresholds are declared engineering candidates'])
+        if control:
+            result.update(representation='control_a_omega_r',convergence_status='not_assessed',
+                engineering_budget_only=True,
+                cached_tensor_bytes=sum(v.numel()*v.element_size() for cache in (train_cache,val_cache) for part in cache[:2] for v in part.values()))
         run.write_metrics(result);write_json(run.output/'training_summary.json',result)
         if not result['weight_update_verified']: raise RuntimeError('Training did not change weights')
         if c['require_probe_improvement'] and improvement<c['minimum_probe_relative_improvement']: raise RuntimeError('Short learning probe did not meet its predeclared training-loss improvement')

@@ -13,6 +13,8 @@ from sumodiff.decoding import DecoderConfig, decode_future, observed_heading
 from sumodiff.evaluation.roads import RoadConfig, _checked_geometry
 from .physical_losses import scene_huber
 from .process import masked_noise_mse, denormalize
+from .config import is_control
+from .representation import decode_prediction, training_target
 
 
 @dataclass(frozen=True)
@@ -208,9 +210,16 @@ def unified_objective(epsilon,noisy,noise,timestep,conditioning,targets,schedule
     raw = denormalize(torch.where(a[...,None,None],clean,0.),schedule.config)
     truth = torch.where(a[...,None,None],targets['future'][eligible],0.).to(raw.dtype)
     h0 = observed_heading(c['history'],c['history_mask'],a)
-    prediction = decode_future(raw,c['initial_positions'],h0,a,DecoderConfig())
-    with torch.no_grad():
-        label = decode_future(truth,c['initial_positions'],h0,a,DecoderConfig())
+    if is_control(schedule.config):
+        prediction = decode_prediction(raw,c,schedule.config)
+        with torch.no_grad():
+            selected_targets={k:v[eligible] for k,v in targets.items()}
+            label_controls=denormalize(training_target(selected_targets,c,schedule.config),schedule.config)
+            label=decode_prediction(label_controls,c,schedule.config)
+    else:
+        prediction = decode_future(raw,c['initial_positions'],h0,a,DecoderConfig())
+        with torch.no_grad():
+            label = decode_future(truth,c['initial_positions'],h0,a,DecoderConfig())
     alpha = schedule.alpha_bar[timestep[eligible]].to(prediction.states.dtype).detach()
     def aggregate(scene):
         return (scene*alpha).sum()/len(epsilon)
@@ -224,7 +233,7 @@ def unified_objective(epsilon,noisy,noise,timestep,conditioning,targets,schedule
         out['longitudinal'] = huber((delta*tangent).sum(-1,keepdim=True)/config.longitudinal_unit_m)
         out['lateral'] = huber((delta*normal).sum(-1,keepdim=True)/config.lateral_unit_m)
         out['velocity'] = huber((prediction.states[...,2:4]-label.states[...,2:4])/config.velocity_unit_mps)
-        out['heading'] = huber(raw[...,4:6]-heading)
+        out['heading'] = huber((prediction.states[...,4:6] if is_control(schedule.config) else raw[...,4:6])-heading)
         out['imitation'] = out['longitudinal']+out['lateral']+out['velocity']+config.heading_factor*out['heading']
     if config.temporal_weight:
         observed = torch.where(a[...,None,None],c['history'][...,-2:,2:4],0.).to(prediction.states.dtype)
