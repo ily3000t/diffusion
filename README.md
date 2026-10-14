@@ -166,3 +166,8 @@ Set-Location E:\diffusion_new
 ## 三维控制目标接入与短诊断
 
 已在原train／calibrate／sample入口接入中心／中点三维控制目标，旧六维路径保留。440项全量测试、真实GPU16与8+8恢复及56标签窗口独立回放通过；16更新固定验证噪声MSE由1.059降到0.670。3个自由采样全部触发过大角增量保护，原始控制和失败分母保留，尚无合格新模型。见[结果](docs/control_target_results.md)、[轻量摘要](docs/control_target_results.json)和[有界复现协议](docs/control_target_integration.md)。下一步先查既有数据的运动覆盖；长训练、阶段6与测试评价继续冻结。
+
+
+## 训练数据运动覆盖归因
+
+已完成144训练回合→44071候选→6000选集的来源检查。唯一直路换道2442→邻域272→质量合格0，匝道退出976→99→0；路口未来航向范围>=5°仅114个最终窗。原始轨迹jerk尖峰经独立复算确认，不能仅用增加轮数弥补合格运动缺失。见[结果及下一步建议](docs/training_motion_results.md)、[轻量来源](docs/training_motion_results.json)与[训练专用诊断协议](docs/training_motion_coverage.md)。本轮未修改采集／选择／质量阈值或训练，下一步先做源头级小试验。

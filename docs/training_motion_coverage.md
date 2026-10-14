@@ -27,3 +27,8 @@ $env:PYTHONPATH = (Join-Path $PWD 'src')
 在已提交干净代码运行，使用未占用目录。manifest记录完整实际配置、SHA、命令、环境、种子、原始输入和元数据身份。window_lineage.jsonl保留每个训练候选的阶段、已知／未知未来、事件与拒绝理由；episode_summary.json、source_cases.json及results.json保存回合、原始证据与汇总。遇到来源、分母、生命周期或原审计不一致就明确停止，保留失败记录，不跳过后宣称全量通过。
 
 本阶段结论用于决定后续检查或新的采集／选窗方案，不自动执行补采、重选、平滑、阈值修改或正式训练。
+
+
+## 已完成结果
+
+正式144回合／44071候选检查、6000选定窗原始—存储标签一致性和独立元数据／原始案例复核已完成。完整结果、唯一事件的邻域与资格损失、资源、来源限制和后续建议见[training_motion_results.md](training_motion_results.md)，关键数值及文件身份见[training_motion_results.json](training_motion_results.json)。后续采集／选择修改仍需独立实施与验收。

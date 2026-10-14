@@ -1,0 +1,929 @@
+{
+  "schema_version": "sumodiff.training.motion.summary.v1",
+  "scope": "training raw episodes and candidate metadata only",
+  "data_id": "sha256:fec50065485979fd8c35c48c1bb7017a7a14d342bd5b7c275b6d26183ebb7046",
+  "runs": {
+    "scan": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\training-motion-coverage-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "8f554b4bcee60f9f6332396edae2cf5236942535",
+        "branch": "feat/training-motion-coverage-diagnosis",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "formal": true,
+      "state": "completed",
+      "input_identities": 44804,
+      "critical_files": [
+        {
+          "id": "sha256:d6cc3bb51102ae33ed590da382790bb8a350b943333dd66d0dd28e36f4fd7bb4",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-coverage-20261014-r1\\manifest.json",
+          "sha256": "d6cc3bb51102ae33ed590da382790bb8a350b943333dd66d0dd28e36f4fd7bb4",
+          "size_bytes": 17971166
+        },
+        {
+          "id": "sha256:6baaa4493e5429b87fc6b68ed6fdecf485a6b6e95af668e0b688f928775e5133",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-coverage-20261014-r1\\resolved_config.yaml",
+          "sha256": "6baaa4493e5429b87fc6b68ed6fdecf485a6b6e95af668e0b688f928775e5133",
+          "size_bytes": 2168
+        },
+        {
+          "id": "sha256:44cbc53b0dfd147ef20fb231901cbb30820330d54903f7558d45d6c07de9cfa5",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-coverage-20261014-r1\\command.txt",
+          "sha256": "44cbc53b0dfd147ef20fb231901cbb30820330d54903f7558d45d6c07de9cfa5",
+          "size_bytes": 235
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-coverage-20261014-r1\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:ea0f190ff44774e63782ca806e501f746282c68259e18419b57ec00b9a4087cf",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-coverage-20261014-r1\\metrics.json",
+          "sha256": "ea0f190ff44774e63782ca806e501f746282c68259e18419b57ec00b9a4087cf",
+          "size_bytes": 100050
+        },
+        {
+          "id": "sha256:2295d3a795d510868b927433a51424b966cc39224685f6f8b9bd87589aa0bbb4",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-coverage-20261014-r1\\status.json",
+          "sha256": "2295d3a795d510868b927433a51424b966cc39224685f6f8b9bd87589aa0bbb4",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:01e3833356734c950d93db23fd4937faffa81b790dc57622ddeb0ae0aed2d41d",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-coverage-20261014-r1\\results.json",
+          "sha256": "01e3833356734c950d93db23fd4937faffa81b790dc57622ddeb0ae0aed2d41d",
+          "size_bytes": 102819
+        },
+        {
+          "id": "sha256:7f62d93a361abfa09f9b38b37ddb8415c135d18d76068fa6f08f45b8576d149e",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-coverage-20261014-r1\\window_lineage.jsonl",
+          "sha256": "7f62d93a361abfa09f9b38b37ddb8415c135d18d76068fa6f08f45b8576d149e",
+          "size_bytes": 27956343
+        },
+        {
+          "id": "sha256:7f9689f6e4473da46f4c62a8732895c5a6721e404555466c9502e5b847fd13e1",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-coverage-20261014-r1\\episode_summary.json",
+          "sha256": "7f9689f6e4473da46f4c62a8732895c5a6721e404555466c9502e5b847fd13e1",
+          "size_bytes": 80986
+        },
+        {
+          "id": "sha256:ed1b6d7b62820e19125f0b9244b9f49b927142917759cd4b15d4f02002572a8f",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-coverage-20261014-r1\\source_cases.json",
+          "sha256": "ed1b6d7b62820e19125f0b9244b9f49b927142917759cd4b15d4f02002572a8f",
+          "size_bytes": 399458
+        }
+      ]
+    },
+    "review": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\training-motion-review-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "8f554b4bcee60f9f6332396edae2cf5236942535",
+        "branch": "feat/training-motion-coverage-diagnosis",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "formal": true,
+      "state": "completed",
+      "input_identities": 44227,
+      "critical_files": [
+        {
+          "id": "sha256:9a9e157424fcd79d0e9639b2a8bf7aacc98a20350817f09b94d30b721de7bf8a",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-review-20261014-r1\\manifest.json",
+          "sha256": "9a9e157424fcd79d0e9639b2a8bf7aacc98a20350817f09b94d30b721de7bf8a",
+          "size_bytes": 17759516
+        },
+        {
+          "id": "sha256:fc521aa78f4c1fbb6d815e9bc643f88b7c10cd39a9f11ba4d8a893ebdd713d41",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-review-20261014-r1\\resolved_config.yaml",
+          "sha256": "fc521aa78f4c1fbb6d815e9bc643f88b7c10cd39a9f11ba4d8a893ebdd713d41",
+          "size_bytes": 488
+        },
+        {
+          "id": "sha256:6e4c1f9253152bced4174fb5490cb35df2d70063f3a92cf6162976d39c1e5843",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-review-20261014-r1\\command.txt",
+          "sha256": "6e4c1f9253152bced4174fb5490cb35df2d70063f3a92cf6162976d39c1e5843",
+          "size_bytes": 105
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-review-20261014-r1\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:cf32839f10a43458851b970f7cef5a1a74871948eb29a7f7e83bd0bc9a3a538b",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-review-20261014-r1\\metrics.json",
+          "sha256": "cf32839f10a43458851b970f7cef5a1a74871948eb29a7f7e83bd0bc9a3a538b",
+          "size_bytes": 13032
+        },
+        {
+          "id": "sha256:8842001c08f7d312369c90c92a6a398643197db706d76e7fdb52a52b3026afa5",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-review-20261014-r1\\status.json",
+          "sha256": "8842001c08f7d312369c90c92a6a398643197db706d76e7fdb52a52b3026afa5",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:71c1a8ec6a7da9cdb1fcf37a6c1313cc88e05265a4f7b987974543310742e925",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-review-20261014-r1\\review.json",
+          "sha256": "71c1a8ec6a7da9cdb1fcf37a6c1313cc88e05265a4f7b987974543310742e925",
+          "size_bytes": 13351
+        }
+      ]
+    },
+    "figure": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\training-motion-figure-20261014-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "8f554b4bcee60f9f6332396edae2cf5236942535",
+        "branch": "feat/training-motion-coverage-diagnosis",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "formal": true,
+      "state": "completed",
+      "input_identities": 7,
+      "critical_files": [
+        {
+          "id": "sha256:f57eaa0885c69dfd617144869f60785edbc7b97915ea7592572f5e9011176dd2",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-figure-20261014-r1\\manifest.json",
+          "sha256": "f57eaa0885c69dfd617144869f60785edbc7b97915ea7592572f5e9011176dd2",
+          "size_bytes": 3585
+        },
+        {
+          "id": "sha256:d2e4df6f0bf8ccee469d19a20fbbca5912e812b0b3e3d0ef7b8ca1ec08458cca",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-figure-20261014-r1\\resolved_config.yaml",
+          "sha256": "d2e4df6f0bf8ccee469d19a20fbbca5912e812b0b3e3d0ef7b8ca1ec08458cca",
+          "size_bytes": 313
+        },
+        {
+          "id": "sha256:240a3ce51ec6db1e13e9dbaa7c3df6ef8ed798c084ffd7c518570176884b9a78",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-figure-20261014-r1\\command.txt",
+          "sha256": "240a3ce51ec6db1e13e9dbaa7c3df6ef8ed798c084ffd7c518570176884b9a78",
+          "size_bytes": 122
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-figure-20261014-r1\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:903d71c0be0e54cafb6e4f85206932da185879ea11e4e064d1da6c6c26255327",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-figure-20261014-r1\\metrics.json",
+          "sha256": "903d71c0be0e54cafb6e4f85206932da185879ea11e4e064d1da6c6c26255327",
+          "size_bytes": 854
+        },
+        {
+          "id": "sha256:654f6661e5f57f8a6bf87d63f9cc4d7032420b83547243c762171f2728e54db3",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-figure-20261014-r1\\status.json",
+          "sha256": "654f6661e5f57f8a6bf87d63f9cc4d7032420b83547243c762171f2728e54db3",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:5669d4965be96b02839fc599af71bab1994b04095a3314d0c98a31f72e6d6068",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-figure-20261014-r1\\figures.json",
+          "sha256": "5669d4965be96b02839fc599af71bab1994b04095a3314d0c98a31f72e6d6068",
+          "size_bytes": 874
+        },
+        {
+          "id": "sha256:5e030cdec4a42d1ffba3b43d2d13be5cbc94a9a25d4c99462604b0b59d83ed84",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-figure-20261014-r1\\raw_motion_jerk.png",
+          "sha256": "5e030cdec4a42d1ffba3b43d2d13be5cbc94a9a25d4c99462604b0b59d83ed84",
+          "size_bytes": 226662
+        },
+        {
+          "id": "sha256:ce4ddd7646f41b67b22059ac6a7d0c188fe81490d18aa5dcb8d3b25da048a229",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\training-motion-figure-20261014-r1\\raw_motion_jerk.pdf",
+          "sha256": "ce4ddd7646f41b67b22059ac6a7d0c188fe81490d18aa5dcb8d3b25da048a229",
+          "size_bytes": 24167
+        }
+      ]
+    }
+  },
+  "planned_candidates": 44071,
+  "measured_candidates": 44071,
+  "selected_windows": 6000,
+  "training_episodes": 144,
+  "failed_windows": 0,
+  "raw_episode_totals": {
+    "three_lane_straight": {
+      "episodes": 48,
+      "vehicles": 2896,
+      "logged_lane_changes": 2442,
+      "ramp_route_vehicles": 0,
+      "ramp_exit_events": 0
+    },
+    "ramp_merge": {
+      "episodes": 48,
+      "vehicles": 3280,
+      "logged_lane_changes": 3927,
+      "ramp_route_vehicles": 976,
+      "ramp_exit_events": 976
+    },
+    "unsignalized_intersection": {
+      "episodes": 48,
+      "vehicles": 2368,
+      "logged_lane_changes": 0,
+      "ramp_route_vehicles": 0,
+      "ramp_exit_events": 0
+    }
+  },
+  "stages": {
+    "three_lane_straight": {
+      "candidate": {
+        "windows": 13017,
+        "selected_agent_windows": 37291,
+        "full_future_agent_windows": 27753,
+        "unknown_future_agent_windows": 9538,
+        "windows_without_any_complete_future_agent": 1344,
+        "heading5_agent_windows": 713,
+        "lateral_half_agent_windows": 1465,
+        "logged_lane_change_occurrences": 966,
+        "ramp_exit_occurrences": 0,
+        "heading5_windows": 676,
+        "lateral_half_windows": 1359,
+        "logged_lane_change_windows": 917,
+        "ramp_exit_windows": 0,
+        "unique_logged_lane_change_events": 272,
+        "unique_ramp_exit_events": 0
+      },
+      "core_complete": {
+        "windows": 6766,
+        "selected_agent_windows": 18441,
+        "full_future_agent_windows": 18441,
+        "unknown_future_agent_windows": 0,
+        "windows_without_any_complete_future_agent": 0,
+        "heading5_agent_windows": 486,
+        "lateral_half_agent_windows": 1133,
+        "logged_lane_change_occurrences": 651,
+        "ramp_exit_occurrences": 0,
+        "heading5_windows": 453,
+        "lateral_half_windows": 1032,
+        "logged_lane_change_windows": 614,
+        "ramp_exit_windows": 0,
+        "unique_logged_lane_change_events": 207,
+        "unique_ramp_exit_events": 0
+      },
+      "core_multiagent": {
+        "windows": 5304,
+        "selected_agent_windows": 16979,
+        "full_future_agent_windows": 16979,
+        "unknown_future_agent_windows": 0,
+        "windows_without_any_complete_future_agent": 0,
+        "heading5_agent_windows": 486,
+        "lateral_half_agent_windows": 1133,
+        "logged_lane_change_occurrences": 651,
+        "ramp_exit_occurrences": 0,
+        "heading5_windows": 453,
+        "lateral_half_windows": 1032,
+        "logged_lane_change_windows": 614,
+        "ramp_exit_windows": 0,
+        "unique_logged_lane_change_events": 207,
+        "unique_ramp_exit_events": 0
+      },
+      "eligible": {
+        "windows": 4019,
+        "selected_agent_windows": 12554,
+        "full_future_agent_windows": 12554,
+        "unknown_future_agent_windows": 0,
+        "windows_without_any_complete_future_agent": 0,
+        "heading5_agent_windows": 0,
+        "lateral_half_agent_windows": 0,
+        "logged_lane_change_occurrences": 0,
+        "ramp_exit_occurrences": 0,
+        "heading5_windows": 0,
+        "lateral_half_windows": 0,
+        "logged_lane_change_windows": 0,
+        "ramp_exit_windows": 0,
+        "unique_logged_lane_change_events": 0,
+        "unique_ramp_exit_events": 0
+      },
+      "selected": {
+        "windows": 2000,
+        "selected_agent_windows": 6328,
+        "full_future_agent_windows": 6328,
+        "unknown_future_agent_windows": 0,
+        "windows_without_any_complete_future_agent": 0,
+        "heading5_agent_windows": 0,
+        "lateral_half_agent_windows": 0,
+        "logged_lane_change_occurrences": 0,
+        "ramp_exit_occurrences": 0,
+        "heading5_windows": 0,
+        "lateral_half_windows": 0,
+        "logged_lane_change_windows": 0,
+        "ramp_exit_windows": 0,
+        "unique_logged_lane_change_events": 0,
+        "unique_ramp_exit_events": 0
+      }
+    },
+    "ramp_merge": {
+      "candidate": {
+        "windows": 13401,
+        "selected_agent_windows": 50090,
+        "full_future_agent_windows": 40190,
+        "unknown_future_agent_windows": 9900,
+        "windows_without_any_complete_future_agent": 612,
+        "heading5_agent_windows": 3002,
+        "lateral_half_agent_windows": 3480,
+        "logged_lane_change_occurrences": 1239,
+        "ramp_exit_occurrences": 370,
+        "heading5_windows": 2500,
+        "lateral_half_windows": 2859,
+        "logged_lane_change_windows": 1165,
+        "ramp_exit_windows": 357,
+        "unique_logged_lane_change_events": 335,
+        "unique_ramp_exit_events": 99
+      },
+      "core_complete": {
+        "windows": 7068,
+        "selected_agent_windows": 26239,
+        "full_future_agent_windows": 26239,
+        "unknown_future_agent_windows": 0,
+        "windows_without_any_complete_future_agent": 0,
+        "heading5_agent_windows": 2735,
+        "lateral_half_agent_windows": 3170,
+        "logged_lane_change_occurrences": 1032,
+        "ramp_exit_occurrences": 370,
+        "heading5_windows": 2235,
+        "lateral_half_windows": 2553,
+        "logged_lane_change_windows": 962,
+        "ramp_exit_windows": 357,
+        "unique_logged_lane_change_events": 292,
+        "unique_ramp_exit_events": 99
+      },
+      "core_multiagent": {
+        "windows": 6373,
+        "selected_agent_windows": 25544,
+        "full_future_agent_windows": 25544,
+        "unknown_future_agent_windows": 0,
+        "windows_without_any_complete_future_agent": 0,
+        "heading5_agent_windows": 2617,
+        "lateral_half_agent_windows": 3028,
+        "logged_lane_change_occurrences": 985,
+        "ramp_exit_occurrences": 370,
+        "heading5_windows": 2117,
+        "lateral_half_windows": 2411,
+        "logged_lane_change_windows": 915,
+        "ramp_exit_windows": 357,
+        "unique_logged_lane_change_events": 281,
+        "unique_ramp_exit_events": 99
+      },
+      "eligible": {
+        "windows": 3162,
+        "selected_agent_windows": 11788,
+        "full_future_agent_windows": 11788,
+        "unknown_future_agent_windows": 0,
+        "windows_without_any_complete_future_agent": 0,
+        "heading5_agent_windows": 0,
+        "lateral_half_agent_windows": 3,
+        "logged_lane_change_occurrences": 0,
+        "ramp_exit_occurrences": 0,
+        "heading5_windows": 0,
+        "lateral_half_windows": 3,
+        "logged_lane_change_windows": 0,
+        "ramp_exit_windows": 0,
+        "unique_logged_lane_change_events": 0,
+        "unique_ramp_exit_events": 0
+      },
+      "selected": {
+        "windows": 2000,
+        "selected_agent_windows": 7496,
+        "full_future_agent_windows": 7496,
+        "unknown_future_agent_windows": 0,
+        "windows_without_any_complete_future_agent": 0,
+        "heading5_agent_windows": 0,
+        "lateral_half_agent_windows": 1,
+        "logged_lane_change_occurrences": 0,
+        "ramp_exit_occurrences": 0,
+        "heading5_windows": 0,
+        "lateral_half_windows": 1,
+        "logged_lane_change_windows": 0,
+        "ramp_exit_windows": 0,
+        "unique_logged_lane_change_events": 0,
+        "unique_ramp_exit_events": 0
+      }
+    },
+    "unsignalized_intersection": {
+      "candidate": {
+        "windows": 17653,
+        "selected_agent_windows": 63168,
+        "full_future_agent_windows": 60964,
+        "unknown_future_agent_windows": 2204,
+        "windows_without_any_complete_future_agent": 1308,
+        "heading5_agent_windows": 2752,
+        "lateral_half_agent_windows": 2381,
+        "logged_lane_change_occurrences": 0,
+        "ramp_exit_occurrences": 0,
+        "heading5_windows": 1737,
+        "lateral_half_windows": 1652,
+        "logged_lane_change_windows": 0,
+        "ramp_exit_windows": 0,
+        "unique_logged_lane_change_events": 0,
+        "unique_ramp_exit_events": 0
+      },
+      "core_complete": {
+        "windows": 15245,
+        "selected_agent_windows": 59210,
+        "full_future_agent_windows": 59210,
+        "unknown_future_agent_windows": 0,
+        "windows_without_any_complete_future_agent": 0,
+        "heading5_agent_windows": 2752,
+        "lateral_half_agent_windows": 2381,
+        "logged_lane_change_occurrences": 0,
+        "ramp_exit_occurrences": 0,
+        "heading5_windows": 1737,
+        "lateral_half_windows": 1652,
+        "logged_lane_change_windows": 0,
+        "ramp_exit_windows": 0,
+        "unique_logged_lane_change_events": 0,
+        "unique_ramp_exit_events": 0
+      },
+      "core_multiagent": {
+        "windows": 11610,
+        "selected_agent_windows": 55575,
+        "full_future_agent_windows": 55575,
+        "unknown_future_agent_windows": 0,
+        "windows_without_any_complete_future_agent": 0,
+        "heading5_agent_windows": 2750,
+        "lateral_half_agent_windows": 2379,
+        "logged_lane_change_occurrences": 0,
+        "ramp_exit_occurrences": 0,
+        "heading5_windows": 1735,
+        "lateral_half_windows": 1650,
+        "logged_lane_change_windows": 0,
+        "ramp_exit_windows": 0,
+        "unique_logged_lane_change_events": 0,
+        "unique_ramp_exit_events": 0
+      },
+      "eligible": {
+        "windows": 9980,
+        "selected_agent_windows": 40325,
+        "full_future_agent_windows": 40325,
+        "unknown_future_agent_windows": 0,
+        "windows_without_any_complete_future_agent": 0,
+        "heading5_agent_windows": 833,
+        "lateral_half_agent_windows": 731,
+        "logged_lane_change_occurrences": 0,
+        "ramp_exit_occurrences": 0,
+        "heading5_windows": 557,
+        "lateral_half_windows": 539,
+        "logged_lane_change_windows": 0,
+        "ramp_exit_windows": 0,
+        "unique_logged_lane_change_events": 0,
+        "unique_ramp_exit_events": 0
+      },
+      "selected": {
+        "windows": 2000,
+        "selected_agent_windows": 8136,
+        "full_future_agent_windows": 8136,
+        "unknown_future_agent_windows": 0,
+        "windows_without_any_complete_future_agent": 0,
+        "heading5_agent_windows": 170,
+        "lateral_half_agent_windows": 144,
+        "logged_lane_change_occurrences": 0,
+        "ramp_exit_occurrences": 0,
+        "heading5_windows": 114,
+        "lateral_half_windows": 108,
+        "logged_lane_change_windows": 0,
+        "ramp_exit_windows": 0,
+        "unique_logged_lane_change_events": 0,
+        "unique_ramp_exit_events": 0
+      }
+    }
+  },
+  "event_opportunities": {
+    "three_lane_straight": {
+      "lane_change": {
+        "all_raw_events": 2442,
+        "actor_present": 2442,
+        "inside_radius": 272,
+        "selected": 272
+      },
+      "ramp_exit": {
+        "all_raw_events": 0,
+        "actor_present": 0,
+        "inside_radius": 0,
+        "selected": 0
+      }
+    },
+    "ramp_merge": {
+      "lane_change": {
+        "all_raw_events": 3927,
+        "actor_present": 3927,
+        "inside_radius": 335,
+        "selected": 335
+      },
+      "ramp_exit": {
+        "all_raw_events": 976,
+        "actor_present": 976,
+        "inside_radius": 99,
+        "selected": 99
+      }
+    },
+    "unsignalized_intersection": {
+      "lane_change": {
+        "all_raw_events": 0,
+        "actor_present": 0,
+        "inside_radius": 0,
+        "selected": 0
+      },
+      "ramp_exit": {
+        "all_raw_events": 0,
+        "actor_present": 0,
+        "inside_radius": 0,
+        "selected": 0
+      }
+    }
+  },
+  "rejection_reasons_for_motion": {
+    "three_lane_straight": {
+      "lateral_half": {
+        "raw64:motion": 1013,
+        "stored32:motion": 1013,
+        "raw64:violation:jerk": 1013,
+        "stored32:violation:jerk": 1013,
+        "incomplete_history_or_future": 327,
+        "missing_quality_derivative_context": 19,
+        "raw64:violation:lateral_acceleration": 772,
+        "stored32:violation:lateral_acceleration": 772
+      },
+      "logged_lane_change": {
+        "raw64:motion": 607,
+        "stored32:motion": 607,
+        "raw64:violation:jerk": 607,
+        "stored32:violation:jerk": 607,
+        "incomplete_history_or_future": 303,
+        "missing_quality_derivative_context": 7,
+        "raw64:violation:lateral_acceleration": 457,
+        "stored32:violation:lateral_acceleration": 457
+      },
+      "heading5": {
+        "raw64:motion": 434,
+        "stored32:motion": 434,
+        "raw64:violation:jerk": 434,
+        "stored32:violation:jerk": 434,
+        "incomplete_history_or_future": 223,
+        "missing_quality_derivative_context": 19,
+        "raw64:violation:lateral_acceleration": 356,
+        "stored32:violation:lateral_acceleration": 356
+      }
+    },
+    "ramp_merge": {
+      "heading5": {
+        "raw64:motion": 2225,
+        "stored32:motion": 2225,
+        "raw64:violation:jerk": 2225,
+        "stored32:violation:jerk": 2225,
+        "raw64:violation:lateral_acceleration": 2002,
+        "stored32:violation:lateral_acceleration": 2002,
+        "raw64:violation:longitudinal_acceleration": 908,
+        "stored32:violation:longitudinal_acceleration": 908,
+        "incomplete_history_or_future": 265,
+        "too_few_agents": 118,
+        "raw64:no_applicable_pairs": 118,
+        "stored32:no_applicable_pairs": 118,
+        "missing_quality_derivative_context": 10
+      },
+      "lateral_half": {
+        "raw64:motion": 2538,
+        "stored32:motion": 2538,
+        "raw64:violation:jerk": 2538,
+        "stored32:violation:jerk": 2538,
+        "raw64:violation:lateral_acceleration": 2152,
+        "stored32:violation:lateral_acceleration": 2152,
+        "raw64:violation:longitudinal_acceleration": 920,
+        "stored32:violation:longitudinal_acceleration": 920,
+        "incomplete_history_or_future": 306,
+        "missing_quality_derivative_context": 12,
+        "too_few_agents": 142,
+        "raw64:no_applicable_pairs": 142,
+        "stored32:no_applicable_pairs": 142
+      },
+      "logged_lane_change": {
+        "raw64:motion": 962,
+        "stored32:motion": 962,
+        "raw64:violation:jerk": 962,
+        "stored32:violation:jerk": 962,
+        "raw64:violation:longitudinal_acceleration": 236,
+        "raw64:violation:lateral_acceleration": 811,
+        "stored32:violation:longitudinal_acceleration": 236,
+        "stored32:violation:lateral_acceleration": 811,
+        "incomplete_history_or_future": 203,
+        "too_few_agents": 47,
+        "raw64:no_applicable_pairs": 47,
+        "stored32:no_applicable_pairs": 47
+      },
+      "ramp_exit": {
+        "raw64:motion": 357,
+        "stored32:motion": 357,
+        "raw64:violation:longitudinal_acceleration": 348,
+        "raw64:violation:lateral_acceleration": 356,
+        "raw64:violation:jerk": 357,
+        "stored32:violation:longitudinal_acceleration": 348,
+        "stored32:violation:lateral_acceleration": 356,
+        "stored32:violation:jerk": 357
+      }
+    },
+    "unsignalized_intersection": {
+      "heading5": {
+        "raw64:motion": 1178,
+        "stored32:motion": 1178,
+        "raw64:violation:jerk": 1178,
+        "stored32:violation:jerk": 1178,
+        "raw64:violation:longitudinal_acceleration": 1,
+        "stored32:violation:longitudinal_acceleration": 1,
+        "too_few_agents": 2,
+        "raw64:no_applicable_pairs": 2,
+        "stored32:no_applicable_pairs": 2
+      },
+      "lateral_half": {
+        "raw64:motion": 1111,
+        "stored32:motion": 1111,
+        "raw64:violation:jerk": 1111,
+        "stored32:violation:jerk": 1111,
+        "raw64:violation:longitudinal_acceleration": 1,
+        "stored32:violation:longitudinal_acceleration": 1,
+        "too_few_agents": 2,
+        "raw64:no_applicable_pairs": 2,
+        "stored32:no_applicable_pairs": 2
+      }
+    }
+  },
+  "reference_numeric_maxima": {
+    "reference_heading_span_difference_rad": 6.372840199997398e-08,
+    "reference_lateral_span_difference_m": 9.250478982325561e-06,
+    "reference_origin_difference_m": 5.684341886080802e-14
+  },
+  "independent_review": {
+    "stage_values_verified": 165,
+    "raw_cases": 17,
+    "raw_case_episodes": 4,
+    "all_original_raw_episodes_reread": false,
+    "case_results": [
+      {
+        "window_id": "038af7a5ca6f8294d3af9d62040e8bf63660c6e971c2d9867bd4ddc75402c99d-t100",
+        "family": "three_lane_straight",
+        "peak_vehicle_id": "flow_main.1",
+        "raw_center_jerk_max_mps3": 61.87894006453558,
+        "raw_front_jerk_max_mps3": 122.69592978161684,
+        "reported_longitudinal_jerk_max_mps3": 2.6795659840733066,
+        "history_center_jerk_max_mps3": 61.33855721647545,
+        "future_center_jerk_max_mps3": 61.87894006453558,
+        "future_center_jerk_over15_frames": 2,
+        "peak_relative_t0_s": 2.2,
+        "eligible": false,
+        "peak_road": "main"
+      },
+      {
+        "window_id": "038af7a5ca6f8294d3af9d62040e8bf63660c6e971c2d9867bd4ddc75402c99d-t110",
+        "family": "three_lane_straight",
+        "peak_vehicle_id": "flow_main.1",
+        "raw_center_jerk_max_mps3": 61.87894006453558,
+        "raw_front_jerk_max_mps3": 122.69592978161684,
+        "reported_longitudinal_jerk_max_mps3": 2.6795659840733066,
+        "history_center_jerk_max_mps3": 61.33855721647545,
+        "future_center_jerk_max_mps3": 61.87894006453558,
+        "future_center_jerk_over15_frames": 2,
+        "peak_relative_t0_s": 1.2000000000000002,
+        "eligible": false,
+        "peak_road": "main"
+      },
+      {
+        "window_id": "038af7a5ca6f8294d3af9d62040e8bf63660c6e971c2d9867bd4ddc75402c99d-t1790",
+        "family": "three_lane_straight",
+        "peak_vehicle_id": "flow_main.36",
+        "raw_center_jerk_max_mps3": 61.75304194286294,
+        "raw_front_jerk_max_mps3": 122.66666666678914,
+        "reported_longitudinal_jerk_max_mps3": 0.0,
+        "history_center_jerk_max_mps3": 61.33855721633252,
+        "future_center_jerk_max_mps3": 61.75304194286294,
+        "future_center_jerk_over15_frames": 2,
+        "peak_relative_t0_s": 1.8,
+        "eligible": false,
+        "peak_road": "main"
+      },
+      {
+        "window_id": "038af7a5ca6f8294d3af9d62040e8bf63660c6e971c2d9867bd4ddc75402c99d-t1830",
+        "family": "three_lane_straight",
+        "peak_vehicle_id": "flow_main.34",
+        "raw_center_jerk_max_mps3": 61.3385571593442,
+        "raw_front_jerk_max_mps3": 122.79046382063983,
+        "reported_longitudinal_jerk_max_mps3": 5.512430876033392,
+        "history_center_jerk_max_mps3": 0.0277673474603802,
+        "future_center_jerk_max_mps3": 61.3385571593442,
+        "future_center_jerk_over15_frames": 2,
+        "peak_relative_t0_s": 2.6,
+        "eligible": false,
+        "peak_road": "main"
+      },
+      {
+        "window_id": "038af7a5ca6f8294d3af9d62040e8bf63660c6e971c2d9867bd4ddc75402c99d-t1840",
+        "family": "three_lane_straight",
+        "peak_vehicle_id": "flow_main.34",
+        "raw_center_jerk_max_mps3": 61.3385571593442,
+        "raw_front_jerk_max_mps3": 122.79046382063983,
+        "reported_longitudinal_jerk_max_mps3": 5.512430876033392,
+        "history_center_jerk_max_mps3": 0.013827211996981177,
+        "future_center_jerk_max_mps3": 61.3385571593442,
+        "future_center_jerk_over15_frames": 2,
+        "peak_relative_t0_s": 1.6,
+        "eligible": false,
+        "peak_road": "main"
+      },
+      {
+        "window_id": "02b892a33f46f6547d2b103c5b67764e6d08eb71d9b0d9520f3752f63ec70c7b-t100",
+        "family": "ramp_merge",
+        "peak_vehicle_id": "flow_main.1",
+        "raw_center_jerk_max_mps3": 61.18317039988283,
+        "raw_front_jerk_max_mps3": 120.74140784171895,
+        "reported_longitudinal_jerk_max_mps3": 4.247719759144886,
+        "history_center_jerk_max_mps3": 60.338305795885496,
+        "future_center_jerk_max_mps3": 61.18317039988283,
+        "future_center_jerk_over15_frames": 2,
+        "peak_relative_t0_s": 2.0,
+        "eligible": false,
+        "peak_road": "main_in"
+      },
+      {
+        "window_id": "02b892a33f46f6547d2b103c5b67764e6d08eb71d9b0d9520f3752f63ec70c7b-t1000",
+        "family": "ramp_merge",
+        "peak_vehicle_id": "flow_main.10",
+        "raw_center_jerk_max_mps3": 61.74684955330416,
+        "raw_front_jerk_max_mps3": 122.14845949542845,
+        "reported_longitudinal_jerk_max_mps3": 18.968439910537427,
+        "history_center_jerk_max_mps3": 60.338308398018484,
+        "future_center_jerk_max_mps3": 61.74684955330416,
+        "future_center_jerk_over15_frames": 2,
+        "peak_relative_t0_s": 1.2000000000000002,
+        "eligible": false,
+        "peak_road": "acceleration"
+      },
+      {
+        "window_id": "02b892a33f46f6547d2b103c5b67764e6d08eb71d9b0d9520f3752f63ec70c7b-t1030",
+        "family": "ramp_merge",
+        "peak_vehicle_id": "flow_ramp.5",
+        "raw_center_jerk_max_mps3": 215.28515871538863,
+        "raw_front_jerk_max_mps3": 370.24943317348516,
+        "reported_longitudinal_jerk_max_mps3": 0.1037398281702906,
+        "history_center_jerk_max_mps3": 0.10373982810024804,
+        "future_center_jerk_max_mps3": 215.28515871538863,
+        "future_center_jerk_over15_frames": 13,
+        "peak_relative_t0_s": 1.8,
+        "eligible": false,
+        "peak_road": ":merge_end_0"
+      },
+      {
+        "window_id": "02b892a33f46f6547d2b103c5b67764e6d08eb71d9b0d9520f3752f63ec70c7b-t1020",
+        "family": "ramp_merge",
+        "peak_vehicle_id": "flow_ramp.5",
+        "raw_center_jerk_max_mps3": 215.28515871538863,
+        "raw_front_jerk_max_mps3": 370.24943317348516,
+        "reported_longitudinal_jerk_max_mps3": 2.5437546435179925,
+        "history_center_jerk_max_mps3": 2.5437546434915372,
+        "future_center_jerk_max_mps3": 215.28515871538863,
+        "future_center_jerk_over15_frames": 13,
+        "peak_relative_t0_s": 2.8000000000000003,
+        "eligible": false,
+        "peak_road": ":merge_end_0"
+      },
+      {
+        "window_id": "83fc498b1771e3eb841502d76bc75c38c9e4fa5707e155f1015b98bd3d9a31cd-t230",
+        "family": "ramp_merge",
+        "peak_vehicle_id": "flow_ramp.0",
+        "raw_center_jerk_max_mps3": 14.719246830422197,
+        "raw_front_jerk_max_mps3": 29.428056412985836,
+        "reported_longitudinal_jerk_max_mps3": 0.0007142294402129323,
+        "history_center_jerk_max_mps3": 0.000392480947348183,
+        "future_center_jerk_max_mps3": 14.719246830422197,
+        "future_center_jerk_over15_frames": 0,
+        "peak_relative_t0_s": 2.9000000000000004,
+        "eligible": true,
+        "peak_road": "ramp_in"
+      },
+      {
+        "window_id": "83fc498b1771e3eb841502d76bc75c38c9e4fa5707e155f1015b98bd3d9a31cd-t240",
+        "family": "ramp_merge",
+        "peak_vehicle_id": "flow_ramp.0",
+        "raw_center_jerk_max_mps3": 14.719246830422197,
+        "raw_front_jerk_max_mps3": 29.428056412985836,
+        "reported_longitudinal_jerk_max_mps3": 0.0008418984533520302,
+        "history_center_jerk_max_mps3": 0.0004522037666603596,
+        "future_center_jerk_max_mps3": 14.719246830422197,
+        "future_center_jerk_over15_frames": 0,
+        "peak_relative_t0_s": 1.9000000000000001,
+        "eligible": true,
+        "peak_road": "ramp_in"
+      },
+      {
+        "window_id": "00c5c92337fbbb876e25c38edbfe981d7b84835dc4615e96d0b0f58d198b874a-t1150",
+        "family": "unsignalized_intersection",
+        "peak_vehicle_id": "flow_west_north.1",
+        "raw_center_jerk_max_mps3": 39.93096143042596,
+        "raw_front_jerk_max_mps3": 39.999999986862846,
+        "reported_longitudinal_jerk_max_mps3": 40.0,
+        "history_center_jerk_max_mps3": 0.18078269474009068,
+        "future_center_jerk_max_mps3": 39.93096143042596,
+        "future_center_jerk_over15_frames": 6,
+        "peak_relative_t0_s": 2.0,
+        "eligible": false,
+        "peak_road": ":center_8"
+      },
+      {
+        "window_id": "00c5c92337fbbb876e25c38edbfe981d7b84835dc4615e96d0b0f58d198b874a-t1160",
+        "family": "unsignalized_intersection",
+        "peak_vehicle_id": "flow_west_north.1",
+        "raw_center_jerk_max_mps3": 39.93096143042596,
+        "raw_front_jerk_max_mps3": 39.999999986862846,
+        "reported_longitudinal_jerk_max_mps3": 40.0,
+        "history_center_jerk_max_mps3": 0.10234301050569376,
+        "future_center_jerk_max_mps3": 39.93096143042596,
+        "future_center_jerk_over15_frames": 6,
+        "peak_relative_t0_s": 1.0,
+        "eligible": false,
+        "peak_road": ":center_8"
+      },
+      {
+        "window_id": "00c5c92337fbbb876e25c38edbfe981d7b84835dc4615e96d0b0f58d198b874a-t1130",
+        "family": "unsignalized_intersection",
+        "peak_vehicle_id": "flow_west_north.1",
+        "raw_center_jerk_max_mps3": 39.93096143042596,
+        "raw_front_jerk_max_mps3": 39.999999986862846,
+        "reported_longitudinal_jerk_max_mps3": 40.0,
+        "history_center_jerk_max_mps3": 0.7542713687943279,
+        "future_center_jerk_max_mps3": 39.93096143042596,
+        "future_center_jerk_over15_frames": 5,
+        "peak_relative_t0_s": 4.0,
+        "eligible": false,
+        "peak_road": ":center_8"
+      },
+      {
+        "window_id": "00c5c92337fbbb876e25c38edbfe981d7b84835dc4615e96d0b0f58d198b874a-t1710",
+        "family": "unsignalized_intersection",
+        "peak_vehicle_id": "flow_west_north.2",
+        "raw_center_jerk_max_mps3": 32.81504259561039,
+        "raw_front_jerk_max_mps3": 32.82269495469672,
+        "reported_longitudinal_jerk_max_mps3": 32.823307206629465,
+        "history_center_jerk_max_mps3": 11.213672360411662,
+        "future_center_jerk_max_mps3": 32.81504259561039,
+        "future_center_jerk_over15_frames": 1,
+        "peak_relative_t0_s": 3.9000000000000004,
+        "eligible": false,
+        "peak_road": ":center_8"
+      },
+      {
+        "window_id": "00c5c92337fbbb876e25c38edbfe981d7b84835dc4615e96d0b0f58d198b874a-t1050",
+        "family": "unsignalized_intersection",
+        "peak_vehicle_id": "flow_east_north.1",
+        "raw_center_jerk_max_mps3": 5.111721104803758,
+        "raw_front_jerk_max_mps3": 8.477758947942974,
+        "reported_longitudinal_jerk_max_mps3": 0.0004231560914114141,
+        "history_center_jerk_max_mps3": 0.00042315611499624847,
+        "future_center_jerk_max_mps3": 5.111721104803758,
+        "future_center_jerk_over15_frames": 0,
+        "peak_relative_t0_s": 3.0,
+        "eligible": true,
+        "peak_road": ":center_0"
+      },
+      {
+        "window_id": "00c5c92337fbbb876e25c38edbfe981d7b84835dc4615e96d0b0f58d198b874a-t1060",
+        "family": "unsignalized_intersection",
+        "peak_vehicle_id": "flow_east_north.1",
+        "raw_center_jerk_max_mps3": 5.111721104803758,
+        "raw_front_jerk_max_mps3": 8.477758947942974,
+        "reported_longitudinal_jerk_max_mps3": 0.00014804929451273097,
+        "history_center_jerk_max_mps3": 0.00014804933455188053,
+        "future_center_jerk_max_mps3": 5.111721104803758,
+        "future_center_jerk_over15_frames": 0,
+        "peak_relative_t0_s": 2.0,
+        "eligible": true,
+        "peak_road": ":center_0"
+      }
+    ],
+    "verified_later_source_or_script_identities": 15
+  },
+  "resources": {
+    "scan_including_preflight_seconds": 334.6984225999913,
+    "process_rss_observed_peak_bytes": 542490624,
+    "raw_frame_bytes": 6022555228
+  },
+  "verification": {
+    "current_related_tests_passed": 18,
+    "new_diagnostic_tests": 12,
+    "full_repository_suite_rerun": false
+  },
+  "optimizer_updates": 0,
+  "new_collection_runs": 0,
+  "validation_episode_arrays_loaded": 0,
+  "test_episode_arrays_loaded": 0,
+  "caveats": [
+    "window/event occurrences overlap; unique events reported separately",
+    "candidate motion only summarizes complete-future actors; unknown actors are counted",
+    "ramp exit is a declared edge transition, not a collision or closed-loop success metric",
+    "no filter threshold, existing selection, trajectory or model was modified"
+  ]
+}
