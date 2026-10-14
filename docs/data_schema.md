@@ -265,3 +265,14 @@ sumodiff.control_scale_audit.results.v1保存计划／完成／失败、有效�
 sumodiff.control_scale_review.v1绑定8份正式扫描输出，校验6000任务和压缩车辆分区，独立重算7组分位数及网格。body_motion.npz包含heading_span_rad[M]与lateral_excursion_m[M]，在每车t0观测车身固定坐标系恢复未来，范围包含t0。review.json的5°和0.5m计数使用>=；后者不是道路相对换道／汇入事件检测。sumodiff.control_scale_summary.v1是轻量交付摘要，保留两次运行的实际SHA与关键文件身份，不替换源manifest。
 
 本轮未改变dataset/window/checkpoint外层版本或六维标签文件。训练选集、道路／运动阈值及未来标签完整性合同保持。
+
+
+## 三维控制训练与采样合同（2026-10-14）
+
+sumodiff.model.control.config.v1的state_dimension=3仅指未来扩散输出；历史输入保持[B,N,21,6]，网络输入／输出为[B,N,40,3]。sumodiff.control.diffusion.config.v1显式记录acceleration_scale_mps2、yaw_rate_scale_radps、lateral_velocity_scale_mps；归一化除[2,0.5,0.1]，不裁剪／减均值。继承的旧状态尺度字段固定默认50／20，修改会报错，不能用于控制归一化。
+
+sumodiff.control.train.config.v1记录完整有界训练、统一状态loss、jerk_tail、尾部权重、不可变更新日程、显式任务计划及种子。仅支持3..64更新，训练／验证诊断队列各不超过60，不实现正式长预算。训练签名另存task_plan_sha256，并锁定完整训练配置及尺度来源。scale_audit引用必须是同数据、formal／clean／completed的训练专用候选统计；新checkpoint外层仍sumodiff.base.checkpoint.v1，内部配置、优化器步数和日程严格校验，不将旧六维checkpoint作为控制模型读取。
+
+共享representation.training_target只在标签路径中将未来位移加回initial_positions、反解控制并归一化；decode_prediction不接收future_mask或标签。控制回放raw_future是六维回放状态的位移／速度／朝向；DecodedTrajectory.raw_states与states相同，各correction为0，明确没有协调阶段。未来三维网络输出由raw_normalized_controls及raw_controls保存。成功时另有raw_future_delta六维、raw_absolute_states与decoded_absolute_states；失败保留已经完成的原始预测，不能假定存在六维状态。sampling_summary与逐场景metrics记录实际去噪调用，失败仍在分母中。
+
+sumodiff.control.gradient.config.v1与results.v1记录训练专用自然t／固定200、分组和B16压力探针、分项与真实组合梯度范数／夹角、总范数、组合残差、裁剪条件、参数哈希及资源；探针不进行优化。sumodiff.control.integration.review.config.v1／results.v1记录独立NumPy真实标签回放、恢复、来源和失败核对；summary.v1为轻量交付。测试封存尚不支持控制模型，sample split=test在读取数据之前明确拒绝。

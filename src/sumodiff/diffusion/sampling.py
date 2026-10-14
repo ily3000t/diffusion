@@ -16,7 +16,8 @@ from sumodiff.evaluation.roads import RoadConfig
 from sumodiff.evaluation.collisions import CollisionConfig
 from sumodiff.evaluation.metrics import _heading,applicability,evaluate_trajectory,aggregate_scenes,correction_summary
 from sumodiff.experiments.recorder import RunRecorder,file_identity,load_config
-from .config import resolve_diffusion_config
+from .config import resolve_diffusion_config, is_control, target_dimension
+from .representation import decode_prediction
 from .checkpoint import load_checkpoint
 from .data import choose_indices,input_files,dataset_identity
 from .process import NoiseSchedule,ddim_sample,denormalize
@@ -59,6 +60,10 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
     c=sample_config(load_config(config_path));payload=load_checkpoint(checkpoint,requested={k:c[k] for k in ('cfg','partial_diffusion','rolling_generation')})
     architecture=resolve_model_config(payload['metadata']['model_config']);diffusion=resolve_diffusion_config(payload['metadata']['diffusion_config'])
     seal_identity=None
+    if is_control(diffusion) and c['split']=='test':
+        raise NotImplementedError('Control-target test sealing is not implemented; test data remain frozen')
+    if is_control(diffusion) and c['evaluation']['decoder']!=DecoderConfig().__dict__:
+        raise ValueError('Control rollout does not use configurable least-squares decoder settings')
     if c['split']=='test' and payload['metadata']['training_config']['schema_version']=='sumodiff.base.epoch.config.v2':
         from .fresh_protocol import verify_test_seal
         seal_identity=verify_test_seal(test_seal,dataset_path,checkpoint,c)
@@ -80,6 +85,10 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
         if device.type=='cuda' and not torch.cuda.is_available(): raise RuntimeError('CUDA requested but unavailable')
         model=ConditionalDenoiser(architecture).to(device);model.load_state_dict(payload['model'],strict=True);model.eval();model.requires_grad_(False)
         del payload
+        denoiser_counter={'calls':0}
+        def count_denoiser(module,inputs,result):
+            denoiser_counter['calls']+=1
+        counter_hook=model.unet.register_forward_hook(count_denoiser)
         schedule=NoiseSchedule(diffusion,device);schedule.timesteps(c['steps'])
         write_json(run.output/'tasks.json',[dict(window_id=t['window_id'],agent_ids=t['agent_ids'],target_pair=None,noise_seed=task_seed(c['seed'],t['window_id'])) for t in tasks])
         if device.type=='cuda': torch.cuda.reset_peak_memory_stats(device)
@@ -89,24 +98,31 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
             row_dir=run.output/'trajectories'/meta['window_id'];row_dir.mkdir(parents=True,exist_ok=False)
             row=dict(window_id=meta['window_id'],family=meta['family'],generation_status='failed',guided_stage=dict(status='not_applicable',reason='base mode has no guidance'))
             arrays={}
+            calls_before=denoiser_counter['calls']
             try:
                 source=ds.inference(i);conditions=source['conditioning'];heading=_heading(conditions)
                 tensors=prepare_conditioning(collate_numpy([source]),device)
                 generator=torch.Generator().manual_seed(task_seed(c['seed'],meta['window_id']))
-                initial=torch.randn((1,len(conditions['agent_mask']),40,6),generator=generator).to(device)
+                initial=torch.randn((1,len(conditions['agent_mask']),40,target_dimension(diffusion)),generator=generator).to(device)
                 arrays['initial_noise']=initial.cpu().numpy()[0]
                 synchronize(device);tick=time.perf_counter()
                 normalized=ddim_sample(model,tensors,initial,schedule,c['steps'],c['eta'],generator=torch.Generator(device=device).manual_seed(task_seed(c['seed'],meta['window_id'])))
                 physical=denormalize(normalized,diffusion)[0]
-                decoded=decode_future(physical,tensors['initial_positions'][0],torch.as_tensor(heading,device=device),tensors['agent_mask'][0],DecoderConfig(**c['evaluation']['decoder']))
+                if is_control(diffusion):
+                    arrays.update(raw_normalized_controls=normalized[0].cpu().numpy(),raw_controls=physical.cpu().numpy())
+                else:
+                    arrays.update(raw_normalized_future=normalized[0].cpu().numpy(),raw_future_delta=physical.cpu().numpy())
+                decoded=decode_prediction(physical,{k:v[0] for k,v in tensors.items()},diffusion,DecoderConfig(**c['evaluation']['decoder']))
                 synchronize(device);duration=time.perf_counter()-tick;durations.append(duration)
                 row.update(generation_status='completed',sampling_decoder_seconds=duration,denoiser_calls=c['steps'],actual_gradient_calls=0)
-                arrays.update(raw_normalized_future=normalized[0].cpu().numpy(),raw_future_delta=physical.cpu().numpy(),
+                arrays.update(raw_future_delta=decoded.raw_future.cpu().numpy(),
                     raw_absolute_states=decoded.raw_states.cpu().numpy(),decoded_absolute_states=decoded.states.cpu().numpy(),
                     initial_positions=conditions['initial_positions'],initial_heading=heading,agent_mask=conditions['agent_mask'],
                     position_correction=decoded.position_correction.cpu().numpy(),velocity_correction=decoded.velocity_correction.cpu().numpy(),
                     heading_correction=decoded.heading_correction.cpu().numpy(),heading_fallback_mask=decoded.heading_fallback_mask.cpu().numpy(),
                     raw_velocity_residual=decoded.raw_velocity_residual.cpu().numpy())
+                row['representation']='control_a_omega_r' if is_control(diffusion) else 'six_state'
+                row['correction_semantics']='no correction stage; raw and decoded states both denote control rollout' if is_control(diffusion) else 'position-velocity least-squares reconciliation'
                 row['corrections']=correction_summary(decoded);corrections.append(row['corrections'])
                 tick=time.perf_counter()
                 for stage in ('raw','decoded'):
@@ -118,6 +134,7 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
             except Exception as exc:
                 generation_failures+=1;row['raw']=failed_report(meta,exc);row['decoded']=failed_report(meta,exc)
                 row['generation_error']=dict(type=type(exc).__name__,message=str(exc))
+            row.update(denoiser_calls=denoiser_counter['calls']-calls_before,actual_gradient_calls=0)
             raw_records.append(row['raw']);decoded_records.append(row['decoded'])
             if arrays: np.savez_compressed(row_dir/'stages.npz',**arrays)
             write_json(row_dir/'metrics.json',row)
@@ -137,6 +154,10 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
             max_velocity_correction_mps=max((r['velocity_correction_mps']['max'] for r in corrections),default=None),
             heading_fallback_count=sum(r['heading_fallback_count'] for r in corrections),
             limitations=['offline selected vehicles only','checkpoint training budget does not establish convergence or quality','no attack roles, target event N/A','failed and unqualified scenes retained'])
+        counter_hook.remove()
+        result['actual_total_denoiser_calls']=denoiser_counter['calls']
+        result['representation']='control_a_omega_r' if is_control(diffusion) else 'six_state'
+        result['decoder']='center_midpoint_control_rollout_no_correction' if is_control(diffusion) else 'position_velocity_least_squares'
         write_json(run.output/'trajectory_index.json',rows);write_json(run.output/'sampling_summary.json',result);run.write_metrics(result)
         if generation_failures or result['raw']['failed_scenes'] or result['decoded']['failed_scenes']: raise RuntimeError('Base sampling/evaluation failures retained in metrics')
     return result

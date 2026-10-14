@@ -34,18 +34,18 @@ class TemporalUNet(nn.Module):
         super().__init__();d=config.condition_dimension;c0,c1,c2=config.unet_channels;self.config=config
         self.time=nn.Sequential(nn.Linear(d,d*2),nn.SiLU(),nn.Linear(d*2,d))
         self.future_position=nn.Linear(d,c0)
-        self.input=nn.Conv1d(6,c0,3,padding=1)
+        self.input=nn.Conv1d(config.state_dimension,c0,3,padding=1)
         self.level0=TemporalBlock(c0,c0,d)
         self.down0=nn.Conv1d(c0,c1,4,stride=2,padding=1);self.level1=TemporalBlock(c1,c1,d)
         self.down1=nn.Conv1d(c1,c2,4,stride=2,padding=1);self.bottleneck=TemporalBlock(c2,c2,d)
         self.agents=AgentAttention(c2,config.attention_heads);self.middle=TemporalBlock(c2,c2,d)
         self.up1=nn.Conv1d(c2,c1,3,padding=1);self.decode1=TemporalBlock(c1*2,c1,d)
         self.up0=nn.Conv1d(c1,c0,3,padding=1);self.decode0=TemporalBlock(c0*2,c0,d)
-        self.output=nn.Sequential(nn.GroupNorm(8,c0),nn.SiLU(),nn.Conv1d(c0,6,3,padding=1))
+        self.output=nn.Sequential(nn.GroupNorm(8,c0),nn.SiLU(),nn.Conv1d(c0,config.state_dimension,3,padding=1))
 
     def forward(self,noisy_future,timestep,condition,agent_mask):
         b,n,t,s=noisy_future.shape
-        if t!=40 or s!=6 or condition.shape!=(b,n,self.config.condition_dimension) or agent_mask.shape!=(b,n):raise ValueError('Invalid denoiser shapes')
+        if t!=40 or s!=self.config.state_dimension or condition.shape!=(b,n,self.config.condition_dimension) or agent_mask.shape!=(b,n):raise ValueError('Invalid denoiser shapes')
         if timestep.shape!=(b,) or timestep.dtype not in (torch.int32,torch.int64) or (timestep<0).any() or (timestep>=self.config.diffusion_embedding_steps).any():raise ValueError('Timestep must be an integer [B] in the embedding range')
         if not noisy_future.is_floating_point() or not torch.isfinite(noisy_future[agent_mask]).all():raise ValueError('Invalid active noisy future')
         if not torch.isfinite(condition[agent_mask]).all():raise ValueError('Invalid active condition')
@@ -54,7 +54,7 @@ class TemporalUNet(nn.Module):
         embedding=(condition+self.time(sinusoidal(timestep,self.config.condition_dimension))[:,None]).reshape(b*n,-1)
         time_index=torch.arange(1,t+1,device=clean.device)
         position=self.future_position(sinusoidal(time_index,self.config.condition_dimension)).transpose(0,1)
-        value=self.input(clean.reshape(b*n,t,6).transpose(1,2))+position[None]
+        value=self.input(clean.reshape(b*n,t,s).transpose(1,2))+position[None]
         first=self.level0(value,embedding)
         second=self.level1(self.down0(first),embedding)
         value=self.bottleneck(self.down1(second),embedding)
@@ -65,7 +65,7 @@ class TemporalUNet(nn.Module):
         value=self.decode1(torch.cat((value,second),dim=1),embedding)
         value=self.up0(value.repeat_interleave(2,dim=-1))
         value=self.decode0(torch.cat((value,first),dim=1),embedding)
-        result=self.output(value).transpose(1,2).reshape(b,n,t,6)
+        result=self.output(value).transpose(1,2).reshape(b,n,t,s)
         return torch.where(agent_mask[:,:,None,None],result,0.)
 
 

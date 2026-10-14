@@ -1,25 +1,27 @@
 """DDPM noise objective and DDIM Eq.12, with no clipping of physical states."""
 import math
 import torch
-from .config import DiffusionConfig
+from .config import DiffusionConfig, is_control, target_dimension
 
 
 def scales(value,config):
+    if is_control(config):
+        return value.new_tensor([config.acceleration_scale_mps2,config.yaw_rate_scale_radps,config.lateral_velocity_scale_mps])
     return value.new_tensor([config.position_scale_m]*2+[config.velocity_scale_mps]*2+[1.,1.])
 
 
 def normalize(value,config):
-    if value.shape[-1]!=6: raise ValueError('Expected six-state trajectory')
+    if value.shape[-1]!=target_dimension(config): raise ValueError('Trajectory dimension does not match diffusion representation')
     return value/scales(value,config)
 
 
 def denormalize(value,config):
-    if value.shape[-1]!=6: raise ValueError('Expected six-state trajectory')
+    if value.shape[-1]!=target_dimension(config): raise ValueError('Trajectory dimension does not match diffusion representation')
     return value*scales(value,config)
 
 
 def masked_noise_mse(prediction,noise,agent_mask,future_mask):
-    if prediction.shape!=noise.shape or prediction.ndim!=4 or prediction.shape[-1]!=6: raise ValueError('Invalid noise shape')
+    if prediction.shape!=noise.shape or prediction.ndim!=4 or prediction.shape[-1] not in (3,6): raise ValueError('Invalid noise shape')
     if agent_mask.dtype!=torch.bool or future_mask.dtype!=torch.bool or agent_mask.shape!=prediction.shape[:2] or future_mask.shape!=prediction.shape[:3]: raise ValueError('Invalid loss masks')
     valid=agent_mask[:,:,None]&future_mask
     counts=valid.sum((1,2))*prediction.shape[-1]
@@ -79,7 +81,7 @@ def ddim_sample(model,conditioning,initial_noise,schedule,steps=20,eta=0.,genera
     if options: raise NotImplementedError(f'Unsupported sampling options: {sorted(options)}')
     if model.training: raise ValueError('Sampling requires eval mode')
     if model.config.diffusion_embedding_steps!=schedule.config.training_steps: raise ValueError('Embedding/schedule mismatch')
-    if initial_noise.shape!=(conditioning['agent_mask'].shape[0],conditioning['agent_mask'].shape[1],40,6): raise ValueError('Invalid initial noise shape')
+    if initial_noise.shape!=(conditioning['agent_mask'].shape[0],conditioning['agent_mask'].shape[1],40,target_dimension(schedule.config)): raise ValueError('Invalid initial noise shape')
     mask=conditioning['agent_mask'][:,:,None,None]
     value=torch.where(mask,initial_noise,0.)
     if not torch.isfinite(value).all(): raise ValueError('Nonfinite initial noise')

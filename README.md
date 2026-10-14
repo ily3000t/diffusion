@@ -161,3 +161,8 @@ Set-Location E:\diffusion_new
 ## 完整训练集控制尺度与覆盖
 
 6000训练窗口审计与独立缓存复核已完成，失败0；中心／中点三维区间控制候选尺度为a=2 m/s²、omega=0.5 rad/s、r=0.1 m/s。数值恢复正常，但直路和汇入的未来横向运动覆盖不足；旧200模型仍作基线，不据此直接原样重训。结果与后续条件见[控制尺度与运动覆盖](docs/control_scale_results.md)，轻量数值及来源见[摘要](docs/control_scale_results.json)，可复现命令见[协议](docs/control_scale_audit.md)。新控制目标的训练接入尚未实现，阶段6及测试评价未启动。
+
+
+## 三维控制目标接入与短诊断
+
+已在原train／calibrate／sample入口接入中心／中点三维控制目标，旧六维路径保留。440项全量测试、真实GPU16与8+8恢复及56标签窗口独立回放通过；16更新固定验证噪声MSE由1.059降到0.670。3个自由采样全部触发过大角增量保护，原始控制和失败分母保留，尚无合格新模型。见[结果](docs/control_target_results.md)、[轻量摘要](docs/control_target_results.json)和[有界复现协议](docs/control_target_integration.md)。下一步先查既有数据的运动覆盖；长训练、阶段6与测试评价继续冻结。

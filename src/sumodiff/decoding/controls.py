@@ -1,4 +1,4 @@
-"""Discrete control inversion/rollout diagnostic; no training integration.
+"""Interval control inversion and shared differentiable trajectory rollout.
 
 Controls are sampled interval quantities, not continuous actuator commands.
 The optional lateral interval velocity is an explicit reconstruction reference,
@@ -76,6 +76,16 @@ def _floating(value, name):
 def _active_finite(value, mask, name):
     if not torch.isfinite(value[mask]).all():
         raise ValueError(f'Non-finite active {name}')
+
+
+def _prefix_sum(value, dim):
+    # Torch 2.5 CUDA cumsum rejects strict determinism. A fixed triangular
+    # linear map defines the same finite sum, with deterministic GEMM/backward.
+    if value.is_cuda and torch.are_deterministic_algorithms_enabled():
+        x = value.movedim(dim, -1)
+        triangle = torch.ones((x.shape[-1], x.shape[-1]), device=x.device, dtype=x.dtype).tril()
+        return torch.nn.functional.linear(x, triangle).movedim(-1, dim)
+    return torch.cumsum(value, dim=dim)
 
 
 def _direction(yaw):
@@ -166,13 +176,13 @@ def rollout_controls(controls, initial):
     if (values[..., 1][mask].abs() * config.dt >= math.pi).any():
         raise ValueError('Yaw increment must be strictly below pi per interval')
     with torch.autocast(device_type=controls.device.type, enabled=False):
-        yaw = initial.yaw[..., None] + config.dt * torch.cumsum(values[..., 1], dim=-1)
-        u = initial.forward_interval_speed[..., None] + config.dt * torch.cumsum(values[..., 0], dim=-1)
+        yaw = initial.yaw[..., None] + config.dt * _prefix_sum(values[..., 1], dim=-1)
+        u = initial.forward_interval_speed[..., None] + config.dt * _prefix_sum(values[..., 0], dim=-1)
         basis = yaw - values[..., 1] * config.dt / 2 if config.integration_heading == 'midpoint' else yaw
         velocity = u[..., None] * _direction(basis)
         if config.lateral_velocity:
             velocity = velocity + values[..., 2, None] * _side(basis)
-        reference = initial.reference_position[..., None, :] + config.dt * torch.cumsum(velocity, dim=-2)
+        reference = initial.reference_position[..., None, :] + config.dt * _prefix_sum(velocity, dim=-2)
         offset = initial.length / 2 if config.reference_point == 'front' else torch.zeros_like(initial.length)
         position = reference - offset[..., None, None] * _direction(yaw)
         positions = torch.cat((initial.center_position[..., None, :], position), dim=-2)

@@ -41,6 +41,7 @@ def main(argv=None):
     a=sub.add_parser('calibrate');a.add_argument('--dataset',type=Path,required=True);a.add_argument('--model-config',type=Path,required=True)
     a.add_argument('--config',type=Path,required=True);a.add_argument('--output',type=Path,required=True)
     a.add_argument('--repository',type=Path,default=Path.cwd());a.add_argument('--formal',action='store_true');a.add_argument('--development',action='store_true')
+    a.add_argument('--scale-audit',type=Path);a.add_argument('--checkpoint',type=Path)
     a=sub.add_parser('audit-continuation');a.add_argument('--uninterrupted',type=Path,required=True);a.add_argument('--resumed',type=Path,required=True)
     a.add_argument('--output',type=Path,required=True);a.add_argument('--repository',type=Path,default=Path.cwd());a.add_argument('--formal',action='store_true')
     a=sub.add_parser('audit-inference');a.add_argument('--dataset',type=Path,required=True);a.add_argument('--checkpoint',type=Path,required=True);a.add_argument('--source-run',type=Path,required=True)
@@ -54,8 +55,14 @@ def main(argv=None):
             from .fresh_protocol import seal_test
             result=seal_test(args.dataset,args.checkpoint,args.config,args.validation_run,args.output,args.repository,command,args.formal)
         elif args.action=='calibrate':
-            from .fresh_calibration import calibrate
-            result=calibrate(args.dataset,args.model_config,args.config,args.output,args.repository,command,args.formal,args.development)
+            if load_config(args.config).get('schema_version')=='sumodiff.control.train.config.v1':
+                if not args.scale_audit or args.development:raise ValueError('Control calibration requires certified --scale-audit and its explicit bounded protocol')
+                from .control_calibration import calibrate
+                result=calibrate(args.dataset,args.model_config,args.config,args.scale_audit,args.output,args.repository,command,args.formal,args.checkpoint)
+            else:
+                if args.scale_audit or args.checkpoint:raise ValueError('These calibration options apply only to control targets')
+                from .fresh_calibration import calibrate
+                result=calibrate(args.dataset,args.model_config,args.config,args.output,args.repository,command,args.formal,args.development)
         elif args.action=='diagnose':
             from .diagnostics import diagnose
             result=diagnose(args.dataset,args.checkpoint,args.config,args.output,args.repository,command,args.formal)

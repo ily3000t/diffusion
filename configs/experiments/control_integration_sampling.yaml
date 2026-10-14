@@ -1,0 +1,7 @@
+schema_version: sumodiff.base.sample.config.v1
+device: cuda:0
+split: validation
+limit: 3
+steps: 20
+eta: 0.0
+seed: 20261102
