@@ -1,0 +1,712 @@
+{
+  "schema_version": "sumodiff.motion.data.summary.v1",
+  "scope": "frozen data recipe and six-train-episode pilot only",
+  "runs": {
+    "pilot": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "f57bab438b979656f8abf43ef9ded60db4bfddda",
+        "branch": "feat/motion-balanced-data-protocol",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "state": "completed",
+      "formal": true,
+      "input_identities": 1,
+      "recorded_execution_seconds": 163.576228,
+      "critical_files": [
+        {
+          "id": "sha256:4410e0ca0939e09757922250b365dbba06b4631f5874525146379b65cc0606b3",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\manifest.json",
+          "sha256": "4410e0ca0939e09757922250b365dbba06b4631f5874525146379b65cc0606b3",
+          "size_bytes": 1871
+        },
+        {
+          "id": "sha256:4f6c3765c9f6138c8f1297c4f4429312cb28d72790bfbc7fd9d3117d1e22c21c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\status.json",
+          "sha256": "4f6c3765c9f6138c8f1297c4f4429312cb28d72790bfbc7fd9d3117d1e22c21c",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:afe5a730bfa0cc96f452eee8a5601115593012e79f50736d3cc2fc47ce223a43",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\resolved_config.yaml",
+          "sha256": "afe5a730bfa0cc96f452eee8a5601115593012e79f50736d3cc2fc47ce223a43",
+          "size_bytes": 13470
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:42d3184a59d28aaf87bd5c3ff25069c0a38ad023832316aa3fd2cdb14871e625",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\command.txt",
+          "sha256": "42d3184a59d28aaf87bd5c3ff25069c0a38ad023832316aa3fd2cdb14871e625",
+          "size_bytes": 243
+        },
+        {
+          "id": "sha256:bcd3b1626cf8259ffd10bad083d7bf67af6424b4775cb512d3a2ebf29a8985f4",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\metrics.json",
+          "sha256": "bcd3b1626cf8259ffd10bad083d7bf67af6424b4775cb512d3a2ebf29a8985f4",
+          "size_bytes": 8062
+        },
+        {
+          "id": "sha256:94be5d4452f1fd15740eaec1315445b1d379ade46aaedc86664a5b9f9af0c4b3",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\sources.json",
+          "sha256": "94be5d4452f1fd15740eaec1315445b1d379ade46aaedc86664a5b9f9af0c4b3",
+          "size_bytes": 1313
+        }
+      ]
+    },
+    "preparation": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\preparation",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "f57bab438b979656f8abf43ef9ded60db4bfddda",
+        "branch": "feat/motion-balanced-data-protocol",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "state": "completed",
+      "formal": true,
+      "input_identities": 110,
+      "recorded_execution_seconds": 114.948202,
+      "critical_files": [
+        {
+          "id": "sha256:25a449ad4e38c479b3576361ca8aafc1cdf60a7555387cd8c09d11c42a6ba4d1",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\preparation\\manifest.json",
+          "sha256": "25a449ad4e38c479b3576361ca8aafc1cdf60a7555387cd8c09d11c42a6ba4d1",
+          "size_bytes": 43899
+        },
+        {
+          "id": "sha256:7f88007243e408335121ce277ad25d632f879ead25081c3f47852e54feb24c62",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\preparation\\status.json",
+          "sha256": "7f88007243e408335121ce277ad25d632f879ead25081c3f47852e54feb24c62",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:81b73dde8340ec31187c8addd2e96ad37f6a053b386d037cb85c453a4e8f67c6",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\preparation\\resolved_config.yaml",
+          "sha256": "81b73dde8340ec31187c8addd2e96ad37f6a053b386d037cb85c453a4e8f67c6",
+          "size_bytes": 7111
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\preparation\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:7d2495bcb88645adb5149ecd788a5eeb189bcd91666332ff746f688504532ba7",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\preparation\\command.txt",
+          "sha256": "7d2495bcb88645adb5149ecd788a5eeb189bcd91666332ff746f688504532ba7",
+          "size_bytes": 343
+        },
+        {
+          "id": "sha256:bcd3b1626cf8259ffd10bad083d7bf67af6424b4775cb512d3a2ebf29a8985f4",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\preparation\\metrics.json",
+          "sha256": "bcd3b1626cf8259ffd10bad083d7bf67af6424b4775cb512d3a2ebf29a8985f4",
+          "size_bytes": 8062
+        },
+        {
+          "id": "sha256:32caf54effbc2cae16e8bc0aac3a1cb376e4c8ac06a42ec495df160698f254a8",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\preparation\\quality_report.json",
+          "sha256": "32caf54effbc2cae16e8bc0aac3a1cb376e4c8ac06a42ec495df160698f254a8",
+          "size_bytes": 8317
+        },
+        {
+          "id": "sha256:3addaeea143b78c75df75572213192a0beaa8163e48e224cf1f954223661e51b",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\preparation\\window_quality.jsonl",
+          "sha256": "3addaeea143b78c75df75572213192a0beaa8163e48e224cf1f954223661e51b",
+          "size_bytes": 1922958
+        },
+        {
+          "id": "sha256:afd72a3fecdab9f35b2cf85142a289e64848151fba6d01c877955ba019b89604",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\preparation\\event_catalog.json",
+          "sha256": "afd72a3fecdab9f35b2cf85142a289e64848151fba6d01c877955ba019b89604",
+          "size_bytes": 14825
+        }
+      ]
+    },
+    "review_r1": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\motion-data-review-20261015-r1",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "f57bab438b979656f8abf43ef9ded60db4bfddda",
+        "branch": "feat/motion-balanced-data-protocol",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "state": "failed",
+      "formal": true,
+      "input_identities": 119,
+      "recorded_execution_seconds": 2.145236,
+      "critical_files": [
+        {
+          "id": "sha256:407ac34cba8baff3f26cc6d07d182b2f3f34012071c9b0e1400ae12ce6a2f4cd",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\motion-data-review-20261015-r1\\manifest.json",
+          "sha256": "407ac34cba8baff3f26cc6d07d182b2f3f34012071c9b0e1400ae12ce6a2f4cd",
+          "size_bytes": 46384
+        },
+        {
+          "id": "sha256:1929d01a2ae82d3a02d755640243f04a40d876f5cf3d69c07f0dc4a178e868fe",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\motion-data-review-20261015-r1\\status.json",
+          "sha256": "1929d01a2ae82d3a02d755640243f04a40d876f5cf3d69c07f0dc4a178e868fe",
+          "size_bytes": 244
+        },
+        {
+          "id": "sha256:03a8e56411c646a5c22b7bd60fa6a46712d3398df9b4e7c360b376be4141517b",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\motion-data-review-20261015-r1\\resolved_config.yaml",
+          "sha256": "03a8e56411c646a5c22b7bd60fa6a46712d3398df9b4e7c360b376be4141517b",
+          "size_bytes": 412
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\motion-data-review-20261015-r1\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:1fc6c032aeb6fa87d33478c1df9f2e4abce90c83b8561367b5181c45af8b177f",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\motion-data-review-20261015-r1\\command.txt",
+          "sha256": "1fc6c032aeb6fa87d33478c1df9f2e4abce90c83b8561367b5181c45af8b177f",
+          "size_bytes": 118
+        },
+        {
+          "id": "sha256:ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\motion-data-review-20261015-r1\\metrics.json",
+          "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+          "size_bytes": 3
+        }
+      ]
+    },
+    "review_r2": {
+      "path": "E:\\diffusion_new\\artifacts\\runs\\motion-data-review-20261015-r2",
+      "git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "f57bab438b979656f8abf43ef9ded60db4bfddda",
+        "branch": "feat/motion-balanced-data-protocol",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "state": "completed",
+      "formal": true,
+      "input_identities": 124,
+      "recorded_execution_seconds": 2.163977,
+      "critical_files": [
+        {
+          "id": "sha256:9fcf2fb2ad411dc9825dd53e9182d4577563302a79fdc5ee7ea15213c8cfcf72",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\motion-data-review-20261015-r2\\manifest.json",
+          "sha256": "9fcf2fb2ad411dc9825dd53e9182d4577563302a79fdc5ee7ea15213c8cfcf72",
+          "size_bytes": 48018
+        },
+        {
+          "id": "sha256:ca040626cbd7afbe43a30d32bca5b58490083eca6aecfe0790eb332959fa3751",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\motion-data-review-20261015-r2\\status.json",
+          "sha256": "ca040626cbd7afbe43a30d32bca5b58490083eca6aecfe0790eb332959fa3751",
+          "size_bytes": 181
+        },
+        {
+          "id": "sha256:03a8e56411c646a5c22b7bd60fa6a46712d3398df9b4e7c360b376be4141517b",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\motion-data-review-20261015-r2\\resolved_config.yaml",
+          "sha256": "03a8e56411c646a5c22b7bd60fa6a46712d3398df9b4e7c360b376be4141517b",
+          "size_bytes": 412
+        },
+        {
+          "id": "sha256:0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\motion-data-review-20261015-r2\\environment.json",
+          "sha256": "0997101fa3c3ee4e7d1e83dd4a004543246b44926c4de78f4cf8264d04c8835c",
+          "size_bytes": 15406
+        },
+        {
+          "id": "sha256:1524667aa1aa69149951123ae284d55eab3a9280f8c85563bb68e027aa58ec79",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\motion-data-review-20261015-r2\\command.txt",
+          "sha256": "1524667aa1aa69149951123ae284d55eab3a9280f8c85563bb68e027aa58ec79",
+          "size_bytes": 121
+        },
+        {
+          "id": "sha256:9ad7e537f12425e2deb434e26da8473e2be65e1250a4fcc4b74669e968e8151f",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\motion-data-review-20261015-r2\\metrics.json",
+          "sha256": "9ad7e537f12425e2deb434e26da8473e2be65e1250a4fcc4b74669e968e8151f",
+          "size_bytes": 1569
+        },
+        {
+          "id": "sha256:aa979dfc4314f43d35dfc9846d69ff0c291358c52200eadf58765c98a947f46d",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\motion-data-review-20261015-r2\\review.json",
+          "sha256": "aa979dfc4314f43d35dfc9846d69ff0c291358c52200eadf58765c98a947f46d",
+          "size_bytes": 1630
+        }
+      ]
+    }
+  },
+  "quality_report": {
+    "schema_version": "sumodiff.stage5a.quality.report.v1",
+    "data_recipe_schema": "sumodiff.stage5a.config.v3",
+    "protocol_id": "sha256:70461f5e5c7f8926caaee596819d103d9ff917a99ccca580fcd276c9e708da1a",
+    "run_sha": "f57bab438b979656f8abf43ef9ded60db4bfddda",
+    "profile": "pilot",
+    "passed": true,
+    "selection": {
+      "train": {
+        "three_lane_straight": {
+          "passed": true,
+          "checks": {
+            "total": true,
+            "policy_counts": true,
+            "geometries": true,
+            "episodes": true
+          },
+          "requirement": {
+            "quota": 8,
+            "policy_quotas": {
+              "first_current_id": 4,
+              "interaction_current": 4
+            },
+            "minimum_windows": {
+              "lane_change": 1
+            },
+            "minimum_unique": {
+              "lane_change": 1
+            },
+            "minimum_geometries": 2,
+            "minimum_episodes": 2,
+            "minimum_motion_geometries": 1,
+            "minimum_motion_episodes": 1,
+            "max_episode_windows": 5,
+            "max_windows_per_event": 3,
+            "attempts": 4
+          },
+          "eligible_pool": 77,
+          "selected": 8,
+          "reference_counts": {
+            "interaction_current": 4,
+            "first_current_id": 4
+          },
+          "geometry_counts": {
+            "sha256:61f2a8c37c754be9e5bb7c2fea860909162e600c794a76ee3532a814620454b7": 4,
+            "sha256:ccb54afbbbfe4a80fbaba6c42e36f89be7cefd8a16bf6156ecaa7fd67a583567": 4
+          },
+          "episode_counts": {
+            "sha256:e768a02d5fbdbf48507864e336640ca3628b0b8ae5666b227b78f52dbdaf59e4": 4,
+            "sha256:125c360a092b7ccb9afa65b8d68e01ff60a948db0e7ae25df88c4ea0fd3ca2a8": 4
+          },
+          "categories": {
+            "lane_change": {
+              "minimum_windows": 1,
+              "selected_windows": 1,
+              "minimum_unique": 1,
+              "selected_unique": 1,
+              "eligible_windows": 5,
+              "eligible_unique": 5,
+              "geometry_count": 1,
+              "episode_count": 1,
+              "passed": true
+            }
+          },
+          "maximum_event_reuse": 1,
+          "attempt": 0,
+          "selection_semantics": "deterministic bounded heuristic; failure is not a proof of pool infeasibility"
+        },
+        "ramp_merge": {
+          "passed": true,
+          "checks": {
+            "total": true,
+            "policy_counts": true,
+            "geometries": true,
+            "episodes": true
+          },
+          "requirement": {
+            "quota": 8,
+            "policy_quotas": {
+              "first_current_id": 4,
+              "interaction_current": 4
+            },
+            "minimum_windows": {
+              "ramp_exit": 1,
+              "lane_change": 1
+            },
+            "minimum_unique": {
+              "ramp_exit": 1,
+              "lane_change": 1
+            },
+            "minimum_geometries": 2,
+            "minimum_episodes": 2,
+            "minimum_motion_geometries": 1,
+            "minimum_motion_episodes": 1,
+            "max_episode_windows": 5,
+            "max_windows_per_event": 3,
+            "attempts": 4
+          },
+          "eligible_pool": 73,
+          "selected": 8,
+          "reference_counts": {
+            "first_current_id": 4,
+            "interaction_current": 4
+          },
+          "geometry_counts": {
+            "sha256:5389f337061d896b635db6774ac085ee9913fb129b1fbeed3c7034ab1d52e17e": 4,
+            "sha256:8df92720a76814634167ecc533b5c57956473f504ffd7b5f06d476d4d4ca2889": 4
+          },
+          "episode_counts": {
+            "sha256:a334d20fa8dc3853208030c9510269b559584c7d770dc300d5a2e00e939d840d": 4,
+            "sha256:4d590712b32f4e3d62874aad4e7cf44d04eddd76ce6d4a650696b9c34b7e4b26": 4
+          },
+          "categories": {
+            "ramp_exit": {
+              "minimum_windows": 1,
+              "selected_windows": 3,
+              "minimum_unique": 1,
+              "selected_unique": 3,
+              "eligible_windows": 7,
+              "eligible_unique": 6,
+              "geometry_count": 2,
+              "episode_count": 2,
+              "passed": true
+            },
+            "lane_change": {
+              "minimum_windows": 1,
+              "selected_windows": 1,
+              "minimum_unique": 1,
+              "selected_unique": 1,
+              "eligible_windows": 3,
+              "eligible_unique": 2,
+              "geometry_count": 1,
+              "episode_count": 1,
+              "passed": true
+            }
+          },
+          "maximum_event_reuse": 1,
+          "attempt": 0,
+          "selection_semantics": "deterministic bounded heuristic; failure is not a proof of pool infeasibility"
+        },
+        "unsignalized_intersection": {
+          "passed": true,
+          "checks": {
+            "total": true,
+            "policy_counts": true,
+            "geometries": true,
+            "episodes": true
+          },
+          "requirement": {
+            "quota": 8,
+            "policy_quotas": {
+              "first_current_id": 4,
+              "interaction_current": 4
+            },
+            "minimum_windows": {
+              "turn": 1
+            },
+            "minimum_unique": {
+              "turn": 1
+            },
+            "minimum_geometries": 2,
+            "minimum_episodes": 2,
+            "minimum_motion_geometries": 1,
+            "minimum_motion_episodes": 1,
+            "max_episode_windows": 5,
+            "max_windows_per_event": 3,
+            "attempts": 4
+          },
+          "eligible_pool": 70,
+          "selected": 8,
+          "reference_counts": {
+            "first_current_id": 4,
+            "interaction_current": 4
+          },
+          "geometry_counts": {
+            "sha256:3e6e018019843f3d7940f70cba3f0cafa8105c0c46f6533a15e431751285cf1f": 4,
+            "sha256:a7ac654058486c0ce52c9c9830e941be7ab55c165975322f93d5d5ea0ea95955": 4
+          },
+          "episode_counts": {
+            "sha256:264364dcc4df350facbb42756193c067809de4df769679a995acb323953c9f4b": 4,
+            "sha256:28047c6d911aaceef25fa289368b266cce9807f9eeb21e22d5230380a1d0ac02": 4
+          },
+          "categories": {
+            "turn": {
+              "minimum_windows": 1,
+              "selected_windows": 2,
+              "minimum_unique": 1,
+              "selected_unique": 2,
+              "eligible_windows": 6,
+              "eligible_unique": 4,
+              "geometry_count": 1,
+              "episode_count": 1,
+              "passed": true
+            }
+          },
+          "maximum_event_reuse": 1,
+          "attempt": 0,
+          "selection_semantics": "deterministic bounded heuristic; failure is not a proof of pool infeasibility"
+        }
+      }
+    },
+    "pilot_families": {
+      "three_lane_straight": {
+        "core_multiagent": 77,
+        "eligible": 77,
+        "retention_fraction": 1.0,
+        "passed": true
+      },
+      "ramp_merge": {
+        "core_multiagent": 73,
+        "eligible": 73,
+        "retention_fraction": 1.0,
+        "passed": true
+      },
+      "unsignalized_intersection": {
+        "core_multiagent": 90,
+        "eligible": 70,
+        "retention_fraction": 0.7777777777777778,
+        "passed": true
+      }
+    },
+    "planned_source_episodes": 6,
+    "completed_source_episodes": 6,
+    "windows": 288,
+    "assessed_windows": 288,
+    "complete_quality_evaluations": 253,
+    "unavailable_windows": 0,
+    "eligible_windows": 220,
+    "rejection_reasons": {
+      "too_few_agents": 13,
+      "raw64:no_applicable_pairs": 13,
+      "stored32:no_applicable_pairs": 13,
+      "incomplete_history_or_future": 35,
+      "raw64:motion": 20,
+      "stored32:motion": 20
+    },
+    "audit_failures": 0,
+    "conversion_failures": 0,
+    "selected_windows": 24,
+    "elapsed_seconds": 107.88501740002539,
+    "sampled_peak_rss_bytes": 473489408,
+    "event_catalog_counts": {
+      "lane_change": 26,
+      "ramp_exit": 6,
+      "turn": 16
+    },
+    "turn_catalog_semantics": "planned maneuver IDs; selected turn labels require observed future heading change on legal internal lanes",
+    "retained_rejected_windows": true,
+    "no_smoothing_or_clipping": true,
+    "thresholds_unchanged": true,
+    "test_usage": "none",
+    "pilot_limitations": "six training episodes and sparse fixed times do not certify full population feasibility",
+    "candidate_arrays_saved": false,
+    "window_reconstruction": "original authenticated raw episodes plus logged t0/policy"
+  },
+  "independent_review": {
+    "schema_version": "sumodiff.motion.data.review.results.v1",
+    "run_sha": "f57bab438b979656f8abf43ef9ded60db4bfddda",
+    "source_sha": "f57bab438b979656f8abf43ef9ded60db4bfddda",
+    "source_passed": true,
+    "planned_windows": 288,
+    "selected_windows_verified": 24,
+    "independent_event_occurrences": 7,
+    "coordinate_points": 5246,
+    "raw_stored_max_errors": {
+      "position_m": 3.814100878685167e-06,
+      "velocity_mps": 9.44931088042722e-07,
+      "heading": 2.9741123008797388e-08
+    },
+    "selected_summary": {
+      "three_lane_straight": {
+        "selected": 8,
+        "reference_counts": {
+          "interaction_current": 4,
+          "first_current_id": 4
+        },
+        "maximum_event_reuse": 1,
+        "unique_events": {
+          "lane_change": 1,
+          "ramp_exit": 0,
+          "turn": 0
+        }
+      },
+      "ramp_merge": {
+        "selected": 8,
+        "reference_counts": {
+          "first_current_id": 4,
+          "interaction_current": 4
+        },
+        "maximum_event_reuse": 1,
+        "unique_events": {
+          "lane_change": 1,
+          "ramp_exit": 3,
+          "turn": 0
+        }
+      },
+      "unsignalized_intersection": {
+        "selected": 8,
+        "reference_counts": {
+          "first_current_id": 4,
+          "interaction_current": 4
+        },
+        "maximum_event_reuse": 1,
+        "unique_events": {
+          "lane_change": 0,
+          "ramp_exit": 0,
+          "turn": 2
+        }
+      }
+    },
+    "authenticated_source_inputs": 110,
+    "optimizer_updates": 0,
+    "validation_episode_arrays_loaded": 0,
+    "test_episode_arrays_loaded": 0,
+    "elapsed_seconds": 2.1428586998954415
+  },
+  "dataset_id": "sha256:388aa78c044dd18c45881792cbaae1450ac725eaf53a4f1ec3af6d2e4236529e",
+  "dataset_files": [
+    {
+      "id": "sha256:3345694db2e0b391945f554036384888496ca2c7e1099504e01fde6785caee6f",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\preparation\\dataset\\dataset_manifest.json",
+      "sha256": "3345694db2e0b391945f554036384888496ca2c7e1099504e01fde6785caee6f",
+      "size_bytes": 2765
+    },
+    {
+      "id": "sha256:b06c43f4dd7b3d541434c432586106b81d4e9318d81bd1a88e28c2d130b71e73",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\preparation\\dataset\\windows.json",
+      "sha256": "b06c43f4dd7b3d541434c432586106b81d4e9318d81bd1a88e28c2d130b71e73",
+      "size_bytes": 78630
+    },
+    {
+      "id": "sha256:97e3da304c85c1bca6c6755ffe4b51112edd5e32113b23e403ed3802a02b0cb3",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-pilot\\preparation\\dataset\\selection.json",
+      "sha256": "97e3da304c85c1bca6c6755ffe4b51112edd5e32113b23e403ed3802a02b0cb3",
+      "size_bytes": 36624
+    }
+  ],
+  "dataset_bytes": 15198106,
+  "source_metrics": [
+    {
+      "family": "three_lane_straight",
+      "metrics": {
+        "complete_episode": true,
+        "simulated_seconds": 103.5,
+        "vehicle_records": 6741,
+        "entered_vehicles": 10,
+        "arrived_vehicles": 10,
+        "sumo_collision_events": 0,
+        "normal_traffic_quality_pass": true,
+        "resources": {
+          "collection_elapsed_seconds": 3.209440300008282,
+          "parent_peak_sampled_rss_bytes": 409817088,
+          "sumo_peak_sampled_rss_bytes": 22466560,
+          "memory_query_error": null,
+          "gpu_used": false
+        }
+      },
+      "raw_bytes": 3636893
+    },
+    {
+      "family": "three_lane_straight",
+      "metrics": {
+        "complete_episode": true,
+        "simulated_seconds": 110.7,
+        "vehicle_records": 7426,
+        "entered_vehicles": 10,
+        "arrived_vehicles": 10,
+        "sumo_collision_events": 0,
+        "normal_traffic_quality_pass": true,
+        "resources": {
+          "collection_elapsed_seconds": 3.389941900037229,
+          "parent_peak_sampled_rss_bytes": 410570752,
+          "sumo_peak_sampled_rss_bytes": 22306816,
+          "memory_query_error": null,
+          "gpu_used": false
+        }
+      },
+      "raw_bytes": 4180592
+    },
+    {
+      "family": "ramp_merge",
+      "metrics": {
+        "complete_episode": true,
+        "simulated_seconds": 102.5,
+        "vehicle_records": 8020,
+        "entered_vehicles": 11,
+        "arrived_vehicles": 11,
+        "sumo_collision_events": 0,
+        "normal_traffic_quality_pass": true,
+        "resources": {
+          "collection_elapsed_seconds": 3.3560231999726966,
+          "parent_peak_sampled_rss_bytes": 410767360,
+          "sumo_peak_sampled_rss_bytes": 22974464,
+          "memory_query_error": null,
+          "gpu_used": false
+        }
+      },
+      "raw_bytes": 4638859
+    },
+    {
+      "family": "ramp_merge",
+      "metrics": {
+        "complete_episode": true,
+        "simulated_seconds": 111.7,
+        "vehicle_records": 8704,
+        "entered_vehicles": 11,
+        "arrived_vehicles": 11,
+        "sumo_collision_events": 0,
+        "normal_traffic_quality_pass": true,
+        "resources": {
+          "collection_elapsed_seconds": 3.5998341999948025,
+          "parent_peak_sampled_rss_bytes": 411652096,
+          "sumo_peak_sampled_rss_bytes": 23068672,
+          "memory_query_error": null,
+          "gpu_used": false
+        }
+      },
+      "raw_bytes": 5296139
+    },
+    {
+      "family": "unsignalized_intersection",
+      "metrics": {
+        "complete_episode": true,
+        "simulated_seconds": 184.20000000000002,
+        "vehicle_records": 19726,
+        "entered_vehicles": 12,
+        "arrived_vehicles": 12,
+        "sumo_collision_events": 0,
+        "normal_traffic_quality_pass": true,
+        "resources": {
+          "collection_elapsed_seconds": 6.115677500027232,
+          "parent_peak_sampled_rss_bytes": 411725824,
+          "sumo_peak_sampled_rss_bytes": 22769664,
+          "memory_query_error": null,
+          "gpu_used": false
+        }
+      },
+      "raw_bytes": 11658034
+    },
+    {
+      "family": "unsignalized_intersection",
+      "metrics": {
+        "complete_episode": true,
+        "simulated_seconds": 195.60000000000002,
+        "vehicle_records": 20354,
+        "entered_vehicles": 12,
+        "arrived_vehicles": 12,
+        "sumo_collision_events": 0,
+        "normal_traffic_quality_pass": true,
+        "resources": {
+          "collection_elapsed_seconds": 6.412743300083093,
+          "parent_peak_sampled_rss_bytes": 412389376,
+          "sumo_peak_sampled_rss_bytes": 22564864,
+          "memory_query_error": null,
+          "gpu_used": false
+        }
+      },
+      "raw_bytes": 12014469
+    }
+  ],
+  "tests": {
+    "passed": 521,
+    "seconds": 57.18,
+    "new_cases": 15
+  },
+  "full_collection_started": false,
+  "formal_training_started": false,
+  "limitation": "24 pilot windows do not certify 6000/600/600 coverage or full motion diversity; preparation restart is not an incremental cache resume"
+}

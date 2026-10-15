@@ -316,3 +316,14 @@ sumodiff.model.control.config.v2新增运行时lane_change_permissions[B,L,2] bo
 prepare_conditioning通过显式config选择合同，输入window及collate原字段不变，新增条件仅在模型适配时构造，不读取targets/labels。控制v2必须含该字段，旧model.config.v1及control.config.v1不得含新增模型字段，遇到受限地图继续拒绝；旧to_dict不增加能力键。新MLP权重命名condition_encoder.encoders.lanes.permissions.{0,2}.{weight,bias}，宽度由condition_dimension决定。base.checkpoint.v1外层保持，model schema进入原训练签名，读取时验证这些权重的存在性/形状，restore在权重/优化器修改前检查目标架构。
 
 directional.conditioning.probe.v1固定5训练回合前缀、t0=300、B5真实输入和B4/12槽位合成负载；正式运行记录source SHA、实际配置/命令/环境/种子及106输入身份，stored_label_arrays_loaded=0。results.v1保存形状、有限梯度、重排、填充、权限敏感性、旧checkpoint加载和计算成本；不保存质量改善结论。review.results.v1直接从编译XML核验并以相同种子CPU重放GPU输出；summary.v1保留小型结果与关键来源身份。原控制扩散/训练目标、64更新限制和test封存合同不变。
+
+
+## 运动平衡数据合同（2026-10-15）
+
+stage5a.config.v3在原CLI中显式分流，motion记录完整双参考/运动/唯一标识/重复约束及预演设置；原v1/v2保持。protocol_id绑定完整生效配方。job预分配144/36/36回合和每道路8/3/3几何；准备时核对registry顺序/数量、种子、配置哈希、来源formal状态及实际编译几何，禁止窗口级重新划分。
+
+window_quality.jsonl保留全部计划候选及拒绝/未知，motion_flags/motion_event_ids仅离线日志与selection清单存在。无完整标签时为null；不可用时刻标unavailable，不更换t0。event_catalog的标识包含回合/车辆/实际change或外部道路转换时刻；turn为一次计划车辆转弯动作的标识，需未来5°航向变化及合法内部车道观测才计入选窗，不代表动作完成。
+
+selection.v3保存两参考精确配额、运动窗口/唯一标识/几何/回合计数、事件复用上限、最多4次固定次序启发式及最终selected；缺额保留实际计数、不重复填充。数据集外层dataset.v1保持，只有最终入选窗口物化原conditioning/targets/map等5文件；input_metadata新增reference_policy这一当前任务字段，不加未来运动标记。物化校验window_sha256绑定完整条件、目标与元数据/地图。curation.required_model_schema=control.config.v2；旧尺度认证与长训练协议不能直接沿用。
+
+motion.data.prepare.v1的quality_report沿用stage5a.quality.report.v1并明确data_recipe_schema=v3，区分计划/可构造/完整质量/合格/入选分母。预演仅6训练回合、288计划记录、三类各8入选；full为预声明7200选集，test仅冻结构造。motion.data.review.results.v1记录原始事件与坐标独立复核，summary.v1仅小型来源/质量汇总，不替代原始数据。
