@@ -12,6 +12,8 @@ param(
     [string]$ValidationRun='',
     [string]$TestSeal='',
     [switch]$ReuseCompleted,
+    [ValidateSet('Stop','Quarantine')][string]$QualityPolicy='Stop',
+    [switch]$CheckOnly,
     [string]$SumoHome='E:\Program Files\sumo-1.22.0'
 )
 $ErrorActionPreference='Stop'
@@ -22,6 +24,12 @@ if ($Checkpoint -and $Action -notin @('Resume','Validate','Seal','Test')) {
     throw 'Checkpoint is only valid for Resume/Validate/Seal/Test; Train always starts from random initialization.'
 }
 if ($RunSuffix -and $Action -eq 'Prepare') { throw 'Prepare creates the named dataset once; choose a fresh -Name rather than a suffix.' }
+if ($QualityPolicy -ne 'Stop' -and ($Action -ne 'Collect' -or $DataProtocol -ne 'Motion')) {
+    throw 'Quarantine is explicitly supported for Motion Collect only; Prepare reads the recorded policy.'
+}
+if ($CheckOnly -and ($Action -ne 'Collect' -or $QualityPolicy -ne 'Quarantine' -or -not $ReuseCompleted)) {
+    throw 'CheckOnly requires Motion Collect, Quarantine and ReuseCompleted.'
+}
 $taskRoot=Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $taskRoot
 $taskPython=Join-Path $taskRoot '.venv-model\Scripts\python.exe'
@@ -64,6 +72,8 @@ switch ($Action) {
             '--pilot-report',$PilotReport,'--campaign',"artifacts/raw/$Name",
             '--output',"artifacts/runs/$taskRunName-collect",'--repository',$taskRepository,'--allow-bulk','--formal')
         if ($ReuseCompleted) { $taskArgs+='--reuse-completed' }
+        if ($QualityPolicy -eq 'Quarantine') { $taskArgs+=@('--quality-policy','quarantine') }
+        if ($CheckOnly) { $taskArgs+='--check-only' }
         Invoke-Stage5APython $taskArgs
     }
     'Prepare' {

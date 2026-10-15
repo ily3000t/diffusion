@@ -18,8 +18,13 @@ from .motion_data_plan import requirements,POLICIES
 
 def read(path):return json.loads(Path(path).read_text(encoding='utf-8'))
 
-def verify_sources(sources,plan,pilot,formal):
+def verify_sources(sources,plan,pilot,formal,accepted_job_ids=None):
     schedule=jobs(plan,pilot)
+    if accepted_job_ids is not None:
+        keep=set(accepted_job_ids)
+        schedule=[j for j in schedule if j['job_id'] in keep]
+        if [j['job_id'] for j in schedule]!=accepted_job_ids:
+            raise ValueError('Accepted job population/order differs from outcome ledger')
     if len(sources)!=len(schedule):raise ValueError('Source population differs from the frozen job plan')
     extra=[]
     for source,job in zip(sources,schedule):
@@ -47,11 +52,12 @@ def window_signature(window):
     return digest.hexdigest()
 
 def prepare_motion(config_path,plan,registry,output,repository,command,formal=False,pilot=False):
-    sources,geos,files=inspect_sources(registry)
-    files+=verify_sources(sources,plan,pilot,formal)
+    sources,geos,files,population=inspect_sources(registry,plan=plan,pilot=pilot,formal=formal,return_population=True)
+    files+=verify_sources(sources,plan,pilot,formal,population['accepted_job_ids'] if population else None)
     effective=dict(schema_version='sumodiff.motion.data.prepare.v1',protocol_id=protocol_id(plan),plan=plan,
         profile='pilot' if pilot else 'full',sources=sources,geometry_assignments=geos,
         label_motion_used_only_for_offline_selection=True,selected_only_array_materialization=True)
+    if population: effective['source_population']=population
     with RunRecorder(output,repository,effective,command,{'selection':plan['selection_seed']},
         purpose='stage5a_motion_data_preparation',data_files=sorted(set(map(str,[config_path,*files]))),formal=formal) as run:
         start=time.perf_counter();rows=[];catalog=[];reasons=Counter();assessed=physical=0;peak=0;coordinate_failures=audit_failures=0
@@ -124,6 +130,11 @@ def prepare_motion(config_path,plan,registry,output,repository,command,formal=Fa
             test_usage='none' if pilot else 'frozen construction-only label curation; no parameter/model tuning',
             pilot_limitations='six training episodes and sparse fixed times do not certify full population feasibility',
             candidate_arrays_saved=False,window_reconstruction='original authenticated raw episodes plus logged t0/policy')
+        if population:
+            report.update(source_population=population,
+                accepted_source_episodes=len(sources),
+                rejected_source_episodes=population['summary']['rejected_jobs'],
+                completed_source_episodes=population['summary']['processed_jobs'])
         write_json(run.output/'quality_report.json',report);run.write_metrics(report)
         if not passed:raise ValueError('Motion data quality/coverage selection failed; reports retained, no quota relaxation or repetition')
         dataset=run.output/'dataset';dataset.mkdir();index=[];by_source=defaultdict(list)
@@ -143,5 +154,6 @@ def prepare_motion(config_path,plan,registry,output,repository,command,formal=Fa
         _dataset_manifest(dataset,index,plan['window'],run,registry,
             curation=dict(selection=file_identity(dataset/'selection.json'),source_quality_log=file_identity(run.output/'window_quality.jsonl'),
                 label_quality_filtered=True,inference_conditions_unchanged=True,
-                required_model_schema='sumodiff.model.control.config.v2'))
+                required_model_schema='sumodiff.model.control.config.v2',
+                **(dict(source_population=population) if population else {})))
     return report

@@ -17,12 +17,18 @@ from sumodiff.experiments.recorder import RunRecorder, file_identity
 from .stage5a_plan import FAMILIES, protocol_id
 
 
-def inspect_sources(registry):
+def inspect_sources(registry, *, plan=None, pilot=False, formal=False, return_population=False):
     registry=Path(registry).resolve(strict=True)
     doc=json.loads(registry.read_text(encoding='utf-8'))
-    if set(doc)!={'schema_version','episodes'} or doc['schema_version']!='sumodiff.sources.v1':
+    population=None;extra=[]
+    if doc.get('schema_version')=='sumodiff.sources.v2':
+        if plan is None or pilot: raise ValueError('Quarantine registries require the full Motion plan')
+        from .source_quarantine import verify_registry,POLICY
+        accepted_jobs,summary,extra=verify_registry(doc,plan,formal)
+        population=dict(quality_policy=POLICY,summary=summary,accepted_job_ids=[j['job_id'] for j in accepted_jobs])
+    elif set(doc)!={'schema_version','episodes'} or doc['schema_version']!='sumodiff.sources.v1':
         raise ValueError('Invalid source registry')
-    geos={};ids=set();sources=[];files=[registry]
+    geos={};ids=set();sources=[];files=[registry,*extra]
     for source in doc['episodes']:
         if set(source)!={'manifest','split'} or source['split'] not in ('train','validation','test'):
             raise ValueError('Stage5A preparation requires preassigned train/validation/test sources')
@@ -40,7 +46,8 @@ def inspect_sources(registry):
         files.extend(path.parent/Path(v['location']).name for v in m['outputs'])
         files.extend(path.parent/'scene'/Path(v['location']).name for v in m['scene']['files'])
     if not sources: raise ValueError('Empty source registry')
-    return sources,geos,sorted(set(map(str,files)))
+    result=(sources,geos,sorted(set(map(str,files))))
+    return (*result,population) if return_population else result
 
 
 def summarize(rows):
