@@ -26,6 +26,9 @@ DEFAULTS = dict(schema_version='sumodiff.stage5a.config.v1', seed=20261010,
 
 
 def resolve_plan(value):
+    if value.get('schema_version')=='sumodiff.stage5a.config.v3':
+        from .motion_data_plan import resolve_motion_plan
+        return resolve_motion_plan(value)
     supplied = deepcopy(value)
     supplied.pop('window', None); supplied.pop('evaluation', None)
     fresh = supplied.get('schema_version') == 'sumodiff.stage5a.config.v2'
@@ -81,6 +84,9 @@ def resolve_plan(value):
 
 
 def protocol_id(c):
+    if c['schema_version']=='sumodiff.stage5a.config.v3':
+        from .motion_data_plan import motion_protocol_id
+        return motion_protocol_id(c)
     # Changing bulk budget/seed count/quotas does not alter the label-quality pilot protocol.
     keys = ('window','evaluation','driver','runtime','network','minimum_agents','pilot_demand_seconds',
             'pilot_minimum_eligible_per_family','pilot_minimum_retention_fraction',
@@ -94,6 +100,9 @@ def protocol_id(c):
 
 
 def scenario(c, family, split, index, seed_index, *, pilot=False):
+    if c['schema_version']=='sumodiff.stage5a.config.v3':
+        from .motion_data_plan import motion_scenario
+        return motion_scenario(c,family,split,index,seed_index,pilot)
     # Split difference changes actual shape/width, not merely seed or filename.
     fresh = c['schema_version'].endswith('.v2')
     j = index*3+('train','validation','test').index(split) if fresh else index*2+(1 if split=='validation' else 0)
@@ -124,6 +133,9 @@ def scenario(c, family, split, index, seed_index, *, pilot=False):
 
 
 def jobs(c, pilot=False):
+    if c['schema_version']=='sumodiff.stage5a.config.v3':
+        from .motion_data_plan import motion_jobs
+        return motion_jobs(c,pilot)
     result = []
     splits = ('train','validation','test') if c['schema_version'].endswith('.v2') and not pilot else ('train','validation')
     for split in splits:

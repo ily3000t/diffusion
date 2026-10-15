@@ -1,0 +1,49 @@
+schema_version: sumodiff.stage5a.config.v3
+seed: 20261201
+train_geometries: 8
+validation_geometries: 3
+test_geometries: 3
+train_seeds_per_geometry: 6
+validation_seeds_per_geometry: 4
+test_seeds_per_geometry: 4
+demand_seconds: 180.0
+max_episode_seconds: 600.0
+train_quotas:
+  three_lane_straight: 2000
+  ramp_merge: 2000
+  unsignalized_intersection: 2000
+validation_quotas:
+  three_lane_straight: 200
+  ramp_merge: 200
+  unsignalized_intersection: 200
+test_quotas:
+  three_lane_straight: 200
+  ramp_merge: 200
+  unsignalized_intersection: 200
+minimum_agents: 2
+minimum_geometries_per_family: 3
+minimum_episodes_per_family: 8
+max_episode_fraction: 0.1
+selection_seed: 20261202
+pilot_minimum_eligible_per_family: 3
+pilot_minimum_retention_fraction: 0.1
+driver:
+  car_follow_model: IDM
+  sigma: 0.0
+  accel: 2.0
+  decel: 3.5
+  tau: 1.5
+  minGap: 3.0
+  speedFactor: 0.95
+  speedDev: 0.08
+evaluation:
+  road:
+    geometry_repair: bounded_make_valid
+    numerical_tolerance_m: 1.0e-06
+    max_repair_area_change_m2: 1.0e-06
+    max_repair_hausdorff_m: 1.0e-06
+network:
+  corner_detail: 16
+  internal_link_detail: 128
+  output_precision: 8
+  limit_turn_lateral_accel_mps2: 1.5

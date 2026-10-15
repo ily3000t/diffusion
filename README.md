@@ -186,3 +186,8 @@ Set-Location E:\diffusion_new
 ## 方向换道权限模型条件
 
 已补齐左右乘用车权限条件，使用新控制架构model.control.config.v2，原训练/控制校准/基础采样入口已接入。506项测试及真实训练地图GPU检查通过；旧六维200轮和旧三维16步模型仍可严格加载，跨版本恢复明确拒绝。见[验收报告](docs/directional_conditioning_results.md)、[来源摘要](docs/directional_conditioning_results.json)及[接口与命令](docs/directional_conditioning.md)。本轮未训练新模型；下一步冻结参考混合和唯一运动事件配额，准备新数据版本。
+
+
+## 运动平衡新数据协议
+
+已在原stage5a入口冻结v3配方：6000/600/600窗口、每道路双参考各半，加入运动/唯一标识下限、同回合同t0去重和事件复用上限。6训练短回合、288记录预演通过，入选24窗及原始事件/坐标复核通过；521项测试通过。见[结果与本地启动命令](docs/motion_data_results.md)、[轻量来源](docs/motion_data_results.json)及[完整协议](docs/motion_data_protocol.md)。正式216回合采集尚未启动，完整配额仍待验证；数据完成后再审计新控制尺度及冻结长训练。

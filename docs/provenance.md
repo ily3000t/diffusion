@@ -224,3 +224,12 @@ fd66ec2扩展本仓库仿真配置与编译、5ddb1a1加入当前路线／地图
 主探针与独立复核实际源均bf74057839d7891986cf52bfb371ea5ee302b8b1，formal/clean/completed；原始训练回合来源f44da9ca0dd3427423ac3a8860c80791e681d27c。主探针106输入，复核115输入含artifacts/cache/review_directional_conditioning_20261014.py字节身份；认证旧200轮及控制16步checkpoint与历史摘要哈希，5输入XML左右方向完全匹配，CPU/GPU重放最大差2.50e-6。参数哈希不变、正式优化0，生成质量未评估。
 
 506全量测试通过。合成checkpoint测试只在临时fixture做少量CPU更新，核对真实AdamW/噪声Generator/日程续接；未执行新架构CUDA优化恢复或正式训练。方向条件不是动态可行性/规则遵从保证；5原始前缀、合成B4负载不代表新数据分布覆盖。结果与轻量来源见directional_conditioning_results.md/json，源SHA不回填为交付SHA；无数据替换、采集、验证/测试标签读取、阶段6、push/tag。
+
+
+## 2026-10-15 运动平衡数据协议及短预演
+
+a325103冻结新stage5a v3源头、划分/预算与双参考目标，60bdfb4实现离线MotionIndex/事件标识及有界选择和仅物化入选数组，f57bab4接入原PowerShell数据入口并加入15专项测试/协议。未复制旧工程或外部代码，保持原质量引擎及阈值；模型/尺度/loss未修改。源头继承前轮已实测候选，不将数据均衡/共享编码等工程设计自动称为研究创新。
+
+正式6回合Pilot、preparation及两版独立复核实际源均f57bab438b979656f8abf43ef9ded60db4bfddda。Pilot/preparation完成，首版复核只检查首段内部via而失败，脚本及status保留；r2新脚本artifacts/cache/review_motion_data_20261015_r2.py沿完整合法via链复核通过，旧脚本未覆盖。两脚本身份均进入各自manifest，r2还绑定r1的失败元数据。未修改原始回合或生产标签/配额以使复核通过。
+
+288计划记录、220合格池、24入选，独立核对7次运动证据及5246原始车辆时刻，位置/速度/航向误差均在原容差内；模型适配不包含未来标签。521全量测试及PowerShell解析/实际Pilot启动通过。入选24窗数据ID388aa78c044dd18c45881792cbaae1450ac725eaf53a4f1ec3af6d2e4236529e，仅短预演，不替换旧正式数据。结果/轻量来源见motion_data_results.md/json，源运行SHA不回填交付SHA；216回合正式采集、正式训练/验证/测试、阶段6、push/tag未启动。
