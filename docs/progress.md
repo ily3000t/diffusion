@@ -913,3 +913,14 @@ Pilot、preparation及复核r1/r2实际源均f57bab438b979656f8abf43ef9ded60db4b
 交付motion_data_protocol.md、motion_data_results.md/json，同步README/design/schema/provenance；结果提交f8469df26b8bfda306d962b31ac8921e9991765c。进度提交和本地main --no-ff合并SHA见Git交付，功能分支保留，运行SHA不回填。预演数据ID388aa78c044dd18c45881792cbaae1450ac725eaf53a4f1ec3af6d2e4236529e仅短验证；artifacts排除Git，旧正式数据/checkpoint保持，无完整采集、训练/模型验证/测试、阶段6、push/tag。
 
 下一步由用户本地终端显式执行Motion Collect，成功后执行Prepare。采集中断可复用已完成回合和新RunSuffix；质量准备尚无增量缓存恢复，中断时以原sources和新输出目录从头重跑，无需重采。完整质量/运动/唯一标识/几何/配额全部通过后才冻结新数据，重审控制尺度/组合梯度并扩展一次固定正式训练协议；现有控制入口仍<=64更新，不能直接使用旧六维200轮命令。
+
+
+## Motion 正式采集碰撞故障诊断（2026-10-15）
+
+本阶段仅诊断，不修改生产代码或执行批量恢复。用户正式采集在第96/216任务停止；此前95个合格回合仍保留（直路48、汇入47），失败源为motion-train-ramp_merge-g07-s05/seed20271906。108.1秒flow_ramp.2与flow_ramp.1在:merge_end_0_1发生junction碰撞并teleport；正常训练准入false正确。
+
+同场景/种子两种处置的108.3秒有界重放，原teleport复现事故，诊断warn保留坐标后独立有向车身确认实际重叠。碰撞前164车辆帧位置最大差6.553e-9m、角度4.991e-9deg；不能通过修改minGap或忽略报警认证。正式诊断r2源SHA为a0596535e213b12d771863a5b10d6a4be2bb82d1/main/clean；每个SUMO重放约0.44–0.46s，无GPU训练，输入/脚本哈希和manifest/config/environment/status/metrics保留。r1最后字符串时间格式断言失败已保留，r2数值比较通过，不改变唯一源事故计数。
+
+见[motion_collection_incident_20261015.md](motion_collection_incident_20261015.md)。建议经用户审阅后实现显式源质量拒绝账本：保留隔离不合格完整回合、复用95合格源、继续其余120原任务；Prepare须同步核对全部预分配job的合格/拒绝结果，仅合格源切窗。原6000/600/600、运动/几何/质量门槛保持，不保证剩余数量足够；不能只删异常、重试同一种子、关闭检测、静默补种或修改旧协议身份。该恢复规则尚未实现，当前-ReuseCompleted会再次执行同一失败seed。
+
+实际文档分支docs/motion-collection-incident；提交SHA见Git。原始目录和生产配置未修改，无批量续采、长训练、阶段6、push/tag。诊断原始运行SHA不回填文档SHA。下一步先确认采用显式拒绝与有界恢复合同，再实现/验证原Collect及Prepare接口；若异常集中，再对汇入源配置做局部对照。
