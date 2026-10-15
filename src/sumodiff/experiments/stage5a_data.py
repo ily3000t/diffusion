@@ -72,6 +72,9 @@ def _dataset_manifest(directory,index,config,run,registry,**extra):
 
 
 def prepare(config_path, plan, registry, output, repository, command, formal=False, pilot=False):
+    if plan['schema_version']=='sumodiff.stage5a.config.v3':
+        from .motion_data import prepare_motion
+        return prepare_motion(config_path,plan,registry,output,repository,command,formal,pilot)
     sources,geo_splits,files=inspect_sources(registry)
     effective=dict(schema_version='sumodiff.stage5a.prepare.run.v1',protocol_id=protocol_id(plan),plan=plan,
         profile='pilot' if pilot else 'full',sources=sources,geometry_assignments=geo_splits)
