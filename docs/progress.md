@@ -924,3 +924,12 @@ Pilot、preparation及复核r1/r2实际源均f57bab438b979656f8abf43ef9ded60db4b
 见[motion_collection_incident_20261015.md](motion_collection_incident_20261015.md)。建议经用户审阅后实现显式源质量拒绝账本：保留隔离不合格完整回合、复用95合格源、继续其余120原任务；Prepare须同步核对全部预分配job的合格/拒绝结果，仅合格源切窗。原6000/600/600、运动/几何/质量门槛保持，不保证剩余数量足够；不能只删异常、重试同一种子、关闭检测、静默补种或修改旧协议身份。该恢复规则尚未实现，当前-ReuseCompleted会再次执行同一失败seed。
 
 实际文档分支docs/motion-collection-incident；提交SHA见Git。原始目录和生产配置未修改，无批量续采、长训练、阶段6、push/tag。诊断原始运行SHA不回填文档SHA。下一步先确认采用显式拒绝与有界恢复合同，再实现/验证原Collect及Prepare接口；若异常集中，再对汇入源配置做局部对照。
+
+
+## Motion 完整异常源隔离与有界恢复（2026-10-15）
+
+已按用户要求在原Collect/Prepare入口完成恢复能力，见[motion_collection_recovery_results.md](motion_collection_recovery_results.md)和[motion_data_protocol.md](motion_data_protocol.md)。默认Stop保留；显式Quarantine仅对可认证的完整异常回合登记拒绝、保留整源，复用完整来源并只继续原预分配任务，不重试坏种子、不换种子、不补采或放宽窗口门槛。sources.v2包含全部216任务账本及证据，Prepare认证全任务后仅切accepted来源；CheckOnly仅检查，不调用SUMO。
+
+功能提交4772490，协议提交9ca104187000c9247e03950084d12f7f000838f7。540项全量测试通过68.91s（19项新增），PS语法与diff检查通过；系统旧pytest临时目录权限问题通过工程内新basetemp解决。真实CheckOnly源SHA为9ca104187000c9247e03950084d12f7f000838f7/feat/motion-collection-recovery/formal/clean/completed，867个输入身份；确认95accepted、1rejected、120pending，原异常seed20271906，理由collision/teleport_started。SUMO调用0、无GPU训练；status时间仅清单落盘，不冒充扫描吞吐。原始数据与旧失败日志保留，未创建新episode或最终sources.json。
+
+用户下一步运行stage5a.ps1 Collect，保持Motion/Name，附-ReuseCompleted -QualityPolicy Quarantine -RunSuffix recover1；成功后执行原Prepare。不能原样重复初次命令。未来来源拒绝率、7200窗口/运动覆盖是否可达及新训练仍未验证；准备不足保留失败，不自动补采。当前分支feat/motion-collection-recovery，验收后本地main --no-ff合并并保留分支；提交及合并SHA见Git，无push/tag。
