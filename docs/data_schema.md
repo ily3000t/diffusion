@@ -327,3 +327,14 @@ window_quality.jsonl保留全部计划候选及拒绝/未知，motion_flags/moti
 selection.v3保存两参考精确配额、运动窗口/唯一标识/几何/回合计数、事件复用上限、最多4次固定次序启发式及最终selected；缺额保留实际计数、不重复填充。数据集外层dataset.v1保持，只有最终入选窗口物化原conditioning/targets/map等5文件；input_metadata新增reference_policy这一当前任务字段，不加未来运动标记。物化校验window_sha256绑定完整条件、目标与元数据/地图。curation.required_model_schema=control.config.v2；旧尺度认证与长训练协议不能直接沿用。
 
 motion.data.prepare.v1的quality_report沿用stage5a.quality.report.v1并明确data_recipe_schema=v3，区分计划/可构造/完整质量/合格/入选分母。预演仅6训练回合、288计划记录、三类各8入选；full为预声明7200选集，test仅冻结构造。motion.data.review.results.v1记录原始事件与坐标独立复核，summary.v1仅小型来源/质量汇总，不替代原始数据。
+
+
+## 显式源质量拒绝账本（2026-10-15）
+
+sumodiff.sources.v2仅供完整Motion准备：保留episodes（accepted来源manifest/split列表），新增collection_plan与collector_manifest的文件身份、quality_policy、job_ledger。sumodiff.source.quality_policy.v1/mode=quarantine_complete_ineligible显式声明只处理完整异常回合，不重试拒绝种子、不换种子、只遍历预分配任务且不改变场景/窗口质量。sources.v1与旧严格验收合同保持；pilot不支持拒绝账本。
+
+job_ledger按冻结任务顺序包含每个job_id/split、outcome=accepted|rejected、episode_manifest完整身份、rejection_reasons与evidence身份列表（源运行、配置、状态、环境、质量、进程、事件、碰撞）。216任务必须恰好各一次，episodes必须等于其中accepted子集；所有来源包括拒绝源的几何不得跨划分。拒绝源不能重新加入，执行未完成和身份损坏不是质量拒绝。
+
+collect控制运行仍为stage5a_bounded_bulk_collection，完整配置另存quality_policy；每步job_ledger.json与collection_progress.json保留前缀，全部任务结束才写最终registry。registry认证controller的运行manifest、配置及completed状态；损坏或缺任务不能启动准备。CheckOnly使用stage5a_collection_recovery_check，只读已存在来源并保存独立清单，不调用SUMO、不写raw配置/registry。
+
+Motion Prepare的source_population记录显式policy、完整人口统计与accepted_job_ids；进入resolved_config、quality_report及dataset_manifest.curation。completed_source_episodes表示全部完整结果，accepted_source_episodes与rejected_source_episodes分别计数；原窗口目标和选择门槛不变。所有拒绝源证据进入准备输入身份，不从追溯分母删除。原始拒绝回合保留，load_episode仍拒绝其正常数据资格。

@@ -42,3 +42,30 @@ Set-Location -LiteralPath 'E:\diffusion_new'
 ~~~
 
 失败/未通过时检查保留的status.json、quality_report.json和window_quality.jsonl；不绕过预演门槛。Prepare不自动执行旧六维audit/calibrate/train。Model/训练/测试的其余Motion脚本动作明确拒绝，后续接口必须完成后再使用。正式实验保留运行SHA、完整配置/命令/环境/种子及输入哈希；此阶段不创建tag或推送。
+
+
+## 完整异常源隔离与有界恢复（2026-10-15）
+
+用户正式采集在第96个任务停止，见[motion_collection_incident_20261015.md](motion_collection_incident_20261015.md)。现原Collect入口增加显式 `-QualityPolicy Quarantine`，默认Stop与旧sources.v1仍严格停止。场景配置/种子/216任务及原pilot身份保持；本次改变的是源人口验收合同，使用独立quality_policy.v1及sources.v2记录，不能称原“全部源合格”协议原样通过。
+
+Quarantine只接受已完整执行、SUMO退出0、状态/配置/种子/环境/几何/质量与事件身份一致的来源。对碰撞、teleport、emergency_stop、异常出现/消失或未全部到达的完整回合登记rejected，保留整回合原始文件；不切取其碰撞前片段。诊断来源、程序错误、损坏证据、配置不匹配仍失败。已有完整rejected来源不再重跑同种子；不换种子、不自动补采，只遍历原216任务。中断后以新RunSuffix复用已存在的完整来源。
+
+每步保存控制运行的job_ledger.json和collection_progress.json；全部任务结束才写campaign/sources.json。新账本包含全部accepted/rejected任务与证据哈希，sources仅收accepted。已有最终registry拒绝覆盖，直接进入Prepare。正式执行仍要求提交且工作区干净；旧失败控制运行不更改。
+
+已完整来源的恢复检查验证配置、种子、环境、语义几何、事件和元数据；拒绝源还逐一检查原始输出哈希。合格源的frames内容仍在Prepare的原load_episode中完整验哈希/时间/坐标，不用只读检查替代标签质量认证。Prepare认证216任务结果、收集器completed状态、accepted子集顺序与全部证据，再切窗；报告计划/已处理/合格/拒绝数及分划分道路统计。所有原6000/600/600、运动/参考/唯一事件/几何/回合/质量要求保持；若不足明确失败，不重复补齐。
+
+当前活动可以在本地执行：
+
+~~~powershell
+Set-Location -LiteralPath 'E:\diffusion_new'
+# 可选只读检查：不采集、不生成sources.json；每次使用未占用的后缀。
+.\scripts\stage5a.ps1 -Action Collect -DataProtocol Motion -Name stage5a-motion-v1 -ReuseCompleted -QualityPolicy Quarantine -CheckOnly -RunSuffix check1
+
+# 正式恢复：保留原有回合，处理异常源，继续剩余任务。
+.\scripts\stage5a.ps1 -Action Collect -DataProtocol Motion -Name stage5a-motion-v1 -ReuseCompleted -QualityPolicy Quarantine -RunSuffix recover1
+
+# 仅在Collect成功后执行；Prepare自动读取并认证registry中的显式策略。
+.\scripts\stage5a.ps1 -Action Prepare -DataProtocol Motion -Name stage5a-motion-v1
+~~~
+
+CheckOnly只用于Motion Collect + Quarantine + ReuseCompleted，调用次数为0；其输出也是独立运行目录。后续采集中断时保持-Name，以新-RunSuffix recover2、recover3等恢复。不能以相同后缀覆盖旧运行。Prepare仍无增量质量缓存，失败应先查报告；需要重跑时用原sources指定全新的输出目录，不删除原报告。没有新增训练或阶段6入口。
