@@ -2,6 +2,7 @@
 param(
     [Parameter(Mandatory=$true)][ValidateSet('Pilot','Collect','Prepare','Audit','Calibrate','Preflight','Train','Resume','Validate','Seal','Test')][string]$Action,
     [string]$Name='stage5a-fresh',
+    [ValidateSet('Legacy','Motion')][string]$DataProtocol='Legacy',
     [string]$RunSuffix='',
     [string]$Checkpoint='',
     [string]$PilotReport='',
@@ -32,6 +33,11 @@ $env:PYTHONIOENCODING='utf-8'
 $taskRunName=$Name
 if ($RunSuffix) { $taskRunName="$Name-$RunSuffix" }
 $taskPlan='configs/experiments/stage5a.yaml'
+if ($DataProtocol -eq 'Motion') {
+    if ($Name -eq 'stage5a-fresh') { throw 'Motion data need a fresh explicit -Name, for example stage5a-motion-v1.' }
+    if ($Action -notin @('Pilot','Collect','Prepare')) { throw 'Motion protocol currently implements Pilot/Collect/Prepare only; control scale and long-training protocols must be frozen separately.' }
+    $taskPlan='configs/experiments/motion_data.yaml'
+}
 $taskRecipe='configs/train/stage5a_epochs.yaml'
 $taskData="artifacts/processed/$Name/dataset"
 $taskAudit="artifacts/runs/$Name-scales/scale_audit.json"
@@ -63,8 +69,12 @@ switch ($Action) {
     'Prepare' {
         Invoke-Stage5APython @('-m','sumodiff.experiments.stage5a','prepare','--config',$taskPlan,
             '--sources',"artifacts/raw/$Name/sources.json",'--output',"artifacts/processed/$Name",'--repository',$taskRepository,'--formal')
-        Invoke-Stage5APython @('-m','sumodiff.diffusion','audit-scales','--dataset',$taskData,
+        if ($DataProtocol -eq 'Legacy') {
+            Invoke-Stage5APython @('-m','sumodiff.diffusion','audit-scales','--dataset',$taskData,
             '--config',$taskRecipe,'--output',"artifacts/runs/$Name-scales",'--repository',$taskRepository,'--formal')
+        } else {
+            Write-Host 'Motion dataset prepared. Control-scale audit and training require their separate frozen protocol.'
+        }
     }
     'Audit' {
         Invoke-Stage5APython @('-m','sumodiff.diffusion','audit-scales','--dataset',$taskData,
