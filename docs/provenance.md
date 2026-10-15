@@ -233,3 +233,8 @@ a325103冻结新stage5a v3源头、划分/预算与双参考目标，60bdfb4实�
 正式6回合Pilot、preparation及两版独立复核实际源均f57bab438b979656f8abf43ef9ded60db4bfddda。Pilot/preparation完成，首版复核只检查首段内部via而失败，脚本及status保留；r2新脚本artifacts/cache/review_motion_data_20261015_r2.py沿完整合法via链复核通过，旧脚本未覆盖。两脚本身份均进入各自manifest，r2还绑定r1的失败元数据。未修改原始回合或生产标签/配额以使复核通过。
 
 288计划记录、220合格池、24入选，独立核对7次运动证据及5246原始车辆时刻，位置/速度/航向误差均在原容差内；模型适配不包含未来标签。521全量测试及PowerShell解析/实际Pilot启动通过。入选24窗数据ID388aa78c044dd18c45881792cbaae1450ac725eaf53a4f1ec3af6d2e4236529e，仅短预演，不替换旧正式数据。结果/轻量来源见motion_data_results.md/json，源运行SHA不回填交付SHA；216回合正式采集、正式训练/验证/测试、阶段6、push/tag未启动。
+
+
+## 2026-10-15 Motion采集恢复
+
+新增source_quarantine.py并接入原stage5a.ps1、stage5a Collect及Motion Prepare，复用本仓库RunRecorder、原始身份/语义几何和load_episode验证；无旧工程依赖、文件复制或新第三方代码。异常源依据实际失败案例保留证据，独立quality_policy.v1/sources.v2显式变更源人口合同；原窗口配方和质量不放宽。合成元数据测试仅验证恢复/拒绝/账本接线，不能冒充SUMO采集或窗口质量结果。真实检查只读既有96回合，不自动继续批量采集。

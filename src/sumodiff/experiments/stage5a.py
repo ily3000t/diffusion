@@ -11,7 +11,7 @@ from .stage5a_plan import resolve_plan,jobs,protocol_id
 from .stage5a_data import prepare
 
 
-def collect_job(job,root,repository,formal,reuse=False):
+def collect_job(job,root,repository,formal,reuse=False,quality_policy="stop"):
     config_dir=root/'configs';config_dir.mkdir(parents=True,exist_ok=True)
     config_path=config_dir/(job['job_id']+'.yaml')
     text=yaml.safe_dump(job['scenario'],sort_keys=True)
@@ -19,6 +19,13 @@ def collect_job(job,root,repository,formal,reuse=False):
         raise ValueError('Existing campaign scenario changed; choose a new campaign')
     if not config_path.exists(): config_path.write_text(text,encoding='utf-8')
     attempts=sorted((root/'episodes').glob(job['job_id']+'-attempt-*')) if (root/'episodes').exists() else []
+    if quality_policy not in ('stop','quarantine'): raise ValueError('Unknown source quality policy')
+    if quality_policy=='quarantine':
+        from .source_quarantine import completed_attempt
+        existing=completed_attempt(job,root,formal)
+        if existing is not None:
+            if not reuse: raise FileExistsError('Completed episode exists; use --reuse-completed')
+            return existing,True
     for attempt in attempts:
         manifest=attempt/'episode_manifest.json';status=attempt/'status.json';resolved=attempt/'resolved_config.yaml'
         if manifest.exists() and status.exists() and resolved.exists():
@@ -41,7 +48,7 @@ def collect_job(job,root,repository,formal,reuse=False):
     if formal: args.append('--formal')
     if collect_one(args): raise RuntimeError(f'Collection failed; retained attempt={attempt}')
     m=json.loads((attempt/'episode_manifest.json').read_text(encoding='utf-8'))
-    if not m.get('eligible_for_normal_training'): raise ValueError(f'Collection is not normal-training eligible: {attempt}')
+    if quality_policy=='stop' and not m.get('eligible_for_normal_training'): raise ValueError(f'Collection is not normal-training eligible: {attempt}')
     return attempt/'episode_manifest.json',False
 
 
@@ -66,8 +73,14 @@ def _verify_pilot(pilot_path,plan):
     return file_identity(p)
 
 
-def collect_campaign(config_path,plan,campaign,output,repository,command,formal,pilot_report=None,reuse=False,allow_bulk=False):
+def collect_campaign(config_path,plan,campaign,output,repository,command,formal,pilot_report=None,reuse=False,allow_bulk=False,
+                     quality_policy="stop",check_only=False):
     if not allow_bulk: raise ValueError('Bulk collection requires --allow-bulk; use the Pilot action first')
+    if quality_policy not in ('stop','quarantine'): raise ValueError('Unknown source quality policy')
+    if quality_policy=='quarantine' and plan['schema_version']!='sumodiff.stage5a.config.v3':
+        raise NotImplementedError('Quality quarantine currently supports Motion v3 only')
+    if check_only and (quality_policy!='quarantine' or not reuse):
+        raise ValueError('Recovery check requires quarantine policy and --reuse-completed')
     pilot=_verify_pilot(pilot_report,plan)
     schedule=jobs(plan);campaign=Path(campaign).resolve()
     effective=dict(schema_version='sumodiff.stage5a.collection.plan.v1',protocol_id=protocol_id(plan),
@@ -76,22 +89,49 @@ def collect_campaign(config_path,plan,campaign,output,repository,command,formal,
     if campaign.exists():
         if not reuse or not plan_file.exists(): raise FileExistsError('Existing campaign requires --reuse-completed and its original plan')
         if json.loads(plan_file.read_text(encoding='utf-8'))!=effective: raise ValueError('Campaign plan changed; choose a new campaign')
-    with RunRecorder(output,repository,dict(campaign=effective,pilot=pilot,reuse_completed=reuse),command,{'campaign':plan['seed']},
+    if quality_policy=='quarantine':
+        from .source_quarantine import POLICY,recovery_check
+        if (campaign/'sources.json').exists():
+            raise FileExistsError('Source registry already exists; run Prepare instead of overwriting it')
+        if check_only:
+            if not campaign.exists(): raise ValueError('Recovery check requires an existing campaign')
+            result,inputs=recovery_check(plan,campaign,formal)
+            with RunRecorder(output,repository,dict(campaign=effective,pilot=pilot,reuse_completed=reuse,
+                quality_policy=POLICY,check_only=True),command,{'campaign':plan['seed']},
+                purpose='stage5a_collection_recovery_check',data_files=[config_path,pilot_report,plan_file,*inputs],formal=formal) as run:
+                write_json(run.output/'recovery_check.json',result);run.write_metrics(result)
+            return result
+    effective_run=dict(campaign=effective,pilot=pilot,reuse_completed=reuse)
+    if quality_policy=='quarantine': effective_run['quality_policy']=POLICY
+    with RunRecorder(output,repository,effective_run,command,{'campaign':plan['seed']},
         purpose='stage5a_bounded_bulk_collection',data_files=[config_path,pilot_report],formal=formal) as run:
         if not campaign.exists(): campaign.mkdir(parents=True)
         if not plan_file.exists(): write_json(plan_file,effective)
-        source_rows=[];geometries={};reused=0
+        source_rows=[];geometries={};reused=0;ledger=[]
         for index,job in enumerate(schedule):
-            path,old=collect_job(job,campaign,repository,formal,reuse)
+            path,old=collect_job(job,campaign,repository,formal,reuse,quality_policy)
             m=json.loads(path.read_text(encoding='utf-8'));g=m['geometry_id']
             if g in geometries and geometries[g]!=job['split']: raise ValueError('Compiled geometry crosses preassigned splits')
             geometries[g]=job['split'];reused+=old
-            source_rows.append(dict(manifest=str(path),split=job['split']))
-            write_json(run.output/'collection_progress.json',dict(completed_jobs=index+1,total_jobs=len(schedule),reused=reused))
-            print(f"collection {index+1}/{len(schedule)} {job['job_id']}",flush=True)
-        write_json(campaign/'sources.json',dict(schema_version='sumodiff.sources.v1',episodes=source_rows))
+            if quality_policy=='quarantine':
+                from .source_quarantine import inspect_episode,population_summary,make_registry
+                row,_=inspect_episode(job,path,formal);ledger.append(row)
+                if row['outcome']=='accepted': source_rows.append(dict(manifest=str(path),split=job['split']))
+                progress=dict(completed_jobs=index+1,total_jobs=len(schedule),reused=reused,
+                    **population_summary(ledger,schedule))
+                write_json(run.output/'job_ledger.json',dict(quality_policy=POLICY,jobs=ledger))
+                outcome=row['outcome']
+            else:
+                source_rows.append(dict(manifest=str(path),split=job['split']))
+                progress=dict(completed_jobs=index+1,total_jobs=len(schedule),reused=reused)
+                outcome='accepted'
+            write_json(run.output/'collection_progress.json',progress)
+            print(f"collection {index+1}/{len(schedule)} {job['job_id']} {outcome}",flush=True)
+        registry=make_registry(plan_file,run.output/'manifest.json',ledger) if quality_policy=='quarantine' else dict(schema_version='sumodiff.sources.v1',episodes=source_rows)
+        write_json(campaign/'sources.json',registry)
         result=dict(completed_jobs=len(source_rows),reused_jobs=reused,source_registry=file_identity(campaign/'sources.json'),
             geometry_assignments=geometries,windows_not_yet_constructed=True)
+        if quality_policy=='quarantine': result.update(population_summary(ledger,schedule),quality_policy=POLICY)
         run.write_metrics(result)
     return result
 
@@ -160,6 +200,8 @@ def main(argv=None):
         if action=='collect':
             a.add_argument('--pilot-report',type=Path,required=True);a.add_argument('--campaign',type=Path,required=True)
             a.add_argument('--reuse-completed',action='store_true');a.add_argument('--allow-bulk',action='store_true')
+            a.add_argument('--quality-policy',choices=['stop','quarantine'],default='stop')
+            a.add_argument('--check-only',action='store_true')
         if action=='prepare':
             a.add_argument('--sources',type=Path,required=True);a.add_argument('--profile',choices=['pilot','full'],default='full')
     args=p.parse_args(argv)
@@ -168,11 +210,11 @@ def main(argv=None):
         plan=resolve_plan(load_config(args.config))
         if args.action=='pilot': result=pilot(args.config,plan,args.output,args.repository,command,args.formal,args.reuse_pilot)
         elif args.action=='collect': result=collect_campaign(args.config,plan,args.campaign,args.output,args.repository,command,args.formal,
-            args.pilot_report,args.reuse_completed,args.allow_bulk)
+            args.pilot_report,args.reuse_completed,args.allow_bulk,args.quality_policy,args.check_only)
         else: result=prepare(args.config,plan,args.sources,args.output,args.repository,command,args.formal,args.profile=='pilot')
     except Exception as exc:
         print(f'{type(exc).__name__}: {exc}',file=sys.stderr);return 2
-    print(json.dumps({k:v for k,v in result.items() if k in ('passed','windows','completed_jobs','elapsed_seconds')},allow_nan=False))
+    print(json.dumps({k:v for k,v in result.items() if k in ('passed','windows','completed_jobs','elapsed_seconds','accepted_jobs','rejected_jobs','pending_jobs','sumo_invocations')},allow_nan=False))
     return 0
 
 
