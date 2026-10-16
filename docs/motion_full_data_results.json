@@ -1,0 +1,341 @@
+{
+  "schema_version": "sumodiff.motion.full_data.summary.v1",
+  "date": "2026-10-16",
+  "result": {
+    "schema_version": "sumodiff.motion.full_data.review.results.v1",
+    "passed": true,
+    "dataset_id": "sha256:d5377be30fa15745ec3ee9fcc2213ab355ab83973db337a3e1027dd14a5dfb29",
+    "source_run_sha": "0f430c43cc7b57f3b99af57c4ca74b0c2334be42",
+    "review_run_sha": "0f430c43cc7b57f3b99af57c4ca74b0c2334be42",
+    "source_population": {
+      "planned_jobs": 216,
+      "processed_jobs": 216,
+      "accepted_jobs": 215,
+      "rejected_jobs": 1,
+      "pending_jobs": 0,
+      "by_split_family": {
+        "train/three_lane_straight": {
+          "accepted": 48,
+          "rejected": 0
+        },
+        "train/ramp_merge": {
+          "accepted": 47,
+          "rejected": 1
+        },
+        "train/unsignalized_intersection": {
+          "accepted": 48,
+          "rejected": 0
+        },
+        "validation/three_lane_straight": {
+          "accepted": 12,
+          "rejected": 0
+        },
+        "validation/ramp_merge": {
+          "accepted": 12,
+          "rejected": 0
+        },
+        "validation/unsignalized_intersection": {
+          "accepted": 12,
+          "rejected": 0
+        },
+        "test/three_lane_straight": {
+          "accepted": 12,
+          "rejected": 0
+        },
+        "test/ramp_merge": {
+          "accepted": 12,
+          "rejected": 0
+        },
+        "test/unsignalized_intersection": {
+          "accepted": 12,
+          "rejected": 0
+        }
+      }
+    },
+    "selected_split_counts": {
+      "train": 6000,
+      "validation": 600,
+      "test": 600
+    },
+    "selection": {
+      "train": {
+        "three_lane_straight": {
+          "windows": 2000,
+          "references": {
+            "first_current_id": 1000,
+            "interaction_current": 1000
+          },
+          "geometries": 8,
+          "episodes": 48,
+          "maximum_event_reuse": 3,
+          "categories": {
+            "lane_change": {
+              "windows": 403,
+              "unique_events": 263
+            }
+          }
+        },
+        "ramp_merge": {
+          "windows": 2000,
+          "references": {
+            "first_current_id": 1000,
+            "interaction_current": 1000
+          },
+          "geometries": 8,
+          "episodes": 47,
+          "maximum_event_reuse": 3,
+          "categories": {
+            "ramp_exit": {
+              "windows": 447,
+              "unique_events": 305
+            },
+            "lane_change": {
+              "windows": 205,
+              "unique_events": 110
+            }
+          }
+        },
+        "unsignalized_intersection": {
+          "windows": 2000,
+          "references": {
+            "first_current_id": 1000,
+            "interaction_current": 1000
+          },
+          "geometries": 8,
+          "episodes": 48,
+          "maximum_event_reuse": 3,
+          "categories": {
+            "turn": {
+              "windows": 403,
+              "unique_events": 414
+            }
+          }
+        }
+      },
+      "validation": {
+        "three_lane_straight": {
+          "windows": 200,
+          "references": {
+            "first_current_id": 100,
+            "interaction_current": 100
+          },
+          "geometries": 3,
+          "episodes": 12,
+          "maximum_event_reuse": 3,
+          "categories": {
+            "lane_change": {
+              "windows": 41,
+              "unique_events": 30
+            }
+          }
+        },
+        "ramp_merge": {
+          "windows": 200,
+          "references": {
+            "first_current_id": 100,
+            "interaction_current": 100
+          },
+          "geometries": 3,
+          "episodes": 12,
+          "maximum_event_reuse": 3,
+          "categories": {
+            "ramp_exit": {
+              "windows": 48,
+              "unique_events": 40
+            },
+            "lane_change": {
+              "windows": 21,
+              "unique_events": 15
+            }
+          }
+        },
+        "unsignalized_intersection": {
+          "windows": 200,
+          "references": {
+            "first_current_id": 100,
+            "interaction_current": 100
+          },
+          "geometries": 3,
+          "episodes": 12,
+          "maximum_event_reuse": 2,
+          "categories": {
+            "turn": {
+              "windows": 38,
+              "unique_events": 50
+            }
+          }
+        }
+      },
+      "test": {
+        "three_lane_straight": {
+          "windows": 200,
+          "references": {
+            "first_current_id": 100,
+            "interaction_current": 100
+          },
+          "geometries": 3,
+          "episodes": 12,
+          "maximum_event_reuse": 3,
+          "categories": {
+            "lane_change": {
+              "windows": 42,
+              "unique_events": 34
+            }
+          }
+        },
+        "ramp_merge": {
+          "windows": 200,
+          "references": {
+            "first_current_id": 100,
+            "interaction_current": 100
+          },
+          "geometries": 3,
+          "episodes": 12,
+          "maximum_event_reuse": 3,
+          "categories": {
+            "ramp_exit": {
+              "windows": 52,
+              "unique_events": 46
+            },
+            "lane_change": {
+              "windows": 23,
+              "unique_events": 21
+            }
+          }
+        },
+        "unsignalized_intersection": {
+          "windows": 200,
+          "references": {
+            "first_current_id": 100,
+            "interaction_current": 100
+          },
+          "geometries": 3,
+          "episodes": 12,
+          "maximum_event_reuse": 2,
+          "categories": {
+            "turn": {
+              "windows": 38,
+              "unique_events": 45
+            }
+          }
+        }
+      }
+    },
+    "all_stored_files_hash_verified": 36000,
+    "stored_window_bytes": 5096479622,
+    "numeric_windows_train_validation": 24,
+    "numeric_test_windows": 0,
+    "selected_quality_log_membership_verified": 7200,
+    "quality_log_rows": 128172,
+    "eligible_candidate_windows": 69516,
+    "agent_histogram": {
+      "2": 1355,
+      "3": 1806,
+      "4": 1073,
+      "5": 1033,
+      "6": 687,
+      "7": 355,
+      "8": 116,
+      "9": 81,
+      "10": 48,
+      "11": 52,
+      "12": 594
+    },
+    "elapsed_seconds": 130.3378610999789,
+    "sampled_peak_rss_bytes": 547627008,
+    "user_collection_resume_wall_seconds": 2250.515225,
+    "user_preparation_wall_seconds": 75451.56007,
+    "user_quality_loop_seconds": 73294.19416389999,
+    "user_quality_sampled_peak_rss_bytes": 751505408,
+    "quality_reexecuted": false,
+    "test_used_for_parameter_selection": false,
+    "sumo_invocations": 0,
+    "model_training_started": false,
+    "limitations": [
+      "file/metadata and bounded numeric acceptance; no new source-physics audit",
+      "SUMO validity does not establish real-world driving realism",
+      "control scales, combined auxiliary gradients and formal training budget still require their own audit"
+    ]
+  },
+  "review_trace": {
+    "formal": true,
+    "git": {
+      "root": "E:\\diffusion_new",
+      "commit_sha": "0f430c43cc7b57f3b99af57c4ca74b0c2334be42",
+      "branch": "main",
+      "dirty": false,
+      "status_porcelain": []
+    },
+    "inputs": 1969,
+    "files": [
+      {
+        "id": "sha256:77eced6c9134eb561c53e5ac75b07ea9198ae5a4fd7a5fd24ddc20b23aa777ab",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\motion-full-data-review-20261016-r1\\manifest.json",
+        "sha256": "77eced6c9134eb561c53e5ac75b07ea9198ae5a4fd7a5fd24ddc20b23aa777ab",
+        "size_bytes": 739693
+      },
+      {
+        "id": "sha256:ac3a9d50009f6b678fa5d44acf4cf29ccfbb6baca999efe77e7fb640d23ca476",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\motion-full-data-review-20261016-r1\\status.json",
+        "sha256": "ac3a9d50009f6b678fa5d44acf4cf29ccfbb6baca999efe77e7fb640d23ca476",
+        "size_bytes": 181
+      },
+      {
+        "id": "sha256:b8576640da8da91008c7203eef1b39aad56796de4805405d8c746e61bc4011c4",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\motion-full-data-review-20261016-r1\\resolved_config.yaml",
+        "sha256": "b8576640da8da91008c7203eef1b39aad56796de4805405d8c746e61bc4011c4",
+        "size_bytes": 1136
+      },
+      {
+        "id": "sha256:618716e27fedde8089652aacd110bcf551e0730804dea54d87e96c514f66d1c6",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\motion-full-data-review-20261016-r1\\metrics.json",
+        "sha256": "618716e27fedde8089652aacd110bcf551e0730804dea54d87e96c514f66d1c6",
+        "size_bytes": 6412
+      },
+      {
+        "id": "sha256:68e51dd0892b81655c0e0fceaff02c23932a4b5074f169b4ef9197992f3c5395",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\motion-full-data-review-20261016-r1\\results.json",
+        "sha256": "68e51dd0892b81655c0e0fceaff02c23932a4b5074f169b4ef9197992f3c5395",
+        "size_bytes": 6668
+      }
+    ]
+  },
+  "source_identities": [
+    {
+      "id": "sha256:2e0679c30b8f10da4a658feb54913a8746a4d9b27f724b9e16d366f0c0198d52",
+      "location": "E:\\diffusion_new\\artifacts\\processed\\stage5a-motion-v1\\dataset\\dataset_manifest.json",
+      "sha256": "2e0679c30b8f10da4a658feb54913a8746a4d9b27f724b9e16d366f0c0198d52",
+      "size_bytes": 15665
+    },
+    {
+      "id": "sha256:0df0e0866543994bfd8795188cb0160d147d2ea7d6589a4dcb49b0a55cb198d0",
+      "location": "E:\\diffusion_new\\artifacts\\processed\\stage5a-motion-v1\\dataset\\windows.json",
+      "sha256": "0df0e0866543994bfd8795188cb0160d147d2ea7d6589a4dcb49b0a55cb198d0",
+      "size_bytes": 23127655
+    },
+    {
+      "id": "sha256:6f03f21048d5c21cc40a4aaa0ae9907951fa0c3e059b427a7b844cd99d703ffa",
+      "location": "E:\\diffusion_new\\artifacts\\raw\\stage5a-motion-v1\\sources.json",
+      "sha256": "6f03f21048d5c21cc40a4aaa0ae9907951fa0c3e059b427a7b844cd99d703ffa",
+      "size_bytes": 852538
+    },
+    {
+      "id": "sha256:a92e931100d3b0e6e137479f5fa3aad172f812bd32d0cb13e088cad7b0f21d94",
+      "location": "E:\\diffusion_new\\artifacts\\processed\\stage5a-motion-v1\\dataset\\selection.json",
+      "sha256": "a92e931100d3b0e6e137479f5fa3aad172f812bd32d0cb13e088cad7b0f21d94",
+      "size_bytes": 8028641
+    },
+    {
+      "id": "sha256:7e5641843b047cf90201df08eca3e6f6a8d7712e1e21d17acaa6372e20b782a6",
+      "location": "E:\\diffusion_new\\artifacts\\processed\\stage5a-motion-v1\\window_quality.jsonl",
+      "sha256": "7e5641843b047cf90201df08eca3e6f6a8d7712e1e21d17acaa6372e20b782a6",
+      "size_bytes": 762563966
+    }
+  ],
+  "pending": [
+    "train-only control scale/task audit",
+    "combined auxiliary-gradient calibration",
+    "batch16 bounded preflight",
+    "freeze formal control training and evaluation protocol"
+  ]
+}

@@ -933,3 +933,12 @@ Pilot、preparation及复核r1/r2实际源均f57bab438b979656f8abf43ef9ded60db4b
 功能提交4772490，协议提交9ca104187000c9247e03950084d12f7f000838f7。540项全量测试通过68.91s（19项新增），PS语法与diff检查通过；系统旧pytest临时目录权限问题通过工程内新basetemp解决。真实CheckOnly源SHA为9ca104187000c9247e03950084d12f7f000838f7/feat/motion-collection-recovery/formal/clean/completed，867个输入身份；确认95accepted、1rejected、120pending，原异常seed20271906，理由collision/teleport_started。SUMO调用0、无GPU训练；status时间仅清单落盘，不冒充扫描吞吐。原始数据与旧失败日志保留，未创建新episode或最终sources.json。
 
 用户下一步运行stage5a.ps1 Collect，保持Motion/Name，附-ReuseCompleted -QualityPolicy Quarantine -RunSuffix recover1；成功后执行原Prepare。不能原样重复初次命令。未来来源拒绝率、7200窗口/运动覆盖是否可达及新训练仍未验证；准备不足保留失败，不自动补采。当前分支feat/motion-collection-recovery，验收后本地main --no-ff合并并保留分支；提交及合并SHA见Git，无push/tag。
+
+
+## Motion 完整7200窗数据验收（2026-10-16）
+
+用户已完成Collect与Prepare，两者actual SHA=0f430c43cc7b57f3b99af57c4ca74b0c2334be42/main/formal/clean/completed。216任务全处理、215源合格/1隔离，保持原失败seed和全部分母；最终6000/600/600、每道路三等份/双参考各半，原运动、唯一事件、几何/回合及事件复用要求均通过。完整候选128172、质量评估98343、合格69516、入选7200；审计/转换错误0。见[motion_full_data_results.md](motion_full_data_results.md)及轻量JSON，数据ID=sha256:d5377be30fa15745ec3ee9fcc2213ab355ab83973db337a3e1027dd14a5dfb29。
+
+独立复核actual SHA=0f430c43cc7b57f3b99af57c4ca74b0c2334be42/main/formal/clean/completed，artifacts/runs/motion-full-data-review-20261016-r1，1969输入身份。36000存储文件约5.10GB全量哈希、7200选择与原质量日志匹配、分组配额与划分隔离全部通过；抽查24训练/验证窗的数组/掩码/有限值/保存内容摘要，不解包测试轨迹数组调参，不重跑源物理质量。复核主体130.34s、采样RSS约522.26MiB，源核验/环境及输入哈希另计。用户恢复采集约37.51分钟，Prepare墙钟约20.959小时，质量循环约20.359小时、采样RSS约716.69MiB；不据此估算训练吞吐。
+
+本次仅数据验收/文档，未修改生产代码、重采或启动训练/阶段6。文档分支docs/motion-full-data-acceptance；验收后main --no-ff并保留分支，提交/合并SHA见Git；实际运行SHA不回填。无push/tag。无需为本轮配额扩采；下一步在新数据上生成训练专用控制尺度/梯度审计清单，再做batch16短预演及一次固定训练协议。现有控制<=64更新及Motion Train拒绝保持，不能直接复用旧六维训练命令。数据资格不构成生成质量、收敛或真实驾驶真实性证明。
