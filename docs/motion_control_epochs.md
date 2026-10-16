@@ -62,3 +62,8 @@ Validate必须600任务，失败保留分母。验证配置与测试共享噪声
 ## 本次验收边界
 
 实施验收做短前缀、实际恢复一致性及固定任务采样，不启动200轮。不保证200轮收敛，不根据几步样本评价最终模型或架构。短前缀命令需额外RunSuffix及PrefixUpdates，既有Motion Preflight仍是上一阶段的16步工程诊断。正式训练只有用户上述Train命令才会启动；不创建实验里程碑tag。
+
+
+### 早期模型无效控制输出
+
+rollout每0.1秒航向增量必须严格小于pi，该定义域不放宽、不裁剪。新增InvalidGeneratedControl仅将此显式定义域错误分类为模型输出失败：正式control epoch监测/评价记录generation_failures和invalid_generated_controls及全部任务分母，sampling_outcome为completed_with_invalid_generated_controls。代码、形状、输入、数值/评价等其他异常仍为failed_execution并中断。全任务无有效轨迹时修正/位移最大值输出N/A。失败生成不视为安全、不计质量通过；保留原失败预演。该调整不改变损失、控制积分或75000步训练日程。

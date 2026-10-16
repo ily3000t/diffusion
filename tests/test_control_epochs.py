@@ -233,3 +233,19 @@ def test_pending_monitor_is_preserved_and_cannot_be_silently_skipped(tmp_path):
     with pytest.raises(ValueError,match='skipped'):ce.validate_runtime(p)
     p['metadata']['runtime']['monitored_through_epoch']=10
     ce.validate_runtime(p)
+
+def test_invalid_generated_controls_are_quality_failures_without_hiding_execution_errors():
+    from sumodiff.diffusion.sampling import sampling_outcome
+    from sumodiff.decoding.controls import InvalidGeneratedControl
+    assert issubclass(InvalidGeneratedControl,ValueError)
+    result=dict(generation_failures=60,invalid_generated_controls=60,execution_failures=0,
+        raw=dict(failed_scenes=60),decoded=dict(failed_scenes=60))
+    assert sampling_outcome(result,True)=='completed_with_invalid_generated_controls'
+    assert sampling_outcome(result,False)=='failed_execution'
+    bad=deepcopy(result);bad['execution_failures']=1
+    assert sampling_outcome(bad,True)=='failed_execution'
+    bad=deepcopy(result);bad['invalid_generated_controls']=59
+    assert sampling_outcome(bad,True)=='failed_execution'
+    clean=dict(generation_failures=0,invalid_generated_controls=0,execution_failures=0,
+        raw=dict(failed_scenes=0),decoded=dict(failed_scenes=0))
+    assert sampling_outcome(clean,True)=='completed'

@@ -9,6 +9,7 @@ import torch
 from sumodiff.data.dataset import WindowDataset,collate_numpy,write_json
 from sumodiff.models import ConditionalDenoiser,resolve_model_config,prepare_conditioning
 from sumodiff.models.cli import configure
+from sumodiff.decoding.controls import InvalidGeneratedControl
 from sumodiff.decoding import DecoderConfig,decode_future
 from sumodiff.evaluation.config import resolve_config as evaluation_config
 from sumodiff.evaluation.motion import MotionConfig
@@ -56,6 +57,16 @@ def failed_report(meta,error):
     return dict(schema_version='sumodiff.scene.metrics.v1',status='failed',window_id=meta['window_id'],
         planned_active_agents=int(agents.sum()),excluded_vehicle_count=meta['excluded_vehicle_count'],task_applicability=applicability(agents,None),
         quality_pass=None,effective_target_event=None,error=dict(type=type(error).__name__,message=str(error)))
+
+
+def sampling_outcome(result,control_epoch):
+    failed=result['generation_failures'] or result['raw']['failed_scenes'] or result['decoded']['failed_scenes']
+    if not failed:return 'completed'
+    if (control_epoch and result['execution_failures']==0 and
+        result['invalid_generated_controls']==result['generation_failures']==
+        result['raw']['failed_scenes']==result['decoded']['failed_scenes']):
+        return 'completed_with_invalid_generated_controls'
+    return 'failed_execution'
 
 
 def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=False,test_seal=None):
@@ -111,7 +122,7 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
         schedule=NoiseSchedule(diffusion,device);schedule.timesteps(c['steps'])
         write_json(run.output/'tasks.json',[dict(window_id=t['window_id'],agent_ids=t['agent_ids'],target_pair=None,noise_seed=task_seed(c['seed'],t['window_id'])) for t in tasks])
         if device.type=='cuda': torch.cuda.reset_peak_memory_stats(device)
-        raw_records=[];decoded_records=[];rows=[];durations=[];corrections=[];evaluation_seconds=0.;generation_failures=0;started=time.perf_counter()
+        raw_records=[];decoded_records=[];rows=[];durations=[];corrections=[];evaluation_seconds=0.;generation_failures=0;invalid_generated_controls=0;execution_failures=0;started=time.perf_counter()
         kwargs=dict(motion_config=MotionConfig(**c['evaluation']['motion']),road_config=RoadConfig(**c['evaluation']['road']),collision_config=CollisionConfig(**c['evaluation']['collision']))
         for i,meta in zip(indices,tasks):
             row_dir=run.output/'trajectories'/meta['window_id'];row_dir.mkdir(parents=True,exist_ok=False)
@@ -147,10 +158,15 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
                 for stage in ('raw','decoded'):
                     try:
                         report=evaluate_trajectory(conditions,meta,source['exact_map'],arrays[f'{stage}_absolute_states'],initial_heading=heading,**kwargs)
-                    except Exception as exc: report=failed_report(meta,exc)
+                    except Exception as exc:
+                        execution_failures+=1;report=failed_report(meta,exc)
                     row[stage]=report
                 evaluation_seconds+=time.perf_counter()-tick
             except Exception as exc:
+                if control_epoch and isinstance(exc,InvalidGeneratedControl):
+                    invalid_generated_controls+=1;row['failure_category']='invalid_generated_control'
+                else:
+                    execution_failures+=1;row['failure_category']='execution_error'
                 generation_failures+=1;row['raw']=failed_report(meta,exc);row['decoded']=failed_report(meta,exc)
                 row['generation_error']=dict(type=type(exc).__name__,message=str(exc))
             row.update(denoiser_calls=denoiser_counter['calls']-calls_before,actual_gradient_calls=0)
@@ -161,7 +177,7 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
                 files={p.name:file_identity(p) for p in row_dir.iterdir() if p.is_file()}))
             print(f"sample={len(rows)}/{len(tasks)} generation={row['generation_status']} quality={row['decoded'].get('quality_pass')}",flush=True)
         result=dict(schema_version='sumodiff.base.sample.metrics.v1',run_sha=run.manifest['git']['commit_sha'],checkpoint_training_sha=effective['checkpoint_training_sha'],
-            planned_tasks=len(tasks),generation_failures=generation_failures,raw=aggregate_scenes(raw_records),decoded=aggregate_scenes(decoded_records),
+            planned_tasks=len(tasks),generation_failures=generation_failures,invalid_generated_controls=invalid_generated_controls,execution_failures=execution_failures,raw=aggregate_scenes(raw_records),decoded=aggregate_scenes(decoded_records),
             selected_agent_windows=sum(r['planned_active_agents'] for r in decoded_records),excluded_current_vehicle_windows=sum(t['excluded_vehicle_count'] for t in tasks),
             denoiser_calls_per_completed_scene=c['steps'],actual_gradient_calls=0,steps=c['steps'],eta=c['eta'],
             sampling_decoder_seconds=dict(count=len(durations),mean=float(np.mean(durations)) if durations else None,p99=float(np.quantile(durations,.99)) if durations else None,
@@ -177,6 +193,10 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
         result['actual_total_denoiser_calls']=denoiser_counter['calls']
         result['representation']='control_a_omega_r' if is_control(diffusion) else 'six_state'
         result['decoder']='center_midpoint_control_rollout_no_correction' if is_control(diffusion) else 'position_velocity_least_squares'
+        result['sampling_outcome']=sampling_outcome(result,control_epoch)
         write_json(run.output/'trajectory_index.json',rows);write_json(run.output/'sampling_summary.json',result);run.write_metrics(result)
-        if generation_failures or result['raw']['failed_scenes'] or result['decoded']['failed_scenes']: raise RuntimeError('Base sampling/evaluation failures retained in metrics')
+        if result['sampling_outcome']=='failed_execution':
+            raise RuntimeError('Base sampling/evaluation failures retained in metrics')
+        if invalid_generated_controls:
+            print(f"monitor/model output: {invalid_generated_controls}/{len(tasks)} invalid control trajectories; retained as failures, no clipping",flush=True)
     return result
