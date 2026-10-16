@@ -30,7 +30,10 @@ def cosine(a,b):
     return float(torch.dot(a,b)/denominator) if denominator else None
 
 
-def calibrate(dataset,model_path,config_path,scale_path,output,repository,command,formal=False,checkpoint=None):
+def calibrate(dataset,model_path,config_path,scale_path,output,repository,command,formal=False,checkpoint=None,probe_timesteps=(200,)):
+    if (not probe_timesteps or len(set(probe_timesteps))!=len(probe_timesteps)
+            or any(type(t) is not int or not 0<=t<=300 for t in probe_timesteps)):
+        raise ValueError('Explicit unique low-noise gradient timesteps must lie in 0..300')
     c=control_config(load_config(config_path))
     architecture=resolve_model_config(load_config(model_path))
     diffusion=resolve_diffusion_config(c['diffusion']);validate_architecture(architecture,diffusion)
@@ -55,6 +58,7 @@ def calibrate(dataset,model_path,config_path,scale_path,output,repository,comman
     effective=dict(schema_version='sumodiff.control.gradient.config.v1',training=c,model=architecture.to_dict(),
         scale_audit=scale,data=data,checkpoint=file_identity(checkpoint) if checkpoint else None,
         scope='finite complete joint gradients only; candidate weights, no optimization or quality claim')
+    if probe_timesteps!=(200,): effective['probe_timesteps']=list(probe_timesteps)
     with RunRecorder(output,repository,effective,command,{'model':c['seed'],'probe_noise':c['noise_seed']},
                      purpose='bounded_control_joint_gradient_calibration',data_files=sorted(set(map(str,files))),
                      data_id=data['manifest']['id'],checkpoint=checkpoint,formal=formal) as run:
@@ -63,16 +67,17 @@ def calibrate(dataset,model_path,config_path,scale_path,output,repository,comman
         params=[p for p in model.parameters() if p.requires_grad]
         before=parameter_hash(model)
         rows=[];calls=0
-        probes=[(name,indices[:c['batch_size']],kind) for name,indices in groups.items() for kind in ('natural','t200')]
+        probes=[(name,indices[:c['batch_size']],kind) for name,indices in groups.items() for kind in ('natural',*(f't{t}' for t in probe_timesteps))]
         hard=(groups['dense_no_turn']+groups['turning'])
-        if len(hard)>=16:probes.append(('dense_and_turning_batch16',hard[:16],'t200'))
+        if len(hard)>=16:
+            probes.extend(('dense_and_turning_batch16',hard[:16],f't{t}') for t in probe_timesteps)
         started=time.perf_counter()
         for index,(group,indices,kind) in enumerate(probes):
             conditions,targets,ids=select_batch(cache,torch.tensor(indices),device)
             generator=torch.Generator().manual_seed(c['noise_seed']+index)
             noisy,noise,timestep=draw_noise(targets,conditions,schedule,generator)
-            if kind=='t200':
-                timestep=torch.full((len(ids),),200,device=device,dtype=torch.long)
+            if kind!='natural':
+                timestep=torch.full((len(ids),),int(kind[1:]),device=device,dtype=torch.long)
                 noisy=schedule.add_noise(training_target(targets,conditions,diffusion),noise,timestep)
                 noisy=torch.where(conditions['agent_mask'][...,None,None],noisy,0.)
             if device.type=='cuda':torch.cuda.reset_peak_memory_stats(device)

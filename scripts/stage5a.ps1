@@ -43,7 +43,7 @@ if ($RunSuffix) { $taskRunName="$Name-$RunSuffix" }
 $taskPlan='configs/experiments/stage5a.yaml'
 if ($DataProtocol -eq 'Motion') {
     if ($Name -eq 'stage5a-fresh') { throw 'Motion data need a fresh explicit -Name, for example stage5a-motion-v1.' }
-    if ($Action -notin @('Pilot','Collect','Prepare')) { throw 'Motion protocol currently implements Pilot/Collect/Prepare only; control scale and long-training protocols must be frozen separately.' }
+    if ($Action -notin @('Pilot','Collect','Prepare','Audit','Calibrate','Preflight')) { throw 'Motion supports data construction and bounded control checks only; formal training and sampling remain unimplemented.' }
     $taskPlan='configs/experiments/motion_data.yaml'
 }
 $taskRecipe='configs/train/stage5a_epochs.yaml'
@@ -59,6 +59,17 @@ function Invoke-Stage5APython {
     param([string[]]$Arguments)
     & $taskPython @Arguments
     if ($LASTEXITCODE -ne 0) { throw "Command failed with exit $LASTEXITCODE; inspect retained status/report before proceeding." }
+}
+if ($DataProtocol -eq 'Motion' -and $Action -in @('Audit','Calibrate','Preflight')) {
+    if (-not $ScaleAudit) { $taskAudit="artifacts/runs/$Name-scales/scale/candidate_normalization.json" }
+    $taskArgs=@('-m','sumodiff.experiments.motion_control',$Action.ToLower(),
+        '--config','configs/experiments/motion_control_preflight.yaml','--dataset',$taskData,
+        '--output',"artifacts/runs/$taskRunName-$(@{Audit='scales';Calibrate='calibration';Preflight='preflight'}[$Action])",
+        '--repository',$taskRepository,'--formal')
+    if ($Action -in @('Calibrate','Preflight')) { $taskArgs+=@('--scale-audit',$taskAudit) }
+    if ($Action -eq 'Preflight') { $taskArgs+=@('--training-config',$TrainingConfig) }
+    Invoke-Stage5APython $taskArgs
+    return
 }
 switch ($Action) {
     'Pilot' {
