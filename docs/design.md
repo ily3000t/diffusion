@@ -246,3 +246,8 @@ scenario.v2仅支持匝道显式配置，v1配置快照保持。新增规则进�
 ## 正式采集异常恢复（2026-10-15）
 
 原入口现支持显式隔离完整异常回合的有界执行策略，详见[motion_data_protocol.md](motion_data_protocol.md)。不改变SUMO源参数、任务/种子或窗口门槛，使用sources.v2全任务账本分别认证accepted/rejected，Prepare仅切合格源。旧Stop默认和v1/pilot保持；新合同必须显式保存，不能静默删除来源或重试坏种子。若剩余来源不足原6000/600/600及运动覆盖要求，准备失败并保留证据。CheckOnly允许先确认恢复状态而不启动SUMO。此修复不等于汇入根因已消除或正式新数据已冻结。
+
+
+## Motion完整数据验收（2026-10-16）
+
+完整6000/600/600数据构建及独立验收已通过，data_id=sha256:d5377be30fa15745ec3ee9fcc2213ab355ab83973db337a3e1027dd14a5dfb29，来源代码实际SHA=0f430c43cc7b57f3b99af57c4ca74b0c2334be42。sources.v2保留216任务/215合格/1拒绝，全部窗口质量和覆盖门槛保持；36000文件哈希、配额/划分/事件及7200质量日志匹配核验通过。见[motion_full_data_results.md](motion_full_data_results.md)。新数据可作为后续审计固定输入，但控制尺度、组合梯度、batch16真实优化与正式训练协议仍待验收；不复用旧六维训练入口或旧尺度认证。

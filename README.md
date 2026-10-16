@@ -190,4 +190,4 @@ Set-Location E:\diffusion_new
 
 ## 运动平衡新数据协议
 
-已在原stage5a入口冻结v3配方：6000/600/600窗口、每道路双参考各半，加入运动/唯一标识下限、同回合同t0去重和事件复用上限。6训练短回合、288记录预演通过，入选24窗及原始事件/坐标复核通过；521项测试通过。见[结果与本地启动命令](docs/motion_data_results.md)、[轻量来源](docs/motion_data_results.json)及[完整协议](docs/motion_data_protocol.md)。用户正式采集在第96个任务遇到完整异常回合，原入口现支持显式Quarantine恢复和CheckOnly检查；见[恢复命令与合同](docs/motion_data_protocol.md)。完整配额仍待验证，数据完成后再审计新控制尺度及冻结长训练。
+已在原stage5a入口冻结v3配方：6000/600/600窗口、每道路双参考各半，加入运动/唯一标识下限、同回合同t0去重和事件复用上限。6训练短回合、288记录预演通过，入选24窗及原始事件/坐标复核通过；521项测试通过。见[结果与本地启动命令](docs/motion_data_results.md)、[轻量来源](docs/motion_data_results.json)及[完整协议](docs/motion_data_protocol.md)。完整采集及Prepare现已完成：216任务、215合格源/1隔离，6000/600/600最终窗口与既定覆盖全部通过；独立复核36000存储文件哈希及划分/选择，见[完整数据验收](docs/motion_full_data_results.md)。下一步重审新控制尺度及组合梯度，再冻结正式训练；Quarantine恢复合同见[数据协议](docs/motion_data_protocol.md)。
