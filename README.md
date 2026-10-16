@@ -196,3 +196,8 @@ Set-Location E:\diffusion_new
 ## Motion控制训练前检查
 
 新数据6000训练窗控制尺度审计及独立复核通过，B16真实16步优化和3步全辅助压力更新可运行；14完整梯度探针支持保持现有候选权重，裁剪记录已保留。见[验收报告](docs/motion_control_preflight_results.md)与[原入口命令](docs/motion_control_preflight.md)。这只是工程预演；全量控制epoch正式训练、恢复和测试协议尚待独立冻结，不直接使用旧六维或本16步配置长训。
+
+
+## Motion正式控制训练
+
+原stage5a.ps1现提供Motion Train/Resume/Validate/Seal/Test，使用新control.epoch.config.v1、完整6000/600/600和单次200轮预算；16步诊断配置仍独立。详细启动/恢复、监测与测试封存命令见[固定训练协议](docs/motion_control_epochs.md)。无需重新采集和质量准备；完整长训练由用户本地显式启动，工程预演不代表收敛。

@@ -256,3 +256,8 @@ scenario.v2仅支持匝道显式配置，v1配置快照保持。新增规则进�
 ## Motion控制训练前验收（2026-10-16）
 
 新数据6000训练窗的三控制反解/NumPy回放、联合梯度及B16真实优化已通过，权重保持.003/.001/.001/.0003。有限探针中辅助/噪声最大7.2237%且方向正相关，但裁剪全程触发；后续完整训练仍记录裁剪和质量，不把短探针当作收敛。全量控制epoch/监测/恢复/测试协议尚待独立交付。 详见[motion_control_preflight_results.md](motion_control_preflight_results.md)，协议[motion_control_preflight.md](motion_control_preflight.md)。
+
+
+## Motion全量控制训练协议（2026-10-16）
+
+全量正式实现新增control.epoch.config.v1，原bounded control.train.config.v1的3..64步合同保持。新配置一次随机初始化，6000训练/600验证/600封存测试、B16、200轮/75000更新、10轮学习率及辅助预热，沿用认证尺度和联合损失。流式批处理、每轮全验证MSE、每10轮固定60生成检查、真实AdamW/随机状态/日程恢复及专用测试封存见[motion_control_epochs.md](motion_control_epochs.md)。这更新了上节“正式协议待实现”的接口状态；完整200轮尚未运行，不代表模型质量验收。

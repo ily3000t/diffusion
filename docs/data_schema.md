@@ -348,3 +348,8 @@ Motion Prepare的source_population记录显式policy、完整人口统计与acce
 ## Motion控制训练前接口（2026-10-16）
 
 control_scale_audit.protocol.v2显式从selection.v3事件构造运动组；control_replay.tasks.v2绑定完整dataset/index/selection身份及固定120 train/validation任务（各60）。原v1字段合同保持，验证前不加载标签数组；运动事件只存离线任务，模型条件保持不变。motion.control.preflight.config.v1固定B16/16步；控制训练config.v1的64步上限不扩展，原脚本只增加Audit/Calibrate/Preflight。正式训练/恢复/测试动作仍报未实现。 详见[motion_control_preflight_results.md](motion_control_preflight_results.md)，协议[motion_control_preflight.md](motion_control_preflight.md)。
+
+
+## Motion控制epoch接口（2026-10-16）
+
+新增sumodiff.control.epoch.config.v1，派生steps_per_epoch/max_steps/schedule不可覆盖；checkpoint外层base.checkpoint.v1保留，runtime记录update_schedule、best_validation、pending_monitor_epoch、monitored_through_epoch。训练签名绑定完整配置、train/validation IDs、数据/尺度/选择/梯度证据摘要，恢复时必须相同。sample.config.v1新增可选task_plan（默认null），仅固定60 validation监测可使用已认证tasks.v2；正式独立验证及测试必须全部600任务。control.test.seal.v1独立于旧fresh封存，bounded control仍禁止test。后续接口状态以[motion_control_epochs.md](motion_control_epochs.md)为准；不变更已冻结数组及条件字段。
