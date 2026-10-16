@@ -201,3 +201,5 @@ Set-Location E:\diffusion_new
 ## Motion正式控制训练
 
 原stage5a.ps1现提供Motion Train/Resume/Validate/Seal/Test，使用新control.epoch.config.v1、完整6000/600/600和单次200轮预算；16步诊断配置仍独立。详细启动/恢复、监测与测试封存命令见[固定训练协议](docs/motion_control_epochs.md)。无需重新采集和质量准备；完整长训练由用户本地显式启动，工程预演不代表收敛。
+
+正式入口验收见[结果与资源](docs/motion_control_epochs_results.md)及[轻量来源](docs/motion_control_epochs_results.json)：588项测试、实际8步与4+4恢复逐位一致；早期无效控制监测仍记失败，不冒称质量通过。正式200轮尚未启动。
