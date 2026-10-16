@@ -88,6 +88,10 @@ def training_signature(model_config,c,data,scale,train_ids,val_ids):
 
 def train(dataset_path,model_config_path,config_path,scale_audit_path,output,repository,command,formal=False,resume=None,allow_long_run=False,prefix_updates=None):
     source_config=load_config(config_path)
+    if source_config.get('schema_version')=='sumodiff.control.epoch.config.v1':
+        from .control_epochs import train as control_epoch_train
+        return control_epoch_train(dataset_path,model_config_path,config_path,scale_audit_path,output,repository,command,
+            formal,resume,allow_long_run,prefix_updates)
     epoch_mode=source_config.get('schema_version') in ('sumodiff.base.epoch.config.v1','sumodiff.base.epoch.config.v2')
     fresh=source_config.get('schema_version')=='sumodiff.base.epoch.config.v2'
     control=source_config.get('schema_version')=='sumodiff.control.train.config.v1'

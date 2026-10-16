@@ -151,9 +151,10 @@ def periodic_sample(dataset,checkpoint,run,repository,c,epoch,formal):
     try:
         result=sample(dataset,checkpoint,config_path,output,repository,command,formal)
         index=json.loads((output/'trajectory_index.json').read_text(encoding='utf-8'))
-        max_correction=0.;max_displacement=0.
+        max_correction=0.;max_displacement=0.;completed=0
         for item in index:
             if item['generation_status']!='completed': continue
+            completed+=1
             with np.load(output/'trajectories'/item['window_id']/'stages.npz',allow_pickle=False) as arrays:
                 # Persisted raw and decoded positions use the same selected agent set.
                 mask=arrays['agent_mask']
@@ -161,7 +162,8 @@ def periodic_sample(dataset,checkpoint,run,repository,c,epoch,formal):
                 max_correction=max(max_correction,float(np.linalg.norm(
                     arrays['decoded_absolute_states'][mask,:,:2]-arrays['raw_absolute_states'][mask,:,:2],axis=-1).max()))
         return dict(epoch=epoch,checkpoint=file_identity(checkpoint),run=str(output),
-            raw_displacement_max_m=max_displacement,position_correction_max_m=max_correction,
+            raw_displacement_max_m=max_displacement if completed else None,position_correction_max_m=max_correction if completed else None,
+            sampling_outcome=result.get('sampling_outcome','completed'),invalid_generated_controls=result.get('invalid_generated_controls',0),
             quality_pass_rate=result['decoded']['quality_pass_rate'],planned_tasks=result['planned_tasks'],
             generation_failures=result['generation_failures'],total_monitor_seconds=time.perf_counter()-started)
     finally:

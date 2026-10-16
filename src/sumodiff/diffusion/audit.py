@@ -32,7 +32,7 @@ def audit_continuation(uninterrupted,resumed,output,repository,command,formal=Fa
         first=[json.loads(line) for line in (left_run/'steps.jsonl').read_text().splitlines()]
         second=[json.loads(line) for line in (right_run/'steps.jsonl').read_text().splitlines()]
         fields=('step','noise_mse','gradient_norm_before_clip','window_ids','timesteps')
-        if a['metadata']['training_config'].get('schema_version')=='sumodiff.control.train.config.v1':
+        if a['metadata']['training_config'].get('schema_version') in ('sumodiff.control.train.config.v1','sumodiff.control.epoch.config.v1'):
             fields+=('learning_rate','auxiliary_ramp','total_loss','clipping_applied','loss_components')
         first=[{k:r[k] for k in fields} for r in first if r['step']>mid['step']]
         second=[{k:r[k] for k in fields} for r in second]

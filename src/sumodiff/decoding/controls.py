@@ -155,6 +155,11 @@ def initial_control_state(history, history_mask, initial_positions, lengths, age
     return InitialControlState(p0, current, yaw[..., 1], u0, length, agent_mask, config)
 
 
+class InvalidGeneratedControl(ValueError):
+    """Finite controls outside the declared rollout domain; never clipped or repaired."""
+    pass
+
+
 def rollout_controls(controls, initial):
     """Integrate interval acceleration/yaw rate (and optional lateral velocity).
 
@@ -174,7 +179,7 @@ def rollout_controls(controls, initial):
     values = torch.where(mask[..., None, None], controls, 0.).to(dtype)
     # Avoid aliasing multiple revolutions into a shortest-arc offline heading.
     if (values[..., 1][mask].abs() * config.dt >= math.pi).any():
-        raise ValueError('Yaw increment must be strictly below pi per interval')
+        raise InvalidGeneratedControl('Yaw increment must be strictly below pi per interval')
     with torch.autocast(device_type=controls.device.type, enabled=False):
         yaw = initial.yaw[..., None] + config.dt * _prefix_sum(values[..., 1], dim=-1)
         u = initial.forward_interval_speed[..., None] + config.dt * _prefix_sum(values[..., 0], dim=-1)

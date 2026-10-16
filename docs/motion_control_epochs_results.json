@@ -1,0 +1,311 @@
+{
+  "schema_version": "sumodiff.motion.control.epoch.delivery.v1",
+  "date": "2026-10-16",
+  "dataset_id": "sha256:d5377be30fa15745ec3ee9fcc2213ab355ab83973db337a3e1027dd14a5dfb29",
+  "implementation_commit": "f96bdd3",
+  "protocol_commit": "2bf4c9b39055ad6a42d098890fe252d42b1056cb",
+  "invalid_control_classification_commit": "5d39eb8a89d5225bc91bd6fa113171a5c4f58e1b",
+  "formal_long_training_started": false,
+  "test_arrays_loaded": 0,
+  "tests": {
+    "passed": 588,
+    "seconds": 52.55,
+    "junit": {
+      "id": "sha256:fe8a2ff3f99bf9f5f5d0999c886a7a6202f268309cc5879a12c2673977b7267b",
+      "location": "E:\\diffusion_new\\artifacts\\cache\\control-epochs-tests-20261016-r4.xml",
+      "sha256": "fe8a2ff3f99bf9f5f5d0999c886a7a6202f268309cc5879a12c2673977b7267b",
+      "size_bytes": 78327
+    }
+  },
+  "training_config": {
+    "id": "sha256:ca0340707a15cdc7f61f37bc14a7880bb3fae65f2105abeba5df718da08b991d",
+    "location": "E:\\diffusion_new\\configs\\train\\motion_control_epochs.yaml",
+    "sha256": "ca0340707a15cdc7f61f37bc14a7880bb3fae65f2105abeba5df718da08b991d",
+    "size_bytes": 2173
+  },
+  "sources": [
+    {
+      "name": "stage5a-motion-v1-epochs-check8-train",
+      "actual_git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "2bf4c9b39055ad6a42d098890fe252d42b1056cb",
+        "branch": "feat/motion-control-epochs",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "manifest": {
+        "id": "sha256:c49463be43629b7c83d4fbe5473e4705bd7d65090034ebd2653f36d6079b488a",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-epochs-check8-train\\manifest.json",
+        "sha256": "c49463be43629b7c83d4fbe5473e4705bd7d65090034ebd2653f36d6079b488a",
+        "size_bytes": 13537150
+      },
+      "status": {
+        "id": "sha256:59bbc062460f9fe9d1d279ccba66cf282184a3f3691a4bfce5f79cd1e9860125",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-epochs-check8-train\\status.json",
+        "sha256": "59bbc062460f9fe9d1d279ccba66cf282184a3f3691a4bfce5f79cd1e9860125",
+        "size_bytes": 181
+      },
+      "metrics": {
+        "id": "sha256:10973701e6274d0ac3e04a29a0836d508fe9064b583c1af44981e7f5edc191f3",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-epochs-check8-train\\training_summary.json",
+        "sha256": "10973701e6274d0ac3e04a29a0836d508fe9064b583c1af44981e7f5edc191f3",
+        "size_bytes": 3080
+      },
+      "updates": 8,
+      "start_step": 0,
+      "end_step": 8,
+      "complete_budget": false,
+      "validation": [
+        {
+          "step": 0,
+          "epoch": 0.0,
+          "train_probe_windows": 60,
+          "validation_windows": 600,
+          "train_probe_mse": 1.0787715276082357,
+          "validation_probe_mse": 1.086261304219564
+        },
+        {
+          "step": 8,
+          "epoch": 0.021333333333333333,
+          "train_probe_windows": 60,
+          "validation_windows": 600,
+          "train_probe_mse": 1.056576410929362,
+          "validation_probe_mse": 1.0634464581807455
+        }
+      ],
+      "clipped_updates": 8,
+      "approximate_launch_to_manifest_seconds": 107.910666,
+      "manifest_body_seconds": 94.86093
+    },
+    {
+      "name": "stage5a-motion-v1-epochs-check4-train",
+      "actual_git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "2bf4c9b39055ad6a42d098890fe252d42b1056cb",
+        "branch": "feat/motion-control-epochs",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "manifest": {
+        "id": "sha256:82d9b7c1cee929706121b4a7c25baedbca001e0591e83d2c82db9e21325a19a4",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-epochs-check4-train\\manifest.json",
+        "sha256": "82d9b7c1cee929706121b4a7c25baedbca001e0591e83d2c82db9e21325a19a4",
+        "size_bytes": 13537150
+      },
+      "status": {
+        "id": "sha256:8c43060023225ed248d297e25e2a434c37a678e39b049f9b2f1e36a1a8fa6b39",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-epochs-check4-train\\status.json",
+        "sha256": "8c43060023225ed248d297e25e2a434c37a678e39b049f9b2f1e36a1a8fa6b39",
+        "size_bytes": 181
+      },
+      "metrics": {
+        "id": "sha256:4ce01e84fbbff1f954a061dd948ee91db30304478f0a1d6f509a0fe7cdced359",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-epochs-check4-train\\training_summary.json",
+        "sha256": "4ce01e84fbbff1f954a061dd948ee91db30304478f0a1d6f509a0fe7cdced359",
+        "size_bytes": 3078
+      },
+      "updates": 4,
+      "start_step": 0,
+      "end_step": 4,
+      "complete_budget": false,
+      "validation": [
+        {
+          "step": 0,
+          "epoch": 0.0,
+          "train_probe_windows": 60,
+          "validation_windows": 600,
+          "train_probe_mse": 1.0787715276082357,
+          "validation_probe_mse": 1.086261304219564
+        },
+        {
+          "step": 4,
+          "epoch": 0.010666666666666666,
+          "train_probe_windows": 60,
+          "validation_windows": 600,
+          "train_probe_mse": 1.0677965005238852,
+          "validation_probe_mse": 1.0749713818232218
+        }
+      ],
+      "clipped_updates": 4,
+      "approximate_launch_to_manifest_seconds": 76.56661,
+      "manifest_body_seconds": 82.801459
+    },
+    {
+      "name": "stage5a-motion-v1-epochs-check4-resumed-resume",
+      "actual_git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "2bf4c9b39055ad6a42d098890fe252d42b1056cb",
+        "branch": "feat/motion-control-epochs",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "manifest": {
+        "id": "sha256:68fc989ec51a2f2585ff77c6ae19e3e083fe2e27a410388b5b3a9485a200ffa8",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-epochs-check4-resumed-resume\\manifest.json",
+        "sha256": "68fc989ec51a2f2585ff77c6ae19e3e083fe2e27a410388b5b3a9485a200ffa8",
+        "size_bytes": 13537734
+      },
+      "status": {
+        "id": "sha256:f5c6dcb28482e9795ac4829e9227118c04c3c7b542280d3292ddbc95cf1ceee6",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-epochs-check4-resumed-resume\\status.json",
+        "sha256": "f5c6dcb28482e9795ac4829e9227118c04c3c7b542280d3292ddbc95cf1ceee6",
+        "size_bytes": 181
+      },
+      "metrics": {
+        "id": "sha256:f63ecd28dd24ee1275e6d36bba2d29fd54c2cb0555d77b8ecbe0710fdb738f04",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-epochs-check4-resumed-resume\\training_summary.json",
+        "sha256": "f63ecd28dd24ee1275e6d36bba2d29fd54c2cb0555d77b8ecbe0710fdb738f04",
+        "size_bytes": 3115
+      },
+      "updates": 4,
+      "start_step": 4,
+      "end_step": 8,
+      "complete_budget": false,
+      "validation": [
+        {
+          "step": 4,
+          "epoch": 0.010666666666666666,
+          "train_probe_windows": 60,
+          "validation_windows": 600,
+          "train_probe_mse": 1.0677965005238852,
+          "validation_probe_mse": 1.0749713818232218
+        },
+        {
+          "step": 8,
+          "epoch": 0.021333333333333333,
+          "train_probe_windows": 60,
+          "validation_windows": 600,
+          "train_probe_mse": 1.056576410929362,
+          "validation_probe_mse": 1.0634464581807455
+        }
+      ],
+      "clipped_updates": 4,
+      "approximate_launch_to_manifest_seconds": 85.963335,
+      "manifest_body_seconds": 88.035726
+    }
+  ],
+  "independent_review": {
+    "manifest": {
+      "id": "sha256:8b920706de72b5a7cb073cb126885f59151d4245ea469fb41465793621beb8db",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\motion-control-epochs-review-20261016-r1\\manifest.json",
+      "sha256": "8b920706de72b5a7cb073cb126885f59151d4245ea469fb41465793621beb8db",
+      "size_bytes": 122475
+    },
+    "results": {
+      "id": "sha256:d8994b340faab6e7ea71b1e7b4b8807a1dac6ca600ae8b99597c5f3bac1af790",
+      "location": "E:\\diffusion_new\\artifacts\\runs\\motion-control-epochs-review-20261016-r1\\results.json",
+      "sha256": "d8994b340faab6e7ea71b1e7b4b8807a1dac6ca600ae8b99597c5f3bac1af790",
+      "size_bytes": 3414
+    },
+    "results_content": {
+      "passed": true,
+      "raw_controls_unchanged_after_failure_classification": true,
+      "source_git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "2bf4c9b39055ad6a42d098890fe252d42b1056cb",
+        "branch": "feat/motion-control-epochs",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "monitor_source_git": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "5d39eb8a89d5225bc91bd6fa113171a5c4f58e1b",
+        "branch": "feat/motion-control-epochs",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "training_input_counts": [
+        33017,
+        33017,
+        33017
+      ],
+      "checkpoints": [
+        {
+          "id": "sha256:3c601299fdbbe28a4109700163c7bf3ed907b248f558bb4644191ae5e0734d84",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-epochs-check8-train\\checkpoint_step_000008.pt",
+          "sha256": "3c601299fdbbe28a4109700163c7bf3ed907b248f558bb4644191ae5e0734d84",
+          "size_bytes": 41975786
+        },
+        {
+          "id": "sha256:765b5d283fc15214cc0e40d4da8bb9fe932c54f0c2ef652da57ae9ea414082c2",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-epochs-check4-train\\checkpoint_step_000004.pt",
+          "sha256": "765b5d283fc15214cc0e40d4da8bb9fe932c54f0c2ef652da57ae9ea414082c2",
+          "size_bytes": 41975786
+        },
+        {
+          "id": "sha256:0cf1c04c04aaf3ffe0253b5eb9ee66868156f07d22ba268e4696e036cab4b609",
+          "location": "E:\\diffusion_new\\artifacts\\runs\\stage5a-motion-v1-epochs-check4-resumed-resume\\checkpoint_step_000008.pt",
+          "sha256": "0cf1c04c04aaf3ffe0253b5eb9ee66868156f07d22ba268e4696e036cab4b609",
+          "size_bytes": 41976682
+        }
+      ],
+      "exact_resume": true,
+      "complete_budget": false,
+      "optimizer_updates_executed": 16,
+      "formal_total_budget": 75000,
+      "training_population": 6000,
+      "validation_population": 600,
+      "monitor_tasks": 60,
+      "monitor_ddim_calls": 1200,
+      "test_arrays_loaded": 0,
+      "invalid_monitor_controls": 60,
+      "all_monitor_rng_restored": true,
+      "quality_or_convergence_certified": false,
+      "monitor_quality_pass_rate": 0.0,
+      "timing": [
+        {
+          "mean_seconds": 1.7875000714285696,
+          "median_seconds": 1.6734893000000284,
+          "warmup_updates_excluded": 1,
+          "includes": "synchronous file reads/hash/LRU, CPU batch padding/conditioning, device transfer, road geometry, forward/backward/clip/AdamW; excludes validation/checkpoint/monitor"
+        },
+        {
+          "mean_seconds": 1.826257099999945,
+          "median_seconds": 1.7036759000000075,
+          "warmup_updates_excluded": 1,
+          "includes": "synchronous file reads/hash/LRU, CPU batch padding/conditioning, device transfer, road geometry, forward/backward/clip/AdamW; excludes validation/checkpoint/monitor"
+        },
+        {
+          "mean_seconds": 1.5008310333333459,
+          "median_seconds": 1.3768531000000621,
+          "warmup_updates_excluded": 1,
+          "includes": "synchronous file reads/hash/LRU, CPU batch padding/conditioning, device transfer, road geometry, forward/backward/clip/AdamW; excludes validation/checkpoint/monitor"
+        }
+      ],
+      "gpu_allocated": [
+        427144704,
+        424107008,
+        427144704
+      ],
+      "gpu_reserved": [
+        717225984,
+        715128832,
+        696254464
+      ],
+      "sampled_rss": [
+        2176970752,
+        2197737472,
+        2255388672
+      ],
+      "initial_probe_seconds": [
+        42.999153699999965,
+        37.76913310000009,
+        37.863354800000025
+      ]
+    }
+  },
+  "failed_monitor_retained": {
+    "id": "sha256:a8b5c9d01386d8a52a3db193ffa9a72d49f692ed113c1bdd51ad215bd9c43976",
+    "location": "E:\\diffusion_new\\artifacts\\runs\\motion-control-epochs-monitor-20261016-r1\\status.json",
+    "sha256": "a8b5c9d01386d8a52a3db193ffa9a72d49f692ed113c1bdd51ad215bd9c43976",
+    "size_bytes": 295
+  },
+  "successful_monitor": {
+    "id": "sha256:2356abd3f80f07600469a2c93abd8d3b01bbcc85916c062ee1eb9b90390b77ae",
+    "location": "E:\\diffusion_new\\artifacts\\runs\\motion-control-epochs-monitor-20261016-r2\\results.json",
+    "sha256": "2356abd3f80f07600469a2c93abd8d3b01bbcc85916c062ee1eb9b90390b77ae",
+    "size_bytes": 914
+  },
+  "optimizer_only_hours_from_8_step_mean": 37.23958482142853,
+  "interpretation": "engineering protocol, exact recovery and failure recording only; no convergence or generated-quality claim"
+}

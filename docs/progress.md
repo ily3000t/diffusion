@@ -955,3 +955,17 @@ Pilot、preparation及复核r1/r2实际源均f57bab438b979656f8abf43ef9ded60db4b
 常规约1.1173s/步，optimizer allocated435.24MiB/reserved708MiB；多梯度探针allocated830.59MiB/reserved1688MiB，CPU/GPU测量范围详报告，不推断完整训练总时长。固定60验证噪声MSE 1.08405→.63773，仅工程学习探针，无收敛/生成质量结论。测试数组读取0，无正式训练、自由采样/阶段6或push/tag。当前分支feat/motion-control-preflight，文档验收后main --no-ff并保留分支；提交/合并SHA见Git。
 
 下一步冻结全量控制epoch训练/验证/周期采样/恢复/测试封存协议及可本地启动入口；不能直接用16步诊断配置替代200轮正式训练，也不复用旧六维checkpoint。数据保持d5377be30fa15745ec3ee9fcc2213ab355ab83973db337a3e1027dd14a5dfb29，无需扩采。
+
+
+
+## Motion全量控制训练入口与恢复验收（2026-10-16）
+
+用户“继续”授权实现正式入口并短验证，正式长训练仍由本地终端启动。从干净main 0d73c3e建立feat/motion-control-epochs；f96bdd3实现全量control.epoch.config.v1、原stage5a Motion Train/Resume/Validate/Seal/Test，2bf4c9b冻结协议。6000/600/600、B16、200轮75000更新、每轮无放回完整覆盖、3750步双warmup和一次cosine、认证尺度及.003/.001/.001/.0003目标固定；按批padding与64窗口/道路LRU，旧6维及3..64步控制入口不变。
+
+588项全量测试52.55s通过，PS解析和diff检查通过。实际formal/clean源SHA=2bf4c9b39055ad6a42d098890fe252d42b1056cb，连续8步/从头4步/恢复4步，共16更新；每次起止均完整600验证，独立检查每个33017输入身份及测试数组0读取。MSE初始1.0862613、4步1.0749714、8步1.0634465；只是固定全日程前缀，无收敛结论。模型/AdamW/噪声/CPU-CUDA RNG/日程及日志逐位一致，16/16更新clip1。
+
+预演r1发现未训练8步模型60/60控制Yaw增量超定义域，原failed目录和原始控制保留。5d39eb8显式分类InvalidGeneratedControl：不改积分/阈值/轨迹，正式监测可完成质量失败报告；其他执行错误仍中断。r2和独立review实际SHA=5d39eb8a89d5225bc91bd6fa113171a5c4f58e1b/formal/clean，60任务1200网络调用、0梯度，全部RNG恢复。r1/r2原始噪声/控制逐位相同；失败仍60、通过率0，修正/位移N/A，没有把程序完成称为生成合格。
+
+资源：连续8步均值1.7875s/步（含读取/几何/实际优化，去首步），另两段1.8263/1.5008s；allocated407.36MiB/reserved684MiB，RSS采样峰值最高约2.10GiB，非连续峰值。初始化全验证/训练探针37.77—43.00s，核验/清单另计；仅优化外推约37.24h，不承诺完整时长或收敛。无有效轨迹r2监测17.31s不能代替合格轨迹的几何评价耗时。
+
+见motion_control_epochs.md、motion_control_epochs_results.md/json，设计/schema/provenance/README已同步。进度提交和main --no-ff合并SHA见Git，功能分支保留；不回填过去数据/训练SHA。artifacts仍全部忽略，旧目录只读，无重采、正式200轮、阶段6、test数值数组、push或tag。下一步本地运行原stage5a.ps1 -Action Train -DataProtocol Motion -Name stage5a-motion-v1，从随机初始化训练，勿复用8步诊断checkpoint；每轮完整验证、每10轮生成监测后依验证质量选模型。

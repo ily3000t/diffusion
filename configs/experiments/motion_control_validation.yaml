@@ -1,0 +1,16 @@
+schema_version: sumodiff.base.sample.config.v1
+seed: 20261020
+device: cuda:0
+torch_threads: 1
+split: validation
+limit: 600
+minimum_agents: 1
+steps: 20
+eta: 0.0
+evaluation:
+  road:
+    geometry_repair: bounded_make_valid
+    numerical_tolerance_m: 1.0e-06
+    max_repair_area_change_m2: 1.0e-06
+    max_repair_hausdorff_m: 1.0e-06
+task_plan: null

@@ -11,6 +11,7 @@ param(
     [string]$TrainingConfig='',
     [string]$ValidationRun='',
     [string]$TestSeal='',
+    [ValidateRange(1,64)][int]$PrefixUpdates,
     [switch]$ReuseCompleted,
     [ValidateSet('Stop','Quarantine')][string]$QualityPolicy='Stop',
     [switch]$CheckOnly,
@@ -30,6 +31,9 @@ if ($QualityPolicy -ne 'Stop' -and ($Action -ne 'Collect' -or $DataProtocol -ne 
 if ($CheckOnly -and ($Action -ne 'Collect' -or $QualityPolicy -ne 'Quarantine' -or -not $ReuseCompleted)) {
     throw 'CheckOnly requires Motion Collect, Quarantine and ReuseCompleted.'
 }
+if ($PrefixUpdates -and ($DataProtocol -ne 'Motion' -or $Action -notin @('Train','Resume') -or -not $RunSuffix)) {
+    throw 'PrefixUpdates requires Motion Train/Resume and a fresh RunSuffix; it preserves the full epoch schedule.'
+}
 $taskRoot=Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $taskRoot
 $taskPython=Join-Path $taskRoot '.venv-model\Scripts\python.exe'
@@ -43,13 +47,13 @@ if ($RunSuffix) { $taskRunName="$Name-$RunSuffix" }
 $taskPlan='configs/experiments/stage5a.yaml'
 if ($DataProtocol -eq 'Motion') {
     if ($Name -eq 'stage5a-fresh') { throw 'Motion data need a fresh explicit -Name, for example stage5a-motion-v1.' }
-    if ($Action -notin @('Pilot','Collect','Prepare','Audit','Calibrate','Preflight')) { throw 'Motion supports data construction and bounded control checks only; formal training and sampling remain unimplemented.' }
     $taskPlan='configs/experiments/motion_data.yaml'
 }
 $taskRecipe='configs/train/stage5a_epochs.yaml'
 $taskData="artifacts/processed/$Name/dataset"
 $taskAudit="artifacts/runs/$Name-scales/scale_audit.json"
 if ($ScaleAudit) { $taskAudit=$ScaleAudit }
+$taskExplicitTrainingConfig=[bool]$TrainingConfig
 if (-not $TrainingConfig) { $TrainingConfig="artifacts/runs/$Name-calibration/training_config.yaml" }
 if (-not $PilotReport) { $PilotReport="artifacts/runs/$Name-pilot/preparation/quality_report.json" }
 if (-not $ValidationRun) { $ValidationRun="artifacts/runs/$Name-validate" }
@@ -68,6 +72,42 @@ if ($DataProtocol -eq 'Motion' -and $Action -in @('Audit','Calibrate','Preflight
         '--repository',$taskRepository,'--formal')
     if ($Action -in @('Calibrate','Preflight')) { $taskArgs+=@('--scale-audit',$taskAudit) }
     if ($Action -eq 'Preflight') { $taskArgs+=@('--training-config',$TrainingConfig) }
+    Invoke-Stage5APython $taskArgs
+    return
+}
+if ($DataProtocol -eq 'Motion' -and $Action -in @('Train','Resume','Validate','Seal','Test')) {
+    if (-not $ScaleAudit) { $taskAudit="artifacts/runs/$Name-scales/scale/candidate_normalization.json" }
+    if ($Action -in @('Train','Resume')) {
+        if (-not $taskExplicitTrainingConfig) { $TrainingConfig='configs/train/motion_control_epochs.yaml' }
+        $taskTrainingSchema=& $taskPython -c "import sys; from sumodiff.experiments.recorder import load_config; print(load_config(sys.argv[1]).get('schema_version'))" $TrainingConfig
+        if ($LASTEXITCODE -ne 0 -or $taskTrainingSchema -ne 'sumodiff.control.epoch.config.v1') {
+            throw 'Motion Train/Resume require the explicit full control epoch recipe; the 16-step diagnostic config is incompatible.'
+        }
+        $taskArgs=@('-m','sumodiff.diffusion','train','--dataset',$taskData,
+            '--model-config','configs/model/control_directional.yaml','--config',$TrainingConfig,
+            '--scale-audit',$taskAudit,'--output',"artifacts/runs/$taskRunName-$($Action.ToLower())",
+            '--repository',$taskRepository,'--allow-long-run','--formal')
+        if ($Action -eq 'Resume') {
+            if (-not $Checkpoint -or -not (Test-Path -LiteralPath $Checkpoint -PathType Leaf) -or -not $RunSuffix) {
+                throw 'Resume requires an existing -Checkpoint and a fresh -RunSuffix.'
+            }
+            $taskArgs+=@('--resume',$Checkpoint)
+        }
+        if ($PrefixUpdates) { $taskArgs+=@('--prefix-updates', [string]$PrefixUpdates) }
+    } else {
+        if (-not $Checkpoint -or -not (Test-Path -LiteralPath $Checkpoint -PathType Leaf)) { throw 'An explicit selected -Checkpoint is required.' }
+        if ($Action -eq 'Seal') {
+            $taskArgs=@('-m','sumodiff.diffusion','seal-test','--dataset',$taskData,'--checkpoint',$Checkpoint,
+                '--config','configs/experiments/motion_control_test.yaml','--validation-run',$ValidationRun,
+                '--output',"artifacts/runs/$taskRunName-test-seal",'--repository',$taskRepository,'--formal')
+        } else {
+            $taskSplit=@{Validate='validation';Test='test'}[$Action]
+            $taskArgs=@('-m','sumodiff.diffusion','sample','--dataset',$taskData,'--checkpoint',$Checkpoint,
+                '--config',"configs/experiments/motion_control_$taskSplit.yaml",
+                '--output',"artifacts/runs/$taskRunName-$($Action.ToLower())",'--repository',$taskRepository,'--formal')
+            if ($Action -eq 'Test') { $taskArgs+=@('--test-seal',$TestSeal) }
+        }
+    }
     Invoke-Stage5APython $taskArgs
     return
 }

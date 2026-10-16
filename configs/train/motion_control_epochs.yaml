@@ -1,0 +1,79 @@
+schema_version: sumodiff.control.epoch.config.v1
+expected_data_id: sha256:d5377be30fa15745ec3ee9fcc2213ab355ab83973db337a3e1027dd14a5dfb29
+calibration_config: artifacts/runs/stage5a-motion-v1-calibration/training_config.yaml
+seed: 20261017
+noise_seed: 20261018
+validation_seed: 20261019
+device: cuda:0
+torch_threads: 1
+batch_size: 16
+epochs: 200
+expected_train_windows: 6000
+expected_validation_windows: 600
+expected_test_windows: 600
+learning_rate: 1.0e-06
+peak_learning_rate: 0.0001
+lr_warmup_epochs: 10
+auxiliary_warmup_epochs: 10
+weight_decay: 0.0001
+gradient_clip_norm: 1.0
+validation_every_epochs: 1
+checkpoint_every_epochs: 5
+monitor_every_epochs: 10
+train_probe_limit: 60
+stream_cache_windows: 64
+unified_loss:
+  body_grid_size: 5
+  heading_factor: 0.1
+  huber_beta: 1.0
+  imitation_weight: 0.003
+  lateral_unit_m: 0.5
+  longitudinal_unit_m: 2.0
+  max_auxiliary_timestep: 300
+  road_distance_unit_m: 1.0
+  road_numerical_tolerance_m: 1.0e-06
+  road_weight: 0.001
+  schema_version: sumodiff.unified.loss.config.v1
+  second_difference_factor: 0.1
+  temporal_weight: 0.001
+  velocity_difference_unit_mps: 1.0
+  velocity_unit_mps: 5.0
+jerk_tail:
+  dt: 0.1
+  huber_beta: 1.0
+  threshold_mps3: 15.0
+  top_fraction: 0.1
+  top_multiplier: 1.0
+tail_weight: 0.0003
+diffusion:
+  acceleration_scale_mps2: 2.0
+  additional_losses_enabled: true
+  beta_end: 0.02
+  beta_start: 0.0001
+  cfg: false
+  lateral_velocity_scale_mps: 0.1
+  objective: epsilon
+  partial_diffusion: false
+  position_scale_m: 50.0
+  rolling_generation: false
+  schema_version: sumodiff.control.diffusion.config.v1
+  training_steps: 1000
+  velocity_scale_mps: 20.0
+  yaw_rate_scale_radps: 0.5
+monitor:
+  schema_version: sumodiff.base.sample.config.v1
+  seed: 20261020
+  device: cuda:0
+  torch_threads: 1
+  split: validation
+  limit: 60
+  minimum_agents: 1
+  steps: 20
+  eta: 0.0
+  evaluation:
+    road:
+      geometry_repair: bounded_make_valid
+      numerical_tolerance_m: 1.0e-06
+      max_repair_area_change_m2: 1.0e-06
+      max_repair_hausdorff_m: 1.0e-06
+  task_plan: artifacts/runs/stage5a-motion-v1-scales/task_plan.json

@@ -9,6 +9,7 @@ import torch
 from sumodiff.data.dataset import WindowDataset,collate_numpy,write_json
 from sumodiff.models import ConditionalDenoiser,resolve_model_config,prepare_conditioning
 from sumodiff.models.cli import configure
+from sumodiff.decoding.controls import InvalidGeneratedControl
 from sumodiff.decoding import DecoderConfig,decode_future
 from sumodiff.evaluation.config import resolve_config as evaluation_config
 from sumodiff.evaluation.motion import MotionConfig
@@ -24,7 +25,7 @@ from .process import NoiseSchedule,ddim_sample,denormalize
 from .training import synchronize
 
 SAMPLE_DEFAULTS=dict(schema_version='sumodiff.base.sample.config.v1',seed=20261008,device='cuda:0',torch_threads=1,
-    split='validation',limit=6,minimum_agents=2,steps=20,eta=0.0,mode='base',cfg=False,partial_diffusion=False,rolling_generation=False,evaluation={})
+    split='validation',limit=6,minimum_agents=2,steps=20,eta=0.0,mode='base',task_plan=None,cfg=False,partial_diffusion=False,rolling_generation=False,evaluation={})
 
 
 def sample_config(value):
@@ -41,6 +42,8 @@ def sample_config(value):
     if c['limit'] is not None and (type(c['limit']) is not int or c['limit']<1): raise ValueError('Invalid task limit')
     if type(c['seed']) is not int or not 0<=c['seed']<2**32: raise ValueError('Invalid sampling seed')
     if type(c['eta']) not in (float,int) or not math.isfinite(c['eta']) or not 0<=c['eta']<=1: raise ValueError('Invalid eta')
+    if c['task_plan'] is not None and (not isinstance(c['task_plan'],str) or not c['task_plan'].strip() or c['split']!='validation' or c['limit']!=60):
+        raise ValueError('Explicit task plan is supported for the frozen 60 validation monitor only')
     c['evaluation']=evaluation_config(c['evaluation'])
     return c
 
@@ -56,19 +59,45 @@ def failed_report(meta,error):
         quality_pass=None,effective_target_event=None,error=dict(type=type(error).__name__,message=str(error)))
 
 
+def sampling_outcome(result,control_epoch):
+    failed=result['generation_failures'] or result['raw']['failed_scenes'] or result['decoded']['failed_scenes']
+    if not failed:return 'completed'
+    if (control_epoch and result['execution_failures']==0 and
+        result['invalid_generated_controls']==result['generation_failures']==
+        result['raw']['failed_scenes']==result['decoded']['failed_scenes']):
+        return 'completed_with_invalid_generated_controls'
+    return 'failed_execution'
+
+
 def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=False,test_seal=None):
     c=sample_config(load_config(config_path));payload=load_checkpoint(checkpoint,requested={k:c[k] for k in ('cfg','partial_diffusion','rolling_generation')})
     architecture=resolve_model_config(payload['metadata']['model_config']);diffusion=resolve_diffusion_config(payload['metadata']['diffusion_config'])
     seal_identity=None
-    if is_control(diffusion) and c['split']=='test':
+    control_epoch=payload['metadata'].get('training_config',{}).get('schema_version')=='sumodiff.control.epoch.config.v1'
+    if is_control(diffusion) and c['split']=='test' and not control_epoch:
         raise NotImplementedError('Control-target test sealing is not implemented; test data remain frozen')
     if is_control(diffusion) and c['evaluation']['decoder']!=DecoderConfig().__dict__:
         raise ValueError('Control rollout does not use configurable least-squares decoder settings')
-    if c['split']=='test' and payload['metadata']['training_config']['schema_version']=='sumodiff.base.epoch.config.v2':
+    if c['split']=='test' and (control_epoch or payload['metadata']['training_config']['schema_version']=='sumodiff.base.epoch.config.v2'):
         from .fresh_protocol import verify_test_seal
-        seal_identity=verify_test_seal(test_seal,dataset_path,checkpoint,c)
+        seal_identity=verify_test_seal(test_seal,dataset_path,checkpoint,c,control=control_epoch)
     ds=WindowDataset(dataset_path,c['split']);indices=choose_indices(ds,c['limit'],minimum_agents=c['minimum_agents'])
+    if c['task_plan']:
+        from sumodiff.data.control_tasks import verify_motion_task_plan
+        import json
+        document=json.loads(Path(c['task_plan']).read_text(encoding='utf-8'))
+        verify_motion_task_plan(document,dataset_path)
+        by_id={e['window_id']:i for i,e in enumerate(ds.entries)}
+        ids=[t['window_id'] for t in document['tasks'] if t['split']=='validation']
+        if len(ids)!=60 or any(w not in by_id for w in ids):
+            raise ValueError('Monitor tasks differ from the validation population')
+        indices=[by_id[w] for w in ids]
     if not indices: raise ValueError('No eligible current-state sampling tasks')
+    if control_epoch and c['task_plan'] is None and c['split'] in ('validation','test'):
+        expected=payload['metadata']['training_config']['expected_'+('validation' if c['split']=='validation' else 'test')+'_windows']
+        if c['limit']!=expected or len(indices)!=expected:
+            raise ValueError('Control epoch independent evaluation requires the entire declared split')
+
     tasks=[ds._json(ds.entries[i],'input.json') for i in indices]
     data=dataset_identity(dataset_path)
     if data['manifest']['sha256']!=payload['metadata']['data']['manifest']['sha256']: raise ValueError('Sampling dataset/checkpoint mismatch; cross-dataset inference needs an explicit later protocol')
@@ -77,6 +106,7 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
         task_window_ids=[t['window_id'] for t in tasks],checkpoint_training_sha=payload['metadata']['run_sha'],target_pair=None,
         precision='float32 model, float64 decoder solve; strict determinism, no AMP/TF32')
     files=[config_path,*[v['location'] for v in data.values()],*input_files(ds,indices,False)]
+    if c['task_plan']:files.append(c['task_plan'])
     if seal_identity:
         effective['test_seal']=seal_identity;files.append(seal_identity['location'])
     with RunRecorder(output,repository,effective,command,{'initial_noise':c['seed']},purpose='stage5_offline_base_generation',
@@ -92,7 +122,7 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
         schedule=NoiseSchedule(diffusion,device);schedule.timesteps(c['steps'])
         write_json(run.output/'tasks.json',[dict(window_id=t['window_id'],agent_ids=t['agent_ids'],target_pair=None,noise_seed=task_seed(c['seed'],t['window_id'])) for t in tasks])
         if device.type=='cuda': torch.cuda.reset_peak_memory_stats(device)
-        raw_records=[];decoded_records=[];rows=[];durations=[];corrections=[];evaluation_seconds=0.;generation_failures=0;started=time.perf_counter()
+        raw_records=[];decoded_records=[];rows=[];durations=[];corrections=[];evaluation_seconds=0.;generation_failures=0;invalid_generated_controls=0;execution_failures=0;started=time.perf_counter()
         kwargs=dict(motion_config=MotionConfig(**c['evaluation']['motion']),road_config=RoadConfig(**c['evaluation']['road']),collision_config=CollisionConfig(**c['evaluation']['collision']))
         for i,meta in zip(indices,tasks):
             row_dir=run.output/'trajectories'/meta['window_id'];row_dir.mkdir(parents=True,exist_ok=False)
@@ -128,10 +158,15 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
                 for stage in ('raw','decoded'):
                     try:
                         report=evaluate_trajectory(conditions,meta,source['exact_map'],arrays[f'{stage}_absolute_states'],initial_heading=heading,**kwargs)
-                    except Exception as exc: report=failed_report(meta,exc)
+                    except Exception as exc:
+                        execution_failures+=1;report=failed_report(meta,exc)
                     row[stage]=report
                 evaluation_seconds+=time.perf_counter()-tick
             except Exception as exc:
+                if control_epoch and isinstance(exc,InvalidGeneratedControl):
+                    invalid_generated_controls+=1;row['failure_category']='invalid_generated_control'
+                else:
+                    execution_failures+=1;row['failure_category']='execution_error'
                 generation_failures+=1;row['raw']=failed_report(meta,exc);row['decoded']=failed_report(meta,exc)
                 row['generation_error']=dict(type=type(exc).__name__,message=str(exc))
             row.update(denoiser_calls=denoiser_counter['calls']-calls_before,actual_gradient_calls=0)
@@ -142,7 +177,7 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
                 files={p.name:file_identity(p) for p in row_dir.iterdir() if p.is_file()}))
             print(f"sample={len(rows)}/{len(tasks)} generation={row['generation_status']} quality={row['decoded'].get('quality_pass')}",flush=True)
         result=dict(schema_version='sumodiff.base.sample.metrics.v1',run_sha=run.manifest['git']['commit_sha'],checkpoint_training_sha=effective['checkpoint_training_sha'],
-            planned_tasks=len(tasks),generation_failures=generation_failures,raw=aggregate_scenes(raw_records),decoded=aggregate_scenes(decoded_records),
+            planned_tasks=len(tasks),generation_failures=generation_failures,invalid_generated_controls=invalid_generated_controls,execution_failures=execution_failures,raw=aggregate_scenes(raw_records),decoded=aggregate_scenes(decoded_records),
             selected_agent_windows=sum(r['planned_active_agents'] for r in decoded_records),excluded_current_vehicle_windows=sum(t['excluded_vehicle_count'] for t in tasks),
             denoiser_calls_per_completed_scene=c['steps'],actual_gradient_calls=0,steps=c['steps'],eta=c['eta'],
             sampling_decoder_seconds=dict(count=len(durations),mean=float(np.mean(durations)) if durations else None,p99=float(np.quantile(durations,.99)) if durations else None,
@@ -158,6 +193,10 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
         result['actual_total_denoiser_calls']=denoiser_counter['calls']
         result['representation']='control_a_omega_r' if is_control(diffusion) else 'six_state'
         result['decoder']='center_midpoint_control_rollout_no_correction' if is_control(diffusion) else 'position_velocity_least_squares'
+        result['sampling_outcome']=sampling_outcome(result,control_epoch)
         write_json(run.output/'trajectory_index.json',rows);write_json(run.output/'sampling_summary.json',result);run.write_metrics(result)
-        if generation_failures or result['raw']['failed_scenes'] or result['decoded']['failed_scenes']: raise RuntimeError('Base sampling/evaluation failures retained in metrics')
+        if result['sampling_outcome']=='failed_execution':
+            raise RuntimeError('Base sampling/evaluation failures retained in metrics')
+        if invalid_generated_controls:
+            print(f"monitor/model output: {invalid_generated_controls}/{len(tasks)} invalid control trajectories; retained as failures, no clipping",flush=True)
     return result
