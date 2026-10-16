@@ -24,7 +24,7 @@ from .process import NoiseSchedule,ddim_sample,denormalize
 from .training import synchronize
 
 SAMPLE_DEFAULTS=dict(schema_version='sumodiff.base.sample.config.v1',seed=20261008,device='cuda:0',torch_threads=1,
-    split='validation',limit=6,minimum_agents=2,steps=20,eta=0.0,mode='base',cfg=False,partial_diffusion=False,rolling_generation=False,evaluation={})
+    split='validation',limit=6,minimum_agents=2,steps=20,eta=0.0,mode='base',task_plan=None,cfg=False,partial_diffusion=False,rolling_generation=False,evaluation={})
 
 
 def sample_config(value):
@@ -41,6 +41,8 @@ def sample_config(value):
     if c['limit'] is not None and (type(c['limit']) is not int or c['limit']<1): raise ValueError('Invalid task limit')
     if type(c['seed']) is not int or not 0<=c['seed']<2**32: raise ValueError('Invalid sampling seed')
     if type(c['eta']) not in (float,int) or not math.isfinite(c['eta']) or not 0<=c['eta']<=1: raise ValueError('Invalid eta')
+    if c['task_plan'] is not None and (not isinstance(c['task_plan'],str) or not c['task_plan'].strip() or c['split']!='validation' or c['limit']!=60):
+        raise ValueError('Explicit task plan is supported for the frozen 60 validation monitor only')
     c['evaluation']=evaluation_config(c['evaluation'])
     return c
 
@@ -60,15 +62,31 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
     c=sample_config(load_config(config_path));payload=load_checkpoint(checkpoint,requested={k:c[k] for k in ('cfg','partial_diffusion','rolling_generation')})
     architecture=resolve_model_config(payload['metadata']['model_config']);diffusion=resolve_diffusion_config(payload['metadata']['diffusion_config'])
     seal_identity=None
-    if is_control(diffusion) and c['split']=='test':
+    control_epoch=payload['metadata'].get('training_config',{}).get('schema_version')=='sumodiff.control.epoch.config.v1'
+    if is_control(diffusion) and c['split']=='test' and not control_epoch:
         raise NotImplementedError('Control-target test sealing is not implemented; test data remain frozen')
     if is_control(diffusion) and c['evaluation']['decoder']!=DecoderConfig().__dict__:
         raise ValueError('Control rollout does not use configurable least-squares decoder settings')
-    if c['split']=='test' and payload['metadata']['training_config']['schema_version']=='sumodiff.base.epoch.config.v2':
+    if c['split']=='test' and (control_epoch or payload['metadata']['training_config']['schema_version']=='sumodiff.base.epoch.config.v2'):
         from .fresh_protocol import verify_test_seal
-        seal_identity=verify_test_seal(test_seal,dataset_path,checkpoint,c)
+        seal_identity=verify_test_seal(test_seal,dataset_path,checkpoint,c,control=control_epoch)
     ds=WindowDataset(dataset_path,c['split']);indices=choose_indices(ds,c['limit'],minimum_agents=c['minimum_agents'])
+    if c['task_plan']:
+        from sumodiff.data.control_tasks import verify_motion_task_plan
+        import json
+        document=json.loads(Path(c['task_plan']).read_text(encoding='utf-8'))
+        verify_motion_task_plan(document,dataset_path)
+        by_id={e['window_id']:i for i,e in enumerate(ds.entries)}
+        ids=[t['window_id'] for t in document['tasks'] if t['split']=='validation']
+        if len(ids)!=60 or any(w not in by_id for w in ids):
+            raise ValueError('Monitor tasks differ from the validation population')
+        indices=[by_id[w] for w in ids]
     if not indices: raise ValueError('No eligible current-state sampling tasks')
+    if control_epoch and c['task_plan'] is None and c['split'] in ('validation','test'):
+        expected=payload['metadata']['training_config']['expected_'+('validation' if c['split']=='validation' else 'test')+'_windows']
+        if c['limit']!=expected or len(indices)!=expected:
+            raise ValueError('Control epoch independent evaluation requires the entire declared split')
+
     tasks=[ds._json(ds.entries[i],'input.json') for i in indices]
     data=dataset_identity(dataset_path)
     if data['manifest']['sha256']!=payload['metadata']['data']['manifest']['sha256']: raise ValueError('Sampling dataset/checkpoint mismatch; cross-dataset inference needs an explicit later protocol')
@@ -77,6 +95,7 @@ def sample(dataset_path,checkpoint,config_path,output,repository,command,formal=
         task_window_ids=[t['window_id'] for t in tasks],checkpoint_training_sha=payload['metadata']['run_sha'],target_pair=None,
         precision='float32 model, float64 decoder solve; strict determinism, no AMP/TF32')
     files=[config_path,*[v['location'] for v in data.values()],*input_files(ds,indices,False)]
+    if c['task_plan']:files.append(c['task_plan'])
     if seal_identity:
         effective['test_seal']=seal_identity;files.append(seal_identity['location'])
     with RunRecorder(output,repository,effective,command,{'initial_noise':c['seed']},purpose='stage5_offline_base_generation',

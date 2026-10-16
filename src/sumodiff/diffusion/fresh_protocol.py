@@ -97,9 +97,16 @@ def seal_test(dataset,checkpoint,config_path,validation_run,output,repository,co
     from sumodiff.data.dataset import write_json
     c=sample_config(load_config(config_path));p=load_checkpoint(checkpoint)
     training=p['metadata']['training_config']
-    if training['schema_version']!=SCHEMA or c['split']!='test' or c['limit']!=training['expected_test_windows']:
+    control=training['schema_version']=='sumodiff.control.epoch.config.v1'
+    if (training['schema_version'] not in (SCHEMA,'sumodiff.control.epoch.config.v1') or c['split']!='test'
+        or c['limit']!=training['expected_test_windows'] or c['task_plan'] is not None):
         raise ValueError('Seal requires the fresh model and complete predefined test budget')
-    verified_curated_dataset(dataset,training)
+    if control:
+        from .control_epochs import verified_dataset
+        verified_dataset(dataset,training)
+        if p['step']%training['steps_per_epoch'] or p['metadata']['run_dirty']:
+            raise ValueError('Control test selection requires a clean epoch-boundary checkpoint')
+    else:verified_curated_dataset(dataset,training)
     v=Path(validation_run).resolve(strict=True)
     m=json.loads((v/'manifest.json').read_text(encoding='utf-8'))
     status=json.loads((v/'status.json').read_text(encoding='utf-8'))
@@ -111,7 +118,7 @@ def seal_test(dataset,checkpoint,config_path,validation_run,output,repository,co
             or cfg['sampling']!={**c,'split':'validation'}
             or metrics['planned_tasks']!=training['expected_validation_windows']):
         raise ValueError('Select a model using completed full formal validation with the same sampling protocol')
-    doc=dict(schema_version='sumodiff.fresh.test.seal.v1',checkpoint=identity,
+    doc=dict(schema_version='sumodiff.control.test.seal.v1' if control else 'sumodiff.fresh.test.seal.v1',checkpoint=identity,
         dataset_hashes={k:d['sha256'] for k,d in data.items()},sampling=c,
         validation_manifest=file_identity(v/'manifest.json'),validation_metrics=file_identity(v/'metrics.json'),
         model_selection='explicit checkpoint chosen after validation, before test; test never tunes the recipe')
@@ -121,7 +128,7 @@ def seal_test(dataset,checkpoint,config_path,validation_run,output,repository,co
         write_json(run.output/'test_seal.json',doc);run.write_metrics(dict(sealed=True))
     return dict(sealed=True)
 
-def verify_test_seal(path,dataset,checkpoint,c):
+def verify_test_seal(path,dataset,checkpoint,c,*,control=False):
     from .data import dataset_identity
     if path is None:raise ValueError('Fresh test requires Seal after complete validation')
     path=Path(path).resolve(strict=True);doc=json.loads(path.read_text(encoding='utf-8'))
@@ -131,7 +138,8 @@ def verify_test_seal(path,dataset,checkpoint,c):
     from sumodiff.experiments.recorder import load_config
     if doc!=load_config(path.parent/'resolved_config.yaml'):
         raise ValueError('Test seal differs from the recorded frozen configuration')
-    if (doc.get('schema_version')!='sumodiff.fresh.test.seal.v1' or not m['formal'] or m['git']['dirty']
+    expected_schema='sumodiff.control.test.seal.v1' if control else 'sumodiff.fresh.test.seal.v1'
+    if (doc.get('schema_version')!=expected_schema or not m['formal'] or m['git']['dirty']
             or status['state']!='completed' or doc['checkpoint']['sha256']!=file_identity(checkpoint)['sha256']
             or doc['dataset_hashes']!={k:v['sha256'] for k,v in data.items()} or doc['sampling']!=c):
         raise ValueError('Test model/data/config differ from the completed frozen seal')

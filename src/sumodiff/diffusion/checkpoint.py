@@ -58,7 +58,10 @@ def load_checkpoint(path,*,signature=None,requested=None):
     validate_directional_state(value['model'],model)
     if signature is not None and signature!=m['training_signature']: raise ValueError('Resume training signature mismatch')
     if m['training_signature']['model']!=m['model_config'] or m['training_signature']['training']['diffusion']!=m['diffusion_config']: raise ValueError('Inconsistent checkpoint normalization/model metadata')
-    if m['training_config'].get('schema_version')=='sumodiff.control.train.config.v1':
+    if m['training_config'].get('schema_version')=='sumodiff.control.epoch.config.v1':
+        from .control_epochs import validate_runtime
+        validate_runtime(value)
+    elif m['training_config'].get('schema_version')=='sumodiff.control.train.config.v1':
         from .control_training import validate_runtime
         validate_runtime(value)
     elif m['training_config'].get('schema_version')=='sumodiff.base.epoch.config.v2':
