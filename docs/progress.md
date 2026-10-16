@@ -942,3 +942,16 @@ Pilot、preparation及复核r1/r2实际源均f57bab438b979656f8abf43ef9ded60db4b
 独立复核actual SHA=0f430c43cc7b57f3b99af57c4ca74b0c2334be42/main/formal/clean/completed，artifacts/runs/motion-full-data-review-20261016-r1，1969输入身份。36000存储文件约5.10GB全量哈希、7200选择与原质量日志匹配、分组配额与划分隔离全部通过；抽查24训练/验证窗的数组/掩码/有限值/保存内容摘要，不解包测试轨迹数组调参，不重跑源物理质量。复核主体130.34s、采样RSS约522.26MiB，源核验/环境及输入哈希另计。用户恢复采集约37.51分钟，Prepare墙钟约20.959小时，质量循环约20.359小时、采样RSS约716.69MiB；不据此估算训练吞吐。
 
 本次仅数据验收/文档，未修改生产代码、重采或启动训练/阶段6。文档分支docs/motion-full-data-acceptance；验收后main --no-ff并保留分支，提交/合并SHA见Git；实际运行SHA不回填。无push/tag。无需为本轮配额扩采；下一步在新数据上生成训练专用控制尺度/梯度审计清单，再做batch16短预演及一次固定训练协议。现有控制<=64更新及Motion Train拒绝保持，不能直接复用旧六维训练命令。数据资格不构成生成质量、收敛或真实驾驶真实性证明。
+
+
+## Motion 控制尺度、联合梯度与B16预演（2026-10-16）
+
+本阶段已完成，见[motion_control_preflight_results.md](motion_control_preflight_results.md)及轻量JSON，操作合同见[motion_control_preflight.md](motion_control_preflight.md)。原stage5a脚本增加Motion Audit/Calibrate/Preflight；显式尺度v2消费Motion v3标签，旧v1缺字段继续拒绝。任务v2绑定新数据/索引/选集/种子，train/validation各60任务（普通12、密集/转弯/换道各16），无重复或test任务，输入条件不加入未来运动标签。控制正式长训练仍<=64更新防护，Motion Train/Resume/Validate等继续拒绝。
+
+实现7c65e10、1a1b516，协议6b1ccbd；554项全量测试72.43s，最后14项防护2.49s，PS语法通过。全部实际实验及独立复核源SHA=6b1ccbda049401afb003d578313a629214a8edd7/feat/motion-control-preflight/formal/clean/completed，不回填结果提交SHA。6000窗/28311车辆窗口反解0失败、独立NumPy回放与9组尺度复算通过，尺度2m/s²、.5rad/s、.1m/s，未裁剪标签；主体77.33s。验证/测试数组均不参与尺度估计。
+
+14训练探针/98梯度调用，完整辅助/噪声范数比最大7.2237%，辅助余弦最低.37109，总梯度余弦最低.99816；候选权重共同因子1（.003/.001/.001/.0003保持），组合残差9.182e-7。14/14探针预计裁剪，16/16实际常规步及3/3压力步触发clip1，已保留真实记录，不称未裁剪。B16常规16步+克隆检查点3压力步通过，密集/转弯均192真实有效车辆，换道75；checkpoint/AdamW步16与身份及日程通过独立复核，压力不写checkpoint。
+
+常规约1.1173s/步，optimizer allocated435.24MiB/reserved708MiB；多梯度探针allocated830.59MiB/reserved1688MiB，CPU/GPU测量范围详报告，不推断完整训练总时长。固定60验证噪声MSE 1.08405→.63773，仅工程学习探针，无收敛/生成质量结论。测试数组读取0，无正式训练、自由采样/阶段6或push/tag。当前分支feat/motion-control-preflight，文档验收后main --no-ff并保留分支；提交/合并SHA见Git。
+
+下一步冻结全量控制epoch训练/验证/周期采样/恢复/测试封存协议及可本地启动入口；不能直接用16步诊断配置替代200轮正式训练，也不复用旧六维checkpoint。数据保持d5377be30fa15745ec3ee9fcc2213ab355ab83973db337a3e1027dd14a5dfb29，无需扩采。
