@@ -1,0 +1,171 @@
+{
+  "schema_version": "sumodiff.motion.control.preflight.summary.v1",
+  "date": "2026-10-16",
+  "results": {
+    "passed": true,
+    "source_git": {
+      "stage5a-motion-v1-scales": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "6b1ccbda049401afb003d578313a629214a8edd7",
+        "branch": "feat/motion-control-preflight",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "stage5a-motion-v1-scales\\scale": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "6b1ccbda049401afb003d578313a629214a8edd7",
+        "branch": "feat/motion-control-preflight",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "stage5a-motion-v1-scales\\review": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "6b1ccbda049401afb003d578313a629214a8edd7",
+        "branch": "feat/motion-control-preflight",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "stage5a-motion-v1-calibration": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "6b1ccbda049401afb003d578313a629214a8edd7",
+        "branch": "feat/motion-control-preflight",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "stage5a-motion-v1-calibration\\baseline": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "6b1ccbda049401afb003d578313a629214a8edd7",
+        "branch": "feat/motion-control-preflight",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "stage5a-motion-v1-preflight": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "6b1ccbda049401afb003d578313a629214a8edd7",
+        "branch": "feat/motion-control-preflight",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "stage5a-motion-v1-preflight\\train": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "6b1ccbda049401afb003d578313a629214a8edd7",
+        "branch": "feat/motion-control-preflight",
+        "dirty": false,
+        "status_porcelain": []
+      },
+      "stage5a-motion-v1-preflight\\stress": {
+        "root": "E:\\diffusion_new",
+        "commit_sha": "6b1ccbda049401afb003d578313a629214a8edd7",
+        "branch": "feat/motion-control-preflight",
+        "dirty": false,
+        "status_porcelain": []
+      }
+    },
+    "train_scale_windows": 6000,
+    "train_scale_agent_windows": 28311,
+    "scale_numeric_maxima": {
+      "position_roundtrip_m": 1.9539925233402755e-14,
+      "heading_roundtrip_rad": 3.1086244689504383e-15,
+      "numpy_state_difference": 1.4210854715202004e-13,
+      "numpy_control_difference": 3.552713678800501e-14,
+      "label_velocity_roundoff_mps": 0.00014784494496680956
+    },
+    "certified_scales": {
+      "acceleration": 2.0,
+      "yaw_rate": 0.5,
+      "lateral_velocity": 0.1
+    },
+    "gradient_probes": 14,
+    "gradient_calls": 98,
+    "max_combined_auxiliary_ratio": 0.07223688066005707,
+    "min_auxiliary_noise_cosine": 0.3710896074771881,
+    "min_total_noise_cosine": 0.9981599450111389,
+    "max_gradient_sum_residual": 9.181857194562326e-07,
+    "probes_would_clip": 14,
+    "training_updates": 16,
+    "training_clipped_updates": 16,
+    "stress_updates": 3,
+    "stress_clipped_updates": 3,
+    "stress_active_agent_counts": [
+      192,
+      192,
+      75
+    ],
+    "validation_probe_before": 1.0840498367945353,
+    "validation_probe_after": 0.637727948029836,
+    "train_probe_relative_improvement": 0.4112857803917962,
+    "optimizer_mean_seconds": 1.1172822200072308,
+    "peak_optimizer_allocated_bytes": 456381952,
+    "peak_optimizer_reserved_bytes": 742391808,
+    "peak_gradient_allocated_bytes": 870936576,
+    "peak_gradient_reserved_bytes": 1769996288,
+    "loss_weights": {
+      "imitation_weight": 0.003,
+      "temporal_weight": 0.001,
+      "road_weight": 0.001,
+      "tail_weight": 0.0003
+    },
+    "test_arrays_loaded": 0,
+    "review_optimizer_updates": 0,
+    "formal_long_training_started": false
+  },
+  "review": {
+    "git": {
+      "root": "E:\\diffusion_new",
+      "commit_sha": "6b1ccbda049401afb003d578313a629214a8edd7",
+      "branch": "feat/motion-control-preflight",
+      "dirty": false,
+      "status_porcelain": []
+    },
+    "formal": true,
+    "input_files": 44,
+    "identities": [
+      {
+        "id": "sha256:83e8cc7d94070391530e91792aed8f8957378f2d1990e74f8be1bc4cdf72388f",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\motion-control-preflight-review-20261016-r1\\manifest.json",
+        "sha256": "83e8cc7d94070391530e91792aed8f8957378f2d1990e74f8be1bc4cdf72388f",
+        "size_bytes": 15800
+      },
+      {
+        "id": "sha256:c4db562646c60e1e4398ac45e3e08a4a37c20e6d4446fb370bb5c135ce23efc1",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\motion-control-preflight-review-20261016-r1\\resolved_config.yaml",
+        "sha256": "c4db562646c60e1e4398ac45e3e08a4a37c20e6d4446fb370bb5c135ce23efc1",
+        "size_bytes": 138
+      },
+      {
+        "id": "sha256:976967d745742cafc8bff78eec6f9d8cb959e0ffd93a16f9c2959b7477691685",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\motion-control-preflight-review-20261016-r1\\status.json",
+        "sha256": "976967d745742cafc8bff78eec6f9d8cb959e0ffd93a16f9c2959b7477691685",
+        "size_bytes": 181
+      },
+      {
+        "id": "sha256:b1619154f6b9ee29eb67fcdf6abca55d719cce0521b06da3ff23a40b35425847",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\motion-control-preflight-review-20261016-r1\\metrics.json",
+        "sha256": "b1619154f6b9ee29eb67fcdf6abca55d719cce0521b06da3ff23a40b35425847",
+        "size_bytes": 3588
+      },
+      {
+        "id": "sha256:b43e9fb5a4809ceff9c1258d6bab6bccb7e508d09c60978db363a9ea0505c70a",
+        "location": "E:\\diffusion_new\\artifacts\\runs\\motion-control-preflight-review-20261016-r1\\results.json",
+        "sha256": "b43e9fb5a4809ceff9c1258d6bab6bccb7e508d09c60978db363a9ea0505c70a",
+        "size_bytes": 3696
+      }
+    ]
+  },
+  "source_run_sha": "6b1ccbda049401afb003d578313a629214a8edd7",
+  "feature_commits": [
+    "7c65e10",
+    "1a1b516",
+    "6b1ccbd"
+  ],
+  "tests": {
+    "full_passed": 554,
+    "full_seconds": 72.43,
+    "new_guard_passed": 14
+  },
+  "pending": [
+    "full-cohort control epoch protocol and training/resume entry",
+    "formal validation monitoring/checkpoint selection and test sealing"
+  ],
+  "long_training_started": false
+}

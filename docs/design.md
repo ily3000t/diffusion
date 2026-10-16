@@ -251,3 +251,8 @@ scenario.v2仅支持匝道显式配置，v1配置快照保持。新增规则进�
 ## Motion完整数据验收（2026-10-16）
 
 完整6000/600/600数据构建及独立验收已通过，data_id=sha256:d5377be30fa15745ec3ee9fcc2213ab355ab83973db337a3e1027dd14a5dfb29，来源代码实际SHA=0f430c43cc7b57f3b99af57c4ca74b0c2334be42。sources.v2保留216任务/215合格/1拒绝，全部窗口质量和覆盖门槛保持；36000文件哈希、配额/划分/事件及7200质量日志匹配核验通过。见[motion_full_data_results.md](motion_full_data_results.md)。新数据可作为后续审计固定输入，但控制尺度、组合梯度、batch16真实优化与正式训练协议仍待验收；不复用旧六维训练入口或旧尺度认证。
+
+
+## Motion控制训练前验收（2026-10-16）
+
+新数据6000训练窗的三控制反解/NumPy回放、联合梯度及B16真实优化已通过，权重保持.003/.001/.001/.0003。有限探针中辅助/噪声最大7.2237%且方向正相关，但裁剪全程触发；后续完整训练仍记录裁剪和质量，不把短探针当作收敛。全量控制epoch/监测/恢复/测试协议尚待独立交付。 详见[motion_control_preflight_results.md](motion_control_preflight_results.md)，协议[motion_control_preflight.md](motion_control_preflight.md)。

@@ -1,0 +1,60 @@
+schema_version: sumodiff.control_scale_audit.protocol.v2
+dataset: artifacts/processed/stage5a-motion-v1/dataset
+data_id: sha256:d5377be30fa15745ec3ee9fcc2213ab355ab83973db337a3e1027dd14a5dfb29
+expected_windows: 6000
+expected_families:
+  three_lane_straight: 2000
+  ramp_merge: 2000
+  unsignalized_intersection: 2000
+seed: 20261016
+control:
+  dt: 0.1
+  reference_point: center
+  integration_heading: midpoint
+  lateral_velocity: true
+  compute_dtype: float64
+  heading_epsilon: 1.0e-06
+scale_policy:
+  quantile: 0.999
+  minimum_group_windows: 8
+  groups:
+  - all
+  - family:three_lane_straight
+  - family:ramp_merge
+  - family:unsignalized_intersection
+  - turning_windows
+  - dense_intersection_windows
+  - dense_no_turn_windows
+  - lane_change_windows
+  - ramp_exit_windows
+  candidate_scales:
+    acceleration:
+    - 1
+    - 2
+    - 3
+    - 5
+    - 8
+    - 10
+    yaw_rate:
+    - 0.05
+    - 0.1
+    - 0.2
+    - 0.3
+    - 0.5
+    - 1.0
+    lateral_velocity:
+    - 0.02
+    - 0.05
+    - 0.1
+    - 0.2
+    - 0.3
+    - 0.5
+    - 1.0
+checks:
+  max_position_roundtrip_m: 1.0e-08
+  max_heading_roundtrip_rad: 1.0e-08
+  max_numpy_state_difference: 1.0e-08
+  max_numpy_control_difference: 1.0e-08
+  max_label_velocity_roundoff_mps: 0.001
+  two_control_position_tolerance_m: 0.05
+  two_control_velocity_tolerance_mps: 0.05

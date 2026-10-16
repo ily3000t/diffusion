@@ -343,3 +343,8 @@ Motion Prepare的source_population记录显式policy、完整人口统计与acce
 ## Motion冻结数据身份（2026-10-16）
 
 完整6000/600/600数据构建及独立验收已通过，data_id=sha256:d5377be30fa15745ec3ee9fcc2213ab355ab83973db337a3e1027dd14a5dfb29，来源代码实际SHA=0f430c43cc7b57f3b99af57c4ca74b0c2334be42。sources.v2保留216任务/215合格/1拒绝，全部窗口质量和覆盖门槛保持；36000文件哈希、配额/划分/事件及7200质量日志匹配核验通过。见[motion_full_data_results.md](motion_full_data_results.md)。新数据可作为后续审计固定输入，但控制尺度、组合梯度、batch16真实优化与正式训练协议仍待验收；不复用旧六维训练入口或旧尺度认证。
+
+
+## Motion控制训练前接口（2026-10-16）
+
+control_scale_audit.protocol.v2显式从selection.v3事件构造运动组；control_replay.tasks.v2绑定完整dataset/index/selection身份及固定120 train/validation任务（各60）。原v1字段合同保持，验证前不加载标签数组；运动事件只存离线任务，模型条件保持不变。motion.control.preflight.config.v1固定B16/16步；控制训练config.v1的64步上限不扩展，原脚本只增加Audit/Calibrate/Preflight。正式训练/恢复/测试动作仍报未实现。 详见[motion_control_preflight_results.md](motion_control_preflight_results.md)，协议[motion_control_preflight.md](motion_control_preflight.md)。

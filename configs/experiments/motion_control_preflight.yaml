@@ -1,0 +1,31 @@
+schema_version: sumodiff.motion.control.preflight.config.v1
+dataset: artifacts/processed/stage5a-motion-v1/dataset
+data_id: sha256:d5377be30fa15745ec3ee9fcc2213ab355ab83973db337a3e1027dd14a5dfb29
+model_config: configs/model/control_directional.yaml
+scale_protocol: configs/experiments/motion_control_scales.yaml
+task_seed: 20261016
+model_seed: 20261017
+noise_seed: 20261018
+validation_seed: 20261019
+batch_size: 16
+updates: 16
+peak_lr: 0.0001
+minimum_lr: 1.0e-06
+auxiliary_ratio_budget: 0.5
+weight_factors:
+- 1
+- 0.3
+- 0.1
+- 0.03
+- 0.01
+- 0.003
+- 0.001
+- 0.0003
+- 0.0001
+- 3.0e-05
+- 1.0e-05
+- 3.0e-06
+- 1.0e-06
+probe_timesteps:
+- 200
+- 50

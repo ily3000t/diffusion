@@ -238,3 +238,8 @@ a325103冻结新stage5a v3源头、划分/预算与双参考目标，60bdfb4实�
 ## 2026-10-15 Motion采集恢复
 
 新增source_quarantine.py并接入原stage5a.ps1、stage5a Collect及Motion Prepare，复用本仓库RunRecorder、原始身份/语义几何和load_episode验证；无旧工程依赖、文件复制或新第三方代码。异常源依据实际失败案例保留证据，独立quality_policy.v1/sources.v2显式变更源人口合同；原窗口配方和质量不放宽。合成元数据测试仅验证恢复/拒绝/账本接线，不能冒充SUMO采集或窗口质量结果。真实检查只读既有96回合，不自动继续批量采集。
+
+
+## Motion控制训练前检查（2026-10-16）
+
+新增内部任务生成与有限检查编排，复用本仓库控制反解、NumPy回放、联合目标、原训练及checkpoint接口；无旧工程或外部代码复制。Motion v3标签需要显式版本适配，不静默映射缺失旧字段。独立复核含梯度几何关系、实际裁剪、AdamW及checkpoint身份；原始数组/模型和运行日志全部排除Git。 详见[motion_control_preflight_results.md](motion_control_preflight_results.md)，协议[motion_control_preflight.md](motion_control_preflight.md)。

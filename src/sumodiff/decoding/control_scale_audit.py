@@ -21,7 +21,7 @@ UNITS = ('m/s2', 'rad/s', 'm/s')
 
 def validate_config(config):
     required={'schema_version','dataset','data_id','expected_windows','expected_families','control','scale_policy','checks','seed'}
-    if set(config)!=required or config['schema_version']!='sumodiff.control_scale_audit.protocol.v1':
+    if set(config)!=required or config['schema_version'] not in ('sumodiff.control_scale_audit.protocol.v1','sumodiff.control_scale_audit.protocol.v2'):
         raise ValueError('Unsupported control scale audit protocol')
     if type(config['expected_windows']) is not int or config['expected_windows']<1:
         raise ValueError('Expected training count must be positive')
@@ -132,6 +132,18 @@ def window_controls(c, targets, control, checks):
     return data,row
 
 
+def scale_motion_row(selected, selection_schema, protocol_schema):
+    if protocol_schema=='sumodiff.control_scale_audit.protocol.v1':
+        if 'actual_turning_agents' not in selected:
+            raise ValueError('Legacy scale protocol requires legacy turning statistics')
+        return selected
+    if selection_schema!='sumodiff.stage5a.selection.v3':
+        raise ValueError('Motion scale protocol requires authenticated Motion selection v3')
+    from sumodiff.data.control_tasks import motion_metadata
+    flags,events=motion_metadata(selected)
+    return dict(selected,actual_turning_agents=len(events['turn']),motion_flags=flags)
+
+
 def groups_for(metadata, selected, count):
     groups=['all','family:'+metadata['family']]
     if selected['actual_turning_agents']>0:
@@ -140,6 +152,9 @@ def groups_for(metadata, selected, count):
         groups.append('dense_intersection_windows')
         if selected['actual_turning_agents']==0:
             groups.append('dense_no_turn_windows')
+    if 'motion_flags' in selected:
+        if selected['motion_flags']['lane_change']: groups.append('lane_change_windows')
+        if selected['motion_flags']['ramp_exit']: groups.append('ramp_exit_windows')
     return groups
 
 
@@ -184,7 +199,7 @@ def run(config_path, output, formal=False):
     sources=[config_path,manifest_path,ds.directory/'windows.json',selection_path]
     tasks=[];counts=Counter()
     for entry in ds.entries:
-        row=selected[entry['window_id']]
+        row=scale_motion_row(selected[entry['window_id']],selection.get('schema_version'),config['schema_version'])
         metadata=ds._json(entry,'input.json')
         verify_task_metadata(row,entry,metadata)
         if not entry['core_training_eligible'] or not row['core_complete'] or not row['eligible']:
@@ -194,7 +209,8 @@ def run(config_path, output, formal=False):
         counts[metadata['family']]+=1
         tasks.append(dict(window_id=entry['window_id'],split='train',family=metadata['family'],
                           episode_key=metadata['episode_key'],geometry_id=metadata['geometry_id'],
-                          actual_turning_agents=row['actual_turning_agents'],selected_agents=row['selected_agents']))
+                          actual_turning_agents=row['actual_turning_agents'],selected_agents=row['selected_agents'],
+                          **(dict(motion_flags=row['motion_flags']) if config['schema_version'].endswith('.v2') else {})))
         sources.extend(ds._path(entry,n) for n in ('conditioning.npz','targets.npz','input.json'))
     if dict(counts)!=config['expected_families']:
         raise ValueError('Training family quotas differ from protocol')
