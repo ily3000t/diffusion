@@ -89,7 +89,11 @@ def verified_control_scales(path,directory,config):
 def control_cache(directory,split,c,*,model_config=None):
     if split not in ('train','validation'):
         raise ValueError('Control diagnostics cannot access test labels')
-    tasks=validate_plan(json.loads(Path(c['task_plan']).read_text(encoding='utf-8')))
+    document=json.loads(Path(c['task_plan']).read_text(encoding='utf-8'))
+    if document.get('schema_version')=='sumodiff.control_replay.tasks.v2':
+        from sumodiff.data.control_tasks import verify_motion_task_plan
+        verify_motion_task_plan(document,directory)
+    tasks=validate_plan(document)
     selected=[t for t in tasks if t['split']==split]
     limit=c['train_limit' if split=='train' else 'validation_limit']
     if len(selected)!=limit:

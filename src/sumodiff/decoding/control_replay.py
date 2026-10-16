@@ -43,7 +43,7 @@ def validate_protocol(config):
 
 
 def validate_plan(plan):
-    if not isinstance(plan, dict) or plan.get('schema_version') != 'sumodiff.control_replay.tasks.v1' or not isinstance(plan.get('tasks'), list) or not plan['tasks']:
+    if not isinstance(plan, dict) or plan.get('schema_version') not in ('sumodiff.control_replay.tasks.v1','sumodiff.control_replay.tasks.v2') or not isinstance(plan.get('tasks'), list) or not plan['tasks']:
         raise ValueError('A nonempty explicit task plan is required')
     tasks = plan['tasks']
     seen = set()
